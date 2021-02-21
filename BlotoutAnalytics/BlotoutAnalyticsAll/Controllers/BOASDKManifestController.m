@@ -63,11 +63,11 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
 -(NSTimeInterval) manifestRefreshInterval {
     
     int delayHour = [[BOASDKManifestController sharedInstance] intervalManifestRefresh].intValue;
-    if(delayHour > 0) {
+    if(delayHour >= 0) {
         return delayHour*60*60;
     }
     
-    return 24 * 60 * 60;
+    return 0;
 }
 
 //set Default value when manifest success to load
@@ -146,10 +146,10 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
                                 [self reloadManifestData];
                                 [self setupManifestExtraParamOnSuccess];
                             } else {
-                                [self setupManifestExtraParamOnFailure];
+                                //[self setupManifestExtraParamOnFailure];
                             }
                         } else {
-                            [self setupManifestExtraParamOnFailure];
+                            //[self setupManifestExtraParamOnFailure];
                         }
                     } failure:^(NSError * _Nonnull error) {
                         
@@ -173,7 +173,7 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
                 [self reloadManifestData];
                 [self setupManifestExtraParamOnSuccess];
             }else{
-                [self setupManifestExtraParamOnFailure];
+                //[self setupManifestExtraParamOnFailure];
             }
             if (!self.sdkManifestModel) {
                 NSError *manifestReadError = nil;
