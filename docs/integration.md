@@ -2,7 +2,7 @@
 
 ## Download Link
 
-https://assets.blotout.io/latest/sdk/ios.zip
+[https://assets.blotout.io/latest/sdk/ios.zip](https://assets.blotout.io/latest/sdk/ios.zip)
 
 ## Add Blotout Analytics SDK into your project
 
