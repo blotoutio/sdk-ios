@@ -1,10 +1,8 @@
 # Integration
 
-## SDK Download Link
+## Download Link
 
-```html
-SDK Download Link: ​https://download.blotout.io/v1.0/sdks/BOiOSSDK.zip
-```
+https://assets.blotout.io/latest/sdk/ios.zip
 
 ## Add Blotout Analytics SDK into your project
 
