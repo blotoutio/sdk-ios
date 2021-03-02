@@ -50,8 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable, copy)   NSArray<NSNumber *> *uustate;
 @property (nonatomic, nullable, copy)   NSArray<NSString *> *nvg;
 @property (nonatomic, nullable, copy)   NSArray<NSNumber *> *nvg_tm;
-@property (nonatomic, nullable, copy)   NSDictionary *codifiedInfo;
-@property (nonatomic, nullable, copy)   NSString *session_id;
+@property (nonatomic, nullable, copy)   NSDictionary *properties;
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;

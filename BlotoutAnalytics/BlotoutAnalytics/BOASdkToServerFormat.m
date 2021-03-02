@@ -37,7 +37,7 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
 {
     self = [super init];
     if (self) {
-       
+        
     }
     return self;
 }
@@ -565,15 +565,19 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                 if (![customEvent.sentToServer boolValue]) {
                     NSNumber *eventSubCode = customEvent.eventSubCode;
                     if (eventSubCode && customEvent.eventName && ![customEvent.eventName isEqualToString:@""]) {
+                        
+                        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                        [properties setValue:customEvent.eventInfo ? customEvent.eventInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                        [properties setValue:customEvent.session_id forKey:BO_SESSION_ID];
+                        
                         BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                             //In case of custom events logic needs update as object will be unique but event name based counter needed
                             BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:customEvent.timeStamp],
                             BO_EVENT_CATEGORY_SUBTYPE: eventSubCode,
-                            BO_CODIFIED_INFO: customEvent.eventInfo ? customEvent.eventInfo : NSNull.null,
+                            BO_PROPERTIES: properties,
                             BO_MESSAGE_ID: customEvent.mid,
                             BO_SCREEN_NAME: customEvent.visibleClassName ? customEvent.visibleClassName : NSNull.null,
-                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null,
-                            BO_SESSION_ID: customEvent.session_id
+                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null
                         }];
                         [eventsArray addObject:event];
                     }else{
@@ -601,15 +605,19 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                 if (![customEvent.sentToServer boolValue]) {
                     NSNumber *eventSubCode = customEvent.eventSubCode;
                     if (eventSubCode && customEvent.eventName && ![customEvent.eventName isEqualToString:@""]) {
+                        
+                        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                        [properties setValue:customEvent.eventInfo ? customEvent.eventInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                        [properties setValue:customEvent.session_id forKey:BO_SESSION_ID];
+                        
                         BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                             //In case of custom events logic needs update as object will be unique but event name based counter needed
                             BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:customEvent.timeStamp],
                             BO_EVENT_CATEGORY_SUBTYPE: eventSubCode,
-                            BO_CODIFIED_INFO: customEvent.eventInfo ? customEvent.eventInfo : NSNull.null,
+                            BO_PROPERTIES: properties,
                             BO_MESSAGE_ID: customEvent.mid,
                             BO_SCREEN_NAME: customEvent.visibleClassName ? customEvent.visibleClassName : NSNull.null,
-                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null,
-                            BO_SESSION_ID: customEvent.session_id
+                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null
                         }];
                         [eventsArray addObject:event];
                     }else{
@@ -633,14 +641,19 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([developerCodified.addToCart count] > 0) {
             for (BOAddToCart *cart in developerCodified.addToCart) {
                 if(![cart.sentToServer boolValue]){
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:cart.additionalInfo ? cart.additionalInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                    [properties setValue:cart.session_id forKey:BO_SESSION_ID];
+                    
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_ADD_TO_CART,
                         BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:cart.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_ADD_TO_CART_KEY],
-                        BO_CODIFIED_INFO: cart.additionalInfo ? cart.additionalInfo : NSNull.null,
+                        BO_PROPERTIES: properties,
                         BO_MESSAGE_ID: cart.mid,
-                        BO_SCREEN_NAME: cart.cartClassName ? cart.cartClassName : NSNull.null,
-                        BO_SESSION_ID: cart.session_id
+                        BO_SCREEN_NAME: cart.cartClassName ? cart.cartClassName : NSNull.null
                     }];
                     [eventsArray addObject:event];
                 }
@@ -650,14 +663,18 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([developerCodified.chargeTransaction count] >0) {
             for (BOChargeTransaction *transaction in developerCodified.chargeTransaction) {
                 if (![transaction.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:transaction.transactionInfo ? transaction.transactionInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                    [properties setValue:transaction.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_CHARGE_TRANSACTION,
                         BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:transaction.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_CHARGE_TRANSACTION_BUTTON_KEY],
-                        BO_CODIFIED_INFO: transaction.transactionInfo ? transaction.transactionInfo : NSNull.null,
+                        BO_PROPERTIES: properties,
                         BO_MESSAGE_ID: transaction.mid,
-                        BO_SCREEN_NAME: transaction.transactionClassName ? transaction.transactionClassName : NSNull.null,
-                        BO_SESSION_ID: transaction.session_id
+                        BO_SCREEN_NAME: transaction.transactionClassName ? transaction.transactionClassName : NSNull.null
                     }];
                     [eventsArray addObject:event];
                 }
@@ -669,15 +686,19 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                 if (![customEvent.sentToServer boolValue]) {
                     NSNumber *eventSubCode = customEvent.eventSubCode;
                     if (eventSubCode && customEvent.eventName && ![customEvent.eventName isEqualToString:@""]) {
+                        
+                        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                        [properties setValue:customEvent.eventInfo ? customEvent.eventInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                        [properties setValue:customEvent.session_id forKey:BO_SESSION_ID];
+                        
                         BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                             //In case of custom events logic needs update as object will be unique but event name based counter needed
                             BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:customEvent.timeStamp],
                             BO_EVENT_CATEGORY_SUBTYPE: eventSubCode,
-                            BO_CODIFIED_INFO: customEvent.eventInfo ? customEvent.eventInfo : NSNull.null,
+                            BO_PROPERTIES: properties,
                             BO_MESSAGE_ID: customEvent.mid,
                             BO_SCREEN_NAME: customEvent.visibleClassName ? customEvent.visibleClassName : NSNull.null,
-                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null,
-                            BO_SESSION_ID: customEvent.session_id
+                            BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null
                         }];
                         [eventsArray addObject:event];
                     }else{
@@ -692,209 +713,18 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([developerCodified.timedEvent count] >0) {
             for (BOTimedEvent *timedEvent in developerCodified.timedEvent) {
                 if(![timedEvent.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:timedEvent.timedEvenInfo ? timedEvent.timedEvenInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                    [properties setValue:timedEvent.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:timedEvent.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_TIMED_KEY],
-                        BO_CODIFIED_INFO: timedEvent.timedEvenInfo ? timedEvent.timedEvenInfo : NSNull.null,
+                        BO_PROPERTIES: properties,
                         BO_MESSAGE_ID: timedEvent.mid,
                         BO_SCREEN_NAME: timedEvent.startVisibleClassName ? timedEvent.startVisibleClassName : NSNull.null,
-                        BO_EVENT_NAME_MAPPING: timedEvent.eventName ? timedEvent.eventName : NSNull.null,
-                        BO_SESSION_ID: timedEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.screenEdgePan count] >0) {
-            for (BOScreenEdgePan *screenEdgepan in developerCodified.screenEdgePan) {
-                if(![screenEdgepan.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_SCREEN_EDGE_PAN,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:screenEdgepan.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt:BO_DEV_EVENT_EDGE_PAN_GESTURE_KEY],
-                        BO_MESSAGE_ID: screenEdgepan.mid,
-                        BO_SCREEN_NAME: screenEdgepan.visibleClassName ? screenEdgepan.visibleClassName : NSNull.null,
-                        BO_SCREEN_FROM: @[screenEdgepan.screenRectFrom.screenX,screenEdgepan.screenRectFrom.screenY],
-                        BO_SCREEN_TO: @[screenEdgepan.screenRectTo.screenX,screenEdgepan.screenRectTo.screenY],
-                        BO_SESSION_ID: screenEdgepan.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.view count] >0) {
-            for (BOView *viewEvent in developerCodified.view) {
-                if(![viewEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_VIEW,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:viewEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_VIEW_KEY],
-                        BO_MESSAGE_ID: viewEvent.mid,
-                        BO_SCREEN_NAME: viewEvent.viewClassName ? viewEvent.viewClassName : NSNull.null,
-                        BO_SESSION_ID: viewEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.touchClick count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.touchClick) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_TOUCH_CLICK,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_CLICK_TAP_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.drag count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.drag) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_DRAG,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_DRAG_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        if([developerCodified.flick count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.flick) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_FLICK,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_FLICK_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.swipe count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.swipe) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_SWIPE,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_SWIPE_UP_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.doubleTap count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.doubleTap) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_DOUBLE_TAP,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt:BO_DEV_EVENT_DOUBLE_CLICK_TAP_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.twoFingerTap count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.twoFingerTap) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_TWO_FINGER_TAP,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_GESTURE_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.pinch count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.pinch) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_PINCH,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_PINCH_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.touchAndHold count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.touchAndHold) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_TOUCH_AND_HOLD,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_LONG_PRESS_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
-                    }];
-                    [eventsArray addObject:event];
-                }
-            }
-        }
-        
-        if([developerCodified.shake count] >0) {
-            for (BODoubleTap *gestureEvent in developerCodified.shake) {
-                if(![gestureEvent.sentToServer boolValue]) {
-                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-                        BO_EVENT_NAME_MAPPING: BO_SHAKE,
-                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:gestureEvent.timeStamp],
-                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_DEV_EVENT_SHAKE_KEY],
-                        BO_MESSAGE_ID: gestureEvent.mid,
-                        BO_SCREEN_NAME: gestureEvent.visibleClassName ? gestureEvent.visibleClassName : NSNull.null,
-                        BO_OBJECT_TYPE: gestureEvent.objectType ? gestureEvent.objectType : NSNull.null,
-                        BO_OBJECT_RECT: gestureEvent.objectRect ? gestureEvent.objectRect : NSNull.null, BO_OBJECT_SCREEN_RECT:@[gestureEvent.screenRect.screenX,gestureEvent.screenRect.screenY],
-                        BO_SESSION_ID: gestureEvent.session_id
+                        BO_EVENT_NAME_MAPPING: timedEvent.eventName ? timedEvent.eventName : NSNull.null
                     }];
                     [eventsArray addObject:event];
                 }
@@ -915,13 +745,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appLaunched count] > 0) {
             for (BOApp *appInfo in appStates.appLaunched) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_LAUNCHED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_SESSION_START_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -931,13 +765,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(appStates.appResignActive != nil && [appStates.appResignActive count] > 0) {
             for (BOApp *appInfo in appStates.appResignActive) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_RESIGN_ACTIVE,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_SESSION_END_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -947,13 +785,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appInBackground count] > 0) {
             for (BOApp *appInfo in appStates.appInBackground) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_IN_BACKGROUND,
                         BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_BACKGROUND_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -964,13 +806,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appInForeground count] > 0) {
             for (BOApp *appInfo in appStates.appInForeground) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_IN_FOREGROUND,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_FOREGROUND_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -979,13 +825,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appOrientationPortrait count] > 0) {
             for (BOApp *appInfo in appStates.appOrientationPortrait) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_ORIENTATION_PORTRAIT,
                         BO_EVENTS_TIME:[BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_PORTRAIT_ORIENTATION_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -994,13 +844,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appOrientationLandscape count] > 0) {
             for (BOApp *appInfo in appStates.appOrientationLandscape) {
                 if(![appInfo.sentToServer boolValue]) {
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_ORIENTATION_LANDSCAPE,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_LANDSCAPE_ORIENTATION_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1010,13 +863,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appNotificationReceived count] > 0) {
             for (BOApp *appInfo in appStates.appNotificationReceived) {
                 if(![appInfo.sentToServer boolValue]) {
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_NOTIFICATION_RECEIVED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_NOTIFICATION_RECEIVED_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1025,13 +881,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appNotificationViewed count] > 0) {
             for (BOApp *appInfo in appStates.appNotificationViewed) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_NOTIFICATION_VIEWED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_NOTIFICATION_VIEWED_KEY],
                         BO_MESSAGE_ID: appInfo.mid,
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1041,13 +901,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appNotificationClicked count] > 0) {
             for (BOApp *appInfo in appStates.appNotificationClicked) {
                 if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_NOTIFICATION_CLICKED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_NOTIFICATION_CLICKED_KEY],
                         BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent:BO_APP_NOTIFICATION_CLICKED],
                         BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1057,13 +921,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([appStates.appSessionInfo count] > 0) {
             for (BOSessionInfo *sessionInfo in appStates.appSessionInfo) {
                 if(![sessionInfo.sentToServer boolValue] && sessionInfo.start > 0 && sessionInfo.end > 0) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:sessionInfo.session_id forKey:BO_SESSION_ID];
+                    [properties setValue:@{@"start":sessionInfo.start,@"end":sessionInfo.end,@"duration":sessionInfo.duration} forKey:BO_CODIFIED_INFO];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_APP_SESSION_INFO,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:sessionInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_SESSION_INFO],
                         BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent:BO_APP_SESSION_INFO],
-                        BO_CODIFIED_INFO:@{@"start":sessionInfo.start,@"end":sessionInfo.end,@"duration":sessionInfo.duration},
-                        BO_SESSION_ID: sessionInfo.session_id
+                        BO_PROPERTIES:properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1081,65 +949,83 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         NSMutableArray *eventsArray = [NSMutableArray array];
         BORetentionEvent *retentionEvent = sessionData.singleDaySessions.retentionEvent;
         if(retentionEvent.dau != nil && ![retentionEvent.dau.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.dau.dauInfo ? retentionEvent.dau.dauInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_DAU,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dau.timeStamp] ,
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DAU_KEY],
-                BO_CODIFIED_INFO: retentionEvent.dau.dauInfo ? retentionEvent.dau.dauInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.dau.mid,
-                BO_SESSION_ID: retentionEvent.session_id
+                BO_PROPERTIES: properties
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.dpu != nil && ![retentionEvent.dpu.sentToServer boolValue]) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.dpu.dpuInfo ? retentionEvent.dpu.dpuInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_DPU,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dpu.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DPU_KEY],
-                BO_CODIFIED_INFO: retentionEvent.dpu.dpuInfo ? retentionEvent.dpu.dpuInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.dpu.mid,
-                BO_SESSION_ID: retentionEvent.session_id
+                BO_PROPERTIES: properties
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.appInstalled != nil && ![retentionEvent.appInstalled.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.appInstalled.appInstalledInfo ? retentionEvent.appInstalled.appInstalledInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_APP_INSTALLED,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.appInstalled.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_APP_INSTALL_KEY],
-                BO_CODIFIED_INFO: retentionEvent.appInstalled.appInstalledInfo ? retentionEvent.appInstalled.appInstalledInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.appInstalled.mid,
                 BO_IS_FIRST_LAUNCH: retentionEvent.appInstalled.isFirstLaunch,
-                BO_SESSION_ID: retentionEvent.session_id
+                BO_PROPERTIES: properties
                 
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.theNewUser != nil && ![retentionEvent.theNewUser.sentToServer boolValue]) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.theNewUser.theNewUserInfo ? retentionEvent.theNewUser.theNewUserInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_NUO,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.theNewUser.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_NUO_KEY],
-                BO_CODIFIED_INFO: retentionEvent.theNewUser.theNewUserInfo ? retentionEvent.theNewUser.theNewUserInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.theNewUser.mid,
-                BO_SESSION_ID: retentionEvent.session_id
+                BO_PROPERTIES: properties
                 
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.dast != nil && ![retentionEvent.dast.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.dast.payload ? retentionEvent.dast.payload : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_DAST,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dast.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DAST_KEY],
-                BO_CODIFIED_INFO: retentionEvent.dast.payload ? retentionEvent.dast.payload : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.dast.mid,
                 BO_TST: retentionEvent.dast.averageSessionTime,
-                BO_SESSION_ID: retentionEvent.session_id
+                BO_PROPERTIES: properties
                 
             }];
             [eventsArray addObject:event];
@@ -1148,14 +1034,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([retentionEvent.customEvents count] >0) {
             for (BOCustomEvent *customEvent in retentionEvent.customEvents) {
                 if (![customEvent.sentToServer boolValue]) {
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:retentionEvent.session_id forKey:BO_SESSION_ID];
+                    [properties setValue:customEvent.eventInfo ? customEvent.eventInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:customEvent.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_CUS_KEY1],
-                        BO_CODIFIED_INFO: customEvent.eventInfo ? customEvent.eventInfo : NSNull.null,
                         BO_MESSAGE_ID: customEvent.mid,
                         BO_SCREEN_NAME: customEvent.visibleClassName ? customEvent.visibleClassName : NSNull.null,
                         BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null,
-                        BO_SESSION_ID: customEvent.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1194,19 +1083,21 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                     }
                     //Check here, crashEvent should not be null or nil
                     BOFLogDebug(@"CrashEvent Info %@",crashEvent);
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:crashEvent.session_id forKey:BO_SESSION_ID];
+                    [properties setValue:NSNullifyCheck(crashEventProperties) forKey:BO_CODIFIED_INFO];
                     
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         //[NSNumber numberWithInt:(int)[crashEvents indexOfObject:crashEvent]],
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:crashEvent.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_APP_RUN_TIME_EXCEPTION],
-                        BO_CODIFIED_INFO: NSNullifyCheck(crashEventProperties),
+                        BO_PROPERTIES: properties,
                         BO_MESSAGE_ID: crashEvent.mid,//[NSString stringWithFormat:@"%d-%ld-%@",BO_EVENT_EXCEPTION_KEY, (long)[BOAUtilities get13DigitIntegerTimeStamp],crashEvent.timeStamp],
                         BO_SCREEN_NAME: crashEvent.callStackSymbols ? [NSString stringWithFormat:@"%@",[crashEvent.callStackSymbols lastObject]] : NSNull.null,
                         BO_EVENT_NAME_MAPPING: crashEvent.name ? crashEvent.name : NSNull.null,
                         @"value": crashEvent.reason ? crashEvent.reason : NSNull.null,
                         //To prepare proper all uustate values, check for weekly and monthly files falling under same week and same month when this crash occured based on crashEvent.timeStamp
-                        @"uustate": @[@101], //@[@101, @201, @301, @401]
-                        BO_SESSION_ID: crashEvent.session_id
+                        @"uustate": @[@101]//@[@101, @201, @301, @401]
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1228,13 +1119,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if([commonEvents count] >0) {
             for (BOCommonEvent *commonEvent in commonEvents) {
                 if (![commonEvent.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:commonEvent.session_id forKey:BO_SESSION_ID];
+                    [properties setValue:NSNullifyCheck(commonEvent.eventInfo) forKey:BO_CODIFIED_INFO];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:commonEvent.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: commonEvent.eventSubCode,
-                        BO_CODIFIED_INFO: NSNullifyCheck(commonEvent.eventInfo),
+                        BO_PROPERTIES: properties,
                         BO_MESSAGE_ID: commonEvent.mid,
-                        BO_EVENT_NAME_MAPPING: commonEvent.eventName ? commonEvent.eventName : NSNull.null,
-                        BO_SESSION_ID: commonEvent.session_id
+                        BO_EVENT_NAME_MAPPING: commonEvent.eventName ? commonEvent.eventName : NSNull.null
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1255,14 +1150,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.batteryLevel != NULL && deviceInfo.batteryLevel.count > 0) {
             for (BOBatteryLevel *appInfo in deviceInfo.batteryLevel) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_BATTERY_LEVEL,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.percentage != nil ? [NSString stringWithFormat:@"%d",[appInfo.percentage intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1272,14 +1170,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.multitaskingEnabled != NULL && deviceInfo.multitaskingEnabled.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.multitaskingEnabled) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_MULTITASKING_ENABLED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1289,14 +1190,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.proximitySensorEnabled != NULL && deviceInfo.proximitySensorEnabled.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.proximitySensorEnabled) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_PROXIMITY_SENSOR_ENABLED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1306,14 +1210,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.debuggerAttached != NULL && deviceInfo.debuggerAttached.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.debuggerAttached) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_DEBUGGER_ATTACHED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1323,14 +1230,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.pluggedIn != NULL && deviceInfo.pluggedIn.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.pluggedIn) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_PLUGGEDIN,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1340,14 +1250,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.jailBroken != NULL && deviceInfo.jailBroken.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.jailBroken) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_JAIL_BROKEN,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1357,14 +1270,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.numberOfActiveProcessors != NULL && deviceInfo.numberOfActiveProcessors.count > 0) {
             for (BONumberOfA *appInfo in deviceInfo.numberOfActiveProcessors) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_NUMBER_OF_ACTIVE_PROCESSORS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.number != nil ? [NSString stringWithFormat:@"%d",[appInfo.number intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1374,14 +1289,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.processorsUsage != NULL && deviceInfo.processorsUsage.count > 0) {
             for (BOProcessorsUsage *appInfo in deviceInfo.processorsUsage) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_NUMBER_OF_ACTIVE_PROCESSORS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.usagePercentage != nil ? [NSString stringWithFormat:@"%d",[appInfo.usagePercentage intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1391,14 +1309,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.accessoriesAttached != NULL && deviceInfo.accessoriesAttached.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.debuggerAttached) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_ACCESSORIES_ATTACHED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1408,14 +1329,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.headphoneAttached != NULL && deviceInfo.headphoneAttached.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.headphoneAttached) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_HEADPHONE_ATTACHED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1425,14 +1349,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.numberOfAttachedAccessories != NULL && deviceInfo.numberOfAttachedAccessories.count > 0) {
             for (BONumberOfA *appInfo in deviceInfo.numberOfAttachedAccessories) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_NUMBER_OF_ATTACHED_ACCESSORIES,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.number != nil ? [NSString stringWithFormat:@"%d",[appInfo.number intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1442,14 +1369,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.nameOfAttachedAccessories != NULL && deviceInfo.nameOfAttachedAccessories.count > 0) {
             for (BONameOfAttachedAccessory *appInfo in deviceInfo.nameOfAttachedAccessories) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_NAME_OF_ATTACHED_ACCESSORIES,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: NSNullifyCheck(appInfo.names),
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1459,14 +1389,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.isCharging != NULL && deviceInfo.isCharging.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.isCharging) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_IS_CHARGING,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1476,14 +1409,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(deviceInfo.fullyCharged != NULL && deviceInfo.fullyCharged.count > 0) {
             for (BOAccessoriesAttached *appInfo in deviceInfo.fullyCharged) {
                 if (![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_FULLY_CHARGED,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: appInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: appInfo.mid,
-                        //                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
                         BO_VALUE: appInfo.status != nil ? [NSString stringWithFormat:@"%d",[appInfo.status intValue]] : [NSNull null],
-                        BO_SESSION_ID: appInfo.session_id
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1513,15 +1449,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                         BO_EVENT_USED_MEMORY: NSNullifyCheck(memoryInfo.usedMemory),
                         BO_EVENT_WIRED_MEMORY: NSNullifyCheck(memoryInfo.wiredMemory)
                     };
+                    NSMutableDictionary *eventInfo = [NSMutableDictionary dictionary];
+                    [eventInfo setValue:memoryInfo.session_id forKey:BO_SESSION_ID];
+                    [eventInfo setValue:NSNullifyCheck(properties) forKey:BO_CODIFIED_INFO];
                     
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_MEMORY_INFO,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: memoryInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: memoryInfo.mid,
-                        BO_CODIFIED_INFO: NSNullifyCheck(properties),
-                        BO_SESSION_ID: memoryInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: NSNullifyCheck(eventInfo)
                     }];
                     
                     [eventsArray addObject:event];
@@ -1539,14 +1476,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                         BO_EVENT_USED_DISK_SPACE: storageInfo.usedDiskSpace
                     };
                     
+                    NSMutableDictionary *eventInfo = [NSMutableDictionary dictionary];
+                    [eventInfo setValue:storageInfo.session_id forKey:BO_SESSION_ID];
+                    [eventInfo setValue:NSNullifyCheck(properties) forKey:BO_CODIFIED_INFO];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_STORAGE_INFO,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: storageInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: storageInfo.mid,
-                        BO_CODIFIED_INFO: NSNullifyCheck(properties),
-                        BO_SESSION_ID: storageInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: NSNullifyCheck(eventInfo)
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1566,14 +1505,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.currentIPAddress != NULL && networkInfoArray.currentIPAddress.count > 0) {
             for (BOIPAddress *networkInfo in networkInfoArray.currentIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CURRENT_IP_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.ipAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1584,14 +1526,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.cellBroadcastAddress != NULL && networkInfoArray.cellBroadcastAddress.count > 0) {
             for (BOBroadcastAddress *networkInfo in networkInfoArray.cellBroadcastAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CELL_BROADCAST_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.broadcastAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1602,14 +1547,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.cellIPAddress != NULL && networkInfoArray.cellIPAddress.count > 0) {
             for (BOIPAddress *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CELL_IP_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.ipAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1620,14 +1568,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.cellNetMask != NULL && networkInfoArray.cellNetMask.count > 0) {
             for (BONetMask *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CELL_NETMASK,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.netmask,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1638,14 +1589,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.connectedToCellNetwork != NULL && networkInfoArray.connectedToCellNetwork.count > 0) {
             for (BOConnectedTo *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CONNECTED_TO_CELL_NETWORK,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.isConnected,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1656,14 +1610,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.connectedToWifi != NULL && networkInfoArray.connectedToWifi.count > 0) {
             for (BOConnectedTo *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_CONNECTED_WIFI,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.isConnected,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1674,14 +1631,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.externalIPAddress != NULL && networkInfoArray.externalIPAddress.count > 0) {
             for (BOIPAddress *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_EXTERNAL_IP_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.ipAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1692,14 +1652,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.wifiBroadcastAddress != NULL && networkInfoArray.wifiBroadcastAddress.count > 0) {
             for (BOBroadcastAddress *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_WIFI_BROADCAST_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.broadcastAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1710,14 +1672,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.wifiIPAddress != NULL && networkInfoArray.wifiIPAddress.count > 0) {
             for (BOIPAddress *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_WIFI_IP_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.ipAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1728,14 +1693,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.wifiRouterAddress != NULL && networkInfoArray.wifiRouterAddress.count > 0) {
             for (BOWifiRouterAddress *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_WIFI_ROUTER_ADDRESS,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.routerAddress,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1746,14 +1714,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.wifiSSID != NULL && networkInfoArray.wifiSSID.count > 0) {
             for (BOWifiSSID *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_WIFI_SSID,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.ssid,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     
                     [eventsArray addObject:event];
@@ -1764,14 +1735,17 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         if(networkInfoArray.wifiNetMask != NULL && networkInfoArray.wifiNetMask.count > 0) {
             for (BONetMask *networkInfo in networkInfoArray.cellIPAddress) {
                 if (![networkInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:networkInfo.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_WIFI_NET_MASK,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: networkInfo.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DEVICE_INFO],
                         BO_MESSAGE_ID: networkInfo.mid,
                         BO_VALUE: networkInfo.netmask,
-                        BO_SESSION_ID: networkInfo.session_id
-                        //                      BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1801,6 +1775,10 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
             }
         }
         if ([screenName count] > 0 && [screenTime count] > 0) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_APP_NAVIGATION,
                 BO_EVENTS_TIME: [BOAUtilities get13DigitNumberObjTimeStamp],
@@ -1808,7 +1786,7 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                 BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent: BO_APP_NAVIGATION],
                 BO_NAVIGATION_SCREEN: screenName,
                 BO_NAVIGATION_TIME: screenTime,
-                BO_SESSION_ID: [BOSharedManager sharedInstance].sessionId
+                BO_PROPERTIES: properties
             }];
             
             [eventsArray addObject:event];
@@ -1833,13 +1811,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
                         BO_AD_DO_NOT_TRACK: NSNullifyCheck(adInformation.isAdDoNotTrack)
                     };
                     
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:NSNullifyCheck(property) forKey:BO_CODIFIED_INFO];
+                    [properties setValue:adInformation.session_id forKey:BO_SESSION_ID];
+                    
                     BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                         BO_EVENT_NAME_MAPPING: BO_EVENT_AD_INFO,
                         BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp: adInformation.timeStamp],
                         BO_EVENT_CATEGORY_SUBTYPE: [NSNumber numberWithInt: BO_EVENT_APP_DO_NOT_TRACK],
                         BO_MESSAGE_ID: adInformation.mid,
-                        BO_CODIFIED_INFO: NSNullifyCheck(property),
-                        BO_SESSION_ID: adInformation.session_id
+                        BO_PROPERTIES: NSNullifyCheck(properties)
                     }];
                     [eventsArray addObject:event];
                 }
@@ -1891,14 +1872,16 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
     @try {
         NSMutableArray *events = [[NSMutableArray alloc] init];
         
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        [properties setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
+        
         BOAEvent *event = [BOAEvent fromJSONDictionary:@{
             BO_EVENT_NAME_MAPPING: eventName,
             BO_EVENTS_TIME: [BOAUtilities get13DigitNumberObjTimeStamp],
             BO_EVENT_CATEGORY_SUBTYPE:eventSubcode,
-            BO_CODIFIED_INFO: NSNull.null,
+            BO_PROPERTIES: properties,
             BO_MESSAGE_ID:[BOAUtilities getMessageIDForEvent:eventName],
-            BO_USER_ID: [BOAUtilities getDeviceId],
-            BO_SESSION_ID:[[BOSharedManager sharedInstance] sessionId],
+            BO_USER_ID: [BOAUtilities getDeviceId]
         }];
         
         [events addObject:event];
@@ -1935,7 +1918,7 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
          BO_EVENT_NAME_MAPPING:@"DAU",
          BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dau.timeStamp],
          BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DAU_KEY],
-         BO_CODIFIED_INFO: retentionEvent.dau.dauInfo ? retentionEvent.dau.dauInfo : NSNull.null,
+         BO_PROPERTIES: retentionEvent.dau.dauInfo ? retentionEvent.dau.dauInfo : NSNull.null,
          BO_MESSAGE_ID: retentionEvent.dau.mid //[NSString stringWithFormat:@"%d-%ld-%@",BO_RETEN_DAU_KEY, (long)[BOAUtilities get13DigitIntegerTimeStamp],retentionEvent.dau.timeStamp]
          }];
          [eventsArray addObject:event];
@@ -1943,148 +1926,171 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
          */
         
         if(retentionEvent.wau != nil && ![retentionEvent.wau.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.wau.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.wau.wauInfo ? retentionEvent.wau.wauInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_WAU,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.wau.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_WAU_KEY],
-                BO_CODIFIED_INFO: retentionEvent.wau.wauInfo ? retentionEvent.wau.wauInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.wau.mid,
-                BO_SESSION_ID: retentionEvent.wau.session_id
+                BO_PROPERTIES: properties
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.mau != nil && ![retentionEvent.mau.sentToServer boolValue]) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.mau.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.mau.mauInfo ? retentionEvent.mau.mauInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_MAU,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.mau.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_MAU_KEY],
-                BO_CODIFIED_INFO: retentionEvent.mau.mauInfo ? retentionEvent.mau.mauInfo : NSNull.null,
+                BO_PROPERTIES: retentionEvent.mau.mauInfo ? retentionEvent.mau.mauInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.mau.mid,
-                BO_SESSION_ID: retentionEvent.mau.session_id
+                BO_PROPERTIES: properties
             }];
             [eventsArray addObject:event];
         }
         if(self.isPayingUser){
             
-            //Enable below block, in case life time JSON also store DPU, as per current scenario it is not and will not
-            /*
-             if(retentionEvent.dpu != nil && ([retentionEvent.dpu.timeStamp integerValue] > lastSyncTime) && ![retentionEvent.dpu.sentToServer boolValue]) {
-             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-             BO_EVENT_NAME:@"DPU",
-             BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dpu.timeStamp],
-             BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DPU_KEY],
-             BO_CODIFIED_INFO: retentionEvent.dpu.dpuInfo ? retentionEvent.dpu.dpuInfo : NSNull.null,
-             BO_MESSAGE_ID: retentionEvent.dpu.mid //[NSString stringWithFormat:@"%d-%ld-%@",BO_RETEN_DPU_KEY, (long)[BOAUtilities get13DigitIntegerTimeStamp],retentionEvent.dpu.timeStamp]
-             }];
-             [eventsArray addObject:event];
-             }
-             */
             if(retentionEvent.wpu != nil && ![retentionEvent.wpu.sentToServer boolValue]) {
+                NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                [properties setValue:retentionEvent.wpu.session_id forKey:BO_SESSION_ID];
+                [properties setValue:retentionEvent.wpu.wpuInfo ? retentionEvent.wpu.wpuInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                
                 BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                     BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_WPU,
                     BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.wpu.timeStamp],
                     BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_WPU_KEY],
-                    BO_CODIFIED_INFO: retentionEvent.wpu.wpuInfo ? retentionEvent.wpu.wpuInfo : NSNull.null,
                     BO_MESSAGE_ID: retentionEvent.wpu.mid,
-                    BO_SESSION_ID: retentionEvent.wpu.session_id
+                    BO_PROPERTIES: properties
                 }];
                 [eventsArray addObject:event];
             }
             
             if(retentionEvent.mpu != nil && ![retentionEvent.mpu.sentToServer boolValue]) {
+                
+                NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                [properties setValue:retentionEvent.mpu.session_id forKey:BO_SESSION_ID];
+                [properties setValue:retentionEvent.mpu.mpuInfo ? retentionEvent.mpu.mpuInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+                
                 BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                     BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_MPU,
                     BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.mpu.timeStamp],
                     BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_MPU_KEY],
-                    BO_CODIFIED_INFO: retentionEvent.mpu.mpuInfo ? retentionEvent.mpu.mpuInfo : NSNull.null,
                     BO_MESSAGE_ID: retentionEvent.mpu.mid,
-                    BO_SESSION_ID: retentionEvent.mpu.session_id
+                    BO_PROPERTIES: properties
                 }];
                 [eventsArray addObject:event];
             }
         }
         
         if(retentionEvent.appInstalled != nil && ![retentionEvent.appInstalled.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.appInstalled.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.appInstalled.appInstalledInfo ? retentionEvent.appInstalled.appInstalledInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_APP_INSTALLED,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.appInstalled.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_APP_INSTALL_KEY],
-                BO_CODIFIED_INFO: retentionEvent.appInstalled.appInstalledInfo ? retentionEvent.appInstalled.appInstalledInfo : NSNull.null,
+                BO_PROPERTIES: properties,
                 BO_MESSAGE_ID: retentionEvent.appInstalled.mid,
-                BO_IS_FIRST_LAUNCH: retentionEvent.appInstalled.isFirstLaunch,
-                BO_MESSAGE_ID: retentionEvent.appInstalled.session_id
-                
+                BO_IS_FIRST_LAUNCH: retentionEvent.appInstalled.isFirstLaunch
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.theNewUser != nil && ![retentionEvent.theNewUser.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.theNewUser.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.theNewUser.theNewUserInfo ? retentionEvent.theNewUser.theNewUserInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_NUO,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.theNewUser.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_NUO_KEY],
-                BO_CODIFIED_INFO: retentionEvent.theNewUser.theNewUserInfo ? retentionEvent.theNewUser.theNewUserInfo : NSNull.null,
                 BO_MESSAGE_ID: retentionEvent.theNewUser.mid,
                 BO_IS_NEW_USER: retentionEvent.theNewUser.isNewUser,
-                BO_SESSION_ID: retentionEvent.theNewUser.session_id
-                
+                BO_PROPERTIES: properties
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.dast != nil && ![retentionEvent.dast.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.dast.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.dast.dastInfo ? retentionEvent.dast.dastInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_DAST,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.dast.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_DAST_KEY],
-                BO_CODIFIED_INFO: retentionEvent.dast.dastInfo ? retentionEvent.dast.dastInfo : NSNull.null,
+                BO_PROPERTIES: properties,
                 BO_MESSAGE_ID: retentionEvent.dast.mid,
-                BO_TST: retentionEvent.dast.averageSessionTime,
-                BO_SESSION_ID: retentionEvent.dast.session_id
-                
+                BO_TST: retentionEvent.dast.averageSessionTime
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.wast != nil && ![retentionEvent.wast.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.wast.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.wast.wastInfo ? retentionEvent.wast.wastInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_WAST,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.wast.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_WAST_KEY],
-                BO_CODIFIED_INFO: retentionEvent.wast.wastInfo ? retentionEvent.wast.wastInfo : NSNull.null,
+                BO_PROPERTIES: properties,
                 BO_MESSAGE_ID: retentionEvent.wast.mid,
-                BO_TST: retentionEvent.wast.averageSessionTime,
-                BO_SESSION_ID: retentionEvent.wast.session_id
-                
+                BO_TST: retentionEvent.wast.averageSessionTime
             }];
             [eventsArray addObject:event];
         }
         
         if(retentionEvent.mast != nil && ![retentionEvent.mast.sentToServer boolValue]) {
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:retentionEvent.mast.session_id forKey:BO_SESSION_ID];
+            [properties setValue:retentionEvent.mast.mastInfo ? retentionEvent.mast.mastInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENT_NAME_MAPPING: BO_RETEN_EVENT_NAME_MAST,
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:retentionEvent.mast.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_MAST_KEY],
-                BO_CODIFIED_INFO: retentionEvent.mast.mastInfo ? retentionEvent.mast.mastInfo : NSNull.null,
+                BO_PROPERTIES: properties,
                 BO_MESSAGE_ID: retentionEvent.mast.mid,
-                BO_TST: retentionEvent.mast.averageSessionTime,
-                BO_SESSION_ID: retentionEvent.mast.session_id
-                
+                BO_TST: retentionEvent.mast.averageSessionTime
             }];
             [eventsArray addObject:event];
         }
         
         if ((retentionEvent.customEvents != nil) && ![retentionEvent.customEvents.sentToServer boolValue]) {
+            
             BOACustomEvents *customEvent = retentionEvent.customEvents;
+            
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:customEvent.session_id forKey:BO_SESSION_ID];
+            [properties setValue:customEvent.eventInfo ? customEvent.eventInfo : NSNull.null forKey:BO_CODIFIED_INFO];
+            
             BOAEvent *event = [BOAEvent fromJSONDictionary:@{
                 BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:customEvent.timeStamp],
                 BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_RETEN_CUS_KEY1],
-                BO_CODIFIED_INFO: customEvent.eventInfo ? customEvent.eventInfo : NSNull.null,
+                BO_PROPERTIES: properties,
                 BO_MESSAGE_ID: customEvent.mid,
                 BO_SCREEN_NAME: customEvent.visibleClassName ? customEvent.visibleClassName : NSNull.null,
-                BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null,
-                BO_SESSION_ID: customEvent.session_id
+                BO_EVENT_NAME_MAPPING: customEvent.eventName ? customEvent.eventName : NSNull.null
             }];
             [eventsArray addObject:event];
         }
@@ -2108,42 +2114,4 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
     return nil;
 }
 
-//-(NSData*)serverFormatEventsJSONForEvent:(NSString*)eventName
-//                                   inClass:(NSString*)visibleClassName occured:(int)occurance{
-//
-//    BOAppSessionData *sessionInfo = [BOAppSessionData sharedInstanceFromJSONDictionary:nil];
-//   // [BOFSystemServices sharedServices]
-//    BOAMeta *metaInfo = [BOAMeta fromJSONDictionary:@{
-//                                                      @"platform": [NSNumber numberWithInt:14], //platform Code, defined in event doc
-//                                                      @"app_namespace" : sessionInfo.appBundle ? sessionInfo.appBundle : @"na.na.na",
-//                                                      @"app_ver": (sessionInfo.singleDaySessions.appInfo.count > 0) ? [sessionInfo.singleDaySessions.appInfo objectAtIndex:0].version : @"-1",
-//                                                      @"os_ver": [BOFSystemServices sharedServices].systemsVersion ? [BOFSystemServices sharedServices].systemsVersion : @"-1",
-//                                                      @"manufacturer": @"Apple",
-//                                                      @"model": [BOFSystemServices sharedServices].deviceModel ? [BOFSystemServices sharedServices].deviceModel : @"NA"
-//                                                      }];
-//
-//    id eventNameL = eventName ? eventName : NSNull.null;
-//    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
-//                                                     @"ts":[BOAUtilities get13DigitNumberObjTimeStamp],
-//                                                     @"day_occur": [NSNumber numberWithInt:1],
-//                                                     @"type": [NSNumber numberWithInt:20001],
-//                                                     @"s_type":[NSNumber numberWithInt:21500],
-//                                                     @"msg_id": [NSString stringWithFormat:@"%@-%ld",eventNameL, (long)[BOAUtilities get13DigitIntegerTimeStamp]],
-//                                                     @"name": eventNameL,
-//                                                     @"scr_name": visibleClassName ? visibleClassName : NSNull.null
-//                                                     }];
-//    NSArray *evetsArr = [NSArray arrayWithObject:event];
-//    BOASystemAndDeveloperEvents *serverEvents = [BOASystemAndDeveloperEvents fromJSONDictionary:@{
-//                                                                                                  BO_META:metaInfo,
-//                                                                                                  BO_EVENTS:evetsArr
-//                                                                                                  }];
-//
-//    NSError *error = nil;
-//    NSString *eventJSON = [serverEvents toJSON:NSUTF8StringEncoding error:&error];
-//
-//    BOFLogDebug(@"eventJSON %@",eventJSON);
-//
-//    NSData *eventJSONData = [serverEvents toData:&error];
-//    return eventJSONData;
-//}
 @end

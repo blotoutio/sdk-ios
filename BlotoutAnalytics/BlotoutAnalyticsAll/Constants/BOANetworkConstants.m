@@ -65,6 +65,7 @@ NSString * const BO_SCREEN_TO= @"scrto";
 NSString * const BO_SCREEN_FROM= @"scrfrm";
 NSString * const BO_TST= @"tst";
 
+NSString * const BO_PROPERTIES= @"properties";
 NSString * const BO_CODIFIED_INFO= @"codifiedInfo";
 NSString * const BO_QUANTITY= @"quantity";
 NSString * const BO_OBJECT_TYPE= @"objectType";

@@ -74,6 +74,7 @@ extern NSString * const BO_QUANTITY;
 extern NSString * const BO_OBJECT_TYPE;
 extern NSString * const BO_OBJECT_RECT;
 extern NSString * const BO_OBJECT_SCREEN_RECT;
+extern NSString * const BO_PROPERTIES;
 
 extern NSString * const BO_VALUE;
 extern NSString * const BO_NAVIGATION_SCREEN;

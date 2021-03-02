@@ -333,11 +333,10 @@ NSString *_Nullable BOASystemAndDeveloperEventsToJSON(BOASystemAndDeveloperEvent
         @"scrn": @"scrn",
         @"value": @"value",
         @"uustate": @"uustate",
-        @"codifiedInfo": @"codifiedInfo",
+        @"properties": @"properties",
         @"userid":@"userid",
         @"nvg":@"nvg",
-        @"nvg_tm":@"nvg_tm",
-        @"session_id":@"session_id"
+        @"nvg_tm":@"nvg_tm"
     };
 }
 
