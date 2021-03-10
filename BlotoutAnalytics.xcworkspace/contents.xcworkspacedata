@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SalesDemoApp/SalesDemoApp.xcodeproj">
+      location = "group:demo/SalesDemoApp/SalesDemoApp.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:DemoApp/DemoApp.xcodeproj">
+      location = "group:demo/DemoApp/DemoApp.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:BlotoutAnalytics/BlotoutAnalytics.xcodeproj">
