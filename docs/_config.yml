@@ -4,7 +4,6 @@ header_pages:
   - integration.md
   - api.md
   - system_events.md
-  - migration.md
 
 minima:
   skin: dark

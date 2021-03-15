@@ -1,3 +1,0 @@
-# Migration
-
-## Current Version 0.6.1

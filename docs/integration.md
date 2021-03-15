@@ -14,9 +14,10 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
 
 ### Option 1 Objective-C:
 
-```html
+```js
 #import "BlotoutAnalytics.h"
 #import "BlotoutAnalyticsConfiguration.h"
+    
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
     
@@ -30,32 +31,29 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
 ```
 
 ### Option 2 Swift:
-```html
-
+```js
 func boSDKInit() throws -> Void {
-        let boaSDK : BlotoutAnalytics
-        boaSDK =  BlotoutAnalytics.sharedInstance()!
-        let config = BlotoutAnalyticsConfiguration.init(token: "token", withUrl: "endPointUrl")
-        
-        boaSDK.`init`(config) { (isSuccess : Bool, errorObj:Error?) in
-            if isSuccess{
-                print("Integration Successful.")
-                boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
-            }else{
-                print("Unexpected error:.")
-            }
+    let boaSDK : BlotoutAnalytics
+    boaSDK =  BlotoutAnalytics.sharedInstance()!
+    let config = BlotoutAnalyticsConfiguration.init(token: "token", withUrl: "endPointUrl")
+    
+    boaSDK.`init`(config) { (isSuccess : Bool, errorObj:Error?) in
+        if isSuccess{
+            print("Integration Successful.")
             boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
+        }else{
+            print("Unexpected error:.")
         }
+        boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
     }
+}
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        do {
-            try boSDKInit()
-        } catch {
-            print("Unexpected error: \(error).")
-        }
-        return true
+    do {
+        try boSDKInit()
+    } catch {
+        print("Unexpected error: \(error).")
     }
-
-
+    return true
+}
 ```

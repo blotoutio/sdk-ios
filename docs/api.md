@@ -21,14 +21,11 @@ BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configura
 }];
 ```
 
-## capture events
+## capture
 The `capture` method is used to record developer events. This allows you to send custom events to the server when a user is interacting with the app. For example, one custom event would be when a user adds an item to a cart.
 
-```html
-
--(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo;
-
-```
+#### Input
+`-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo;`
 
 #### Example
 ```js
@@ -40,17 +37,13 @@ BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 [boaObj capture:@"LoginView" withInformation:eventInfo];
 ```
 
-## PII & PHI Events
-PII (Personal Identifiable Information) events are like developer codified events that carry sensitive information related to User.
-PHI ( Protected Health information) events are like PII but carries user’s private health information
+## capturePersonal
+PII (Personal Identifiable Information) events are like a developer codified events that carry sensitive information related to User.
+PHI ( Protected Health information) events are like PII, but carries user’s private health information.
 In Blotout managed or deployed Infrastructure, PII and PHI events data is encrypted using asymmetric encryption algorithms and provides access to authenticated users only.
-Below methods can be used to log PII and PHI information.
 
-```html
-
--(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;
-
-```
+#### Input
+`-(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;`
 
 |||||
 |---|---|---|---|
@@ -69,7 +62,6 @@ BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 
 [boaObj capturePersonal:@"PII Event" withInformation:eventInfo isPHI:NO];
 [boaObj capturePersonal:@"PHI Event" withInformation:eventInfo isPHI:YES];
-
 ```
 
 
@@ -108,6 +100,3 @@ Returns user ID as `string`.
 ```js
 NSString *userId = [[BlotoutAnalytics sharedInstance] getUserId];
 ```
-
-
-
