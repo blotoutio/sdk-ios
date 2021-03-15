@@ -79,8 +79,8 @@ NSMutableDictionary *eventInfo = [[NSMutableDictionary alloc] init];
 
 BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 
-[boaObj capturePersonal:@"PII Event" withInformation:eventInfo phiEvent:NO];
-[boaObj capturePersonal:@"PHI Event" withInformation:eventInfo phiEvent:YES];
+[boaObj capturePersonal:@"PII Event" withInformation:eventInfo isPHI:NO];
+[boaObj capturePersonal:@"PHI Event" withInformation:eventInfo isPHI:YES];
 
 ```
 
