@@ -8,8 +8,8 @@ The `init` method is used for initializing SDK. This sets all required configura
 
 |||||
 |---|---|---|---|
-| `configuration` | `BlotoutAnalyticsConfiguration` | This Model contians infomration related to SDK initilization |
-| `completionHandler` | `callback` | return callback for sdk success and failure |
+| `configuration` | `BlotoutAnalyticsConfiguration` | | This Model contains information related to SDK initialization |
+| `completionHandler` | `callback` |  | Return callback for sdk success and failure |
 
 #### Example
 ```js
@@ -27,6 +27,11 @@ The `capture` method is used to record developer events. This allows you to send
 #### Input
 `-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo;`
 
+|||||
+|---|---|---|---|
+| `eventName` | `String` |  | Name of the event that you are sending |
+| `eventInfo` | `Object` | Optional | You can provide some additional data to this event. There is no limitation as this is just a key-value pair send to the server. |
+
 #### Example
 ```js
 NSMutableDictionary *eventInfo = [[NSMutableDictionary alloc] init];
@@ -38,8 +43,8 @@ BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 ```
 
 ## capturePersonal
-PII (Personal Identifiable Information) events are like a developer codified events that carry sensitive information related to User.
-PHI ( Protected Health information) events are like PII, but carries user’s private health information.
+PII (Personal Identifiable Information) events are like developer codified events that carry sensitive information related to the user.
+PHI ( Protected Health Information) events are like PII, but carry user’s private health information.
 In Blotout managed or deployed Infrastructure, PII and PHI events data is encrypted using asymmetric encryption algorithms and provides access to authenticated users only.
 
 #### Input
