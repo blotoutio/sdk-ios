@@ -24,16 +24,6 @@ BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configura
 ## capture events
 The `capture` method is used to record developer events. This allows you to send custom events to the server when a user is interacting with the app. For example, one custom event would be when a user adds an item to a cart.
 
-## Non-Timed Events
-Non-Timed events are generally events which are not time bound and do not contain duration information. For example, the Home Page loaded is non-timed but Home page loading started and home page loading ended, when grouped together, can be a timed event.
-These events are categorized under two main categories in Blotout’s SDK.
-
-1: SystemEvents:
-System events are those which the Blotout SDK captures automatically like App Launch, App Terminated etc. These kinds of non-timed events do not require any developer intervention except enable or disable.
-
-2: Developer Events:
-Developer Events are those which developers codify in the Application code with the help of Blotout’s SDK and SDK sync with Blotout’s server, like “iPhone added to cart“.
-
 ```html
 
 -(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo;
@@ -50,8 +40,6 @@ BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 [boaObj capture:@"LoginView" withInformation:eventInfo];
 ```
 
-
-```
 ## PII & PHI Events
 PII (Personal Identifiable Information) events are like developer codified events that carry sensitive information related to User.
 PHI ( Protected Health information) events are like PII but carries user’s private health information
