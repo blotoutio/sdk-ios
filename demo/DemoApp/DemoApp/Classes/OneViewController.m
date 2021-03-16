@@ -39,7 +39,7 @@
     // This UIViewController is about to re-appear, make sure we remove the current selection in our table view.
     NSIndexPath *tableSelection = self.tableView.indexPathForSelectedRow;
     [self.tableView deselectRowAtIndexPath:tableSelection animated:NO];
-    [[BlotoutAnalytics sharedInstance] logEvent:@"oneviewcontroller appeared" withInformation:@{}];
+    [[BlotoutAnalytics sharedInstance] capture:@"oneviewcontroller appeared" withInformation:@{}];
 }
 
 -(void)btnLogPressed:(id)sender {

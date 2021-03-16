@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <BlotoutAnalytics/BlotoutAnalytics.h>
 #import <CommonCrypto/CommonDigest.h>
-
+#import <BlotoutAnalytics/BlotoutAnalyticsConfiguration.h>
 @interface AppDelegate ()
 
 @end
@@ -59,15 +59,16 @@
     //    NSString *decryptString = [BOEncryptionManager decryptString:encryptedSTring privateKey:privateKey];
     
     //Test inProductionMode Yes/No and InDev mode also
-    [boaObj setIsEnabled:YES];
-    [boaObj initializeAnalyticsEngineUsingKey:@"B6PSYZ355NS383V" url:@"https://stage.blotout.io" andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
-        NSLog(@"BlotoutAnalytics SDK version%@ and Init %d:or Error: %@", [boaObj sdkVersion], isSuccess, error);
-        
-        [boaObj logEvent:@"AppLaunched2" withInformation:launchOptions];
+    NSLog(@"start = %f", [[NSDate date] timeIntervalSince1970]);
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io"];
+    [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
+        NSLog(@"end %f", [[NSDate date] timeIntervalSince1970]);
+        NSLog(@"BlotoutAnalytics Init %d:or Error: %@", isSuccess, error);
+        [boaObj capture:@"AppLaunched2" withInformation:launchOptions];
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         [dict setValue:@"test@blotout.io" forKey:@"emailid"];
         //[boaObj logEvent:@"test" withInformation:dict];
-        [boaObj logPIIEvent:@"PII Event" withInformation:dict happendAt:nil];
+        [boaObj capturePersonal:@"PII Event" withInformation:dict isPHI:NO];
         // [boaObj logPHIEvent:@"PHI Event" withInformation:@{@"covid":@"negative"} happendAt:nil];
     }];
     
@@ -86,7 +87,7 @@
     //        //Unknown selector crash Test
     //        //[boaObj performSelector:@selector(CrashTest_InitializeAnalyticsEngine)];
     //    }];
-    [boaObj logEvent:@"AppLaunched1" withInformation:launchOptions];
+    [boaObj capture:@"AppLaunched1" withInformation:launchOptions];
     return YES;
 }
 

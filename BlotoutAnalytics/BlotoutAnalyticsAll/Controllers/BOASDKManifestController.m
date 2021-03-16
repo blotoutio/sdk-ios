@@ -623,10 +623,11 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
 
 - (int) delayInterval {
     @try {
-        NSNumber *delayHour = [BOASDKManifestController sharedInstance].eventPushThresholdInterval;
-        if ([delayHour intValue] > 0) {
-            return [delayHour intValue] * 60 * 60;
-        }
+        // for firstPartySDK
+        //        NSNumber *delayHour = [BOASDKManifestController sharedInstance].eventPushThresholdInterval;
+        //        if ([delayHour intValue] > 0) {
+        //            return [delayHour intValue] * 60 * 60;
+        //        }
         
         return BO_DEFAULT_EVENT_PUSH_TIME;
     } @catch (NSException *exception) {
@@ -639,13 +640,13 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
     @try {
         int storeEvent = [[BOASDKManifestController sharedInstance] intervalStoreEvents].intValue;
         if(storeEvent > 0) {
-            return @(storeEvent);
+            return @(0);  //@(storeEvent); // 0 days for firstPartySDK
         }
-        
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
-    return @(180);
+    
+    return @(0);  // 0 days for firstPartySDK
 }
 
 @end

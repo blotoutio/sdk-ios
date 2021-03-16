@@ -10,6 +10,7 @@
 #import "FeaturedViewController.h"
 #import "CrossfadeAnimationController.h"
 #import <BlotoutAnalytics/BlotoutAnalytics.h>
+#import <BlotoutAnalytics/BlotoutAnalyticsConfiguration.h>
 
 // Compile time option to turn on or off custom tab bar appearance.
 #define kCustomizeTabBar 0
@@ -134,9 +135,11 @@ NSString *kTabBarOrderPrefKey = @"kTabBarOrder";  // The ordering of the tabs.
     //    }];
     //boaObj.isEnabled = NO;
     //NSLog(@"BlotoutAnalytics SDK allSysInfo%@:", [boaObj allSystemInfo]);
+    //Test inProductionMode Yes/No and InDev mode also
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io"];
     
     __block BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
-    [boaObj initializeAnalyticsEngineUsingKey:@"7J9MXNPYCEDTAYH" url:@"https://stage.blotout.io" andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
+    [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
         
     }];
     
@@ -162,7 +165,7 @@ NSString *kTabBarOrderPrefKey = @"kTabBarOrder";  // The ordering of the tabs.
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:classNames forKey:kTabBarOrderPrefKey];
-    [[BlotoutAnalytics sharedInstance] logEvent:@"SaveTabOrder" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"SaveTabOrder" withInformation:nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -170,7 +173,7 @@ NSString *kTabBarOrderPrefKey = @"kTabBarOrder";  // The ordering of the tabs.
     // This will store tab ordering.
     [self saveTabOrder];
     
-    [[BlotoutAnalytics sharedInstance] logEvent:@"AppEnterBackground" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"AppEnterBackground" withInformation:nil];
 }
 
 

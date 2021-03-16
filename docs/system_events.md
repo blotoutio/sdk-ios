@@ -4,7 +4,10 @@
 Our SDK only needs to send one event by default. That is triggered when SDK loads.
 
 #### SDK start
-`sdk_start` event is triggered as soon as initialization function is called via [`initializeAnalyticsEngine`](/api.md#init) api. This allows us to record a user.
+`sdk_start` event is triggered as soon as initialization function is called via [`init`](/api.md#init) api. This allows us to record a user.
+
+#### Page hide
+`pagehide` is triggered when a user leaves the website/app. This allows us to calculate session time and navigation flow. To not block user interaction and reliable send data we use `beacon` method for interaction with the server. You can read more about this mechanism [here](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon).
 
 
 ## Optional events

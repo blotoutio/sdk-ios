@@ -12,6 +12,7 @@
 //Or
 //#import "BlotoutSDK/BlotoutAnalytics.h"
 #import "BlotoutAnalytics.h"
+#import "BlotoutAnalyticsConfiguration.h"
 
 @interface AppDelegate ()
 
@@ -22,10 +23,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io"];
+    
     BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
-    [boaObj initializeAnalyticsEngineUsingKey:@"5DNGP7DR2KD9JSY" url:@"http://dev.blotout.io" andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
-        [boaObj logEvent:@"AppLaunched" withInformation:launchOptions];
+    [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
+        [boaObj capture:@"AppLaunched" withInformation:launchOptions];
     }];
+    
     return YES;
 }
 

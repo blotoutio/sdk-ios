@@ -704,6 +704,8 @@ NSString *_Nullable BOAppSessionDataToJSON(BOAppSessionData *appSessionData, NSS
         @"appNotificationViewed": @"appNotificationViewed",
         @"appNotificationClicked": @"appNotificationClicked",
         @"appSessionInfo": @"appSessionInfo",
+        @"sdkStart": @"sdkStart",
+        @"pageHide": @"pageHide",
     };
 }
 
@@ -739,6 +741,8 @@ NSString *_Nullable BOAppSessionDataToJSON(BOAppSessionData *appSessionData, NSS
                 _appNotificationViewed = map(_appNotificationViewed, λ(id x, [BOApp fromJSONDictionary:x]));
                 _appNotificationClicked = map(_appNotificationClicked, λ(id x, [BOApp fromJSONDictionary:x]));
                 _appSessionInfo = map(_appSessionInfo, λ(id x, [BOSessionInfo fromJSONDictionary:x]));
+                _sdkStart = map(_sdkStart, λ(id x, [BOApp fromJSONDictionary:x]));
+                _pageHide = map(_pageHide, λ(id x, [BOApp fromJSONDictionary:x]));
                 
             }
             return self;
@@ -775,6 +779,8 @@ NSString *_Nullable BOAppSessionDataToJSON(BOAppSessionData *appSessionData, NSS
             @"appNotificationViewed": NSNullify(map(_appNotificationViewed, λ(id x, [x JSONDictionary]))),
             @"appNotificationClicked": NSNullify(map(_appNotificationClicked, λ(id x, [x JSONDictionary]))),
             @"appSessionInfo": NSNullify(map(_appSessionInfo, λ(id x, [x JSONDictionary]))),
+            @"sdkStart": NSNullify(map(_sdkStart, λ(id x, [x JSONDictionary]))),
+            @"pageHide": NSNullify(map(_pageHide, λ(id x, [x JSONDictionary])))
         }];
         
         return dict;

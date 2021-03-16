@@ -24,7 +24,7 @@
 {
     [super viewWillAppear:animated];
     self.titleLabel.text = self.owningViewController.currentSelectionTitle;
-    [[BlotoutAnalytics sharedInstance] logEvent:@"BOSDK ModalViewController test Event" withInformation:@{}];
+    [[BlotoutAnalytics sharedInstance] capture:@"BOSDK ModalViewController test Event" withInformation:@{}];
 }
 
 @end

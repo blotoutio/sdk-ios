@@ -14,8 +14,8 @@ int const BOSDK_MAJOR_VERSION = 0;
 int const BOSDK_MINOR_VERSION = 6;
 int const BOSDK_PATCH_VERSION = 0;
 
-int const BO_DEFAULT_EVENT_PUSH_TIME = 10;
-int const BO_ANALYTICS_POST_INIT_NETWORK_DELAY = 10;
+int const BO_DEFAULT_EVENT_PUSH_TIME = 3;
+int const BO_ANALYTICS_POST_INIT_NETWORK_DELAY = 5;
 
 
 NSString * const BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY =                          @"com.blotout.sdk.Analytics.Root";

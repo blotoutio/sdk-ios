@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[BlotoutAnalytics sharedInstance] logEvent:@"Item Detail View" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"Item Detail View" withInformation:nil];
     if(dateFormatter == nil)
     {
         dateFormatter = [[NSDateFormatter alloc] init];
@@ -92,19 +92,19 @@
     }
     
     //Sales App Segment & Campaign Testing
-    [[BlotoutAnalytics sharedInstance] logEvent:@"Add To Cart" withInformation:@{
+    [[BlotoutAnalytics sharedInstance] capture:@"Add To Cart" withInformation:@{
         @"item" :@"iPhone",
         @"color":@"green"
         //@"itemID":self.itemID,
         //@"itemInfo":self.itemDict
     }];
     
-    [[BlotoutAnalytics sharedInstance] logEvent:@"myCart" withInformation:@{
+    [[BlotoutAnalytics sharedInstance] capture:@"myCart" withInformation:@{
         @"addedToCart":@"iPhone",
         @"color":@"green"
     }];
     
-    [[BlotoutAnalytics sharedInstance] logEvent:@"InCart" withInformation:@{
+    [[BlotoutAnalytics sharedInstance] capture:@"InCart" withInformation:@{
         @"product":@"iPhone",
         @"color":@"green"
         //@"itemID":self.itemID,

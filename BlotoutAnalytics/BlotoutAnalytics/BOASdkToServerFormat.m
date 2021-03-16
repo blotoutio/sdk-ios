@@ -27,6 +27,7 @@
 #import <BlotoutFoundation/BOCrypt.h>
 #import "BOEncryptionManager.h"
 #import "BOSharedManager.h"
+#import "BlotoutAnalytics_Internal.h"
 
 static id sBOASdkToServerFormat = nil;
 static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
@@ -118,19 +119,20 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
         
         if([[BlotoutAnalytics sharedInstance] isEnabled]) {
             [events addObjectsFromArray:[self prepareCrashEvents:sessionData]];
+            [events addObjectsFromArray:[self prepareManadatoryAppStateEvents:sessionData]];
             
             //system events
-            if([[BOASDKManifestController sharedInstance] sdkPushSystemEvents]) {
+            if([BOASDKManifestController sharedInstance].sdkPushSystemEvents) {
                 [events addObjectsFromArray:[self prepareAppStateEvents:sessionData]];
                 [events addObjectsFromArray:[self prepareCommonEvents:sessionData]];
                 [events addObjectsFromArray:[self prepareDeviceEvents:sessionData]];
                 [events addObjectsFromArray:[self prepareMemoryEvents:sessionData]];
             }
-            if([[BOASDKManifestController sharedInstance] sdkPushPIIEvents]) {
+            if([BOASDKManifestController sharedInstance].sdkPushPIIEvents) {
                 [events addObjectsFromArray:[self preparePIIEvents:sessionData]];
                 [events addObjectsFromArray:[self prepareAdInfo:sessionData]];
             }
-            if([[BOASDKManifestController sharedInstance] sdkBehaviourEvents]) {
+            if([BOASDKManifestController sharedInstance].sdkBehaviourEvents) {
                 [events addObjectsFromArray:[self prepareNavigationEvents:sessionData]];
             }
         }
@@ -738,6 +740,57 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
     return nil;
 }
 
+-(NSMutableArray*)prepareManadatoryAppStateEvents:(BOAppSessionData*)sessionData {
+    @try {
+        NSMutableArray *eventsArray = [NSMutableArray array];
+        BOAppStates *appStates = sessionData.singleDaySessions.appStates;
+        if([appStates.sdkStart count] > 0) {
+            for (BOApp *appInfo in appStates.sdkStart) {
+                if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
+                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
+                        BO_EVENT_NAME_MAPPING: BO_SDK_START,
+                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
+                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_SDK_START],
+                        BO_MESSAGE_ID: appInfo.mid,
+                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
+                    }];
+                    [eventsArray addObject:event];
+                }
+            }
+        }
+        
+        if([appStates.pageHide count] > 0) {
+            for (BOApp *appInfo in appStates.pageHide) {
+                if(![appInfo.sentToServer boolValue]) {
+                    
+                    NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+                    [properties setValue:appInfo.session_id forKey:BO_SESSION_ID];
+                    
+                    BOAEvent *event = [BOAEvent fromJSONDictionary:@{
+                        BO_EVENT_NAME_MAPPING: BO_PAGE_HIDE,
+                        BO_EVENTS_TIME: [BOAUtilities roundOffTimeStamp:appInfo.timeStamp],
+                        BO_EVENT_CATEGORY_SUBTYPE:[NSNumber numberWithInt:BO_EVENT_PAGE_HIDE],
+                        BO_MESSAGE_ID: appInfo.mid,
+                        BO_SCREEN_NAME: appInfo.visibleClassName ? appInfo.visibleClassName : NSNull.null,
+                        BO_PROPERTIES: properties
+                    }];
+                    [eventsArray addObject:event];
+                }
+            }
+        }
+        
+        return eventsArray;
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+    
+    return nil;
+}
 -(NSMutableArray*)prepareAppStateEvents:(BOAppSessionData*)sessionData {
     @try {
         NSMutableArray *eventsArray = [NSMutableArray array];
@@ -1868,7 +1921,7 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
     return nil;
 }
 
--(BOASystemAndDeveloperEvents*)createEventObject:(NSString*)eventName withEventCategory:(NSNumber*)eventCategory withEventSubcode:(NSNumber*)eventSubcode {
+-(BOASystemAndDeveloperEvents*)createEventObject:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode {
     @try {
         NSMutableArray *events = [[NSMutableArray alloc] init];
         
@@ -1881,7 +1934,8 @@ static NSString *BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
             BO_EVENT_CATEGORY_SUBTYPE:eventSubcode,
             BO_PROPERTIES: properties,
             BO_MESSAGE_ID:[BOAUtilities getMessageIDForEvent:eventName],
-            BO_USER_ID: [BOAUtilities getDeviceId]
+            BO_USER_ID: [BOAUtilities getDeviceId],
+            BO_SCREEN_NAME:screenName
         }];
         
         [events addObject:event];

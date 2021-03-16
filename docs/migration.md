@@ -1,3 +1,3 @@
 # Migration
 
-## Current Version 0.5.1
+## Current Version 0.6.0

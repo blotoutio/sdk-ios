@@ -14,6 +14,8 @@
 #import <BlotoutFoundation/BOFLogs.h>
 #import "BOAConstants.h"
 #import "BOAUtilities.h"
+#import "BONetworkEventService.h"
+
 void loadAsUIViewControllerBOFoundationCat(void){
     
 }
@@ -28,6 +30,12 @@ void loadAsUIViewControllerBOFoundationCat(void){
         Method originalMethod = class_getInstanceMethod(self, viewDidAppearSelector);
         Method extendedMethod = class_getInstanceMethod(self, viewDidAppearLoggerSelector);
         method_exchangeImplementations(originalMethod, extendedMethod);
+        
+        SEL viewWillDisappearSelector = @selector(viewWillDisappear:);
+        SEL viewWillDisappearLoggerSelector = @selector(logged_viewWillDisappear:);
+        Method originalDisappearMethod = class_getInstanceMethod(self, viewWillDisappearSelector);
+        Method extendedDisappearMethod = class_getInstanceMethod(self, viewWillDisappearLoggerSelector);
+        method_exchangeImplementations(originalDisappearMethod, extendedDisappearMethod);
     });
 }
 
@@ -51,6 +59,25 @@ void loadAsUIViewControllerBOFoundationCat(void){
     
     return rootViewController;
 }
+
+- (void)logged_viewWillDisappear:(BOOL)animated {
+    @try {
+        
+        UIViewController *top = [[self class] getTopmostViewController];
+        if (!top) {
+            return;
+        }
+        
+        [self logged_viewWillDisappear:animated];
+        
+        [BOSharedManager sharedInstance].isViewDidAppeared = NO;
+        // Send page_hide event
+        [BONetworkEventService sendPageHideEvent:[NSString stringWithFormat:@"%@", [top class]] storeEvents:NO];
+        
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+}
 - (void)logged_viewDidAppear:(BOOL)animated {
     @try {
         
@@ -60,7 +87,11 @@ void loadAsUIViewControllerBOFoundationCat(void){
         }
         
         [self logged_viewDidAppear:animated];
-        
+        if(![BOSharedManager sharedInstance].isViewDidAppeared) {
+            [BOSharedManager sharedInstance].isViewDidAppeared = YES;
+            // Send sdk_start event
+            [BONetworkEventService sendSdkStartEvent:[NSString stringWithFormat:@"%@", [top class]]];
+        }
         BOAppSessionData *appSessionData = [BOAppSessionData sharedInstanceFromJSONDictionary:nil];
         BOSharedManager *extentionManager = [BOSharedManager sharedInstance];
         

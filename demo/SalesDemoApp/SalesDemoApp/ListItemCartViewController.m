@@ -41,7 +41,7 @@
     for (NSString *key in [dictionary allKeys]) {
         [array addObject:[dictionary valueForKey:key]];
     }
-    [[BlotoutAnalytics sharedInstance] logEvent:@"List Item Cart View" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"List Item Cart View" withInformation:nil];
     self.itemArray = array;
     UIBarButtonItem *btnCartView = [[UIBarButtonItem alloc] initWithTitle:@"Buy" style:UIBarButtonItemStylePlain target:self action:@selector(btnCartPressed:)];
     self.navigationController.topViewController.navigationItem.rightBarButtonItem = btnCartView;
@@ -65,7 +65,7 @@
     
     [self presentViewController:alertView animated:YES completion:^{
         //Ashish
-        [[BlotoutAnalytics sharedInstance] logEvent:@"Purchase Complete" withInformation:nil];
+        [[BlotoutAnalytics sharedInstance] capture:@"Purchase Complete" withInformation:nil];
     }];
 }
 

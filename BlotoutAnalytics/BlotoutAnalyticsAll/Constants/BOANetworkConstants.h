@@ -51,6 +51,8 @@ extern  NSString *BO_RETENTION_EVENT_DATA_POST_API;
 
 extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
+extern int const BO_EVENT_PAGE_HIDE;
+extern NSString * const BO_PAGE_HIDE;
 
 extern NSString * const BO_EDGE_METADATA;
 extern NSString * const BO_APP_NAMESPACE;

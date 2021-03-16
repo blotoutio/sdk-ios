@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSOperationQueue *jobManager;
 @property (nonatomic,strong) NSString *sessionId;
+@property (nonatomic,readwrite) bool isViewDidAppeared;
+
 +(instancetype)sharedInstance;
 
 

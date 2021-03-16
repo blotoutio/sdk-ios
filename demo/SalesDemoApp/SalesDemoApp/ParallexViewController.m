@@ -23,7 +23,7 @@
     
     [super viewDidLoad];
     self.parallaxHeader.delegate = self;
-    [[BlotoutAnalytics sharedInstance] logEvent:@"Parallex View" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"Parallex View" withInformation:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

@@ -293,12 +293,12 @@ static BOOL staticIsNetworkSyncEnabled = YES;
     }];
 }
 
--(void)initializeAnalyticsEngineUsingKey:(NSString*_Nonnull)blotoutSDKKey url:(NSString*_Nonnull)endPointUrl andCompletionHandler:(void (^_Nullable)(BOOL isSuccess, NSError * _Nullable error))completionHandler {
+-(void)init:(BlotoutAnalyticsConfiguration*)configuration andCompletionHandler:(void (^_Nullable)(BOOL isSuccess, NSError * _Nullable error))completionHandler {
     self.isProductionMode = YES;
     __block BlotoutAnalytics *bSelf = self;
     //Confirm and perform 15 character length check if needed
-    blotoutSDKKey = [blotoutSDKKey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    endPointUrl = [endPointUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString* blotoutSDKKey = [configuration.token stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString* endPointUrl = [configuration.endPointUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if (!blotoutSDKKey || [blotoutSDKKey isEqualToString:@""] || !endPointUrl || [endPointUrl isEqualToString:@""] ) {
         NSError *initError = [NSError errorWithDomain:@"io.blotout.analytics" code:100002 userInfo:@{
@@ -337,7 +337,6 @@ static BOOL staticIsNetworkSyncEnabled = YES;
                         completionHandler(isSuccess, error);
                         [self intiateGeoAPI];
                         [[BOAAppSessionEvents sharedInstance] postInitLaunchEventsRecording];
-                        [BONetworkEventService sendSdkStartEvent];
                     }];
                     
                 } else {
@@ -353,7 +352,6 @@ static BOOL staticIsNetworkSyncEnabled = YES;
                 [self intiateGeoAPI];
                 [[BOAAppSessionEvents sharedInstance] postInitLaunchEventsRecording];
                 [[BOASDKManifestController sharedInstance] syncManifestWithServer];
-                [BONetworkEventService sendSdkStartEvent];
             }];
         }
     }
@@ -666,7 +664,7 @@ static BOOL staticIsNetworkSyncEnabled = YES;
      * @param provider e.g google, Mixpanel
      * @param eventInfo dictionary of events
      */
--(void)mapId:(nonnull NSString*)userId forProvider:(nonnull NSString*)provider withInformation:(nullable NSDictionary*)eventInfo{
+-(void)mapID:(nonnull NSString*)userId forProvider:(nonnull NSString*)provider withInformation:(nullable NSDictionary*)eventInfo{
     @try {
         //TODO: Discuss and Reivew whole below logic with Ankur
         NSMutableDictionary *mapIdInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:userId, provider, eventInfo,nil] forKeys:[NSArray arrayWithObjects:BO_EVENT_MAP_ID, BO_EVENT_MAP_Provider,nil]];
@@ -735,6 +733,13 @@ static BOOL staticIsNetworkSyncEnabled = YES;
  * @param eventName name of the event
  * @param eventInfo properties in key/value pair
  */
+-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo {
+    [self logEvent:eventName withInformation:eventInfo];
+}
+/**
+ * @param eventName name of the event
+ * @param eventInfo properties in key/value pair
+ */
 -(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo{
     @try {
         if (self.isEnabled) {
@@ -757,6 +762,7 @@ static BOOL staticIsNetworkSyncEnabled = YES;
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
+
 
 /**
  *
@@ -782,6 +788,25 @@ static BOOL staticIsNetworkSyncEnabled = YES;
             }else{
                 [self addPendingEvents:eventName withEventType:BO_PENDING_EVENT_TYPE_PII withInformation:eventInfo withEventDate:eventTime withEventCode:[NSNumber numberWithInt:0]];
             }
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+}
+
+/**
+ *
+ * @param eventName name of the event as String
+ * @param eventInfo properties in key/value pair
+ * @param phiEvent boolean value
+ */
+
+-(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo isPHI:(BOOL)phiEvent{
+    @try {
+        if(phiEvent) {
+            [self logPHIEvent:eventName withInformation:eventInfo happendAt:nil];
+        } else {
+            [self logPIIEvent:eventName withInformation:eventInfo happendAt:nil];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -933,6 +958,10 @@ static BOOL staticIsNetworkSyncEnabled = YES;
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
     return NO;
+}
+
+-(nullable NSString*)getUserId {
+    return [BOAUtilities getDeviceId];
 }
 
 @end

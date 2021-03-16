@@ -41,7 +41,7 @@ NSString *kBadgeValuePrefKey = @"kBadgeValue";  // badge value key for storing t
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     
-    [[BlotoutAnalytics sharedInstance] logEvent:@"BOSDK ThreeViewController test Event" withInformation:@{}];
+    [[BlotoutAnalytics sharedInstance] capture:@"BOSDK ThreeViewController test Event" withInformation:@{}];
 }
 
 - (void)doneAction:(id)sender
@@ -90,63 +90,9 @@ NSString *kBadgeValuePrefKey = @"kBadgeValue";  // badge value key for storing t
     
     return result;
 }
-- (IBAction)DevSwipeUPTest:(id)sender {
-    
-    [[BlotoutAnalytics sharedInstance] logEvent:@"swipeUp" withInformation:@{}];
-}
-
-- (IBAction)touchClickEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"touchClick" withInformation:@{}];
-}
-
-- (IBAction)dragEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"drag" withInformation:@{}];
-}
-
-- (IBAction)flickEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"flick" withInformation:@{}];
-}
-
-- (IBAction)doubleTap:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"doubleTap" withInformation:@{}];
-}
-
-- (IBAction)twoFingerTap:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"twoFingerTap" withInformation:@{}];
-}
-
-- (IBAction)pinchEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"pinch" withInformation:@{}];
-}
-
-- (IBAction)touchAndHoldEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"touchAndHold" withInformation:@{}];
-}
-
-- (IBAction)shakeEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"shake" withInformation:@{}];
-}
-
-- (IBAction)screenEdgePanEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"screenEdgePan" withInformation:@{}];
-}
-// Add one more button for view and other after listing on server
-//[[BlotoutAnalytics sharedInstance] logEvent:@"view" withInformation:@{}];
-
-- (IBAction)addToCartEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"Add To Cart" withInformation:@{}];
-}
-
-- (IBAction)chargeTransactionEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"chargeTransaction" withInformation:@{}];
-}
-
-- (IBAction)listUpdatedEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"listUpdated" withInformation:@{}];
-}
 
 - (IBAction)customEvent:(id)sender {
-    [[BlotoutAnalytics sharedInstance] logEvent:@"Test Custom Event" withInformation:@{}];
+    [[BlotoutAnalytics sharedInstance] capture:@"Test Custom Event" withInformation:@{}];
 }
 
 @end

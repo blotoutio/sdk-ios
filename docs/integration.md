@@ -15,14 +15,15 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
 ### Option 1 Objective-C:
 
 ```html
-#import "BlotoutAnalytics.h";
-
+#import "BlotoutAnalytics.h"
+#import "BlotoutAnalyticsConfiguration.h"
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
     
-    [boaObj initializeAnalyticsEngineUsingKey:@"blotoutSDKKey" url:@"endPointUrl" andCompletionHandler:^(BOOL isSuccess, NSError * _Nonnull error) {
-        NSLog(@"BlotoutAnalytics SDK version%@ and Init %d:or Error: %@", [boaObj sdkVersion], isSuccess, error);
-        [boaObj logEvent:@"AppLaunched" withInformation:launchOptions];
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"token" withUrl:@"endPointUrl"];
+    
+    [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nonnull error) {
+             NSLog(@"BlotoutAnalytics Init %d:or Error: %@", isSuccess, error);
     }];
     return YES;
 }
@@ -31,22 +32,25 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
 ### Option 2 Swift:
 ```html
 
-func boSDKInit(isProductionMode : Bool) throws -> Void {
+func boSDKInit() throws -> Void {
         let boaSDK : BlotoutAnalytics
         boaSDK =  BlotoutAnalytics.sharedInstance()!
-        boaSDK.initializeAnalyticsEngine(usingKey: "blotoutSDKKey", url: "endPointUrl") { (isSuccess : Bool, errorObj:Error?) in
+        let config = BlotoutAnalyticsConfiguration.init(token: "token", withUrl: "endPointUrl")
+        
+        boaSDK.`init`(config) { (isSuccess : Bool, errorObj:Error?) in
             if isSuccess{
                 print("Integration Successful.")
-                boaSDK.logEvent("AppLaunchedWithBOSDK", withInformation: nil)
+                boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
             }else{
                 print("Unexpected error:.")
             }
+            boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
         }
     }
 
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         do {
-            try boSDKInit(isProductionMode: false)
+            try boSDKInit()
         } catch {
             print("Unexpected error: \(error).")
         }

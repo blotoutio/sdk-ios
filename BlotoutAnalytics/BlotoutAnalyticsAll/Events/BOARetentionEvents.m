@@ -17,6 +17,7 @@
 #import "BlotoutAnalytics.h"
 #import "BOANotificationConstants.h"
 #import "BOSharedManager.h"
+#import "BlotoutAnalytics_Internal.h"
 
 static BOOL DAUSet = NO;
 static BOOL DPUSet = NO;

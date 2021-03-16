@@ -33,6 +33,7 @@
 #import "BOANetworkConstants.h"
 #import "BOManifestGeoAPI.h"
 #import "BOSharedManager.h"
+#import "BONetworkEventService.h"
 
 static id sBOFAppSessionSharedInstance = nil;
 
@@ -600,6 +601,12 @@ static id sBOFAppSessionSharedInstance = nil;
         
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification object:nil queue:[NSOperationQueue currentQueue] usingBlock:^(NSNotification * _Nonnull note) {
             
+            // Send page_hide event
+            if([BOSharedManager sharedInstance].currentNavigation != nil) {
+                [BONetworkEventService sendPageHideEvent:[BOSharedManager sharedInstance].currentNavigation.to storeEvents:YES];
+            } else {
+                [BONetworkEventService sendPageHideEvent:@"Unknown" storeEvents:YES];
+            }
             
             if (BOAEvents.isSessionModelInitialised) {
                 NSMutableArray *existingData = [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.appStates.appSessionInfo mutableCopy];

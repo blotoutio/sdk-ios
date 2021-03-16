@@ -11,23 +11,26 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    func boSDKInit(isProductionMode : Bool) throws -> Void {
+    func boSDKInit() throws -> Void {
         let boaSDK : BlotoutAnalytics
         boaSDK =  BlotoutAnalytics.sharedInstance()!
-        boaSDK.initializeAnalyticsEngine(usingKey: "5DNGP7DR2KD9JSY", url: "http://dev.blotout.io") { (isSuccess : Bool, errorObj:Error?) in
+        let config = BlotoutAnalyticsConfiguration.init(token: "B6PSYZ355NS383V", withUrl: "https://stage.blotout.io")
+        
+        boaSDK.`init`(config) { (isSuccess : Bool, errorObj:Error?) in
             if isSuccess{
                 print("Integration Successful.")
-                boaSDK.logEvent("AppLaunchedWithBOSDK", withInformation: nil)
+                boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
             }else{
                 print("Unexpected error:.")
             }
+            boaSDK.capture("AppLaunchedWithBOSDK", withInformation: nil)
         }
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         do {
-            try boSDKInit(isProductionMode: false)
+            try boSDKInit()
         } catch {
             print("Unexpected error: \(error).")
         }

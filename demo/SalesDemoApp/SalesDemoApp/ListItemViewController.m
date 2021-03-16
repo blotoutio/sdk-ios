@@ -46,7 +46,7 @@
     } failure:^(NSURLResponse * _Nonnull urlResponse, id  _Nonnull dataOrLocation, NSError * _Nonnull error) {
         
     }];
-    [[BlotoutAnalytics sharedInstance] logEvent:@"List Item View" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"List Item View" withInformation:nil];
     UIBarButtonItem *btnCartView = [[UIBarButtonItem alloc] initWithTitle:@"View Cart" style:UIBarButtonItemStylePlain target:self action:@selector(btnCartPressed:)];
     self.navigationController.topViewController.navigationItem.rightBarButtonItem = btnCartView;
 }
@@ -55,7 +55,7 @@
     
     ListItemCartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ListItemCartViewController"];
     //Ashish
-    [[BlotoutAnalytics sharedInstance] logEvent:@"View Cart Clicked" withInformation:@{@"time":[NSDate date], @"VC Name":@"ListItemVC"}];
+    [[BlotoutAnalytics sharedInstance] capture:@"View Cart Clicked" withInformation:@{@"time":[NSDate date], @"VC Name":@"ListItemVC"}];
     [self.navigationController pushViewController:cartVC animated:YES];
     
 }
@@ -113,7 +113,7 @@
     eBayAPI *api = [[eBayAPI alloc] init];
     [api getSingleItemInfoWithQueryString:[[dict objectForKey:@"ItemID"] longLongValue] Withsuccess:^(id  _Nonnull responseObject) {
         
-        [[BlotoutAnalytics sharedInstance] logEvent:@"Item Selected" withInformation:@{@"time":[NSDate date], @"Item Name":[dict objectForKey:@"Title"]}];
+        [[BlotoutAnalytics sharedInstance] capture:@"Item Selected" withInformation:@{@"time":[NSDate date], @"Item Name":[dict objectForKey:@"Title"]}];
         
         NSDictionary* pItemDict  = [responseObject objectAtIndex:0];
         dispatch_async(dispatch_get_main_queue(), ^{

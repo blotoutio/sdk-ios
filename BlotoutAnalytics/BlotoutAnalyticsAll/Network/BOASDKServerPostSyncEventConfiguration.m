@@ -223,6 +223,18 @@ static id sBOASdkServerPostSyncEventConfig = nil;
             sessionObject.singleDaySessions.ubiAutoDetected.appNavigation = [NSArray array];
         }
         
+        for (BOApp *event in sessionObject.singleDaySessions.appStates.sdkStart) {
+            if ([serverEvent.mid isEqualToString: event.mid]) {
+                event.sentToServer = [NSNumber numberWithBool: YES];
+            }
+        }
+        
+        for (BOApp *event in sessionObject.singleDaySessions.appStates.pageHide) {
+            if ([serverEvent.mid isEqualToString: event.mid]) {
+                event.sentToServer = [NSNumber numberWithBool: YES];
+            }
+        }
+        
         [self updateDeviceEvents:serverEvent forSession:sessionObject];
         [self updateMemoryEvents:serverEvent forSession:sessionObject];
         [self updatePIIEvents:serverEvent forSession:sessionObject];

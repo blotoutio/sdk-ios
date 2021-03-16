@@ -164,6 +164,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable, copy)   NSArray<BOApp *> *appNotificationViewed;
 @property (nonatomic, nullable, copy)   NSArray<BOApp *> *appNotificationClicked;
 @property (nonatomic, nullable, copy)   NSArray<BOSessionInfo *> *appSessionInfo;
+@property (nonatomic, nullable, copy)   NSArray<BOApp *> *sdkStart;
+@property (nonatomic, nullable, copy)   NSArray<BOApp *> *pageHide;
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 

@@ -245,7 +245,7 @@ static BOOL sIsEncryptionEnabled = YES;
           for (NSString *oneContent in allContent) {
               
             //stop removing sdkManifest file
-            if([oneContent isEqualToString:@"sdkManifest.txt"])
+            if([oneContent containsString:@"sdkManifest.txt"])
                 continue;
               
               BOOL isDir = NO;

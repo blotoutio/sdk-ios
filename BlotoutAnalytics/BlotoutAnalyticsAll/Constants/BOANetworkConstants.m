@@ -49,6 +49,9 @@ NSString *BO_RETENTION_EVENT_DATA_POST_API = @"boRetentionEventDataPOSTAPI";
 int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
 
+int const BO_EVENT_PAGE_HIDE = 11106;
+NSString * const BO_PAGE_HIDE= @"pagehide";
+
 NSString * const BO_EDGE_METADATA= @"edge_metadata";
 NSString * const BO_APP_NAMESPACE= @"app_namespace";
 NSString * const BO_APP_VERSION= @"app_version";

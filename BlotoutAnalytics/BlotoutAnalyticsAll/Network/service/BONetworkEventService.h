@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BONetworkEventService : NSObject
 
-+(void)sendSdkStartEvent;
++(void)sendSdkStartEvent:(NSString*)screenName;
++(void)sendPageHideEvent:(NSString*)screenName storeEvents:(BOOL)storeEvent;
 @end
 
 NS_ASSUME_NONNULL_END

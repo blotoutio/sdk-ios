@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(BOASystemAndDeveloperEvents*)serverFormatLifeTimeEventsFrom:(BOAAppLifetimeData*)lifetimeSessionData;
 -(BOASystemAndDeveloperEvents*)serverFormatLifeTimeRetentionEventsFrom:(BOAAppLifetimeData*)lifetimeSessionData;
 -(BOASystemAndDeveloperEvents*)serverFormatPIIPHIEventsFrom:(BOAppSessionData*)sessionData;
--(BOASystemAndDeveloperEvents*)createEventObject:(NSString*)eventName withEventCategory:(NSNumber*)eventCategory withEventSubcode:(NSNumber*)eventSubcode;
+-(BOASystemAndDeveloperEvents*)createEventObject:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode;
 
 @end
 

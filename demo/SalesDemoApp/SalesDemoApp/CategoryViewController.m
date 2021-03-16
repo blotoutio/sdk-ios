@@ -29,7 +29,7 @@
     // Do any additional setup after loading the view.
     UIImageView *pImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"windows-shopper.png"]];
     self.navigationItem.titleView = pImageView;
-    [[BlotoutAnalytics sharedInstance] logEvent:@"CategoryView" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"CategoryView" withInformation:nil];
     if(self.categoryID <= 0) {
         eBayAPI *api = [[eBayAPI alloc] init];
         [api getCategoryInfoWithsuccess:^(id  _Nonnull responseObject) {
@@ -73,7 +73,7 @@
     
     ListItemCartViewController *cartVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ListItemCartViewController"];
     //Ashish
-    [[BlotoutAnalytics sharedInstance] logEvent:@"View Cart Clicked" withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
+    [[BlotoutAnalytics sharedInstance] capture:@"View Cart Clicked" withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
     [self.navigationController pushViewController:cartVC animated:YES];
     
 }
@@ -121,7 +121,7 @@
         categoryListController.categoryID=[[dict objectForKey:@"CategoryID"]longLongValue];
         categoryListController.title = [dict valueForKey:@"CategoryName"];
         
-        [[BlotoutAnalytics sharedInstance] logEvent:@"Category Selected" withInformation:@{@"time":[NSDate date], @"Item Name":[dict objectForKey:@"CategoryName"]}];
+        [[BlotoutAnalytics sharedInstance] capture:@"Category Selected" withInformation:@{@"time":[NSDate date], @"Item Name":[dict objectForKey:@"CategoryName"]}];
         
         [self.navigationController pushViewController:categoryListController animated:YES];
         

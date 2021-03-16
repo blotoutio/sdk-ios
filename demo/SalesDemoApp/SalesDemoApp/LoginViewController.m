@@ -85,7 +85,7 @@ void report_memory(void) {
     self.memInfoValLbl.text = memInfoStr;
     
     //[[BlotoutAnalytics sharedInstance] logEvent:@"LoginView" withInformation:@{@"vc":@"LVC"}];
-    [[BlotoutAnalytics sharedInstance] logEvent:@"LoginView" withInformation:nil];
+    [[BlotoutAnalytics sharedInstance] capture:@"LoginView" withInformation:nil];
     //self.testToken.text = @"UHE44839MMUNM26";
     //self.productionToken.text = @"7J9MXNPYCEDTAYH";
 }

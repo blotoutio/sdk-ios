@@ -42,7 +42,7 @@
     //
     self.titleLabel.hidden = [self.parentViewController isKindOfClass:[UINavigationController class]] ? YES : NO;
     
-    [[BlotoutAnalytics sharedInstance] logEvent:@"BOSDK FourViewController test Event" withInformation:@{}];
+    [[BlotoutAnalytics sharedInstance] capture:@"BOSDK FourViewController test Event" withInformation:@{}];
 }
 
 @end

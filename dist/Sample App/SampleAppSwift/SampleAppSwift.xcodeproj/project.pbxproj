@@ -18,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B71D70425FCD3A2003D5186 /* BlotoutAnalyticsConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsConfiguration.h; sourceTree = "<group>"; };
 		74E302CA242BEE8D0092A81C /* SampleAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E302CD242BEE8D0092A81C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74E302CF242BEE8D0092A81C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		74E302E5242BEF760092A81C /* BlotoutSDK */ = {
 			isa = PBXGroup;
 			children = (
+				2B71D70425FCD3A2003D5186 /* BlotoutAnalyticsConfiguration.h */,
 				74E302E6242BEF760092A81C /* libBlotoutAnalytics.a */,
 				74E302E7242BEF760092A81C /* BlotoutAnalytics.h */,
 			);

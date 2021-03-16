@@ -17,6 +17,7 @@
 #include "BOANotificationConstants.h"
 #import "BOAppSessionData.h"
 #import "BOSharedManager.h"
+#import "BlotoutAnalytics_Internal.h"
 
 static id sBOALifeTimeEventsSharedInstance = nil;
 
