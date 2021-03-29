@@ -48,12 +48,7 @@ typedef NS_ENUM(NSUInteger, BO_DEPLOYMENT_MODE) {
 @property (assign, nonatomic) NSNumber *intervalRetryInterval;
 @property (assign, nonatomic) NSString *serverBaseURL;
 @property (assign, nonatomic) NSString *geoIPPath;
-@property (assign, nonatomic) NSString *eventFunnelPath;
-@property (assign, nonatomic) NSString *eventFunnelPathsFeedback;
-@property (assign, nonatomic) NSString *eventRetentionPath;
 @property (assign, nonatomic) NSString *eventPath;
-@property (assign, nonatomic) NSString *segmentPath;
-@property (assign, nonatomic) NSString *segmentPathFeedback;
 @property (assign, nonatomic) NSString *manifestPath;
 @property (assign, nonatomic) NSString *piiPublicKey;
 @property (assign, nonatomic) NSString *phiPublickey;
@@ -65,11 +60,6 @@ typedef NS_ENUM(NSUInteger, BO_DEPLOYMENT_MODE) {
 -(void)reloadManifestData;
 -(void)serverSyncManifestAndAppVerification:(void (^_Nullable) (BOOL isSuccess, NSError* error))callback;
 
--(id)requiredValueUsingModelOfVariableNameKeyValue:(NSString*)value;
--(NSDictionary*)dictContainingValue:(NSString*)value;
--(id)requiredValueUsingDictForVariableNameKeyValue:(NSString*)value;
--(BOASDKVariable*)requiredVariableObjectUsingModelOfVariableNameKeyValue:(NSString*)value;
--(NSString*)getAPIEndPointFromManifestFor:(NSString*)manifestVarName;
 -(BOOL)isManifestAvailable;
 
 -(NSString*)sdkManifestPathAfterWriting:(NSString*)sdkManifest;
@@ -79,9 +69,8 @@ typedef NS_ENUM(NSUInteger, BO_DEPLOYMENT_MODE) {
 
 -(void)syncManifestWithServer;
 
--(NSTimeInterval) manifestRefreshInterval;
--(void)setupManifestExtraParamOnSuccess;
--(void)setupManifestExtraParamOnFailure;
+-(NSTimeInterval)manifestRefreshInterval;
+
 -(NSNumber *)getNumberFrom:(NSString *)string;
 -(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forValue:(NSString*)value;
 - (int) delayInterval;

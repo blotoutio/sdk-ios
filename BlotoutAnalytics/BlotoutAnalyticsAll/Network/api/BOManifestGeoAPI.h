@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 /* These method perform getting Manifest data from server */
 -(void)getManifestDataModel:(NSData*)eventData success:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure;
 
-/* These method used to fetch Geo IP data from server */
--(void)getGeoData:(nullable NSData*)eventData success:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,44 +15,14 @@
 		2BFA197B251B0BA5008DE9F4 /* BOCrypt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E893FD8A24D5971000EDE4DD /* BOCrypt.h */; };
 		7435E8B122E98F5C008480B8 /* BlotoutFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */; };
 		7435E8B222E98F5C008480B8 /* BlotoutFoundation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */; };
-		746C66B022EEC79000C71698 /* BOFSystemServices.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4D22EE04F2006BE5AD /* BOFSystemServices.h */; };
 		746C66B122EEC79C00C71698 /* BOFUserDefaults.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */; };
 		746C66B222EEC7A200C71698 /* BOFConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1C22EC877F006BE5AD /* BOFConstants.h */; };
 		746C66B322EEC7B100C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */; };
 		746C66B422EEC7C200C71698 /* BOFFileSystemManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1F22EC9175006BE5AD /* BOFFileSystemManager.h */; };
-		746C66B522EEC7D300C71698 /* BOFSystemServices.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4D22EE04F2006BE5AD /* BOFSystemServices.h */; };
 		746C66B622EEC7D500C71698 /* BOFFileSystemManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1F22EC9175006BE5AD /* BOFFileSystemManager.h */; };
 		746C66B722EEC7D900C71698 /* BOFUserDefaults.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */; };
 		746C66B822EEC7DF00C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */; };
 		746C66B922EEC7E400C71698 /* BOFConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1C22EC877F006BE5AD /* BOFConstants.h */; };
-		74A7C5D122EEC3F30040C7E6 /* BOFSSCarrierInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B422EEC3F30040C7E6 /* BOFSSCarrierInfo.m */; };
-		74A7C5D222EEC3F30040C7E6 /* BOFSSCarrierInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B422EEC3F30040C7E6 /* BOFSSCarrierInfo.m */; };
-		74A7C5D322EEC3F30040C7E6 /* BOFSSUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B522EEC3F30040C7E6 /* BOFSSUUID.m */; };
-		74A7C5D422EEC3F30040C7E6 /* BOFSSUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B522EEC3F30040C7E6 /* BOFSSUUID.m */; };
-		74A7C5D522EEC3F30040C7E6 /* BOFSSBatteryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B922EEC3F30040C7E6 /* BOFSSBatteryInfo.m */; };
-		74A7C5D622EEC3F30040C7E6 /* BOFSSBatteryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5B922EEC3F30040C7E6 /* BOFSSBatteryInfo.m */; };
-		74A7C5D722EEC3F30040C7E6 /* BOFSSApplicationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BB22EEC3F30040C7E6 /* BOFSSApplicationInfo.m */; };
-		74A7C5D822EEC3F30040C7E6 /* BOFSSApplicationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BB22EEC3F30040C7E6 /* BOFSSApplicationInfo.m */; };
-		74A7C5D922EEC3F30040C7E6 /* BOFSSMemoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BD22EEC3F30040C7E6 /* BOFSSMemoryInfo.m */; };
-		74A7C5DA22EEC3F30040C7E6 /* BOFSSMemoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BD22EEC3F30040C7E6 /* BOFSSMemoryInfo.m */; };
-		74A7C5DB22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BF22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m */; };
-		74A7C5DC22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5BF22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m */; };
-		74A7C5DD22EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m */; };
-		74A7C5DE22EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m */; };
-		74A7C5DF22EEC3F30040C7E6 /* BOFSSJailbreakCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C422EEC3F30040C7E6 /* BOFSSJailbreakCheck.m */; };
-		74A7C5E022EEC3F30040C7E6 /* BOFSSJailbreakCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C422EEC3F30040C7E6 /* BOFSSJailbreakCheck.m */; };
-		74A7C5E122EEC3F30040C7E6 /* BOFSSProcessInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C722EEC3F30040C7E6 /* BOFSSProcessInfo.m */; };
-		74A7C5E222EEC3F30040C7E6 /* BOFSSProcessInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C722EEC3F30040C7E6 /* BOFSSProcessInfo.m */; };
-		74A7C5E322EEC3F30040C7E6 /* BOFSSProcessorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C822EEC3F30040C7E6 /* BOFSSProcessorInfo.m */; };
-		74A7C5E422EEC3F30040C7E6 /* BOFSSProcessorInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C822EEC3F30040C7E6 /* BOFSSProcessorInfo.m */; };
-		74A7C5E522EEC3F30040C7E6 /* BOFSSDiskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C922EEC3F30040C7E6 /* BOFSSDiskInfo.m */; };
-		74A7C5E622EEC3F30040C7E6 /* BOFSSDiskInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5C922EEC3F30040C7E6 /* BOFSSDiskInfo.m */; };
-		74A7C5E722EEC3F30040C7E6 /* BOFSSHardwareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CD22EEC3F30040C7E6 /* BOFSSHardwareInfo.m */; };
-		74A7C5E822EEC3F30040C7E6 /* BOFSSHardwareInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CD22EEC3F30040C7E6 /* BOFSSHardwareInfo.m */; };
-		74A7C5E922EEC3F30040C7E6 /* BOFSSNetworkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CE22EEC3F30040C7E6 /* BOFSSNetworkInfo.m */; };
-		74A7C5EA22EEC3F30040C7E6 /* BOFSSNetworkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CE22EEC3F30040C7E6 /* BOFSSNetworkInfo.m */; };
-		74A7C5EB22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CF22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m */; };
-		74A7C5EC22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A7C5CF22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m */; };
 		74A8CD3123001C6900C87CC0 /* BOFNetworkPromiseProtocols.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1022EC844A006BE5AD /* BOFNetworkPromiseProtocols.h */; };
 		74A92C7A22EB07BD006BE5AD /* BlotoutFoundationWatchOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92C7722EB07BD006BE5AD /* BlotoutFoundationWatchOS.h */; };
 		74A92D6222EB08BB006BE5AD /* BlotoutFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */; };
@@ -71,8 +41,6 @@
 		74A92E2222EC9175006BE5AD /* BOFFileSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */; };
 		74A92E4A22EDF929006BE5AD /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */; };
 		74A92E4B22EDF929006BE5AD /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */; };
-		74A92E8922EE04F2006BE5AD /* BOFSystemServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E6C22EE04F2006BE5AD /* BOFSystemServices.m */; };
-		74A92E8A22EE04F2006BE5AD /* BOFSystemServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E6C22EE04F2006BE5AD /* BOFSystemServices.m */; };
 		74F9DAD823379FB700CBB160 /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F9DAD623379FB700CBB160 /* BOFLogs.m */; };
 		74F9DAD923379FB700CBB160 /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F9DAD623379FB700CBB160 /* BOFLogs.m */; };
 		74F9DAFF2337E63500CBB160 /* BOFLogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74F9DAD723379FB700CBB160 /* BOFLogs.h */; };
@@ -92,7 +60,6 @@
 			files = (
 				2BFA197B251B0BA5008DE9F4 /* BOCrypt.h in CopyFiles */,
 				2BCB879A2327C6CA00AD2390 /* BOReachability.h in CopyFiles */,
-				746C66B522EEC7D300C71698 /* BOFSystemServices.h in CopyFiles */,
 				74F9DAFF2337E63500CBB160 /* BOFLogs.h in CopyFiles */,
 				7435E8B222E98F5C008480B8 /* BlotoutFoundation.h in CopyFiles */,
 				74A92E0622EB1A32006BE5AD /* BOFNetworkPromise.h in CopyFiles */,
@@ -121,7 +88,6 @@
 				74A92D6322EB091D006BE5AD /* BlotoutFoundation.h in CopyFiles */,
 				74A92E0722EB1A4B006BE5AD /* BOFNetworkPromise.h in CopyFiles */,
 				74A92E1B22EC85E6006BE5AD /* BOFUtilities.h in CopyFiles */,
-				746C66B022EEC79000C71698 /* BOFSystemServices.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,35 +109,6 @@
 		7435E8AC22E98F5C008480B8 /* libBlotoutFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundation.h; sourceTree = "<group>"; };
 		7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundation.m; sourceTree = "<group>"; };
-		746C66AF22EEC51000C71698 /* BOFroute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFroute.h; sourceTree = "<group>"; };
-		74A7C5B422EEC3F30040C7E6 /* BOFSSCarrierInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSCarrierInfo.m; sourceTree = "<group>"; };
-		74A7C5B522EEC3F30040C7E6 /* BOFSSUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSUUID.m; sourceTree = "<group>"; };
-		74A7C5B622EEC3F30040C7E6 /* BOFSSJailbreakCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSJailbreakCheck.h; sourceTree = "<group>"; };
-		74A7C5B722EEC3F30040C7E6 /* BOFSSProcessorInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSProcessorInfo.h; sourceTree = "<group>"; };
-		74A7C5B822EEC3F30040C7E6 /* BOFSSProcessInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSProcessInfo.h; sourceTree = "<group>"; };
-		74A7C5B922EEC3F30040C7E6 /* BOFSSBatteryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSBatteryInfo.m; sourceTree = "<group>"; };
-		74A7C5BA22EEC3F30040C7E6 /* BOFSSHardwareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSHardwareInfo.h; sourceTree = "<group>"; };
-		74A7C5BB22EEC3F30040C7E6 /* BOFSSApplicationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSApplicationInfo.m; sourceTree = "<group>"; };
-		74A7C5BD22EEC3F30040C7E6 /* BOFSSMemoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSMemoryInfo.m; sourceTree = "<group>"; };
-		74A7C5BE22EEC3F30040C7E6 /* BOFSSDiskInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSDiskInfo.h; sourceTree = "<group>"; };
-		74A7C5BF22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSAccessoryInfo.m; sourceTree = "<group>"; };
-		74A7C5C022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSAccelerometerInfo.m; sourceTree = "<group>"; };
-		74A7C5C122EEC3F30040C7E6 /* BOFSSLocalizationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSLocalizationInfo.h; sourceTree = "<group>"; };
-		74A7C5C222EEC3F30040C7E6 /* BOFSSNetworkInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSNetworkInfo.h; sourceTree = "<group>"; };
-		74A7C5C322EEC3F30040C7E6 /* BOFSSUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSUUID.h; sourceTree = "<group>"; };
-		74A7C5C422EEC3F30040C7E6 /* BOFSSJailbreakCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSJailbreakCheck.m; sourceTree = "<group>"; };
-		74A7C5C522EEC3F30040C7E6 /* BOFSSCarrierInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSCarrierInfo.h; sourceTree = "<group>"; };
-		74A7C5C622EEC3F30040C7E6 /* BOFSSBatteryInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSBatteryInfo.h; sourceTree = "<group>"; };
-		74A7C5C722EEC3F30040C7E6 /* BOFSSProcessInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSProcessInfo.m; sourceTree = "<group>"; };
-		74A7C5C822EEC3F30040C7E6 /* BOFSSProcessorInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSProcessorInfo.m; sourceTree = "<group>"; };
-		74A7C5C922EEC3F30040C7E6 /* BOFSSDiskInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSDiskInfo.m; sourceTree = "<group>"; };
-		74A7C5CA22EEC3F30040C7E6 /* BOFSSAccessoryInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSAccessoryInfo.h; sourceTree = "<group>"; };
-		74A7C5CB22EEC3F30040C7E6 /* BOFSSMemoryInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSMemoryInfo.h; sourceTree = "<group>"; };
-		74A7C5CC22EEC3F30040C7E6 /* BOFSSApplicationInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSApplicationInfo.h; sourceTree = "<group>"; };
-		74A7C5CD22EEC3F30040C7E6 /* BOFSSHardwareInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSHardwareInfo.m; sourceTree = "<group>"; };
-		74A7C5CE22EEC3F30040C7E6 /* BOFSSNetworkInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSNetworkInfo.m; sourceTree = "<group>"; };
-		74A7C5CF22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSSLocalizationInfo.m; sourceTree = "<group>"; };
-		74A7C5D022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSSAccelerometerInfo.h; sourceTree = "<group>"; };
 		74A92C6822EB07A9006BE5AD /* libBlotoutFoundationTVOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundationTVOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A92C6A22EB07A9006BE5AD /* BlotoutFoundationTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundationTVOS.h; sourceTree = "<group>"; };
 		74A92C6B22EB07A9006BE5AD /* BlotoutFoundationTVOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationTVOS.m; sourceTree = "<group>"; };
@@ -195,8 +132,6 @@
 		74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOFFileSystemManager.m; sourceTree = "<group>"; };
 		74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOFUserDefaults.h; sourceTree = "<group>"; };
 		74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOFUserDefaults.m; sourceTree = "<group>"; };
-		74A92E4D22EE04F2006BE5AD /* BOFSystemServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFSystemServices.h; sourceTree = "<group>"; };
-		74A92E6C22EE04F2006BE5AD /* BOFSystemServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFSystemServices.m; sourceTree = "<group>"; };
 		74F9DAD623379FB700CBB160 /* BOFLogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFLogs.m; sourceTree = "<group>"; };
 		74F9DAD723379FB700CBB160 /* BOFLogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFLogs.h; sourceTree = "<group>"; };
 		E893FD8024D5938B00EDE4DD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -273,42 +208,6 @@
 			path = BlotoutFoundation;
 			sourceTree = "<group>";
 		};
-		74A7C5B322EEC3F30040C7E6 /* BOFSystemServicesUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				746C66AF22EEC51000C71698 /* BOFroute.h */,
-				74A7C5B422EEC3F30040C7E6 /* BOFSSCarrierInfo.m */,
-				74A7C5B522EEC3F30040C7E6 /* BOFSSUUID.m */,
-				74A7C5B622EEC3F30040C7E6 /* BOFSSJailbreakCheck.h */,
-				74A7C5B722EEC3F30040C7E6 /* BOFSSProcessorInfo.h */,
-				74A7C5B822EEC3F30040C7E6 /* BOFSSProcessInfo.h */,
-				74A7C5B922EEC3F30040C7E6 /* BOFSSBatteryInfo.m */,
-				74A7C5BA22EEC3F30040C7E6 /* BOFSSHardwareInfo.h */,
-				74A7C5BB22EEC3F30040C7E6 /* BOFSSApplicationInfo.m */,
-				74A7C5BD22EEC3F30040C7E6 /* BOFSSMemoryInfo.m */,
-				74A7C5BE22EEC3F30040C7E6 /* BOFSSDiskInfo.h */,
-				74A7C5BF22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m */,
-				74A7C5C022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m */,
-				74A7C5C122EEC3F30040C7E6 /* BOFSSLocalizationInfo.h */,
-				74A7C5C222EEC3F30040C7E6 /* BOFSSNetworkInfo.h */,
-				74A7C5C322EEC3F30040C7E6 /* BOFSSUUID.h */,
-				74A7C5C422EEC3F30040C7E6 /* BOFSSJailbreakCheck.m */,
-				74A7C5C522EEC3F30040C7E6 /* BOFSSCarrierInfo.h */,
-				74A7C5C622EEC3F30040C7E6 /* BOFSSBatteryInfo.h */,
-				74A7C5C722EEC3F30040C7E6 /* BOFSSProcessInfo.m */,
-				74A7C5C822EEC3F30040C7E6 /* BOFSSProcessorInfo.m */,
-				74A7C5C922EEC3F30040C7E6 /* BOFSSDiskInfo.m */,
-				74A7C5CA22EEC3F30040C7E6 /* BOFSSAccessoryInfo.h */,
-				74A7C5CB22EEC3F30040C7E6 /* BOFSSMemoryInfo.h */,
-				74A7C5CC22EEC3F30040C7E6 /* BOFSSApplicationInfo.h */,
-				74A7C5CD22EEC3F30040C7E6 /* BOFSSHardwareInfo.m */,
-				74A7C5CE22EEC3F30040C7E6 /* BOFSSNetworkInfo.m */,
-				74A7C5CF22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m */,
-				74A7C5D022EEC3F30040C7E6 /* BOFSSAccelerometerInfo.h */,
-			);
-			path = BOFSystemServicesUtilities;
-			sourceTree = "<group>";
-		};
 		74A92C6922EB07A9006BE5AD /* BlotoutFoundationTVOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				74F9DAD523379FB700CBB160 /* BOFLogs */,
-				74A92E4C22EE04F2006BE5AD /* BOFSystemServices */,
 				74A92E1E22EC913E006BE5AD /* BOFStorage */,
 				74A92E1522EC85CE006BE5AD /* BOFUtilities */,
 				74A92D7722EB0AC8006BE5AD /* BOFNetwork */,
@@ -384,16 +282,6 @@
 				74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */,
 			);
 			path = BOFStorage;
-			sourceTree = "<group>";
-		};
-		74A92E4C22EE04F2006BE5AD /* BOFSystemServices */ = {
-			isa = PBXGroup;
-			children = (
-				74A7C5B322EEC3F30040C7E6 /* BOFSystemServicesUtilities */,
-				74A92E4D22EE04F2006BE5AD /* BOFSystemServices.h */,
-				74A92E6C22EE04F2006BE5AD /* BOFSystemServices.m */,
-			);
-			path = BOFSystemServices;
 			sourceTree = "<group>";
 		};
 		74F9DAD523379FB700CBB160 /* BOFLogs */ = {
@@ -550,33 +438,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74A7C5D322EEC3F30040C7E6 /* BOFSSUUID.m in Sources */,
 				2BCB87972327C5B800AD2390 /* BOReachability.m in Sources */,
-				74A92E8922EE04F2006BE5AD /* BOFSystemServices.m in Sources */,
-				74A7C5EB22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m in Sources */,
 				74A92E1822EC85CE006BE5AD /* BOFUtilities.m in Sources */,
-				74A7C5D722EEC3F30040C7E6 /* BOFSSApplicationInfo.m in Sources */,
 				E893FD8C24D5971000EDE4DD /* BOCrypt.m in Sources */,
 				74F9DAD823379FB700CBB160 /* BOFLogs.m in Sources */,
-				74A7C5DF22EEC3F30040C7E6 /* BOFSSJailbreakCheck.m in Sources */,
-				74A7C5E122EEC3F30040C7E6 /* BOFSSProcessInfo.m in Sources */,
 				74A92E0422EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */,
 				E893FD8824D5938B00EDE4DD /* NSData+CommonCrypto.m in Sources */,
 				E893FD8724D5938B00EDE4DD /* NSData+Base64.m in Sources */,
-				74A7C5E722EEC3F30040C7E6 /* BOFSSHardwareInfo.m in Sources */,
 				74A92E4A22EDF929006BE5AD /* BOFUserDefaults.m in Sources */,
-				74A7C5D922EEC3F30040C7E6 /* BOFSSMemoryInfo.m in Sources */,
 				7435E8B122E98F5C008480B8 /* BlotoutFoundation.m in Sources */,
 				74A92E2122EC9175006BE5AD /* BOFFileSystemManager.m in Sources */,
-				74A7C5D122EEC3F30040C7E6 /* BOFSSCarrierInfo.m in Sources */,
-				74A7C5E322EEC3F30040C7E6 /* BOFSSProcessorInfo.m in Sources */,
 				E893FD8924D5938B00EDE4DD /* NSString+Base64.m in Sources */,
-				74A7C5DB22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m in Sources */,
-				74A7C5DD22EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m in Sources */,
-				74A7C5E922EEC3F30040C7E6 /* BOFSSNetworkInfo.m in Sources */,
 				74A92E0C22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */,
-				74A7C5E522EEC3F30040C7E6 /* BOFSSDiskInfo.m in Sources */,
-				74A7C5D522EEC3F30040C7E6 /* BOFSSBatteryInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,29 +457,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74A7C5D422EEC3F30040C7E6 /* BOFSSUUID.m in Sources */,
 				2BCB87982327C5B800AD2390 /* BOReachability.m in Sources */,
-				74A92E8A22EE04F2006BE5AD /* BOFSystemServices.m in Sources */,
-				74A7C5EC22EEC3F30040C7E6 /* BOFSSLocalizationInfo.m in Sources */,
 				74A92E1922EC85CE006BE5AD /* BOFUtilities.m in Sources */,
-				74A7C5D822EEC3F30040C7E6 /* BOFSSApplicationInfo.m in Sources */,
 				74F9DAD923379FB700CBB160 /* BOFLogs.m in Sources */,
-				74A7C5E022EEC3F30040C7E6 /* BOFSSJailbreakCheck.m in Sources */,
-				74A7C5E222EEC3F30040C7E6 /* BOFSSProcessInfo.m in Sources */,
 				74A92E0522EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */,
-				74A7C5E822EEC3F30040C7E6 /* BOFSSHardwareInfo.m in Sources */,
 				74A92E4B22EDF929006BE5AD /* BOFUserDefaults.m in Sources */,
-				74A7C5DA22EEC3F30040C7E6 /* BOFSSMemoryInfo.m in Sources */,
 				74A92D6222EB08BB006BE5AD /* BlotoutFoundation.m in Sources */,
 				74A92E2222EC9175006BE5AD /* BOFFileSystemManager.m in Sources */,
-				74A7C5D222EEC3F30040C7E6 /* BOFSSCarrierInfo.m in Sources */,
-				74A7C5E422EEC3F30040C7E6 /* BOFSSProcessorInfo.m in Sources */,
-				74A7C5DC22EEC3F30040C7E6 /* BOFSSAccessoryInfo.m in Sources */,
-				74A7C5DE22EEC3F30040C7E6 /* BOFSSAccelerometerInfo.m in Sources */,
-				74A7C5EA22EEC3F30040C7E6 /* BOFSSNetworkInfo.m in Sources */,
 				74A92E0D22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */,
-				74A7C5E622EEC3F30040C7E6 /* BOFSSDiskInfo.m in Sources */,
-				74A7C5D622EEC3F30040C7E6 /* BOFSSBatteryInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -287,7 +287,7 @@ static BOReachability *sharedInstance = nil;
 		/*
          ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
          */
-		returnValue = BOReachableViaWWAN;
+        returnValue = BOReachableViaWWAN ? YES : NO;
 	}
     
 	return returnValue;

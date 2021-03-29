@@ -9,13 +9,13 @@
 #import "BOAUtilities.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "BOANetworkConstants.h"
-#import "BOAConstants.h"
 #import <BlotoutFoundation/BOFUserDefaults.h>
 #import <BlotoutFoundation/BOFLogs.h>
 #import <UIKit/UIKit.h>
 #import "BOASDKManifestController.h"
 #import "BlotoutAnalytics_Internal.h"
 #import <BlotoutFoundation/BOFUtilities.h>
+#import <AdSupport/ASIdentifierManager.h>
 
 @implementation BOAUtilities
 
@@ -230,39 +230,6 @@
     return 0;
 }
 
-//public static int getCurrentTimezoneOffsetInMin(TimeZone timeZOne) {
-//       try {
-//           Date now = new Date();
-//           return timeZOne.getOffset(now.getTime()) / (1000 * 60);
-//       } catch (Exception e) {
-//           Logger.INSTANCE.e(TAG, e.getMessage());
-//           return 0;
-//       }
-//   }
-
-+(NSNumber*)get10DigitNumberObjTimeStampFor:(NSDate*)date{
-    @try {
-        NSDate *dateL = date ?  date : [NSDate date];
-        NSInteger timeStamp = (NSInteger)([dateL timeIntervalSinceReferenceDate]);
-        NSNumber *timeStampObj = [NSNumber numberWithInteger:timeStamp];
-        return timeStampObj;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSInteger)get10DigitIntegerTimeStampFor:(NSDate*)date{
-    @try {
-        NSDate *dateL = date ?  date : [NSDate date];
-        NSInteger timeStamp = (NSInteger)([dateL timeIntervalSince1970]);
-        return timeStamp;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
 +(NSNumber*)get13DigitNumberObjTimeStampFor:(NSDate*)date{
     @try {
         NSDate *dateL = date ?  date : [NSDate date];
@@ -279,27 +246,6 @@
     @try {
         NSDate *dateL = date ?  date : [NSDate date];
         NSInteger timeStamp = (NSInteger)([dateL timeIntervalSince1970] * 1000);
-        return timeStamp;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSNumber*)get10DigitNumberObjTimeStamp{
-    @try {
-        NSInteger timeStamp = (NSInteger)([[NSDate date] timeIntervalSince1970]);
-        NSNumber *timeStampObj = [NSNumber numberWithInteger:timeStamp];
-        return timeStampObj;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSInteger)get10DigitIntegerTimeStamp{
-    @try {
-        NSInteger timeStamp = (NSInteger)([[NSDate date] timeIntervalSince1970]);
         return timeStamp;
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -348,7 +294,7 @@
     return 0;
 }
 
-+(long)getDayFromDate:(NSDate*)date{
++(NSInteger)getDayFromDate:(NSDate*)date{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: date];
@@ -361,7 +307,7 @@
     return 0;
 }
 
-+(long)getDayFromTodayDate{
++(NSInteger)getDayFromTodayDate{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: [NSDate date]];
@@ -374,7 +320,7 @@
     return 0;
 }
 
-+(long)getMonthFromDateString:(NSString*)dateString inFormat:(NSString*)format{
++(NSInteger)getMonthFromDateString:(NSString*)dateString inFormat:(NSString*)format{
     @try {
         NSString *dateFormat = format ? format : @"yyyy-MM-dd";
         NSCalendar * calendar = [NSCalendar currentCalendar];
@@ -390,7 +336,7 @@
     return 0;
 }
 
-+(long)getMonthFromDate:(NSDate*)date{
++(NSInteger)getMonthFromDate:(NSDate*)date{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: date];
@@ -402,7 +348,7 @@
     return 0;
 }
 
-+(long)getMonthFromTodayDate{
++(NSInteger)getMonthFromTodayDate{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: [NSDate date]];
@@ -414,7 +360,7 @@
     return 0;
 }
 
-+(long)getYearFromDateString:(NSString*)dateString inFormat:(NSString*)format{
++(NSInteger)getYearFromDateString:(NSString*)dateString inFormat:(NSString*)format{
     @try {
         NSString *dateFormat = format ? format : @"yyyy-MM-dd";
         NSCalendar * calendar = [NSCalendar currentCalendar];
@@ -430,7 +376,7 @@
     return 0;
 }
 
-+(long)getYearFromDate:(NSDate*)date{
++(NSInteger)getYearFromDate:(NSDate*)date{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear fromDate: date];
@@ -442,7 +388,7 @@
     return 0;
 }
 
-+(long)getYearFromTodayDate{
++(NSInteger)getYearFromTodayDate{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
         NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear fromDate: [NSDate date]];
@@ -966,37 +912,6 @@
     return  nil;
 }
 
-+(float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
-    @try {
-        float diff = bigNumber - smallNumber;
-        return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return smallNumber + 0.0;
-}
-
-+(float)randomIntBetween:(int)smallNumber and:(int)bigNumber {
-    @try {
-        int diff = bigNumber - smallNumber;
-        return (((arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return smallNumber + 0;
-}
-
-+(NSDate*)getDateBetween:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        NSArray<NSDate*> *dates = [self getAllDatesBetween:date1 andDate2:date2];
-        //int indexValue  = [self randomIntBetween:0 and:(dates.count-1)];
-        return (dates.count > 0) ? [dates objectAtIndex:0] : nil; // can randomise if needed using indexValue
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
 +(NSDate*)getDateGreaterThan:(NSDate*)date{
     @try {
         NSCalendar * calendar = [NSCalendar currentCalendar];
@@ -1156,67 +1071,6 @@
             {
                 char c = [input characterAtIndex:index];
                 sum = sum + [self intValueForChar:c];
-            }
-        }
-        return sum;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(int)getOnlyAsciiCharsCustomIntSumFromUnicode:(NSString *)input usingCaseSenstive:(BOOL)isCaseSenstive{
-    @try {
-        input = isCaseSenstive ? input : [input lowercaseString];
-        int sum = 0;
-        for (NSInteger index = 0; index < input.length; index++)
-        {
-            char c = [input characterAtIndex:index];
-            sum = sum + [self intValueForChar:c];
-        }
-        return sum;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-//MD5 digest is 32 char long, 128 bit digest.
-//If for example d54c and d5c4 happen at the begining and remaing string is same then sum will be same
-//Which can lead to same event sub code for different name
-+(int)getStringMD5CustomIntSum:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive
-{
-    @try {
-        input = isCaseSenstive ? input : [input lowercaseString];
-        NSString *md5String = [self md5HashOfString:input];
-        int sum = 0;
-        for (NSInteger index = 0; index < md5String.length; index++)
-        {
-            char c = [md5String characterAtIndex:index];
-            sum = sum + [self intValueForChar:c];
-        }
-        return sum;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-//Corner case might cause error at certain point
-//If this d54c and d45c happen at the begining and remaining string is same then summation is same even string is different
-+(int)getStringMD5CustomIntSumWithCharIndexAdded:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive
-{
-    @try {
-        input = isCaseSenstive ? input : [input lowercaseString];
-        NSString *md5String = [self md5HashOfString:input];
-        int sum = 0;
-        for (int index = 0; index < md5String.length; index++)
-        {
-            char c = [md5String characterAtIndex:index];
-            if ([self isNumberChar:c]) {
-                sum = sum + [self intValueForChar:c];
-            }else{
-                sum = sum + [self intValueForChar:c] + index;
             }
         }
         return sum;
@@ -1463,24 +1317,6 @@
     return 0;
 }
 
-+(NSString*)generateMessageIDForEvent:(NSString*)eventName evnetCode:(NSString*)eventCode happenedAt:(NSNumber*)eventTime{
-    @try {
-        return [NSString stringWithFormat:@"%@-%@-%@-%ld",eventCode, [self codeForCustomCodifiedEvent:eventName], eventTime, (long)[self get13DigitIntegerTimeStamp]];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSString*)getMessageIDForEvent:(NSString*)eventName andIdentifier:(NSNumber*)eventID{
-    @try {
-        return [NSString stringWithFormat:@"%@-%@-%@-%ld", eventID , [self codeForCustomCodifiedEvent:eventName],eventName, (long)[self get13DigitIntegerTimeStamp]];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
 +(NSString*)getMessageIDForEvent:(NSString*)eventName{
     @try {
         return [NSString stringWithFormat:@"%d-%@-%@-%ld",[self getAsciiCustomIntSum:eventName usingCaseSenstive:YES], [self codeForCustomCodifiedEvent:eventName], [self md5HashOfString:eventName], (long)[self get13DigitIntegerTimeStamp]];
@@ -1508,11 +1344,6 @@
             }else{
                 
                 int eventNameIntSum  = [self getHashIntSum:eventName];
-                //                if ([eventName canBeConvertedToEncoding:NSASCIIStringEncoding]) {
-                //                    eventNameIntSum = [BOAUtilities getAsciiCustomIntSum:eventName usingCaseSenstive:NO];
-                //                }else{
-                //                    eventNameIntSum = [BOAUtilities getStringMD5CustomIntSumWithCharIndexAdded:eventName usingCaseSenstive:NO];
-                //                }
                 
                 int eventNameIntSumModulo = eventNameIntSum % 8899; //as range is from 21100 - 29999
                 int eventSubCode = BO_DEV_EVENT_CUSTOM_KEY + eventNameIntSumModulo; //21100
@@ -1593,7 +1424,6 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
-        
     }  @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
@@ -1627,12 +1457,17 @@
 }
 
 + (NSString *)generateRandomNumber:(int)len {
-    static NSString *letters = @"0123456789";
-    NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
-    for (int i=0; i<len; i++) {
-        [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+    @try {
+        static NSString *letters = @"0123456789";
+        NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
+        for (int i=0; i<len; i++) {
+            [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random() % [letters length]]];
+        }
+        return randomString;
+    }  @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"";
     }
-    return randomString;
 }
 
 + (NSString *)getUUIDString {
@@ -1643,6 +1478,7 @@
     }
     @catch (NSException *exception) {
         // Error
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
         return nil;
     }
 }
@@ -1696,4 +1532,150 @@
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
+
+// System Name
++ (NSString *)systemName {
+    @try {
+        // Get the current system name
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(systemName)]) {
+            // Make a string for the system name
+            NSString *systemName = [[UIDevice currentDevice] systemName];
+            // Set the output to the system name
+            return systemName;
+        } else {
+            // System name not found
+            return @"Unknown";
+        }
+    }@catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"Unknown";
+    }
+}
+
+// System Version
++ (NSString *)systemVersion {
+    @try {
+        // Get the current system version
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(systemVersion)]) {
+            // Make a string for the system version
+            NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+            // Set the output to the system version
+            return systemVersion;
+        } else if ([[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersionString)]){
+            //[[NSProcessInfo processInfo] operatingSystemVersion]; //use this to get Major, Minor and Patch
+            NSString *systemVersion = [[NSProcessInfo processInfo] operatingSystemVersionString];
+            return systemVersion;
+        }else{
+            // System version not found
+            return @"Unknown";
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"Unknown";
+    }
+}
+
+// Model of Device
++ (NSString *)deviceModel {
+    @try {
+        // Get the device model
+        if ([[UIDevice currentDevice] respondsToSelector:@selector(model)]) {
+            // Make a string for the device model
+            NSString *deviceModel = [[UIDevice currentDevice] model];
+            // Set the output to the device model
+            return deviceModel;
+        } else {
+            // Device model not found
+            return @"Unknown";
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"Unknown";
+    }
+}
+
++(NSNumber *)getUserBirthTimeStamp{
+    NSNumber *timeStamp = [NSNumber numberWithInt:0];
+    @try {
+        BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
+        timeStamp = [analyticsRootUD objectForKey:BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY];
+        if([timeStamp intValue] == 0) {
+            timeStamp = [BOAUtilities get13DigitNumberObjTimeStamp];
+            [self setUserBirthTimeStamp:timeStamp];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+    return timeStamp;
+}
+
++(void)setUserBirthTimeStamp:(NSNumber*)timeStamp{
+    @try {
+        BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
+        [analyticsRootUD setObject:timeStamp forKey:BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+}
+
++ (NSData *_Nullable)dataFromPlist:(nonnull id)plist
+{
+    NSError *error = nil;
+    NSData *data = [NSPropertyListSerialization dataWithPropertyList:plist
+                                                              format:NSPropertyListXMLFormat_v1_0
+                                                             options:0
+                                                               error:&error];
+    if (error) {
+        BOFLogDebug(@"Unable to serialize data from plist object", error, plist);
+    }
+    return data;
+}
+
++ (id _Nullable)plistFromData:(NSData *_Nonnull)data
+{
+    NSError *error = nil;
+    id plist = [NSPropertyListSerialization propertyListWithData:data
+                                                         options:0
+                                                          format:nil
+                                                           error:&error];
+    if (error) {
+        BOFLogDebug(@"Unable to parse plist from data %@", error);
+    }
+    return plist;
+}
+
++(NSString*)getIDFA {
+    NSString *idForAdvertiser = nil;
+    @try {
+        Class identifierManager = NSClassFromString(@"ASIdentifierManager");
+        if (identifierManager) {
+            SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+            id sharedManager =
+            ((id (*)(id, SEL))
+             [identifierManager methodForSelector:sharedManagerSelector])(
+                                                                          identifierManager, sharedManagerSelector);
+            SEL advertisingIdentifierSelector =
+            NSSelectorFromString(@"advertisingIdentifier");
+            NSUUID *uuid =
+            ((NSUUID * (*)(id, SEL))
+             [sharedManager methodForSelector:advertisingIdentifierSelector])(
+                                                                              sharedManager, advertisingIdentifierSelector);
+            idForAdvertiser = [uuid UUIDString];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+    return idForAdvertiser;
+}
+
++(BOOL)getAdTrackingEnabled {
+    @try{
+        return [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return NO;
+    }
+}
+
+
 @end

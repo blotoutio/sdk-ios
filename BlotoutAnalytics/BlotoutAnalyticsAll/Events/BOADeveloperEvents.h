@@ -6,26 +6,15 @@
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
-#import "BOAEvents.h"
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BOADeveloperEvents : BOAEvents
+@interface BOADeveloperEvents : NSObject
 
-@property (nonatomic, readwrite) BOOL isEnabled;
-@property (nonatomic, strong) NSMutableDictionary *devEventUD;
-
-- (instancetype) init __attribute__((unavailable("Must use sharedInstance instead.")));
-+ (instancetype)sharedInstance;
-
--(void)startTimedEvent:(NSString*)eventName withInformation:(NSDictionary*)startEventInfo;
--(void)endTimedEvent:(NSString*)eventName withInformation:(NSDictionary*)endEventInfo;
-
--(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo withEventCode:(NSNumber*)eventCode;
--(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime;
--(void)logPIIEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime;
--(void)logPHIEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime;
-
++(NSDictionary*)captureEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo withEventCode:(NSNumber*)eventCode;
++(NSDictionary*)capturePersonalEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;
++(NSDictionary*)prepareServerPayload:(NSArray*)events;
 @end
 
 NS_ASSUME_NONNULL_END

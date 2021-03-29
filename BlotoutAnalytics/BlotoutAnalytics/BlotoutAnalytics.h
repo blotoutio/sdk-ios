@@ -58,4 +58,32 @@
  */
 -(nullable NSString*)getUserId;
 
+/*!
+ @method
+
+ @abstract
+ Enable the sending of analytics data. Enabled by default.
+
+ @discussion
+ Occasionally used in conjunction with disable user opt-out handling.
+ */
+- (void)enable;
+
+
+/*!
+ @method
+
+ @abstract
+ Completely disable the sending of any analytics data.
+
+ @discussion
+ If have a way for users to actively or passively (sometimes based on location) opt-out of
+ analytics data collection, you can use this method to turn off all data collection.
+ */
+- (void)disable;
+
+//Enable SDK Log Information
+@property (nonatomic, readwrite) BOOL isSDKLogEnabled;
+
+
 @end

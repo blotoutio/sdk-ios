@@ -20,7 +20,5 @@ extern void loadAsUIViewControllerBOFoundationCat(void);
 - (void)logged_viewDidAppear:(BOOL)animated;
 - (void)logged_viewWillDisappear:(BOOL)animated;
 
-- (NSTimer *)createTimer;
-- (void)timerTicked:(NSTimer *)timer;
 
 @end

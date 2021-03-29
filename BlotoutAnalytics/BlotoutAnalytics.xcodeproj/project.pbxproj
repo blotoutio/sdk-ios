@@ -21,10 +21,21 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2B02DF832351859200E0A79D /* BOAEventsCollectionAggregatorJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B02DF822351859200E0A79D /* BOAEventsCollectionAggregatorJob.m */; };
-		2B02DF842351859200E0A79D /* BOAEventsCollectionAggregatorJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B02DF822351859200E0A79D /* BOAEventsCollectionAggregatorJob.m */; };
-		2B4F8D50250A170300D6B877 /* BOSegmentAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D4B250A170200D6B877 /* BOSegmentAPI.m */; };
-		2B4F8D51250A170300D6B877 /* BOFunnelAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D4C250A170200D6B877 /* BOFunnelAPI.m */; };
+		2B22B75B26084DF20039F05B /* BOAEventsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B75A26084DF20039F05B /* BOAEventsManager.m */; };
+		2B22B76A260850B50039F05B /* BOASDKManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B769260850B50039F05B /* BOASDKManifest.m */; };
+		2B22B76B260850B50039F05B /* BOASDKManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B769260850B50039F05B /* BOASDKManifest.m */; };
+		2B22B77A260850EF0039F05B /* BOACaptureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B779260850EF0039F05B /* BOACaptureModel.m */; };
+		2B22B77B260850EF0039F05B /* BOACaptureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B779260850EF0039F05B /* BOACaptureModel.m */; };
+		2B22B786260881300039F05B /* BOAFileStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B785260881300039F05B /* BOAFileStorage.m */; };
+		2B22B787260881300039F05B /* BOAFileStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B785260881300039F05B /* BOAFileStorage.m */; };
+		2B22B79726088AA60039F05B /* BOAAESCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B79626088AA60039F05B /* BOAAESCrypto.m */; };
+		2B22B79826088AA60039F05B /* BOAAESCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B79626088AA60039F05B /* BOAAESCrypto.m */; };
+		2B22B7F3260911FF0039F05B /* BOAEventsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B75A26084DF20039F05B /* BOAEventsManager.m */; };
+		2B22B816260F5E1A0039F05B /* BOACrypto.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2B22B79426088A410039F05B /* BOACrypto.h */; };
+		2B22B8892610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */; };
+		2B22B88A2610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */; };
+		2B22B8E12610FFC10039F05B /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */; };
+		2B22B8E22610FFC10039F05B /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */; };
 		2B4F8D52250A170300D6B877 /* BOManifestGeoAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D4D250A170200D6B877 /* BOManifestGeoAPI.m */; };
 		2B4F8D58250A28EF00D6B877 /* BOANetworkConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D56250A28EF00D6B877 /* BOANetworkConstants.m */; };
 		2B4F8DB3250D10FA00D6B877 /* BOSDKAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8DB2250D10FA00D6B877 /* BOSDKAPITests.m */; };
@@ -32,21 +43,10 @@
 		2B71D6A225FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B71D6A125FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m */; };
 		2B71D6B225FC817C003D5186 /* BlotoutAnalyticsConfiguration.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2B71D6A025FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.h */; };
 		2BC70BB5251C948400A8A068 /* BOEventsOperationExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC70BB4251C948400A8A068 /* BOEventsOperationExecutor.m */; };
-		2BC70BB8251CC89100A8A068 /* BOPendingEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BC70BB7251CC89100A8A068 /* BOPendingEvents.m */; };
-		2BCA827822F304560036A9EC /* BOADeveloperEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA827722F304560036A9EC /* BOADeveloperEventModel.m */; };
-		2BCA827922F304560036A9EC /* BOADeveloperEventModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA827722F304560036A9EC /* BOADeveloperEventModel.m */; };
-		2BCA827F22F30B080036A9EC /* UIApplication+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA827D22F30B080036A9EC /* UIApplication+Extensions.m */; };
-		2BCA828022F30B080036A9EC /* UIApplication+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA827D22F30B080036A9EC /* UIApplication+Extensions.m */; };
-		2BCA82B722F705BA0036A9EC /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA82B522F705BA0036A9EC /* UIView+Extensions.m */; };
-		2BCA82B822F705BA0036A9EC /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA82B522F705BA0036A9EC /* UIView+Extensions.m */; };
 		2BCB8693230E8D4700AD2390 /* BOSharedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8692230E8D4700AD2390 /* BOSharedManager.m */; };
 		2BCB8694230E8D4700AD2390 /* BOSharedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB8692230E8D4700AD2390 /* BOSharedManager.m */; };
 		2BCB869C230EF63000AD2390 /* BOAUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB869A230EF63000AD2390 /* BOAUtilities.m */; };
 		2BCB869D230EF63000AD2390 /* BOAUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB869A230EF63000AD2390 /* BOAUtilities.m */; };
-		2BCB86C72312AC5E00AD2390 /* BOAPostEventsDataJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB86C52312AC5E00AD2390 /* BOAPostEventsDataJob.m */; };
-		2BCB86C82312AC5E00AD2390 /* BOAPostEventsDataJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB86C52312AC5E00AD2390 /* BOAPostEventsDataJob.m */; };
-		2BCB875F232129FB00AD2390 /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB875E232129FB00AD2390 /* NSError+BOAdditions.m */; };
-		2BCB8760232129FB00AD2390 /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB875E232129FB00AD2390 /* NSError+BOAdditions.m */; };
 		2BCB876323212A3B00AD2390 /* BONetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB876223212A3B00AD2390 /* BONetworkManager.m */; };
 		2BCB876423212A3B00AD2390 /* BONetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB876223212A3B00AD2390 /* BONetworkManager.m */; };
 		2BCB876823212A7B00AD2390 /* BOBaseAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB876723212A7B00AD2390 /* BOBaseAPI.m */; };
@@ -56,135 +56,36 @@
 		2BCEA25D22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */; };
 		2BCEA25E22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */; };
 		2BFA1978251A722F008DE9F4 /* BOEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA1977251A722F008DE9F4 /* BOEncryptionManager.m */; };
-		740D735123B533C700A86278 /* BOASegmentsSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D735023B533C700A86278 /* BOASegmentsSyncController.m */; };
-		740D735223B533C700A86278 /* BOASegmentsSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D735023B533C700A86278 /* BOASegmentsSyncController.m */; };
-		740D736123B68EAA00A86278 /* BOASegmentEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D736023B68EAA00A86278 /* BOASegmentEvents.m */; };
-		740D736223B68EAA00A86278 /* BOASegmentEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D736023B68EAA00A86278 /* BOASegmentEvents.m */; };
-		740D736A23B6935F00A86278 /* BOASegmentsGetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D736923B6935F00A86278 /* BOASegmentsGetRequest.m */; };
-		740D736B23B6935F00A86278 /* BOASegmentsGetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D736923B6935F00A86278 /* BOASegmentsGetRequest.m */; };
-		740D737523B7A79600A86278 /* BOASegmentsResSegmentsPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D737323B7A79600A86278 /* BOASegmentsResSegmentsPayload.m */; };
-		740D737623B7A79600A86278 /* BOASegmentsResSegmentsPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D737323B7A79600A86278 /* BOASegmentsResSegmentsPayload.m */; };
-		740D737923B937B100A86278 /* BOASegmentsExecutorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D737823B937B100A86278 /* BOASegmentsExecutorHelper.m */; };
-		740D737A23B937B100A86278 /* BOASegmentsExecutorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 740D737823B937B100A86278 /* BOASegmentsExecutorHelper.m */; };
 		7435E8C622E99062008480B8 /* BlotoutAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8C522E99062008480B8 /* BlotoutAnalytics.m */; };
 		7435E8C722E99062008480B8 /* BlotoutAnalytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8C422E99062008480B8 /* BlotoutAnalytics.h */; };
 		7435E8CF22E9907F008480B8 /* libBlotoutFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7435E8CE22E9907F008480B8 /* libBlotoutFoundation.a */; };
 		7443CD2223800A61000F6884 /* BOASDKManifestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD2123800A61000F6884 /* BOASDKManifestController.m */; };
 		7443CD2323800A61000F6884 /* BOASDKManifestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD2123800A61000F6884 /* BOASDKManifestController.m */; };
-		7443CD2623800A95000F6884 /* BOADeviceAndAppFraudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD2523800A95000F6884 /* BOADeviceAndAppFraudController.m */; };
-		7443CD2723800A95000F6884 /* BOADeviceAndAppFraudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD2523800A95000F6884 /* BOADeviceAndAppFraudController.m */; };
-		7443CD2B2380108C000F6884 /* BOASDKManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD292380108C000F6884 /* BOASDKManifest.m */; };
-		7443CD2C2380108C000F6884 /* BOASDKManifest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7443CD292380108C000F6884 /* BOASDKManifest.m */; };
-		744693E12328D6710094FB39 /* BOADataRuleEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693DD2328D6710094FB39 /* BOADataRuleEngine.m */; };
-		744693E22328D6710094FB39 /* BOADataRuleEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693DD2328D6710094FB39 /* BOADataRuleEngine.m */; };
-		744693E32328D6710094FB39 /* BOADataRuleEngineOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693DF2328D6710094FB39 /* BOADataRuleEngineOperations.m */; };
-		744693E42328D6710094FB39 /* BOADataRuleEngineOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693DF2328D6710094FB39 /* BOADataRuleEngineOperations.m */; };
-		744693E52328D6710094FB39 /* BOAJSONQueryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693E02328D6710094FB39 /* BOAJSONQueryEngine.m */; };
-		744693E62328D6710094FB39 /* BOAJSONQueryEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 744693E02328D6710094FB39 /* BOAJSONQueryEngine.m */; };
-		745AA7FA236237A300869A93 /* BOAFunnelAndCodifiedEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F2236237A300869A93 /* BOAFunnelAndCodifiedEvents.m */; };
-		745AA7FB236237A300869A93 /* BOAFunnelAndCodifiedEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F2236237A300869A93 /* BOAFunnelAndCodifiedEvents.m */; };
-		745AA7FC236237A300869A93 /* BOAFunnelPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F6236237A300869A93 /* BOAFunnelPayload.m */; };
-		745AA7FD236237A300869A93 /* BOAFunnelPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F6236237A300869A93 /* BOAFunnelPayload.m */; };
-		745AA7FE236237A300869A93 /* BOAEventsGetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F9236237A300869A93 /* BOAEventsGetRequest.m */; };
-		745AA7FF236237A300869A93 /* BOAEventsGetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 745AA7F9236237A300869A93 /* BOAEventsGetRequest.m */; };
-		746D91D822FB3ADA000B0317 /* BOAppSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91CF22FB3ADA000B0317 /* BOAppSessionData.m */; };
-		746D91D922FB3ADA000B0317 /* BOAppSessionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91CF22FB3ADA000B0317 /* BOAppSessionData.m */; };
-		746D91E722FC6EE6000B0317 /* BOALocalDefaultJSONs.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91E622FC6EE6000B0317 /* BOALocalDefaultJSONs.m */; };
-		746D91E822FC6EE6000B0317 /* BOALocalDefaultJSONs.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91E622FC6EE6000B0317 /* BOALocalDefaultJSONs.m */; };
-		746D91EB22FC7051000B0317 /* BOAAppLifetimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91EA22FC7051000B0317 /* BOAAppLifetimeData.m */; };
-		746D91EC22FC7051000B0317 /* BOAAppLifetimeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 746D91EA22FC7051000B0317 /* BOAAppLifetimeData.m */; };
-		746DD60A233B977000A63255 /* BOALifeTimeAllEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 746DD609233B977000A63255 /* BOALifeTimeAllEvent.m */; };
-		746DD60B233B977000A63255 /* BOALifeTimeAllEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 746DD609233B977000A63255 /* BOALifeTimeAllEvent.m */; };
-		74A8CD46230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD45230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m */; };
-		74A8CD47230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD45230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m */; };
-		74A8CD4A230BFD7E00C87CC0 /* BOASdkToServerFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD49230BFD7E00C87CC0 /* BOASdkToServerFormat.m */; };
-		74A8CD4B230BFD7E00C87CC0 /* BOASdkToServerFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD49230BFD7E00C87CC0 /* BOASdkToServerFormat.m */; };
-		74A8CD4E230BFDC100C87CC0 /* BOANetworkAndDataSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD4D230BFDC100C87CC0 /* BOANetworkAndDataSync.m */; };
-		74A8CD4F230BFDC100C87CC0 /* BOANetworkAndDataSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A8CD4D230BFDC100C87CC0 /* BOANetworkAndDataSync.m */; };
 		74A92D5F22EB08A0006BE5AD /* BlotoutAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8C522E99062008480B8 /* BlotoutAnalytics.m */; };
 		74A92D6422EB0960006BE5AD /* BlotoutAnalytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8C422E99062008480B8 /* BlotoutAnalytics.h */; };
 		74A92D6722EB0989006BE5AD /* libBlotoutFoundationTVOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A92C9922EB07EB006BE5AD /* libBlotoutFoundationTVOS.a */; };
 		74A92D6A22EB0997006BE5AD /* libBlotoutFoundationWatchOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A92C9B22EB07EB006BE5AD /* libBlotoutFoundationWatchOS.a */; };
 		74A92D6D22EB09A7006BE5AD /* libBlotoutFoundationMacOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74A92C9D22EB07EB006BE5AD /* libBlotoutFoundationMacOS.a */; };
-		74A92DA122EB0B13006BE5AD /* BOADeviceInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8222EB0B13006BE5AD /* BOADeviceInformation.m */; };
-		74A92DA222EB0B13006BE5AD /* BOADeviceInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8222EB0B13006BE5AD /* BOADeviceInformation.m */; };
-		74A92DA722EB0B13006BE5AD /* BOAStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8C22EB0B13006BE5AD /* BOAStorageManager.m */; };
-		74A92DA822EB0B13006BE5AD /* BOAStorageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8C22EB0B13006BE5AD /* BOAStorageManager.m */; };
 		74A92DA922EB0B13006BE5AD /* BOAUserDefaultsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8D22EB0B13006BE5AD /* BOAUserDefaultsStorage.m */; };
 		74A92DAA22EB0B13006BE5AD /* BOAUserDefaultsStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8D22EB0B13006BE5AD /* BOAUserDefaultsStorage.m */; };
-		74A92DAB22EB0B13006BE5AD /* BOATextFileStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8E22EB0B13006BE5AD /* BOATextFileStorage.m */; };
-		74A92DAC22EB0B13006BE5AD /* BOATextFileStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D8E22EB0B13006BE5AD /* BOATextFileStorage.m */; };
-		74A92DAD22EB0B13006BE5AD /* BOACampaignManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9122EB0B13006BE5AD /* BOACampaignManager.m */; };
-		74A92DAE22EB0B13006BE5AD /* BOACampaignManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9122EB0B13006BE5AD /* BOACampaignManager.m */; };
-		74A92DAF22EB0B13006BE5AD /* BOARetentionEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9322EB0B13006BE5AD /* BOARetentionEvents.m */; };
-		74A92DB022EB0B13006BE5AD /* BOARetentionEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9322EB0B13006BE5AD /* BOARetentionEvents.m */; };
 		74A92DB122EB0B13006BE5AD /* BOADeveloperEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */; };
 		74A92DB222EB0B13006BE5AD /* BOADeveloperEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */; };
-		74A92DB322EB0B13006BE5AD /* BOAAppSessionEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9622EB0B13006BE5AD /* BOAAppSessionEvents.m */; };
-		74A92DB422EB0B13006BE5AD /* BOAAppSessionEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9622EB0B13006BE5AD /* BOAAppSessionEvents.m */; };
-		74A92DB522EB0B13006BE5AD /* BOAEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9722EB0B13006BE5AD /* BOAEvents.m */; };
-		74A92DB622EB0B13006BE5AD /* BOAEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9722EB0B13006BE5AD /* BOAEvents.m */; };
-		74A92DB722EB0B13006BE5AD /* BOADeviceEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9822EB0B13006BE5AD /* BOADeviceEvents.m */; };
-		74A92DB822EB0B13006BE5AD /* BOADeviceEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9822EB0B13006BE5AD /* BOADeviceEvents.m */; };
-		74A92DB922EB0B13006BE5AD /* BOAPiiEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9922EB0B13006BE5AD /* BOAPiiEvents.m */; };
-		74A92DBA22EB0B13006BE5AD /* BOAPiiEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9922EB0B13006BE5AD /* BOAPiiEvents.m */; };
-		74A92DCA22EB0C7C006BE5AD /* BOADeviceInformation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D8122EB0B13006BE5AD /* BOADeviceInformation.h */; };
-		74A92DCD22EB0C7C006BE5AD /* BOAStorageManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D8922EB0B13006BE5AD /* BOAStorageManager.h */; };
-		74A92DCE22EB0C7C006BE5AD /* BOATextFileStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D8A22EB0B13006BE5AD /* BOATextFileStorage.h */; };
 		74A92DCF22EB0C7C006BE5AD /* BOAUserDefaultsStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D8B22EB0B13006BE5AD /* BOAUserDefaultsStorage.h */; };
-		74A92DD022EB0C7C006BE5AD /* BOACampaignManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9022EB0B13006BE5AD /* BOACampaignManager.h */; };
-		74A92DD122EB0C7C006BE5AD /* BOAPiiEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9422EB0B13006BE5AD /* BOAPiiEvents.h */; };
-		74A92DD222EB0C7C006BE5AD /* BOARetentionEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9A22EB0B13006BE5AD /* BOARetentionEvents.h */; };
-		74A92DD322EB0C7C006BE5AD /* BOAAppSessionEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9B22EB0B13006BE5AD /* BOAAppSessionEvents.h */; };
 		74A92DD422EB0C7C006BE5AD /* BOADeveloperEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */; };
-		74A92DD522EB0C7C006BE5AD /* BOAEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9D22EB0B13006BE5AD /* BOAEvents.h */; };
-		74A92DD622EB0C7C006BE5AD /* BOADeviceEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9E22EB0B13006BE5AD /* BOADeviceEvents.h */; };
-		74AA21AF2364E062009F02EC /* BOAFunnelSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AA21AD2364E062009F02EC /* BOAFunnelSyncController.m */; };
-		74AA21B02364E062009F02EC /* BOAFunnelSyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AA21AD2364E062009F02EC /* BOAFunnelSyncController.m */; };
-		74AFED1A2406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AFED192406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m */; };
-		74AFED1B2406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 74AFED192406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m */; };
-		74F41E8823A014D20067A69E /* BOACommunicatonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F41E8723A014D20067A69E /* BOACommunicatonController.m */; };
-		74F41E8923A014D20067A69E /* BOACommunicatonController.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F41E8723A014D20067A69E /* BOACommunicatonController.m */; };
-		E804F78A255D3D14009CF792 /* BOADataRuleEngineOperationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E804F789255D3D14009CF792 /* BOADataRuleEngineOperationsTests.m */; };
 		E80872C325B6F5A40015C2F7 /* BONetworkEventService.m in Sources */ = {isa = PBXBuildFile; fileRef = E80872C225B6F5A40015C2F7 /* BONetworkEventService.m */; };
-		E808EFEA258CBAD400233BEA /* BOAFunnelAndCodifiedEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E808EFE9258CBAD400233BEA /* BOAFunnelAndCodifiedEventsTests.m */; };
-		E81641CB258DBF5B00B53A61 /* BOAFunnelPayloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641CA258DBF5B00B53A61 /* BOAFunnelPayloadTests.m */; };
-		E81641D3258DC37700B53A61 /* BOASegmentEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641D2258DC37700B53A61 /* BOASegmentEventsTests.m */; };
-		E81641DB258DCCA400B53A61 /* BOASegmentsResSegmentsPayloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641DA258DCCA400B53A61 /* BOASegmentsResSegmentsPayloadTests.m */; };
 		E81641E3258DD07800B53A61 /* UIViewControllerExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */; };
-		E823AE8D2568D34E00E23490 /* BOADeveloperEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E823AE8C2568D34E00E23490 /* BOADeveloperEventsTests.m */; };
-		E823AE952568E2FD00E23490 /* BOCommonEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E823AE942568E2FD00E23490 /* BOCommonEventsTests.m */; };
-		E823AE9D2568E60F00E23490 /* BOAAppSessionEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E823AE9C2568E60F00E23490 /* BOAAppSessionEventsTests.m */; };
-		E827FAC724793DEA0032D549 /* BOCommonEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = E827FAC624793DEA0032D549 /* BOCommonEvents.m */; };
 		E82A9E17251882B100D2F46B /* BOASDKManifestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */; };
 		E82A9E44251882E200D2F46B /* BOASDKManifestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */; };
-		E82A9E4C25188D3800D2F46B /* BOANotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E4B25188D3800D2F46B /* BOANotificationConstants.m */; };
-		E82A9E6925188F4D00D2F46B /* BOANotificationConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E4B25188D3800D2F46B /* BOANotificationConstants.m */; };
 		E83782DD24684BCD00FA9F48 /* BOServerDataConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E83782DC24684BCD00FA9F48 /* BOServerDataConverter.m */; };
 		E843AD41249E0791006C10CE /* BlotoutAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */; };
 		E843AD43249E0791006C10CE /* libBlotoutAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7435E8C122E99062008480B8 /* libBlotoutAnalytics.a */; };
-		E8585BBD2588CD460006CB75 /* BOASegmentsExecutorHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8585BBC2588CD460006CB75 /* BOASegmentsExecutorHelperTests.m */; };
 		E8677D1F256B810B00CF62D2 /* BOSharedManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */; };
 		E8677D35256B91D500CF62D2 /* BOEncryptionManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D34256B91D500CF62D2 /* BOEncryptionManagerTests.m */; };
 		E8677D3D256B9A7100CF62D2 /* BOServerDataConverterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D3C256B9A7100CF62D2 /* BOServerDataConverterTests.m */; };
 		E8677D45256BA66900CF62D2 /* BOEventsOperationExecutorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D44256BA66900CF62D2 /* BOEventsOperationExecutorTests.m */; };
-		E875FC97255BC72700720ED3 /* BOADataRuleEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E875FC96255BC72700720ED3 /* BOADataRuleEngineTests.m */; };
-		E875FC9F255BFB1F00720ED3 /* BOAJSONQueryEngineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E875FC9E255BFB1F00720ED3 /* BOAJSONQueryEngineTests.m */; };
-		E8764C832567843E00A8E4BF /* BOARetentionEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8764C822567843E00A8E4BF /* BOARetentionEventsTests.m */; };
-		E87796352588B12E00EFA7D6 /* BOASegmentsSyncControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E87796342588B12E00EFA7D6 /* BOASegmentsSyncControllerTests.m */; };
 		E877963D2588B81C00EFA7D6 /* BONetworkManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E877963C2588B81C00EFA7D6 /* BONetworkManagerTests.m */; };
-		E87796452588BA8100EFA7D6 /* BOSegmentApiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E87796442588BA8100EFA7D6 /* BOSegmentApiTests.m */; };
-		E877FDEB2589D6F50019FCE2 /* BOASDKServerPostSyncEventConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E877FDEA2589D6F50019FCE2 /* BOASDKServerPostSyncEventConfigurationTests.m */; };
 		E87ADEFA24C00BF8001BCAB3 /* BOASDKManifestControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E87ADEF924C00BF8001BCAB3 /* BOASDKManifestControllerTests.m */; };
-		E88CEDD72519AD8F00251828 /* BOAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E88CEDD62519AD8F00251828 /* BOAConstants.m */; };
-		E88CEDD82519AD8F00251828 /* BOAConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E88CEDD62519AD8F00251828 /* BOAConstants.m */; };
-		E898099B25872C6600495F4C /* BOASdkToServerFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E898099A25872C6600495F4C /* BOASdkToServerFormatTests.m */; };
-		E89809A92587381800495F4C /* BOANetworkAndDataSyncTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E89809A82587381800495F4C /* BOANetworkAndDataSyncTests.m */; };
 		E8E4691E250C9A8F00F35951 /* BOFFileSystemManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4691D250C9A8F00F35951 /* BOFFileSystemManagerTests.m */; };
-		E8F045D725663AE5009050F2 /* BOAEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F045D625663AE5009050F2 /* BOAEventsTests.m */; };
-		E8F045E5256653EA009050F2 /* BOAPiiEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F045E4256653EA009050F2 /* BOAPiiEventsTests.m */; };
-		E8F045ED25667D22009050F2 /* BOADeviceEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F045EC25667D22009050F2 /* BOADeviceEventsTests.m */; };
-		E8F045F52566852D009050F2 /* BOALifeTimeAllEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F045F42566852D009050F2 /* BOALifeTimeAllEventTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +161,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				2B22B816260F5E1A0039F05B /* BOACrypto.h in CopyFiles */,
 				2B71D6B225FC817C003D5186 /* BlotoutAnalyticsConfiguration.h in CopyFiles */,
 				7435E8C722E99062008480B8 /* BlotoutAnalytics.h in CopyFiles */,
 			);
@@ -271,17 +173,8 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				74A92DCA22EB0C7C006BE5AD /* BOADeviceInformation.h in CopyFiles */,
-				74A92DCD22EB0C7C006BE5AD /* BOAStorageManager.h in CopyFiles */,
-				74A92DCE22EB0C7C006BE5AD /* BOATextFileStorage.h in CopyFiles */,
 				74A92DCF22EB0C7C006BE5AD /* BOAUserDefaultsStorage.h in CopyFiles */,
-				74A92DD022EB0C7C006BE5AD /* BOACampaignManager.h in CopyFiles */,
-				74A92DD122EB0C7C006BE5AD /* BOAPiiEvents.h in CopyFiles */,
-				74A92DD222EB0C7C006BE5AD /* BOARetentionEvents.h in CopyFiles */,
-				74A92DD322EB0C7C006BE5AD /* BOAAppSessionEvents.h in CopyFiles */,
 				74A92DD422EB0C7C006BE5AD /* BOADeveloperEvents.h in CopyFiles */,
-				74A92DD522EB0C7C006BE5AD /* BOAEvents.h in CopyFiles */,
-				74A92DD622EB0C7C006BE5AD /* BOADeviceEvents.h in CopyFiles */,
 				74A92D6422EB0960006BE5AD /* BlotoutAnalytics.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,40 +191,36 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2B02DF812351859200E0A79D /* BOAEventsCollectionAggregatorJob.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAEventsCollectionAggregatorJob.h; sourceTree = "<group>"; };
-		2B02DF822351859200E0A79D /* BOAEventsCollectionAggregatorJob.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAEventsCollectionAggregatorJob.m; sourceTree = "<group>"; };
-		2B4F8D4A250A16F800D6B877 /* BOFunnelAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFunnelAPI.h; sourceTree = "<group>"; };
-		2B4F8D4B250A170200D6B877 /* BOSegmentAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOSegmentAPI.m; sourceTree = "<group>"; };
-		2B4F8D4C250A170200D6B877 /* BOFunnelAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFunnelAPI.m; sourceTree = "<group>"; };
+		2B22B75926084DF20039F05B /* BOAEventsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAEventsManager.h; sourceTree = "<group>"; };
+		2B22B75A26084DF20039F05B /* BOAEventsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAEventsManager.m; sourceTree = "<group>"; };
+		2B22B768260850B50039F05B /* BOASDKManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASDKManifest.h; sourceTree = "<group>"; };
+		2B22B769260850B50039F05B /* BOASDKManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifest.m; sourceTree = "<group>"; };
+		2B22B778260850EF0039F05B /* BOACaptureModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOACaptureModel.h; sourceTree = "<group>"; };
+		2B22B779260850EF0039F05B /* BOACaptureModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOACaptureModel.m; sourceTree = "<group>"; };
+		2B22B78326087A8C0039F05B /* BOAStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAStorage.h; sourceTree = "<group>"; };
+		2B22B784260881300039F05B /* BOAFileStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAFileStorage.h; sourceTree = "<group>"; };
+		2B22B785260881300039F05B /* BOAFileStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAFileStorage.m; sourceTree = "<group>"; };
+		2B22B79426088A410039F05B /* BOACrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOACrypto.h; sourceTree = "<group>"; };
+		2B22B79526088AA60039F05B /* BOAAESCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAAESCrypto.h; sourceTree = "<group>"; };
+		2B22B79626088AA60039F05B /* BOAAESCrypto.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAAESCrypto.m; sourceTree = "<group>"; };
+		2B22B8872610AB5A0039F05B /* BOADeviceAndAppFraudController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeviceAndAppFraudController.h; sourceTree = "<group>"; };
+		2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeviceAndAppFraudController.m; sourceTree = "<group>"; };
+		2B22B8DF2610FFC10039F05B /* NSError+BOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BOAdditions.h"; sourceTree = "<group>"; };
+		2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BOAdditions.m"; sourceTree = "<group>"; };
 		2B4F8D4D250A170200D6B877 /* BOManifestGeoAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOManifestGeoAPI.m; sourceTree = "<group>"; };
 		2B4F8D4E250A170200D6B877 /* BOManifestGeoAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOManifestGeoAPI.h; sourceTree = "<group>"; };
-		2B4F8D4F250A170200D6B877 /* BOSegmentAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOSegmentAPI.h; sourceTree = "<group>"; };
 		2B4F8D54250A28EF00D6B877 /* BOANetworkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOANetworkConstants.h; sourceTree = "<group>"; };
-		2B4F8D55250A28EF00D6B877 /* BOAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAConstants.h; sourceTree = "<group>"; };
 		2B4F8D56250A28EF00D6B877 /* BOANetworkConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOANetworkConstants.m; sourceTree = "<group>"; };
-		2B4F8D57250A28EF00D6B877 /* BOANotificationConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOANotificationConstants.h; sourceTree = "<group>"; };
 		2B4F8DB2250D10FA00D6B877 /* BOSDKAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOSDKAPITests.m; sourceTree = "<group>"; };
 		2B4F8DB7250E1D9D00D6B877 /* BOAUtilitiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAUtilitiesTests.m; sourceTree = "<group>"; };
 		2B71D6A025FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsConfiguration.h; sourceTree = "<group>"; };
 		2B71D6A125FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsConfiguration.m; sourceTree = "<group>"; };
 		2BC70BB3251C948400A8A068 /* BOEventsOperationExecutor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOEventsOperationExecutor.h; sourceTree = "<group>"; };
 		2BC70BB4251C948400A8A068 /* BOEventsOperationExecutor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOEventsOperationExecutor.m; sourceTree = "<group>"; };
-		2BC70BB6251CC89100A8A068 /* BOPendingEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOPendingEvents.h; sourceTree = "<group>"; };
-		2BC70BB7251CC89100A8A068 /* BOPendingEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOPendingEvents.m; sourceTree = "<group>"; };
-		2BCA827622F304560036A9EC /* BOADeveloperEventModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeveloperEventModel.h; sourceTree = "<group>"; };
-		2BCA827722F304560036A9EC /* BOADeveloperEventModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeveloperEventModel.m; sourceTree = "<group>"; };
-		2BCA827D22F30B080036A9EC /* UIApplication+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Extensions.m"; sourceTree = "<group>"; };
-		2BCA827E22F30B080036A9EC /* UIApplication+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Extensions.h"; sourceTree = "<group>"; };
-		2BCA82B522F705BA0036A9EC /* UIView+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extensions.m"; sourceTree = "<group>"; };
-		2BCA82B622F705BA0036A9EC /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
 		2BCB8691230E8D4700AD2390 /* BOSharedManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOSharedManager.h; sourceTree = "<group>"; };
 		2BCB8692230E8D4700AD2390 /* BOSharedManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOSharedManager.m; sourceTree = "<group>"; };
 		2BCB869A230EF63000AD2390 /* BOAUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAUtilities.m; sourceTree = "<group>"; };
 		2BCB869B230EF63000AD2390 /* BOAUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAUtilities.h; sourceTree = "<group>"; };
-		2BCB86C52312AC5E00AD2390 /* BOAPostEventsDataJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAPostEventsDataJob.m; sourceTree = "<group>"; };
-		2BCB86C62312AC5E00AD2390 /* BOAPostEventsDataJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAPostEventsDataJob.h; sourceTree = "<group>"; };
-		2BCB875D232129FB00AD2390 /* NSError+BOAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+BOAdditions.h"; sourceTree = "<group>"; };
-		2BCB875E232129FB00AD2390 /* NSError+BOAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+BOAdditions.m"; sourceTree = "<group>"; };
 		2BCB876123212A3B00AD2390 /* BONetworkManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BONetworkManager.h; sourceTree = "<group>"; };
 		2BCB876223212A3B00AD2390 /* BONetworkManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BONetworkManager.m; sourceTree = "<group>"; };
 		2BCB876623212A7B00AD2390 /* BOBaseAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOBaseAPI.h; sourceTree = "<group>"; };
@@ -342,19 +231,6 @@
 		2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		2BFA1976251A722F008DE9F4 /* BOEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOEncryptionManager.h; sourceTree = "<group>"; };
 		2BFA1977251A722F008DE9F4 /* BOEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOEncryptionManager.m; sourceTree = "<group>"; };
-		740D734F23B533C700A86278 /* BOASegmentsSyncController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASegmentsSyncController.h; sourceTree = "<group>"; };
-		740D735023B533C700A86278 /* BOASegmentsSyncController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsSyncController.m; sourceTree = "<group>"; };
-		740D735F23B68EAA00A86278 /* BOASegmentEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASegmentEvents.h; sourceTree = "<group>"; };
-		740D736023B68EAA00A86278 /* BOASegmentEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOASegmentEvents.m; sourceTree = "<group>"; };
-		740D736823B6935F00A86278 /* BOASegmentsGetRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASegmentsGetRequest.h; sourceTree = "<group>"; };
-		740D736923B6935F00A86278 /* BOASegmentsGetRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsGetRequest.m; sourceTree = "<group>"; };
-		740D737023B7A37D00A86278 /* segments_2_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = segments_2_sample.json; sourceTree = "<group>"; };
-		740D737123B7A37E00A86278 /* segments_1_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = segments_1_sample.json; sourceTree = "<group>"; };
-		740D737223B7A37E00A86278 /* login_signup_funnel_updated.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_signup_funnel_updated.json; sourceTree = "<group>"; };
-		740D737323B7A79600A86278 /* BOASegmentsResSegmentsPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsResSegmentsPayload.m; sourceTree = "<group>"; };
-		740D737423B7A79600A86278 /* BOASegmentsResSegmentsPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASegmentsResSegmentsPayload.h; sourceTree = "<group>"; };
-		740D737723B937B100A86278 /* BOASegmentsExecutorHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASegmentsExecutorHelper.h; sourceTree = "<group>"; };
-		740D737823B937B100A86278 /* BOASegmentsExecutorHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsExecutorHelper.m; sourceTree = "<group>"; };
 		74106AFE2416CDEA005AC8B2 /* BOASDKManifestConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASDKManifestConstants.h; sourceTree = "<group>"; };
 		741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics_Internal.h; sourceTree = "<group>"; };
 		7435E8C122E99062008480B8 /* libBlotoutAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutAnalytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,39 +238,8 @@
 		7435E8C522E99062008480B8 /* BlotoutAnalytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalytics.m; sourceTree = "<group>"; };
 		7435E8CE22E9907F008480B8 /* libBlotoutFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libBlotoutFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutFoundation.xcodeproj; path = ../BlotoutFoundation/BlotoutFoundation.xcodeproj; sourceTree = "<group>"; };
-		743E9DF6236EC02F00896899 /* BOAFunnelSyncController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAFunnelSyncController.h; sourceTree = "<group>"; };
 		7443CD2023800A61000F6884 /* BOASDKManifestController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASDKManifestController.h; sourceTree = "<group>"; };
 		7443CD2123800A61000F6884 /* BOASDKManifestController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifestController.m; sourceTree = "<group>"; };
-		7443CD2423800A95000F6884 /* BOADeviceAndAppFraudController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOADeviceAndAppFraudController.h; sourceTree = "<group>"; };
-		7443CD2523800A95000F6884 /* BOADeviceAndAppFraudController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOADeviceAndAppFraudController.m; sourceTree = "<group>"; };
-		7443CD292380108C000F6884 /* BOASDKManifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifest.m; sourceTree = "<group>"; };
-		7443CD2A2380108C000F6884 /* BOASDKManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASDKManifest.h; sourceTree = "<group>"; };
-		744693DB2328D6710094FB39 /* BOAJSONQueryEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAJSONQueryEngine.h; sourceTree = "<group>"; };
-		744693DC2328D6710094FB39 /* BOADataRuleEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADataRuleEngine.h; sourceTree = "<group>"; };
-		744693DD2328D6710094FB39 /* BOADataRuleEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADataRuleEngine.m; sourceTree = "<group>"; };
-		744693DE2328D6710094FB39 /* BOADataRuleEngineOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADataRuleEngineOperations.h; sourceTree = "<group>"; };
-		744693DF2328D6710094FB39 /* BOADataRuleEngineOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADataRuleEngineOperations.m; sourceTree = "<group>"; };
-		744693E02328D6710094FB39 /* BOAJSONQueryEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAJSONQueryEngine.m; sourceTree = "<group>"; };
-		745AA7F2236237A300869A93 /* BOAFunnelAndCodifiedEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAFunnelAndCodifiedEvents.m; sourceTree = "<group>"; };
-		745AA7F3236237A300869A93 /* BOAFunnelAndCodifiedEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAFunnelAndCodifiedEvents.h; sourceTree = "<group>"; };
-		745AA7F5236237A300869A93 /* BOAFunnelPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAFunnelPayload.h; sourceTree = "<group>"; };
-		745AA7F6236237A300869A93 /* BOAFunnelPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAFunnelPayload.m; sourceTree = "<group>"; };
-		745AA7F8236237A300869A93 /* BOAEventsGetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAEventsGetRequest.h; sourceTree = "<group>"; };
-		745AA7F9236237A300869A93 /* BOAEventsGetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAEventsGetRequest.m; sourceTree = "<group>"; };
-		746D91CE22FB3ADA000B0317 /* BOAppSessionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAppSessionData.h; sourceTree = "<group>"; };
-		746D91CF22FB3ADA000B0317 /* BOAppSessionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAppSessionData.m; sourceTree = "<group>"; };
-		746D91E522FC6EE6000B0317 /* BOALocalDefaultJSONs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOALocalDefaultJSONs.h; sourceTree = "<group>"; };
-		746D91E622FC6EE6000B0317 /* BOALocalDefaultJSONs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOALocalDefaultJSONs.m; sourceTree = "<group>"; };
-		746D91E922FC7051000B0317 /* BOAAppLifetimeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAAppLifetimeData.h; sourceTree = "<group>"; };
-		746D91EA22FC7051000B0317 /* BOAAppLifetimeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAAppLifetimeData.m; sourceTree = "<group>"; };
-		746DD608233B977000A63255 /* BOALifeTimeAllEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BOALifeTimeAllEvent.h; path = AppLifeTimeEvents/BOALifeTimeAllEvent.h; sourceTree = "<group>"; };
-		746DD609233B977000A63255 /* BOALifeTimeAllEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = BOALifeTimeAllEvent.m; path = AppLifeTimeEvents/BOALifeTimeAllEvent.m; sourceTree = "<group>"; };
-		74A8CD44230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASystemAndDeveloperEvents.h; sourceTree = "<group>"; };
-		74A8CD45230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOASystemAndDeveloperEvents.m; sourceTree = "<group>"; };
-		74A8CD48230BFD7E00C87CC0 /* BOASdkToServerFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASdkToServerFormat.h; sourceTree = "<group>"; };
-		74A8CD49230BFD7E00C87CC0 /* BOASdkToServerFormat.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASdkToServerFormat.m; sourceTree = "<group>"; };
-		74A8CD4C230BFDC100C87CC0 /* BOANetworkAndDataSync.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOANetworkAndDataSync.h; sourceTree = "<group>"; };
-		74A8CD4D230BFDC100C87CC0 /* BOANetworkAndDataSync.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOANetworkAndDataSync.m; sourceTree = "<group>"; };
 		74A92C8F22EB07EB006BE5AD /* libBlotoutAnalyticsTVOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutAnalyticsTVOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A92C9122EB07EB006BE5AD /* BlotoutAnalyticsTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsTVOS.h; sourceTree = "<group>"; };
 		74A92C9222EB07EB006BE5AD /* BlotoutAnalyticsTVOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsTVOS.m; sourceTree = "<group>"; };
@@ -404,77 +249,26 @@
 		74A92CB222EB0811006BE5AD /* libBlotoutAnalyticsMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutAnalyticsMacOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		74A92CB422EB0811006BE5AD /* BlotoutAnalyticsMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsMacOS.h; sourceTree = "<group>"; };
 		74A92CB622EB0811006BE5AD /* BlotoutAnalyticsMacOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsMacOS.m; sourceTree = "<group>"; };
-		74A92D8122EB0B13006BE5AD /* BOADeviceInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeviceInformation.h; sourceTree = "<group>"; };
-		74A92D8222EB0B13006BE5AD /* BOADeviceInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeviceInformation.m; sourceTree = "<group>"; };
-		74A92D8922EB0B13006BE5AD /* BOAStorageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAStorageManager.h; sourceTree = "<group>"; };
-		74A92D8A22EB0B13006BE5AD /* BOATextFileStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOATextFileStorage.h; sourceTree = "<group>"; };
 		74A92D8B22EB0B13006BE5AD /* BOAUserDefaultsStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAUserDefaultsStorage.h; sourceTree = "<group>"; };
-		74A92D8C22EB0B13006BE5AD /* BOAStorageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAStorageManager.m; sourceTree = "<group>"; };
 		74A92D8D22EB0B13006BE5AD /* BOAUserDefaultsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAUserDefaultsStorage.m; sourceTree = "<group>"; };
-		74A92D8E22EB0B13006BE5AD /* BOATextFileStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOATextFileStorage.m; sourceTree = "<group>"; };
-		74A92D9022EB0B13006BE5AD /* BOACampaignManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOACampaignManager.h; sourceTree = "<group>"; };
-		74A92D9122EB0B13006BE5AD /* BOACampaignManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOACampaignManager.m; sourceTree = "<group>"; };
-		74A92D9322EB0B13006BE5AD /* BOARetentionEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOARetentionEvents.m; sourceTree = "<group>"; };
-		74A92D9422EB0B13006BE5AD /* BOAPiiEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAPiiEvents.h; sourceTree = "<group>"; };
 		74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeveloperEvents.m; sourceTree = "<group>"; };
-		74A92D9622EB0B13006BE5AD /* BOAAppSessionEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAAppSessionEvents.m; sourceTree = "<group>"; };
-		74A92D9722EB0B13006BE5AD /* BOAEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAEvents.m; sourceTree = "<group>"; };
-		74A92D9822EB0B13006BE5AD /* BOADeviceEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeviceEvents.m; sourceTree = "<group>"; };
-		74A92D9922EB0B13006BE5AD /* BOAPiiEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAPiiEvents.m; sourceTree = "<group>"; };
-		74A92D9A22EB0B13006BE5AD /* BOARetentionEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOARetentionEvents.h; sourceTree = "<group>"; };
-		74A92D9B22EB0B13006BE5AD /* BOAAppSessionEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAAppSessionEvents.h; sourceTree = "<group>"; };
 		74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeveloperEvents.h; sourceTree = "<group>"; };
-		74A92D9D22EB0B13006BE5AD /* BOAEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAEvents.h; sourceTree = "<group>"; };
-		74A92D9E22EB0B13006BE5AD /* BOADeviceEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeviceEvents.h; sourceTree = "<group>"; };
-		74AA21AD2364E062009F02EC /* BOAFunnelSyncController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAFunnelSyncController.m; sourceTree = "<group>"; };
-		74AB174B237B153700FD8DD4 /* login_signup_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_signup_funnel.json; sourceTree = "<group>"; };
-		74AFED182406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASDKServerPostSyncEventConfiguration.h; sourceTree = "<group>"; };
-		74AFED192406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKServerPostSyncEventConfiguration.m; sourceTree = "<group>"; };
-		74F41E8323A013D30067A69E /* login_4_step_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_4_step_funnel.json; sourceTree = "<group>"; };
-		74F41E8423A013D30067A69E /* category_5_step_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = category_5_step_funnel.json; sourceTree = "<group>"; };
-		74F41E8623A014D20067A69E /* BOACommunicatonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOACommunicatonController.h; sourceTree = "<group>"; };
-		74F41E8723A014D20067A69E /* BOACommunicatonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOACommunicatonController.m; sourceTree = "<group>"; };
-		E804F789255D3D14009CF792 /* BOADataRuleEngineOperationsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOADataRuleEngineOperationsTests.m; sourceTree = "<group>"; };
 		E80872C125B6F5A40015C2F7 /* BONetworkEventService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BONetworkEventService.h; sourceTree = "<group>"; };
 		E80872C225B6F5A40015C2F7 /* BONetworkEventService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BONetworkEventService.m; sourceTree = "<group>"; };
-		E808EFE9258CBAD400233BEA /* BOAFunnelAndCodifiedEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAFunnelAndCodifiedEventsTests.m; sourceTree = "<group>"; };
-		E81641CA258DBF5B00B53A61 /* BOAFunnelPayloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAFunnelPayloadTests.m; sourceTree = "<group>"; };
-		E81641D2258DC37700B53A61 /* BOASegmentEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentEventsTests.m; sourceTree = "<group>"; };
-		E81641DA258DCCA400B53A61 /* BOASegmentsResSegmentsPayloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsResSegmentsPayloadTests.m; sourceTree = "<group>"; };
 		E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerExtensionsTests.m; sourceTree = "<group>"; };
-		E823AE8C2568D34E00E23490 /* BOADeveloperEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOADeveloperEventsTests.m; sourceTree = "<group>"; };
-		E823AE942568E2FD00E23490 /* BOCommonEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOCommonEventsTests.m; sourceTree = "<group>"; };
-		E823AE9C2568E60F00E23490 /* BOAAppSessionEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAAppSessionEventsTests.m; sourceTree = "<group>"; };
-		E827FAC524793DEA0032D549 /* BOCommonEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOCommonEvents.h; sourceTree = "<group>"; };
-		E827FAC624793DEA0032D549 /* BOCommonEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOCommonEvents.m; sourceTree = "<group>"; };
 		E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifestConstants.m; sourceTree = "<group>"; };
-		E82A9E4B25188D3800D2F46B /* BOANotificationConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOANotificationConstants.m; sourceTree = "<group>"; };
 		E83782DB24684BCD00FA9F48 /* BOServerDataConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOServerDataConverter.h; sourceTree = "<group>"; };
 		E83782DC24684BCD00FA9F48 /* BOServerDataConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOServerDataConverter.m; sourceTree = "<group>"; };
 		E843AD3E249E0791006C10CE /* BlotoutAnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlotoutAnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsTests.m; sourceTree = "<group>"; };
 		E843AD42249E0791006C10CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E8585BBC2588CD460006CB75 /* BOASegmentsExecutorHelperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsExecutorHelperTests.m; sourceTree = "<group>"; };
 		E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOSharedManagerTests.m; sourceTree = "<group>"; };
 		E8677D34256B91D500CF62D2 /* BOEncryptionManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOEncryptionManagerTests.m; sourceTree = "<group>"; };
 		E8677D3C256B9A7100CF62D2 /* BOServerDataConverterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOServerDataConverterTests.m; sourceTree = "<group>"; };
 		E8677D44256BA66900CF62D2 /* BOEventsOperationExecutorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOEventsOperationExecutorTests.m; sourceTree = "<group>"; };
-		E875FC96255BC72700720ED3 /* BOADataRuleEngineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOADataRuleEngineTests.m; sourceTree = "<group>"; };
-		E875FC9E255BFB1F00720ED3 /* BOAJSONQueryEngineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAJSONQueryEngineTests.m; sourceTree = "<group>"; };
-		E8764C822567843E00A8E4BF /* BOARetentionEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOARetentionEventsTests.m; sourceTree = "<group>"; };
-		E87796342588B12E00EFA7D6 /* BOASegmentsSyncControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASegmentsSyncControllerTests.m; sourceTree = "<group>"; };
 		E877963C2588B81C00EFA7D6 /* BONetworkManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BONetworkManagerTests.m; sourceTree = "<group>"; };
-		E87796442588BA8100EFA7D6 /* BOSegmentApiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOSegmentApiTests.m; sourceTree = "<group>"; };
-		E877FDEA2589D6F50019FCE2 /* BOASDKServerPostSyncEventConfigurationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKServerPostSyncEventConfigurationTests.m; sourceTree = "<group>"; };
 		E87ADEF924C00BF8001BCAB3 /* BOASDKManifestControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifestControllerTests.m; sourceTree = "<group>"; };
-		E88CEDD62519AD8F00251828 /* BOAConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAConstants.m; sourceTree = "<group>"; };
-		E898099A25872C6600495F4C /* BOASdkToServerFormatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASdkToServerFormatTests.m; sourceTree = "<group>"; };
-		E89809A82587381800495F4C /* BOANetworkAndDataSyncTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOANetworkAndDataSyncTests.m; sourceTree = "<group>"; };
 		E8E4691D250C9A8F00F35951 /* BOFFileSystemManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOFFileSystemManagerTests.m; sourceTree = "<group>"; };
-		E8F045D625663AE5009050F2 /* BOAEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAEventsTests.m; sourceTree = "<group>"; };
-		E8F045E4256653EA009050F2 /* BOAPiiEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAPiiEventsTests.m; sourceTree = "<group>"; };
-		E8F045EC25667D22009050F2 /* BOADeviceEventsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOADeviceEventsTests.m; sourceTree = "<group>"; };
-		E8F045F42566852D009050F2 /* BOALifeTimeAllEventTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOALifeTimeAllEventTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -525,13 +319,9 @@
 			isa = PBXGroup;
 			children = (
 				74106AFE2416CDEA005AC8B2 /* BOASDKManifestConstants.h */,
-				2B4F8D54250A28EF00D6B877 /* BOANetworkConstants.h */,
-				2B4F8D55250A28EF00D6B877 /* BOAConstants.h */,
-				2B4F8D56250A28EF00D6B877 /* BOANetworkConstants.m */,
-				2B4F8D57250A28EF00D6B877 /* BOANotificationConstants.h */,
 				E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */,
-				E82A9E4B25188D3800D2F46B /* BOANotificationConstants.m */,
-				E88CEDD62519AD8F00251828 /* BOAConstants.m */,
+				2B4F8D54250A28EF00D6B877 /* BOANetworkConstants.h */,
+				2B4F8D56250A28EF00D6B877 /* BOANetworkConstants.m */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -554,39 +344,21 @@
 		2BCB86C32312AC5E00AD2390 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2B22B8DF2610FFC10039F05B /* NSError+BOAdditions.h */,
+				2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */,
 				E80872C025B6F5680015C2F7 /* service */,
 				2BCB876523212A5B00AD2390 /* api */,
-				2BCB86C42312AC5E00AD2390 /* jobs */,
-				2BCB875D232129FB00AD2390 /* NSError+BOAdditions.h */,
-				2BCB875E232129FB00AD2390 /* NSError+BOAdditions.m */,
 				2BCB876123212A3B00AD2390 /* BONetworkManager.h */,
 				2BCB876223212A3B00AD2390 /* BONetworkManager.m */,
-				74AFED182406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.h */,
-				74AFED192406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		2BCB86C42312AC5E00AD2390 /* jobs */ = {
-			isa = PBXGroup;
-			children = (
-				2BCB86C52312AC5E00AD2390 /* BOAPostEventsDataJob.m */,
-				2BCB86C62312AC5E00AD2390 /* BOAPostEventsDataJob.h */,
-				2B02DF812351859200E0A79D /* BOAEventsCollectionAggregatorJob.h */,
-				2B02DF822351859200E0A79D /* BOAEventsCollectionAggregatorJob.m */,
-			);
-			path = jobs;
 			sourceTree = "<group>";
 		};
 		2BCB876523212A5B00AD2390 /* api */ = {
 			isa = PBXGroup;
 			children = (
-				2B4F8D4A250A16F800D6B877 /* BOFunnelAPI.h */,
-				2B4F8D4C250A170200D6B877 /* BOFunnelAPI.m */,
 				2B4F8D4E250A170200D6B877 /* BOManifestGeoAPI.h */,
 				2B4F8D4D250A170200D6B877 /* BOManifestGeoAPI.m */,
-				2B4F8D4F250A170200D6B877 /* BOSegmentAPI.h */,
-				2B4F8D4B250A170200D6B877 /* BOSegmentAPI.m */,
 				2BCB876623212A7B00AD2390 /* BOBaseAPI.h */,
 				2BCB876723212A7B00AD2390 /* BOBaseAPI.m */,
 				2BCB876A23212AA300AD2390 /* BOEventPostAPI.h */,
@@ -598,53 +370,12 @@
 		2BCEA25A22F0B16800EBA2F2 /* Extention */ = {
 			isa = PBXGroup;
 			children = (
-				2BCA82B622F705BA0036A9EC /* UIView+Extensions.h */,
-				2BCA82B522F705BA0036A9EC /* UIView+Extensions.m */,
-				2BCA827E22F30B080036A9EC /* UIApplication+Extensions.h */,
-				2BCA827D22F30B080036A9EC /* UIApplication+Extensions.m */,
 				2BCEA25B22F0B18B00EBA2F2 /* UIViewController+Extensions.h */,
 				2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */,
 				2BCB8691230E8D4700AD2390 /* BOSharedManager.h */,
 				2BCB8692230E8D4700AD2390 /* BOSharedManager.m */,
 			);
 			path = Extention;
-			sourceTree = "<group>";
-		};
-		740D735D23B68EAA00A86278 /* Segments */ = {
-			isa = PBXGroup;
-			children = (
-				740D736323B68EEF00A86278 /* SegmentsGetRequest */,
-				740D736423B68EEF00A86278 /* SegmentsPayload */,
-				740D735E23B68EAA00A86278 /* SegmentsReceivedModel */,
-			);
-			path = Segments;
-			sourceTree = "<group>";
-		};
-		740D735E23B68EAA00A86278 /* SegmentsReceivedModel */ = {
-			isa = PBXGroup;
-			children = (
-				740D735F23B68EAA00A86278 /* BOASegmentEvents.h */,
-				740D736023B68EAA00A86278 /* BOASegmentEvents.m */,
-			);
-			path = SegmentsReceivedModel;
-			sourceTree = "<group>";
-		};
-		740D736323B68EEF00A86278 /* SegmentsGetRequest */ = {
-			isa = PBXGroup;
-			children = (
-				740D736823B6935F00A86278 /* BOASegmentsGetRequest.h */,
-				740D736923B6935F00A86278 /* BOASegmentsGetRequest.m */,
-			);
-			path = SegmentsGetRequest;
-			sourceTree = "<group>";
-		};
-		740D736423B68EEF00A86278 /* SegmentsPayload */ = {
-			isa = PBXGroup;
-			children = (
-				740D737423B7A79600A86278 /* BOASegmentsResSegmentsPayload.h */,
-				740D737323B7A79600A86278 /* BOASegmentsResSegmentsPayload.m */,
-			);
-			path = SegmentsPayload;
 			sourceTree = "<group>";
 		};
 		7435E8B822E99062008480B8 = {
@@ -677,19 +408,9 @@
 		7435E8C322E99062008480B8 /* BlotoutAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				744693DC2328D6710094FB39 /* BOADataRuleEngine.h */,
-				744693DD2328D6710094FB39 /* BOADataRuleEngine.m */,
-				744693DE2328D6710094FB39 /* BOADataRuleEngineOperations.h */,
-				744693DF2328D6710094FB39 /* BOADataRuleEngineOperations.m */,
-				744693DB2328D6710094FB39 /* BOAJSONQueryEngine.h */,
-				744693E02328D6710094FB39 /* BOAJSONQueryEngine.m */,
 				741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */,
 				7435E8C422E99062008480B8 /* BlotoutAnalytics.h */,
 				7435E8C522E99062008480B8 /* BlotoutAnalytics.m */,
-				74A8CD48230BFD7E00C87CC0 /* BOASdkToServerFormat.h */,
-				74A8CD49230BFD7E00C87CC0 /* BOASdkToServerFormat.m */,
-				74A8CD4C230BFDC100C87CC0 /* BOANetworkAndDataSync.h */,
-				74A8CD4D230BFDC100C87CC0 /* BOANetworkAndDataSync.m */,
 				2B71D6A025FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.h */,
 				2B71D6A125FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m */,
 			);
@@ -715,104 +436,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7443CD282380108C000F6884 /* SDKManifest */ = {
-			isa = PBXGroup;
-			children = (
-				7443CD292380108C000F6884 /* BOASDKManifest.m */,
-				7443CD2A2380108C000F6884 /* BOASDKManifest.h */,
-			);
-			path = SDKManifest;
-			sourceTree = "<group>";
-		};
-		745AA7F0236237A300869A93 /* FunnelAndCodifiedEvents */ = {
-			isa = PBXGroup;
-			children = (
-				745AA7F1236237A300869A93 /* FunnelAndCodifiedEventsGetRes */,
-				745AA7F4236237A300869A93 /* FunnelPayload */,
-				745AA7F7236237A300869A93 /* EventsGetRequest */,
-			);
-			path = FunnelAndCodifiedEvents;
-			sourceTree = "<group>";
-		};
-		745AA7F1236237A300869A93 /* FunnelAndCodifiedEventsGetRes */ = {
-			isa = PBXGroup;
-			children = (
-				745AA7F2236237A300869A93 /* BOAFunnelAndCodifiedEvents.m */,
-				745AA7F3236237A300869A93 /* BOAFunnelAndCodifiedEvents.h */,
-			);
-			path = FunnelAndCodifiedEventsGetRes;
-			sourceTree = "<group>";
-		};
-		745AA7F4236237A300869A93 /* FunnelPayload */ = {
-			isa = PBXGroup;
-			children = (
-				745AA7F5236237A300869A93 /* BOAFunnelPayload.h */,
-				745AA7F6236237A300869A93 /* BOAFunnelPayload.m */,
-			);
-			path = FunnelPayload;
-			sourceTree = "<group>";
-		};
-		745AA7F7236237A300869A93 /* EventsGetRequest */ = {
-			isa = PBXGroup;
-			children = (
-				745AA7F8236237A300869A93 /* BOAEventsGetRequest.h */,
-				745AA7F9236237A300869A93 /* BOAEventsGetRequest.m */,
-			);
-			path = EventsGetRequest;
-			sourceTree = "<group>";
-		};
-		746D91C322FB3ADA000B0317 /* ServerFormatModels */ = {
-			isa = PBXGroup;
-			children = (
-				746D91C422FB3ADA000B0317 /* SystemAndDeveloperEvents */,
-			);
-			path = ServerFormatModels;
-			sourceTree = "<group>";
-		};
-		746D91C422FB3ADA000B0317 /* SystemAndDeveloperEvents */ = {
-			isa = PBXGroup;
-			children = (
-				74A8CD44230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.h */,
-				74A8CD45230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m */,
-			);
-			path = SystemAndDeveloperEvents;
-			sourceTree = "<group>";
-		};
-		746D91CA22FB3ADA000B0317 /* AppLifeTimeModel */ = {
-			isa = PBXGroup;
-			children = (
-				746D91E922FC7051000B0317 /* BOAAppLifetimeData.h */,
-				746D91EA22FC7051000B0317 /* BOAAppLifetimeData.m */,
-			);
-			path = AppLifeTimeModel;
-			sourceTree = "<group>";
-		};
-		746D91CD22FB3ADA000B0317 /* AppSessionDataModel */ = {
-			isa = PBXGroup;
-			children = (
-				746D91CE22FB3ADA000B0317 /* BOAppSessionData.h */,
-				746D91CF22FB3ADA000B0317 /* BOAppSessionData.m */,
-				2BC70BB6251CC89100A8A068 /* BOPendingEvents.h */,
-				2BC70BB7251CC89100A8A068 /* BOPendingEvents.m */,
-			);
-			path = AppSessionDataModel;
-			sourceTree = "<group>";
-		};
 		749493342363725E0030EE3E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				74F41E8623A014D20067A69E /* BOACommunicatonController.h */,
-				74F41E8723A014D20067A69E /* BOACommunicatonController.m */,
-				743E9DF6236EC02F00896899 /* BOAFunnelSyncController.h */,
-				74AA21AD2364E062009F02EC /* BOAFunnelSyncController.m */,
+				2B22B8872610AB5A0039F05B /* BOADeviceAndAppFraudController.h */,
+				2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */,
 				7443CD2023800A61000F6884 /* BOASDKManifestController.h */,
 				7443CD2123800A61000F6884 /* BOASDKManifestController.m */,
-				7443CD2423800A95000F6884 /* BOADeviceAndAppFraudController.h */,
-				7443CD2523800A95000F6884 /* BOADeviceAndAppFraudController.m */,
-				740D734F23B533C700A86278 /* BOASegmentsSyncController.h */,
-				740D735023B533C700A86278 /* BOASegmentsSyncController.m */,
-				740D737723B937B100A86278 /* BOASegmentsExecutorHelper.h */,
-				740D737823B937B100A86278 /* BOASegmentsExecutorHelper.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -848,42 +478,24 @@
 			isa = PBXGroup;
 			children = (
 				2B4F8D53250A28EF00D6B877 /* Constants */,
-				74AB174A237B153700FD8DD4 /* DummyLocalTestsJSON */,
 				749493342363725E0030EE3E /* Controllers */,
 				2BCB86C32312AC5E00AD2390 /* Network */,
 				2BCB8699230EF63000AD2390 /* Utilities */,
 				2BCEA25A22F0B16800EBA2F2 /* Extention */,
-				74A92D8022EB0B13006BE5AD /* DeviceInformation */,
 				74A92D8322EB0B13006BE5AD /* Models */,
 				74A92D8822EB0B13006BE5AD /* Storage */,
-				74A92D8F22EB0B13006BE5AD /* Campaigns */,
 				74A92D9222EB0B13006BE5AD /* Events */,
 			);
 			path = BlotoutAnalyticsAll;
 			sourceTree = "<group>";
 		};
-		74A92D8022EB0B13006BE5AD /* DeviceInformation */ = {
-			isa = PBXGroup;
-			children = (
-				74A92D8122EB0B13006BE5AD /* BOADeviceInformation.h */,
-				74A92D8222EB0B13006BE5AD /* BOADeviceInformation.m */,
-			);
-			path = DeviceInformation;
-			sourceTree = "<group>";
-		};
 		74A92D8322EB0B13006BE5AD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				740D735D23B68EAA00A86278 /* Segments */,
-				7443CD282380108C000F6884 /* SDKManifest */,
-				745AA7F0236237A300869A93 /* FunnelAndCodifiedEvents */,
-				746D91CA22FB3ADA000B0317 /* AppLifeTimeModel */,
-				746D91CD22FB3ADA000B0317 /* AppSessionDataModel */,
-				746D91C322FB3ADA000B0317 /* ServerFormatModels */,
-				2BCA827622F304560036A9EC /* BOADeveloperEventModel.h */,
-				2BCA827722F304560036A9EC /* BOADeveloperEventModel.m */,
-				746D91E522FC6EE6000B0317 /* BOALocalDefaultJSONs.h */,
-				746D91E622FC6EE6000B0317 /* BOALocalDefaultJSONs.m */,
+				2B22B768260850B50039F05B /* BOASDKManifest.h */,
+				2B22B769260850B50039F05B /* BOASDKManifest.m */,
+				2B22B778260850EF0039F05B /* BOACaptureModel.h */,
+				2B22B779260850EF0039F05B /* BOACaptureModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -891,60 +503,28 @@
 		74A92D8822EB0B13006BE5AD /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				74A92D8922EB0B13006BE5AD /* BOAStorageManager.h */,
-				74A92D8A22EB0B13006BE5AD /* BOATextFileStorage.h */,
 				74A92D8B22EB0B13006BE5AD /* BOAUserDefaultsStorage.h */,
-				74A92D8C22EB0B13006BE5AD /* BOAStorageManager.m */,
 				74A92D8D22EB0B13006BE5AD /* BOAUserDefaultsStorage.m */,
-				74A92D8E22EB0B13006BE5AD /* BOATextFileStorage.m */,
+				2B22B78326087A8C0039F05B /* BOAStorage.h */,
+				2B22B784260881300039F05B /* BOAFileStorage.h */,
+				2B22B785260881300039F05B /* BOAFileStorage.m */,
+				2B22B79426088A410039F05B /* BOACrypto.h */,
+				2B22B79526088AA60039F05B /* BOAAESCrypto.h */,
+				2B22B79626088AA60039F05B /* BOAAESCrypto.m */,
 			);
 			path = Storage;
-			sourceTree = "<group>";
-		};
-		74A92D8F22EB0B13006BE5AD /* Campaigns */ = {
-			isa = PBXGroup;
-			children = (
-				74A92D9022EB0B13006BE5AD /* BOACampaignManager.h */,
-				74A92D9122EB0B13006BE5AD /* BOACampaignManager.m */,
-			);
-			path = Campaigns;
 			sourceTree = "<group>";
 		};
 		74A92D9222EB0B13006BE5AD /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				74A92D9322EB0B13006BE5AD /* BOARetentionEvents.m */,
 				74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */,
-				74A92D9622EB0B13006BE5AD /* BOAAppSessionEvents.m */,
-				74A92D9722EB0B13006BE5AD /* BOAEvents.m */,
-				74A92D9822EB0B13006BE5AD /* BOADeviceEvents.m */,
-				74A92D9922EB0B13006BE5AD /* BOAPiiEvents.m */,
-				E827FAC624793DEA0032D549 /* BOCommonEvents.m */,
-				746DD609233B977000A63255 /* BOALifeTimeAllEvent.m */,
-				74A92D9D22EB0B13006BE5AD /* BOAEvents.h */,
-				74A92D9422EB0B13006BE5AD /* BOAPiiEvents.h */,
-				74A92D9A22EB0B13006BE5AD /* BOARetentionEvents.h */,
-				74A92D9B22EB0B13006BE5AD /* BOAAppSessionEvents.h */,
 				74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */,
-				74A92D9E22EB0B13006BE5AD /* BOADeviceEvents.h */,
-				746DD608233B977000A63255 /* BOALifeTimeAllEvent.h */,
-				E827FAC524793DEA0032D549 /* BOCommonEvents.h */,
+				2B22B75926084DF20039F05B /* BOAEventsManager.h */,
+				2B22B75A26084DF20039F05B /* BOAEventsManager.m */,
 			);
 			path = Events;
 			sourceTree = "<group>";
-		};
-		74AB174A237B153700FD8DD4 /* DummyLocalTestsJSON */ = {
-			isa = PBXGroup;
-			children = (
-				740D737223B7A37E00A86278 /* login_signup_funnel_updated.json */,
-				740D737123B7A37E00A86278 /* segments_1_sample.json */,
-				740D737023B7A37D00A86278 /* segments_2_sample.json */,
-				74F41E8423A013D30067A69E /* category_5_step_funnel.json */,
-				74F41E8323A013D30067A69E /* login_4_step_funnel.json */,
-				74AB174B237B153700FD8DD4 /* login_signup_funnel.json */,
-			);
-			path = DummyLocalTestsJSON;
-			sourceTree = SOURCE_ROOT;
 		};
 		E80872C025B6F5680015C2F7 /* service */ = {
 			isa = PBXGroup;
@@ -964,32 +544,11 @@
 				E843AD42249E0791006C10CE /* Info.plist */,
 				2B4F8DB2250D10FA00D6B877 /* BOSDKAPITests.m */,
 				2B4F8DB7250E1D9D00D6B877 /* BOAUtilitiesTests.m */,
-				E875FC96255BC72700720ED3 /* BOADataRuleEngineTests.m */,
-				E875FC9E255BFB1F00720ED3 /* BOAJSONQueryEngineTests.m */,
-				E804F789255D3D14009CF792 /* BOADataRuleEngineOperationsTests.m */,
-				E8F045D625663AE5009050F2 /* BOAEventsTests.m */,
-				E8F045E4256653EA009050F2 /* BOAPiiEventsTests.m */,
-				E8F045EC25667D22009050F2 /* BOADeviceEventsTests.m */,
-				E8F045F42566852D009050F2 /* BOALifeTimeAllEventTests.m */,
-				E8764C822567843E00A8E4BF /* BOARetentionEventsTests.m */,
-				E823AE8C2568D34E00E23490 /* BOADeveloperEventsTests.m */,
-				E823AE942568E2FD00E23490 /* BOCommonEventsTests.m */,
-				E823AE9C2568E60F00E23490 /* BOAAppSessionEventsTests.m */,
 				E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */,
 				E8677D34256B91D500CF62D2 /* BOEncryptionManagerTests.m */,
 				E8677D3C256B9A7100CF62D2 /* BOServerDataConverterTests.m */,
 				E8677D44256BA66900CF62D2 /* BOEventsOperationExecutorTests.m */,
-				E898099A25872C6600495F4C /* BOASdkToServerFormatTests.m */,
-				E89809A82587381800495F4C /* BOANetworkAndDataSyncTests.m */,
-				E87796342588B12E00EFA7D6 /* BOASegmentsSyncControllerTests.m */,
 				E877963C2588B81C00EFA7D6 /* BONetworkManagerTests.m */,
-				E87796442588BA8100EFA7D6 /* BOSegmentApiTests.m */,
-				E8585BBC2588CD460006CB75 /* BOASegmentsExecutorHelperTests.m */,
-				E877FDEA2589D6F50019FCE2 /* BOASDKServerPostSyncEventConfigurationTests.m */,
-				E808EFE9258CBAD400233BEA /* BOAFunnelAndCodifiedEventsTests.m */,
-				E81641CA258DBF5B00B53A61 /* BOAFunnelPayloadTests.m */,
-				E81641D2258DC37700B53A61 /* BOASegmentEventsTests.m */,
-				E81641DA258DCCA400B53A61 /* BOASegmentsResSegmentsPayloadTests.m */,
 				E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */,
 			);
 			path = BlotoutAnalyticsTests;
@@ -1223,66 +782,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				E82A9E17251882B100D2F46B /* BOASDKManifestConstants.m in Sources */,
+				2B22B79726088AA60039F05B /* BOAAESCrypto.m in Sources */,
 				7443CD2223800A61000F6884 /* BOASDKManifestController.m in Sources */,
 				2B4F8D58250A28EF00D6B877 /* BOANetworkConstants.m in Sources */,
-				2BCA827F22F30B080036A9EC /* UIApplication+Extensions.m in Sources */,
-				E827FAC724793DEA0032D549 /* BOCommonEvents.m in Sources */,
-				2BCB86C72312AC5E00AD2390 /* BOAPostEventsDataJob.m in Sources */,
 				2B4F8D52250A170300D6B877 /* BOManifestGeoAPI.m in Sources */,
-				740D735123B533C700A86278 /* BOASegmentsSyncController.m in Sources */,
-				745AA7FA236237A300869A93 /* BOAFunnelAndCodifiedEvents.m in Sources */,
 				7435E8C622E99062008480B8 /* BlotoutAnalytics.m in Sources */,
-				74A92DAB22EB0B13006BE5AD /* BOATextFileStorage.m in Sources */,
-				2BCA82B722F705BA0036A9EC /* UIView+Extensions.m in Sources */,
+				2B22B77A260850EF0039F05B /* BOACaptureModel.m in Sources */,
+				2B22B786260881300039F05B /* BOAFileStorage.m in Sources */,
+				2B22B8892610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */,
 				2BCB876C23212AA300AD2390 /* BOEventPostAPI.m in Sources */,
-				2BCA827822F304560036A9EC /* BOADeveloperEventModel.m in Sources */,
-				2B02DF832351859200E0A79D /* BOAEventsCollectionAggregatorJob.m in Sources */,
-				2BC70BB8251CC89100A8A068 /* BOPendingEvents.m in Sources */,
-				740D737523B7A79600A86278 /* BOASegmentsResSegmentsPayload.m in Sources */,
-				74A92DB922EB0B13006BE5AD /* BOAPiiEvents.m in Sources */,
 				2BCB876323212A3B00AD2390 /* BONetworkManager.m in Sources */,
-				74A92DA722EB0B13006BE5AD /* BOAStorageManager.m in Sources */,
 				2BC70BB5251C948400A8A068 /* BOEventsOperationExecutor.m in Sources */,
 				E80872C325B6F5A40015C2F7 /* BONetworkEventService.m in Sources */,
-				74A92DAF22EB0B13006BE5AD /* BOARetentionEvents.m in Sources */,
-				746D91EB22FC7051000B0317 /* BOAAppLifetimeData.m in Sources */,
-				744693E52328D6710094FB39 /* BOAJSONQueryEngine.m in Sources */,
-				740D736A23B6935F00A86278 /* BOASegmentsGetRequest.m in Sources */,
-				7443CD2B2380108C000F6884 /* BOASDKManifest.m in Sources */,
-				2B4F8D50250A170300D6B877 /* BOSegmentAPI.m in Sources */,
 				2B71D6A225FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m in Sources */,
-				746D91D822FB3ADA000B0317 /* BOAppSessionData.m in Sources */,
-				74A92DAD22EB0B13006BE5AD /* BOACampaignManager.m in Sources */,
-				E82A9E4C25188D3800D2F46B /* BOANotificationConstants.m in Sources */,
-				746DD60A233B977000A63255 /* BOALifeTimeAllEvent.m in Sources */,
-				744693E32328D6710094FB39 /* BOADataRuleEngineOperations.m in Sources */,
-				74A92DB322EB0B13006BE5AD /* BOAAppSessionEvents.m in Sources */,
-				E88CEDD72519AD8F00251828 /* BOAConstants.m in Sources */,
-				740D737923B937B100A86278 /* BOASegmentsExecutorHelper.m in Sources */,
 				E83782DD24684BCD00FA9F48 /* BOServerDataConverter.m in Sources */,
-				74A92DB722EB0B13006BE5AD /* BOADeviceEvents.m in Sources */,
+				2B22B76A260850B50039F05B /* BOASDKManifest.m in Sources */,
 				2BFA1978251A722F008DE9F4 /* BOEncryptionManager.m in Sources */,
+				2B22B7F3260911FF0039F05B /* BOAEventsManager.m in Sources */,
 				2BCB8693230E8D4700AD2390 /* BOSharedManager.m in Sources */,
-				7443CD2623800A95000F6884 /* BOADeviceAndAppFraudController.m in Sources */,
-				74AA21AF2364E062009F02EC /* BOAFunnelSyncController.m in Sources */,
-				744693E12328D6710094FB39 /* BOADataRuleEngine.m in Sources */,
-				746D91E722FC6EE6000B0317 /* BOALocalDefaultJSONs.m in Sources */,
+				2B22B8E12610FFC10039F05B /* NSError+BOAdditions.m in Sources */,
 				74A92DA922EB0B13006BE5AD /* BOAUserDefaultsStorage.m in Sources */,
-				74A8CD4E230BFDC100C87CC0 /* BOANetworkAndDataSync.m in Sources */,
-				74A8CD46230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m in Sources */,
-				74F41E8823A014D20067A69E /* BOACommunicatonController.m in Sources */,
-				2B4F8D51250A170300D6B877 /* BOFunnelAPI.m in Sources */,
-				745AA7FC236237A300869A93 /* BOAFunnelPayload.m in Sources */,
 				2BCB876823212A7B00AD2390 /* BOBaseAPI.m in Sources */,
-				74A92DB522EB0B13006BE5AD /* BOAEvents.m in Sources */,
-				2BCB875F232129FB00AD2390 /* NSError+BOAdditions.m in Sources */,
-				740D736123B68EAA00A86278 /* BOASegmentEvents.m in Sources */,
 				2BCEA25D22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */,
 				74A92DB122EB0B13006BE5AD /* BOADeveloperEvents.m in Sources */,
-				74AFED1A2406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m in Sources */,
-				74A8CD4A230BFD7E00C87CC0 /* BOASdkToServerFormat.m in Sources */,
-				74A92DA122EB0B13006BE5AD /* BOADeviceInformation.m in Sources */,
-				745AA7FE236237A300869A93 /* BOAEventsGetRequest.m in Sources */,
 				2BCB869C230EF63000AD2390 /* BOAUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1291,56 +813,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E82A9E6925188F4D00D2F46B /* BOANotificationConstants.m in Sources */,
 				E82A9E44251882E200D2F46B /* BOASDKManifestConstants.m in Sources */,
 				7443CD2323800A61000F6884 /* BOASDKManifestController.m in Sources */,
-				2BCA828022F30B080036A9EC /* UIApplication+Extensions.m in Sources */,
-				2BCB86C82312AC5E00AD2390 /* BOAPostEventsDataJob.m in Sources */,
-				740D735223B533C700A86278 /* BOASegmentsSyncController.m in Sources */,
-				745AA7FB236237A300869A93 /* BOAFunnelAndCodifiedEvents.m in Sources */,
 				74A92D5F22EB08A0006BE5AD /* BlotoutAnalytics.m in Sources */,
-				74A92DAC22EB0B13006BE5AD /* BOATextFileStorage.m in Sources */,
-				2BCA82B822F705BA0036A9EC /* UIView+Extensions.m in Sources */,
 				2BCB876D23212AA300AD2390 /* BOEventPostAPI.m in Sources */,
-				E88CEDD82519AD8F00251828 /* BOAConstants.m in Sources */,
-				2BCA827922F304560036A9EC /* BOADeveloperEventModel.m in Sources */,
-				2B02DF842351859200E0A79D /* BOAEventsCollectionAggregatorJob.m in Sources */,
-				740D737623B7A79600A86278 /* BOASegmentsResSegmentsPayload.m in Sources */,
-				74A92DBA22EB0B13006BE5AD /* BOAPiiEvents.m in Sources */,
 				2BCB876423212A3B00AD2390 /* BONetworkManager.m in Sources */,
-				74A92DA822EB0B13006BE5AD /* BOAStorageManager.m in Sources */,
-				74A92DB022EB0B13006BE5AD /* BOARetentionEvents.m in Sources */,
-				746D91EC22FC7051000B0317 /* BOAAppLifetimeData.m in Sources */,
-				744693E62328D6710094FB39 /* BOAJSONQueryEngine.m in Sources */,
-				740D736B23B6935F00A86278 /* BOASegmentsGetRequest.m in Sources */,
-				7443CD2C2380108C000F6884 /* BOASDKManifest.m in Sources */,
-				746D91D922FB3ADA000B0317 /* BOAppSessionData.m in Sources */,
-				74A92DAE22EB0B13006BE5AD /* BOACampaignManager.m in Sources */,
-				746DD60B233B977000A63255 /* BOALifeTimeAllEvent.m in Sources */,
-				744693E42328D6710094FB39 /* BOADataRuleEngineOperations.m in Sources */,
-				74A92DB422EB0B13006BE5AD /* BOAAppSessionEvents.m in Sources */,
-				740D737A23B937B100A86278 /* BOASegmentsExecutorHelper.m in Sources */,
-				74A92DB822EB0B13006BE5AD /* BOADeviceEvents.m in Sources */,
+				2B22B77B260850EF0039F05B /* BOACaptureModel.m in Sources */,
+				2B22B76B260850B50039F05B /* BOASDKManifest.m in Sources */,
+				2B22B75B26084DF20039F05B /* BOAEventsManager.m in Sources */,
+				2B22B8E22610FFC10039F05B /* NSError+BOAdditions.m in Sources */,
+				2B22B88A2610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */,
 				2BCB8694230E8D4700AD2390 /* BOSharedManager.m in Sources */,
-				7443CD2723800A95000F6884 /* BOADeviceAndAppFraudController.m in Sources */,
-				74AA21B02364E062009F02EC /* BOAFunnelSyncController.m in Sources */,
-				744693E22328D6710094FB39 /* BOADataRuleEngine.m in Sources */,
-				746D91E822FC6EE6000B0317 /* BOALocalDefaultJSONs.m in Sources */,
+				2B22B79826088AA60039F05B /* BOAAESCrypto.m in Sources */,
 				74A92DAA22EB0B13006BE5AD /* BOAUserDefaultsStorage.m in Sources */,
-				74A8CD4F230BFDC100C87CC0 /* BOANetworkAndDataSync.m in Sources */,
-				74A8CD47230BFACE00C87CC0 /* BOASystemAndDeveloperEvents.m in Sources */,
-				74F41E8923A014D20067A69E /* BOACommunicatonController.m in Sources */,
-				745AA7FD236237A300869A93 /* BOAFunnelPayload.m in Sources */,
 				2BCB876923212A7B00AD2390 /* BOBaseAPI.m in Sources */,
-				74A92DB622EB0B13006BE5AD /* BOAEvents.m in Sources */,
-				2BCB8760232129FB00AD2390 /* NSError+BOAdditions.m in Sources */,
-				740D736223B68EAA00A86278 /* BOASegmentEvents.m in Sources */,
 				2BCEA25E22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */,
 				74A92DB222EB0B13006BE5AD /* BOADeveloperEvents.m in Sources */,
-				74AFED1B2406F559009BAA7E /* BOASDKServerPostSyncEventConfiguration.m in Sources */,
-				74A8CD4B230BFD7E00C87CC0 /* BOASdkToServerFormat.m in Sources */,
-				74A92DA222EB0B13006BE5AD /* BOADeviceInformation.m in Sources */,
-				745AA7FF236237A300869A93 /* BOAEventsGetRequest.m in Sources */,
+				2B22B787260881300039F05B /* BOAFileStorage.m in Sources */,
 				2BCB869D230EF63000AD2390 /* BOAUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1363,38 +852,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8F045F52566852D009050F2 /* BOALifeTimeAllEventTests.m in Sources */,
 				E8677D35256B91D500CF62D2 /* BOEncryptionManagerTests.m in Sources */,
-				E87796452588BA8100EFA7D6 /* BOSegmentApiTests.m in Sources */,
 				E8677D1F256B810B00CF62D2 /* BOSharedManagerTests.m in Sources */,
-				E8585BBD2588CD460006CB75 /* BOASegmentsExecutorHelperTests.m in Sources */,
 				E877963D2588B81C00EFA7D6 /* BONetworkManagerTests.m in Sources */,
 				E87ADEFA24C00BF8001BCAB3 /* BOASDKManifestControllerTests.m in Sources */,
 				E8E4691E250C9A8F00F35951 /* BOFFileSystemManagerTests.m in Sources */,
-				E898099B25872C6600495F4C /* BOASdkToServerFormatTests.m in Sources */,
-				E8764C832567843E00A8E4BF /* BOARetentionEventsTests.m in Sources */,
-				E823AE9D2568E60F00E23490 /* BOAAppSessionEventsTests.m in Sources */,
-				E823AE952568E2FD00E23490 /* BOCommonEventsTests.m in Sources */,
-				E823AE8D2568D34E00E23490 /* BOADeveloperEventsTests.m in Sources */,
-				E89809A92587381800495F4C /* BOANetworkAndDataSyncTests.m in Sources */,
-				E875FC97255BC72700720ED3 /* BOADataRuleEngineTests.m in Sources */,
-				E81641D3258DC37700B53A61 /* BOASegmentEventsTests.m in Sources */,
-				E8F045ED25667D22009050F2 /* BOADeviceEventsTests.m in Sources */,
-				E81641CB258DBF5B00B53A61 /* BOAFunnelPayloadTests.m in Sources */,
-				E87796352588B12E00EFA7D6 /* BOASegmentsSyncControllerTests.m in Sources */,
-				E877FDEB2589D6F50019FCE2 /* BOASDKServerPostSyncEventConfigurationTests.m in Sources */,
 				E81641E3258DD07800B53A61 /* UIViewControllerExtensionsTests.m in Sources */,
 				2B4F8DB3250D10FA00D6B877 /* BOSDKAPITests.m in Sources */,
 				E8677D45256BA66900CF62D2 /* BOEventsOperationExecutorTests.m in Sources */,
-				E808EFEA258CBAD400233BEA /* BOAFunnelAndCodifiedEventsTests.m in Sources */,
 				E8677D3D256B9A7100CF62D2 /* BOServerDataConverterTests.m in Sources */,
-				E875FC9F255BFB1F00720ED3 /* BOAJSONQueryEngineTests.m in Sources */,
-				E81641DB258DCCA400B53A61 /* BOASegmentsResSegmentsPayloadTests.m in Sources */,
 				2B4F8DB8250E1D9D00D6B877 /* BOAUtilitiesTests.m in Sources */,
-				E8F045E5256653EA009050F2 /* BOAPiiEventsTests.m in Sources */,
-				E804F78A255D3D14009CF792 /* BOADataRuleEngineOperationsTests.m in Sources */,
 				E843AD41249E0791006C10CE /* BlotoutAnalyticsTests.m in Sources */,
-				E8F045D725663AE5009050F2 /* BOAEventsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

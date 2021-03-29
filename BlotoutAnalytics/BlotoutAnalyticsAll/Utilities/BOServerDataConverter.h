@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BOASegmentsResSegmentsPayload.h"
-#import "BOAFunnelPayload.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,9 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BOServerDataConverter : NSObject {
 }
 + (NSDictionary *)prepareMetaData;
-+ (NSDictionary *)prepareGeoData;
-+ (NSDictionary *)preparePreviousMetaData:(nullable BOAppSessionData*)sessionData;
-+ (void)storePreviousDayAppInfoViaNotification:(nullable NSNotification*)notification;
 
 @end
 

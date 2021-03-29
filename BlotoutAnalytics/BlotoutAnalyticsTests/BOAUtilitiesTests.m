@@ -9,8 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "BOAUtilities.h"
 #import <BlotoutFoundation/BOFUserDefaults.h>
-#import "BOAConstants.h"
-
+#import "BOANetworkConstants.h"
 
 @interface BOAUtilitiesTests : XCTestCase
 
@@ -69,9 +68,6 @@
 }
 
 - (void)testTimestampLength {
-    NSString *tenDigitTimeStampString = [NSString stringWithFormat:@"%lu",[BOAUtilities get10DigitIntegerTimeStamp]];
-    XCTAssertTrue(tenDigitTimeStampString.length == 10);
-    
     NSString *thirteenDigitTimeStampString = [NSString stringWithFormat:@"%lu",[BOAUtilities get13DigitIntegerTimeStamp]];
     XCTAssertTrue(thirteenDigitTimeStampString.length == 13);
 }
@@ -198,24 +194,9 @@
     XCTAssertNotNil(date, @"Couldn't find date with in given time interval");
 }
 
--(void)testGetStringMD5CustomIntSumWithCharIndexAdded {
-    int eventNameIntSum = [BOAUtilities getStringMD5CustomIntSumWithCharIndexAdded:@"appEvent" usingCaseSenstive:NO];
-    XCTAssertGreaterThan(eventNameIntSum, 0, @"Couldn't find string md5 custom int sum with char index");
-}
-
 -(void)testGetMessageIDForEvent {
     NSString *mId = [BOAUtilities getMessageIDForEvent: @"DAU"];
     XCTAssertNotNil(mId, @"Couldn't find date with in given time interval");
-}
-
--(void)testGetMessageIDForEventAndIdentifier {
-    NSString *mId = [BOAUtilities getMessageIDForEvent: @"DAU" andIdentifier: [NSNumber numberWithInt:41001]];
-    XCTAssertNotNil(mId, @"Couldn't find date with in given time interval and indentifier");
-}
-
--(void)testGenerateMessageIDForEvent {
-    NSString *mId = [BOAUtilities generateMessageIDForEvent:@"testevent" evnetCode: @"41001" happenedAt:[BOAUtilities get13DigitNumberObjTimeStamp]];
-    XCTAssertNotNil(mId, @"Couldn't generate message id for event");
 }
 
 -(void)testCodeForCustomCodifiedEvent {
@@ -420,28 +401,11 @@
     XCTAssertEqual(asciiSum, 36, @"Couldn't find ascii custom int sum for given string");
 }
 
--(void)testGetOnlyAsciiCharsCustomIntSumFromUnicode {
-    int asciiSum = [BOAUtilities getOnlyAsciiCharsCustomIntSumFromUnicode:@"abc" usingCaseSenstive: YES];
-    XCTAssertEqual(asciiSum, 36, @"Couldn't find ascii char custom int sum for given unicode");
-}
-
--(void)testGetStringMD5CustomIntSum {
-    int asciiSum = [BOAUtilities getStringMD5CustomIntSum:@"abc" usingCaseSenstive: YES];
-    XCTAssertEqual(asciiSum, 229, @"Couldn't find ascii char custom int sum for given unicode");
-}
-
 -(void)testGetAllDatesBetween {
     NSDate *date1 = [BOAUtilities dateStr:@"2020-09-10T12:30:40.200Z" inFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     NSDate *date2 = [BOAUtilities dateStr:@"2020-09-20T12:30:41.200Z" inFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
     NSArray *dates = [BOAUtilities getAllDatesBetween: date1 andDate2: date2];
     XCTAssertGreaterThan(dates.count, 0, @"Couldn't find dates in given range");
-}
-
--(void)testGetDateBetween {
-    NSDate *date1 = [BOAUtilities dateStr:@"2020-09-10T12:30:40.200Z" inFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSDate *date2 = [BOAUtilities dateStr:@"2020-09-12T12:30:41.200Z" inFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSDate *date = [BOAUtilities getDateBetween: date1 andDate2: date2];
-    XCTAssertNotNil(date, @"Couldn't find date in given range");
 }
 
 -(void)testGetDateGreaterThan {
@@ -593,25 +557,14 @@
 -(void)testTenAndThrteenDigitTimeStamp {
     //TODO: check this method only
     NSDate *date = [BOAUtilities dateStr:@"2020-09-15T12:30:40.200Z" inFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSNumber *tenDigitTimeStampNumber = [BOAUtilities get10DigitNumberObjTimeStampFor: date];
-    NSString *str = [NSString stringWithFormat:@"%@", tenDigitTimeStampNumber];
-    XCTAssertTrue([str length] == 9);
-    
-    NSInteger tenDigitIntTimeStamp = [BOAUtilities get10DigitIntegerTimeStampFor: date];
-    str = [NSString stringWithFormat:@"%ld", (long)tenDigitIntTimeStamp];
-    XCTAssertTrue([str length] == 10);
     
     NSNumber *thrteenDigitNumTimeStamp = [BOAUtilities get13DigitNumberObjTimeStampFor: date];
-    str = [NSString stringWithFormat:@"%@", thrteenDigitNumTimeStamp];
+    NSString *str = [NSString stringWithFormat:@"%@", thrteenDigitNumTimeStamp];
     XCTAssertTrue([str length] == 13);
     
     NSInteger thrteenDigitIntTimeStamp = [BOAUtilities get13DigitIntegerTimeStampFor: date];
     str = [NSString stringWithFormat:@"%ld", (long)thrteenDigitIntTimeStamp];
     XCTAssertTrue([str length] == 13);
-    
-    NSNumber *tenDigitNumTimeStamp = [BOAUtilities get10DigitNumberObjTimeStamp];
-    str = [NSString stringWithFormat:@"%@", tenDigitNumTimeStamp];
-    XCTAssertTrue([str length] == 10);
     
     NSNumber *thrteenDigitsNumTimeStamp = [BOAUtilities get13DigitNumberObjTimeStamp];
     str = [NSString stringWithFormat:@"%@", thrteenDigitsNumTimeStamp];
@@ -701,13 +654,6 @@
 }
 
 -(void)testRandomFloatAndIntGeneration{
-    float randomFloat = [BOAUtilities randomFloatBetween:1.25 and:2.00];
-    XCTAssertGreaterThan(randomFloat, 1.25);
-    XCTAssertLessThan(randomFloat, 2.00);
-    
-    float randomInt = [BOAUtilities randomIntBetween:5 and:10];
-    XCTAssertEqual(randomInt, 5);
-    
     NSString *strNo = [BOAUtilities generateRandomNumber:5];
     XCTAssertEqual([strNo length], 5);
     
@@ -716,7 +662,6 @@
     
     uuid = [BOAUtilities getUUIDStringFromString:@"b"];
     XCTAssertNotNil(uuid);
-    
 }
 
 -(void)testConvertTo64CharUUID{

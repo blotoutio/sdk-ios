@@ -8,6 +8,22 @@
 
 #import "BlotoutAnalyticsConfiguration.h"
 
+@implementation UIApplication (BOAApplicationProtocol)
+
+- (UIBackgroundTaskIdentifier)boa_beginBackgroundTaskWithName:(nullable NSString *)taskName expirationHandler:(void (^__nullable)(void))handler
+{
+    return [self beginBackgroundTaskWithName:taskName expirationHandler:handler];
+}
+
+- (void)boa_endBackgroundTask:(UIBackgroundTaskIdentifier)identifier
+{
+    [self endBackgroundTask:identifier];
+}
+
+@end
+
+
+
 @interface BlotoutAnalyticsConfiguration ()
 
 @property (nonatomic, copy, readwrite) NSString *token;
@@ -34,7 +50,16 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        
+        self.flushAt = 20;
+        self.flushInterval = 30;
+        self.maxQueueSize = 1000;
+        Class applicationClass = NSClassFromString(@"UIApplication");
+        if (applicationClass) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            _application = [applicationClass performSelector:NSSelectorFromString(@"sharedApplication")];
+#pragma clang diagnostic pop
+        }
     }
     return self;
 }

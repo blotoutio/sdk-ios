@@ -20,12 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, BOUrlEndPoint) {
     BOUrlEndPointEventDataPOST = 0,
-    BOUrlEndPointRetentionEventDataPOST,
-    BOUrlEndPointFunnelEventDataPOST,
-    BOUrlEndPointFunnelEventDataGET,
-    BOUrlEndPointSegmentEventDataPOST,
-    BOUrlEndPointSegmentEventDataGET,
-    BOUrlEndPointGeoDataGET,
     BOUrlEndPointManifestGET
 };
 
@@ -46,8 +40,6 @@ typedef NS_ENUM(NSUInteger, BOUrlEndPoint) {
 /*This methods return baseServerUrl String*/
 -(NSString*)getBaseServerUrl;
 
-/*Validate end point Url*/
--(NSString*)validateAndReturnServerEndPoint:(NSString*)endPointUrl;
 @end
 
 NS_ASSUME_NONNULL_END

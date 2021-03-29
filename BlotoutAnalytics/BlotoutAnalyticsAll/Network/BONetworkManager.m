@@ -12,8 +12,7 @@
 #import <BlotoutFoundation/BOReachability.h>
 #import "NSError+BOAdditions.h"
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
-#import "NSError+BOAdditions.h"
+#import "BOANetworkConstants.h"
 
 @implementation BONetworkManager
 

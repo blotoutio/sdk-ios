@@ -33,10 +33,6 @@
     XCTAssertNotNil(controllerHolder);
     
     [controllerHolder logged_viewDidAppear:YES];
-    
-    NSTimer *timer = [controllerHolder createTimer];
-    XCTAssertNotNil(timer);
-    [controllerHolder timerTicked:timer];
 }
 
 

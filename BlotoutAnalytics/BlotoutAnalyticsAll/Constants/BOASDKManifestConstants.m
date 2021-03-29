@@ -12,8 +12,6 @@
 
 NSString * const Server_Port = @"Server_Port";
 NSString * const Api_Endpoint = @"Api_Endpoint";
-NSString * const SEGMENT_FEEDBACK_PATH = @"Segment_Feedback_Path";
-NSString * const SEGMENT_PULL_PATH = @"Segment_Path";
 NSString * const Event_CodifiedMergeCounter = @"Event_Codified_Mergecounter";
 NSString * const Event_Offline_Interval = @"Event_Offline_Interval";
 NSString * const Event_GEOLocationGrain = @"Event_Geolocation_Grain";
@@ -21,10 +19,8 @@ NSString * const Event_DeviceInfoGrain = @"Event_Deviceinfo_Grain";
 NSString * const Event_SystemMergeCounter = @"Event_System_Mergecounter";
 NSString * const Event_PushThreshold_Interval = @"Event_Push_Interval";
 NSString * const Event_PushThreshold_EventCounter = @"Event_Push_Eventscounter";
-NSString * const EVENT_FUNNEL_PATH = @"Event_Funnel_Path";
 NSString * const EVENT_PATH = @"Event_Path";
 NSString * const EVENT_RETENTION_PATH = @"Event_Retention_Path";
-NSString * const EVENT_FUNNEL_FEEDBACK_PATH = @"Event_Funnel_Feedback_Path";
 NSString * const Event_SDK_Manifest_Path = @"SDK_Manifest_Path";
 NSString * const Interval_Manifest_Refresh = @"Manifest_Refresh_Interval";
 NSString * const Interval_Retry = @"Retry_Interval";

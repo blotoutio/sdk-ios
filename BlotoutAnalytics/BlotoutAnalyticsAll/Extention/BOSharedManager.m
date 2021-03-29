@@ -8,7 +8,6 @@
 
 #import "BOSharedManager.h"
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
 #import "BOAUtilities.h"
 static id sBOSharedManagerSharedInstance = nil;
 
@@ -29,20 +28,10 @@ static id sBOSharedManagerSharedInstance = nil;
 {
     self = [super init];
     if (self) {
-        [self initJobManager];
         [BOAUtilities getDeviceId];
         _sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
     }
     return self;
-}
-
-- (void)initJobManager {
-    @try {
-        self.jobManager = [[NSOperationQueue alloc] init];
-        self.jobManager.qualityOfService = NSQualityOfServiceBackground;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
 }
 
 @end

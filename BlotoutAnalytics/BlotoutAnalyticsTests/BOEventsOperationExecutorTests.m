@@ -30,29 +30,8 @@
         [completionExpectation fulfill];
     }];
     
-    
-    completionExpectation = [self expectationWithDescription:@"dispatchFunnelEventsInBackground"];
-    [self.boEventsOperationExecutor dispatchFunnelEventsInBackground:^{
-        [completionExpectation fulfill];
-    }];
-    
-    completionExpectation = [self expectationWithDescription:@"dispatchSegmentEventsInBackground"];
-    [self.boEventsOperationExecutor dispatchSegmentEventsInBackground:^{
-        [completionExpectation fulfill];
-    }];
-    
     completionExpectation = [self expectationWithDescription:@"dispatchDeviceOperationInBackground"];
     [self.boEventsOperationExecutor dispatchDeviceOperationInBackground:^{
-        [completionExpectation fulfill];
-    }];
-    
-    completionExpectation = [self expectationWithDescription:@"dispatchGeoRetentionOperationInBackground"];
-    [self.boEventsOperationExecutor dispatchGeoRetentionOperationInBackground:^{
-        [completionExpectation fulfill];
-    }];
-    
-    completionExpectation = [self expectationWithDescription:@"dispatchLifetimeOperationInBackground"];
-    [self.boEventsOperationExecutor dispatchLifetimeOperationInBackground:^{
         [completionExpectation fulfill];
     }];
     

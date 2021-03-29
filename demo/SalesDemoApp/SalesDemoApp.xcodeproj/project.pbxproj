@@ -38,12 +38,6 @@
 		2B9FAC57233A7B3C002F8E96 /* ParallexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC56233A7B3C002F8E96 /* ParallexViewController.m */; };
 		2B9FAC5A23449D45002F8E96 /* ListItemCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */; };
 		2BAB519C25F8E7FE0017E840 /* libBlotoutAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BAB519325F8E7F50017E840 /* libBlotoutAnalytics.a */; };
-		2BAB51A525F8E80F0017E840 /* login_signup_funnel_updated.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB519F25F8E80F0017E840 /* login_signup_funnel_updated.json */; };
-		2BAB51A625F8E80F0017E840 /* segments_2_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB51A025F8E80F0017E840 /* segments_2_sample.json */; };
-		2BAB51A725F8E80F0017E840 /* segments_1_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB51A125F8E80F0017E840 /* segments_1_sample.json */; };
-		2BAB51A825F8E80F0017E840 /* login_signup_funnel.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB51A225F8E80F0017E840 /* login_signup_funnel.json */; };
-		2BAB51A925F8E80F0017E840 /* category_5_step_funnel.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB51A325F8E80F0017E840 /* category_5_step_funnel.json */; };
-		2BAB51AA25F8E80F0017E840 /* login_4_step_funnel.json in Resources */ = {isa = PBXBuildFile; fileRef = 2BAB51A425F8E80F0017E840 /* login_4_step_funnel.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,12 +138,6 @@
 		2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItemCartViewController.m; sourceTree = "<group>"; };
 		2B9FAC5923449D45002F8E96 /* ListItemCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItemCartViewController.h; sourceTree = "<group>"; };
 		2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutAnalytics.xcodeproj; path = ../../BlotoutAnalytics/BlotoutAnalytics.xcodeproj; sourceTree = "<group>"; };
-		2BAB519F25F8E80F0017E840 /* login_signup_funnel_updated.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_signup_funnel_updated.json; sourceTree = "<group>"; };
-		2BAB51A025F8E80F0017E840 /* segments_2_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = segments_2_sample.json; sourceTree = "<group>"; };
-		2BAB51A125F8E80F0017E840 /* segments_1_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = segments_1_sample.json; sourceTree = "<group>"; };
-		2BAB51A225F8E80F0017E840 /* login_signup_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_signup_funnel.json; sourceTree = "<group>"; };
-		2BAB51A325F8E80F0017E840 /* category_5_step_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = category_5_step_funnel.json; sourceTree = "<group>"; };
-		2BAB51A425F8E80F0017E840 /* login_4_step_funnel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = login_4_step_funnel.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +157,6 @@
 		2B9FAB532337279C002F8E96 = {
 			isa = PBXGroup;
 			children = (
-				2BAB519E25F8E80F0017E840 /* DummyLocalTestsJSON */,
 				2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */,
 				2B9FAB5E2337279C002F8E96 /* SalesDemoApp */,
 				2B9FAB5D2337279C002F8E96 /* Products */,
@@ -308,20 +295,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2BAB519E25F8E80F0017E840 /* DummyLocalTestsJSON */ = {
-			isa = PBXGroup;
-			children = (
-				2BAB519F25F8E80F0017E840 /* login_signup_funnel_updated.json */,
-				2BAB51A025F8E80F0017E840 /* segments_2_sample.json */,
-				2BAB51A125F8E80F0017E840 /* segments_1_sample.json */,
-				2BAB51A225F8E80F0017E840 /* login_signup_funnel.json */,
-				2BAB51A325F8E80F0017E840 /* category_5_step_funnel.json */,
-				2BAB51A425F8E80F0017E840 /* login_4_step_funnel.json */,
-			);
-			name = DummyLocalTestsJSON;
-			path = ../../BlotoutAnalytics/DummyLocalTestsJSON;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -425,13 +398,7 @@
 			files = (
 				2B9FAB6C2337279F002F8E96 /* LaunchScreen.storyboard in Resources */,
 				2B9FAB692337279F002F8E96 /* Assets.xcassets in Resources */,
-				2BAB51A825F8E80F0017E840 /* login_signup_funnel.json in Resources */,
-				2BAB51A525F8E80F0017E840 /* login_signup_funnel_updated.json in Resources */,
-				2BAB51A625F8E80F0017E840 /* segments_2_sample.json in Resources */,
 				2B9FAB672337279C002F8E96 /* Main.storyboard in Resources */,
-				2BAB51AA25F8E80F0017E840 /* login_4_step_funnel.json in Resources */,
-				2BAB51A725F8E80F0017E840 /* segments_1_sample.json in Resources */,
-				2BAB51A925F8E80F0017E840 /* category_5_step_funnel.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

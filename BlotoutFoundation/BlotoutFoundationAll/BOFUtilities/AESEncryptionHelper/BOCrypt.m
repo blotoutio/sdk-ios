@@ -26,6 +26,11 @@
   return base64EncodedString;
 }
 
++ (NSData *)encryptAndReturnData:(NSData *)data key:(NSString *)key iv:(NSString *)iv {
+    NSData *encryptedData = [data AES256EncryptedDataUsingKey: [[key dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] iv: [[iv dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] error: nil];
+  return encryptedData;
+}
+
 + (NSString *)encryptDataWithoutHash:(NSData *)data key:(NSString *)key iv:(NSString *)iv {
     NSData *encryptedData = [data AES256EncryptedDataUsingKey: [key dataUsingEncoding:NSUTF8StringEncoding] iv: [iv dataUsingEncoding:NSUTF8StringEncoding] error: nil];
   NSString *base64EncodedString = [NSString base64StringFromData:encryptedData length:[encryptedData length]];
@@ -37,6 +42,11 @@
   NSData *encryptedData = [NSData base64DataFromString:base64EncodedString];
   NSData *decryptedData = [encryptedData decryptedAES256DataUsingKey:[[key dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] iv: [[iv dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] error:nil];
   return [[NSString alloc] initWithData:decryptedData encoding:NSUTF8StringEncoding];
+}
+
++ (NSData *)decryptAndReturnData:(NSData *)data key:(NSString *)key iv:(NSString *)iv {
+  NSData *decryptedData = [data decryptedAES256DataUsingKey:[[key dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] iv: [[iv dataUsingEncoding:NSUTF8StringEncoding] SHA256Hash] error:nil];
+  return decryptedData;
 }
 
 @end

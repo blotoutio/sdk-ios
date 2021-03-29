@@ -14,12 +14,10 @@
 #import <BlotoutFoundation/BOFNetworkPromise.h>
 #import <BlotoutFoundation/BOFNetworkPromiseExecutor.h>
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
 #import "BOAUtilities.h"
 #import <BlotoutFoundation/BOFFileSystemManager.h>
 #import <BlotoutFoundation/BOFUserDefaults.h>
 #import "BlotoutAnalytics_Internal.h"
-#import "BOADataRuleEngine.h"
 #import "BOANetworkConstants.h"
 #import "BOManifestGeoAPI.h"
 #import "NSError+BOAdditions.h"
@@ -81,32 +79,6 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
     }
 }
 
-
-//set Default value when manifest failed to load
--(void)setupManifestExtraParamOnFailure {
-    
-    @try {
-        BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-        NSNumber *lastManifestSyncTimeStamp = [analyticsRootUD objectForKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-        //if lastManifestSyncDate this is nil then i consider seconds timegap as 0, find alternate way to find timegap
-        NSUInteger timeGap = [lastManifestSyncTimeStamp integerValue];
-        if (timeGap < SYNC_MAX_TIME_GAP_IN_SECONDS) {
-            self.networkCutoffReached = NO;
-            self.storageCutoffReached = NO;
-        }
-        if (timeGap > SYNC_MAX_TIME_GAP_IN_SECONDS) {
-            self.networkCutoffReached = YES;
-            self.storageCutoffReached = NO;
-        }
-        if (timeGap > STORAGE_MAX_TIME_GAP_IN_SECONDS) {
-            self.networkCutoffReached = YES;
-            self.storageCutoffReached = YES;
-        }
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
-
 /** This method will use to fetch manifest in Background */
 -(void)syncManifestWithServer{
     
@@ -117,7 +89,7 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
     __block BOASDKManifest *blockSDKManifest = self.sdkManifestModel;
     
     @try {
-        [[BOEventsOperationExecutor sharedInstance] dispatchGeoRetentionOperationInBackground:^{
+        [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
             BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
             NSNumber *lastManifestSyncTimeStamp = [analyticsRootUD objectForKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
             if([lastManifestSyncTimeStamp integerValue]> 0) {
@@ -146,10 +118,10 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
                                 [self reloadManifestData];
                                 [self setupManifestExtraParamOnSuccess];
                             } else {
-                                //[self setupManifestExtraParamOnFailure];
+                                
                             }
                         } else {
-                            //[self setupManifestExtraParamOnFailure];
+                
                         }
                     } failure:^(NSError * _Nonnull error) {
                         
@@ -186,157 +158,6 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
         callback(NO, [NSError boErrorForDict:exception.userInfo]);
     }
-}
-
-/**
- * method to get manifest config value
- * @param value as String
- * @return BOASDKManifestController instance
- */
--(NSDictionary*)dictContainingValue:(NSString*)value{
-    @try {
-        NSString *manifestStr = [self latestSDKManifestJSONString];
-        if (!self.sdkManifestModel && manifestStr && ![manifestStr isEqualToString:@""]) {
-            NSError *manifestReadError = nil;
-            BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:manifestStr encoding:NSUTF8StringEncoding error:&manifestReadError];
-            self.sdkManifestModel = sdkManifestM;
-        }
-        NSDictionary *manifestDict = [BOAUtilities jsonObjectFromString:manifestStr];
-        NSDictionary *subsetDict = [BOADataRuleEngine dictContains:value fromRootDict:manifestDict];
-        
-        return subsetDict;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-/**
- * method to get BOASDKVariable value
- * @param value as String
- * @return BOASDKVariable instance
- */
--(BOASDKVariable*)requiredVariableObjectUsingModelOfVariableNameKeyValue:(NSString*)value{
-    @try {
-        NSString *manifestStr = [self latestSDKManifestJSONString];
-        if (!self.sdkManifestModel && manifestStr && ![manifestStr isEqualToString:@""]) {
-            NSError *manifestReadError = nil;
-            BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:manifestStr encoding:NSUTF8StringEncoding error:&manifestReadError];
-            self.sdkManifestModel = sdkManifestM;
-        }
-        
-        BOASDKVariable *oneVar = nil;
-        if (self.sdkManifestModel) {
-            for (BOASDKVariable *oneVariableDict in self.sdkManifestModel.variables) {
-                if ([oneVariableDict.variableName isEqualToString:value]) {
-                    oneVar = oneVariableDict;
-                    break;
-                }
-            }
-        }
-        return oneVar;
-        
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-/**
- * method to get api end point from manifest config
- * @param manifestVarName as String
- * @return finalSegmentPullAPIEndPoint as string
- */
--(NSString*)getAPIEndPointFromManifestFor:(NSString*)manifestVarName{
-    @try {
-        NSString *segmentFeedBackAPIDomain = @"";
-        NSString *segmentFeedBackAPIPath = @"";
-        NSString *finalSegmentPullAPIEndPoint = @"";
-        
-        if (![BlotoutAnalytics sharedInstance].isDevModeEnabled) {
-            if ([BlotoutAnalytics isSDKInProductionMode]) {
-                BOASDKVariable *sdkVariable = [self requiredVariableObjectUsingModelOfVariableNameKeyValue:Api_Endpoint];
-                segmentFeedBackAPIDomain = sdkVariable.value ? sdkVariable.value : BO_SDK_PROD_MODE_API_DOMAIN_PATH;
-            }else{
-                BOASDKVariable *sdkVariable = [self requiredVariableObjectUsingModelOfVariableNameKeyValue:Api_Endpoint];
-                segmentFeedBackAPIDomain = sdkVariable.value ? sdkVariable.value : BO_SDK_STAGE_MODE_API_DOMAIN_PATH;
-            }
-        }else{
-            //Not sure about this name //Dev_Server_URL
-            BOASDKVariable *sdkVariable = [self requiredVariableObjectUsingModelOfVariableNameKeyValue:Api_Endpoint];
-            segmentFeedBackAPIDomain = sdkVariable.value ? sdkVariable.value : BO_SDK_ALPHA_DEV_MODE_API_DOMAIN_PATH;
-        }
-        
-        BOASDKVariable *sdkFeedbackAPIComponent = [self requiredVariableObjectUsingModelOfVariableNameKeyValue:manifestVarName];
-        segmentFeedBackAPIPath = sdkFeedbackAPIComponent.value;
-        
-        if (segmentFeedBackAPIDomain && ![segmentFeedBackAPIDomain isEqualToString:@""]) {
-            if (segmentFeedBackAPIPath && ![segmentFeedBackAPIPath isEqualToString:@""]) {
-                finalSegmentPullAPIEndPoint = [NSString stringWithFormat:@"%@/%@",segmentFeedBackAPIDomain, segmentFeedBackAPIPath];
-            }else{
-                finalSegmentPullAPIEndPoint = nil;
-            }
-        }else{
-            finalSegmentPullAPIEndPoint = nil;
-        }
-        return finalSegmentPullAPIEndPoint;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-/**
- * method to get all param for a value from manifest config
- * @param value as String
- * @return all value as id
- */
--(id)requiredValueUsingDictForVariableNameKeyValue:(NSString*)value{
-    @try {
-        NSString *manifestStr = [self latestSDKManifestJSONString];
-        if (!self.sdkManifestModel && manifestStr && ![manifestStr isEqualToString:@""]) {
-            NSError *manifestReadError = nil;
-            BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:manifestStr encoding:NSUTF8StringEncoding error:&manifestReadError];
-            self.sdkManifestModel = sdkManifestM;
-        }
-        NSDictionary *manifestDict = [BOAUtilities jsonObjectFromString:manifestStr];
-        NSDictionary *subsetDict = [BOADataRuleEngine dictContains:value fromRootDict:manifestDict];
-        
-        return [subsetDict objectForKey:@"value"];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-/**
- * method to get value from manifest config
- * @param value as String
- * @return reqValue as string
- */
--(id)requiredValueUsingModelOfVariableNameKeyValue:(NSString*)value{
-    @try {
-        NSString *manifestStr = [self latestSDKManifestJSONString];
-        if (!self.sdkManifestModel && manifestStr && ![manifestStr isEqualToString:@""]) {
-            NSError *manifestReadError = nil;
-            BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:manifestStr encoding:NSUTF8StringEncoding error:&manifestReadError];
-            self.sdkManifestModel = sdkManifestM;
-        }
-        
-        NSString *reqValue = @"";
-        if (self.sdkManifestModel) {
-            for (BOASDKVariable *oneVariableDict in self.sdkManifestModel.variables) {
-                if ([oneVariableDict.variableName isEqualToString:value]) {
-                    reqValue = oneVariableDict.value;
-                    break;
-                }
-            }
-        }
-        return reqValue;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
 }
 
 /**
@@ -518,34 +339,12 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
             BOASDKVariable *intervalRetryIntervals = [self getManifestVariable:self.sdkManifestModel forValue: Interval_Retry];
             self.intervalRetryInterval = [self getNumberFrom: intervalRetryIntervals.value];
             
-            // TODO: uncomment this when you want to use manifest server url
-            // BOASDKVariable *serverBaseURL = [self getManifestVariable:self.sdkManifestModel forValue: Api_Endpoint];
-            // self.serverBaseURL = serverBaseURL.value;
+            BOASDKVariable *serverBaseURL = [self getManifestVariable:self.sdkManifestModel forValue: Api_Endpoint];
+            self.serverBaseURL = serverBaseURL.value;
             
-            BOASDKVariable *eventFunnelPaths = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_FUNNEL_PATH];
-            self.eventFunnelPath = eventFunnelPaths.value;
-            
-            BOASDKVariable *eventFunnelPathsFeedback = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_FUNNEL_FEEDBACK_PATH];
-            self.eventFunnelPathsFeedback = eventFunnelPathsFeedback.value;
-            
-            BOASDKVariable *geoIPPaths = [self getManifestVariable:self.sdkManifestModel forValue: GEO_IP_PATH];
-            self.geoIPPath = geoIPPaths.value;
-            
-            BOASDKVariable *eventRetentionPaths = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_RETENTION_PATH];
-            self.eventRetentionPath = eventRetentionPaths.value;
             
             BOASDKVariable *eventPaths = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PATH];
             self.eventPath = eventPaths.value;
-            
-            BOASDKVariable *segmentPaths = [self getManifestVariable:self.sdkManifestModel forValue: SEGMENT_PULL_PATH];
-            if (segmentPaths != nil) {
-                self.segmentPath = segmentPaths.value;
-            }
-            
-            BOASDKVariable *segmentPathFeedbacks = [self getManifestVariable:self.sdkManifestModel forValue: SEGMENT_FEEDBACK_PATH];
-            if (segmentPathFeedbacks != nil) {
-                self.segmentPathFeedback = segmentPathFeedbacks.value;
-            }
             
             BOASDKVariable *sdkPushSystemEvent = [self getManifestVariable:self.sdkManifestModel forValue: Event_Push_System_Events];
             if (sdkPushSystemEvent != nil) {
@@ -623,11 +422,11 @@ static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1
 
 - (int) delayInterval {
     @try {
-        // for firstPartySDK
-        //        NSNumber *delayHour = [BOASDKManifestController sharedInstance].eventPushThresholdInterval;
-        //        if ([delayHour intValue] > 0) {
-        //            return [delayHour intValue] * 60 * 60;
-        //        }
+        
+        NSNumber *delayHour = [BOASDKManifestController sharedInstance].eventPushThresholdInterval;
+        if ([delayHour intValue] > 0) {
+            return [delayHour intValue] * 60 * 60;
+        }
         
         return BO_DEFAULT_EVENT_PUSH_TIME;
     } @catch (NSException *exception) {

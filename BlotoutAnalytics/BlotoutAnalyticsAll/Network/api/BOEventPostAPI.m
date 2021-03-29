@@ -10,7 +10,6 @@
 #import "BOAUtilities.h"
 #import "BlotoutAnalytics_Internal.h"
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
 #import "BOANetworkConstants.h"
 #import "NSError+BOAdditions.h"
 
@@ -40,9 +39,7 @@
             
         } failure:^(id data, NSURLResponse *dataResponse, NSError *error) {
             NSDictionary *dict1 = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-//            NSDictionary *dict2 = [NSJSONSerialization JSONObjectWithData:dataResponse options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"%@",dict1);
-//            NSLog(@"%@",dict2);
+            BOFLogDebug(@"%@",dict1);
             failure(dataResponse,data,error);
         }];
     } @catch (NSException *exception) {

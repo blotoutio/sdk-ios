@@ -8,8 +8,6 @@
 
 #import <XCTest/XCTest.h>
 #import "BOServerDataConverter.h"
-#import "BOAppSessionData.h"
-#import "BOALocalDefaultJSONs.h"
 
 @interface BOServerDataConverterTests : XCTestCase
 
@@ -28,34 +26,8 @@
 - (void)testPrepareMetaData {
     NSDictionary *metaData = [BOServerDataConverter prepareMetaData];
     XCTAssertNotNil(metaData);
-    NSString *appn = [metaData valueForKey:@"appn"];
-    XCTAssertGreaterThan([appn length], 0);
+    NSString *userCretedId = [metaData valueForKey:@"user_id_created"];
+    XCTAssertNotNil(userCretedId);
 }
 
-- (void)testPrepareGeoData {
-    NSDictionary *geoData = [BOServerDataConverter prepareGeoData];
-    XCTAssertNotNil(geoData);
-    NSString *country = [geoData valueForKey:@"couc"];
-    XCTAssertNotNil(country);
-}
-
-- (void)testPreparePreviousMetaData {
-    //    TODO: Discuss with ankur...getting nil but should get non nil value
-    BOAppSessionData *appSessionData = [BOAppSessionData sharedInstanceFromJSONDictionary:[BOALocalDefaultJSONs appSessionJSONDict]];
-    NSDictionary *preMetaData = [BOServerDataConverter preparePreviousMetaData: appSessionData];
-    XCTAssertNotNil(preMetaData);
-}
-
-
-- (void)testStorePreviousDayAppInfoViaNotification {
-    //    TODO: Discuss with ankur...getting nil but should get non nil value
-    NSNotification *notification = [[NSNotification alloc] initWithName:@"testNoti" object:self userInfo:nil];
-    [BOServerDataConverter storePreviousDayAppInfoViaNotification: notification];
-}
 @end
-
-/*
- + (NSDictionary *)preparePreviousMetaData:(nullable BOAppSessionData*)sessionData;
- + (void)storePreviousDayAppInfoViaNotification:(nullable NSNotification*)notification;
- 
- */

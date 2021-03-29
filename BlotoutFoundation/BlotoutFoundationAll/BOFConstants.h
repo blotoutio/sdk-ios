@@ -10,39 +10,17 @@
 #define BOFConstants_h
 
 #define kBOFFoundationProductKeyForUserDefaults             @"BOFFoundationDefaults"
-#define kBOFFoundationProductKeyForUserDefaults_Stage       @"BOFFoundationDefaults_Stage"
-
 #define kBOSDKLaunchTestDirectoryName                       @"BOSDKLaunchTestDir"
-#define kBOSDKLaunchTestDirectoryName_Stage                 @"BOSDKLaunchTestDir_Stage" //Not using this one & not needed as well.
-//As this test dir and above one get's created within Root Dir, so if root is changed then this will also be changed
-
 #define kBOSDKRootDirectoryName                             @"BOSDKRootDir"
-#define kBOSDKRootDirectoryName_Stage                       @"BOSDKRootDir_Stage"
-
 #define kBOSDKVolatileRootDirectoryName                     @"BOVolatileRootDirectory"
-#define kBOSDKVolatileRootDirectoryName_Stage               @"BOVolatileRootDirectory_Stage"
-
 #define kBOSDKNonVolatileRootDirectoryName                  @"BONonVolatileRootDirectory"
 #define kBOSDKNonVolatileRootDirectoryName_Stage            @"BONonVolatileRootDirectory_Stage"
-
 #define kBOFNetworkPromiseDownloadDirectoryName             @"BOFNetworkPromiseDownloads"
-#define kBOFNetworkPromiseDownloadDirectoryName_Stage       @"BOFNetworkPromiseDownloads_Stage"
-
 #define kBOFoundationDirectoryName                          @"BOFoundationDirectory"
-#define kBOFoundationDirectoryName_Stage                    @"BOFoundationDirectory_Stage"
-
 #define kBOAnalyticsDirectoryName                           @"BOAnalyticsDirectory"
-#define kBOAnalyticsDirectoryName_Stage                     @"BOAnalyticsDirectory_Stage"
-
 #define BO_SDK_ROOT_USER_DEFAULTS_KEY                       @"com.blotout.sdk.root"
-#define BO_SDK_ROOT_USER_DEFAULTS_KEY_STAGE                 @"com.blotout.sdk.root_stage"
-
 #define BO_FOUNDATION_USER_DEFAULTS_KEY                     @"com.blotout.sdk.Foundation"
-#define BO_FOUNDATION_USER_DEFAULTS_KEY_STAGE               @"com.blotout.sdk.Foundation_Stage"
-
 #define BO_SDK_DEFAULT_QUEUE                                "com.blotout.sdk.defaultsqueue"
-#define BO_SDK_DEFAULT_QUEUE_STAGE                          "com.blotout.sdk.defaultsqueue_stage"
-
 #define kBOFNetworkPromiseDefaultErrorDomain                @"BOFNetworkPromiseNetworkSessionErrorDomain"
 #define kBOFNetworkPromiseDefaultErrorCode                  90001
 #define kBOFNetworkPromiseDefaultErrorUserInfo              @{@"Description":@"Not able to stablish session, either session or network promise task is null"}

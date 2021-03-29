@@ -25,12 +25,8 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
 +(void)initialize{
     @try {
         sBOFDefaultMap = [NSMutableDictionary dictionary];
-        BOOL isProdMode = [BlotoutFoundation sharedInstance].isProductionMode;
-        if (isProdMode) {
-            sBOFDefaultsSerialQueue = dispatch_queue_create(BO_SDK_DEFAULT_QUEUE, DISPATCH_QUEUE_SERIAL);
-        }else{
-            sBOFDefaultsSerialQueue = dispatch_queue_create(BO_SDK_DEFAULT_QUEUE_STAGE, DISPATCH_QUEUE_SERIAL);
-        }
+        sBOFDefaultsSerialQueue = dispatch_queue_create(BO_SDK_DEFAULT_QUEUE, DISPATCH_QUEUE_SERIAL);
+        
     } @catch (NSException *exception) {
          BOFLogDebug(@"%@:%@", BOF_DEBUG, exception);
     }
@@ -70,14 +66,8 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
 {
     @try {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        BOOL isProdMode = [BlotoutFoundation sharedInstance].isProductionMode;
         
-        NSDictionary *rootImmutable = nil;//[ud dictionaryForKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
-        if (isProdMode) {
-            rootImmutable = [ud dictionaryForKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
-        }else{
-            rootImmutable = [ud dictionaryForKey:BO_SDK_ROOT_USER_DEFAULTS_KEY_STAGE];
-        }
+        NSDictionary *rootImmutable = [ud dictionaryForKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
         
         if( rootImmutable == nil  ){
             rootImmutable = @{};
@@ -87,11 +77,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
         
         updateBlock(rootMutable);
         
-        if (isProdMode) {
-            [ud setObject:rootMutable forKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
-        }else{
-            [ud setObject:rootMutable forKey:BO_SDK_ROOT_USER_DEFAULTS_KEY_STAGE];
-        }
+        [ud setObject:rootMutable forKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
         
         [ud synchronize];
     } @catch (NSException *exception) {

@@ -7,254 +7,147 @@
 //
 
 #import "BOADeveloperEvents.h"
-#import "BOADeveloperEventModel.h"
-#import "BOAConstants.h"
 #import <BlotoutFoundation/BOFUserDefaults.h>
-#import "BOALocalDefaultJSONs.h"
-#import "BOAppSessionData.h"
-#import "BOAAppLifetimeData.h"
-#import "BOAEvents.h"
 #import "BOAUtilities.h"
-#import "BOASdkToServerFormat.h"
-#import "BOAFunnelSyncController.h"
-#import "BOAConstants.h"
 #import "BOANetworkConstants.h"
 #import <BlotoutFoundation/BOFLogs.h>
+#import "BOServerDataConverter.h"
 #import "BOSharedManager.h"
-
-static id sBOADevEventsSharedInstance = nil;
-
-@interface BOADeveloperEvents (){
-    BOAppSessionData *appSessionModel;
-    BOAAppLifetimeData *appLifeTimeModel;
-}
-@property (nonatomic, strong) BOAFunnelSyncController *funnelSyncController;
-@end
+#import <BlotoutFoundation/BOCrypt.h>
+#import "BOEncryptionManager.h"
+#import "BOASDKManifestController.h"
 
 @implementation BOADeveloperEvents
 
--(instancetype)init{
-    self = [super init];
-    if (self) {
-        BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-        self.devEventUD = [[analyticsRootUD objectForKey:BO_ANALYTICS_DEV_EVENT_USER_DEFAULTS_KEY] mutableCopy];
-        if (!self.devEventUD) {
-            self.devEventUD = [NSMutableDictionary dictionary];
-            [analyticsRootUD setObject:self.devEventUD forKey:BO_ANALYTICS_DEV_EVENT_USER_DEFAULTS_KEY];
-        }
-        self.isEnabled = YES;
-        //default is enabled
-        self.funnelSyncController = [BOAFunnelSyncController sharedInstanceFunnelController];
-    }
-    return self;
-}
-
-+ (instancetype)sharedInstance {
-    static dispatch_once_t boaDeveloperEventsOnceToken = 0;
-    dispatch_once(&boaDeveloperEventsOnceToken, ^{
-        sBOADevEventsSharedInstance = [[[self class] alloc] init];
-    });
-    return  sBOADevEventsSharedInstance;
-}
-
--(void)startTimedEvent:(NSString*)eventName withInformation:(NSDictionary*)startEventInfo{
++(NSDictionary*)captureEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo withEventCode:(NSNumber*)eventCode{
     @try {
-        if (!self.isEnabled) {
-            return;
-        }
-        //Write cleanup feature for the events which got started but never ended even after 30 days
-        NSMutableDictionary *eventStartInfo = [self.devEventUD objectForKey:eventName];
-        if (eventStartInfo && (eventStartInfo.allKeys.count > 0)) {
-            [eventStartInfo setObject:@"Yes" forKey:@"autoEnd"];
-            [self endTimedEvent:eventName withInformation:eventStartInfo];
-            [self.devEventUD removeObjectForKey:eventName];
-        }
-        BOADeveloperEventModel *event = [[BOADeveloperEventModel alloc] initWithEventName:eventName andEventInfo:startEventInfo];
-        event.eventStartTimeReference = [BOAUtilities get13DigitNumberObjTimeStamp];
-        event.eventStartDate = [BOAUtilities getCurrentDate];
-        
-        NSMutableDictionary *eventStartStorage = [[event eventInfoForStorage] mutableCopy];
-        [eventStartStorage setObject:[NSString stringWithFormat:@"%@",[[self topViewController] class]] forKey:@"startVisibleClassName"];
-        [self.devEventUD setObject:eventStartStorage forKey:event.eventName];
-        //Merge with end
+        return [BOADeveloperEvents createEventObject:eventName withScreenName:@"" withEventSubcode:eventCode withEventInfo:eventInfo];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
--(void)endTimedEvent:(NSString*)eventName withInformation:(NSDictionary*)endEventInfo{
++(NSDictionary*)capturePersonalEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent {
     @try {
-        if (!self.isEnabled) {
-            return;
-        }
-        NSDictionary *eventStartInfo = [self.devEventUD objectForKey:eventName];
-        if (!eventStartInfo) {
-            [self logEvent:eventName withInformation:endEventInfo withEventCode:[NSNumber numberWithInt:0]];
-        }
+        return [BOADeveloperEvents preparePersonalEvent:eventName withScreenName:@"" withEventSubcode:@(0) withEventInfo:eventInfo isPHI:phiEvent];
         
-        BOADeveloperEventModel *event = [[BOADeveloperEventModel alloc] initWithEventName:eventName andEventInfo:endEventInfo];
-        event.eventEndTimeReference = [BOAUtilities get13DigitNumberObjTimeStamp];
-        event.eventEndDate = [BOAUtilities getCurrentDate];
-        
-        double eventDuration = [event.eventEndTimeReference doubleValue] - [(NSNumber*)[eventStartInfo objectForKey:@"eventStartTimeReference"] doubleValue];
-        event.eventDuration = [NSNumber numberWithDouble:eventDuration];
-        
-        NSMutableDictionary *eventEndAndStartInfo = [[event eventInfoForStorage] mutableCopy];
-        if (eventStartInfo.allKeys.count > 0) {
-            [eventEndAndStartInfo setObject:eventStartInfo forKey:@"eventStartInfo"];
-            [self.devEventUD removeObjectForKey:eventName];
-        }
-        [eventEndAndStartInfo setObject:event.eventDuration forKey:@"eventDuration"];
-        NSDictionary *timeEventInfo = @{};
-        NSDictionary *timeEventDict = @{
-            @"sentToServer":[NSNumber numberWithBool:NO],
-            @"mid": [BOAUtilities getMessageIDForEvent:eventName],
-            @"timeStamp": event.eventEndTimeReference,
-            @"eventName": eventName,
-            @"startTime": [eventStartInfo objectForKey:@"eventStartTimeReference"],
-            @"startVisibleClassName": [eventStartInfo objectForKey:@"startVisibleClassName"],
-            @"endVisibleClassName": [NSString stringWithFormat:@"%@",[[self topViewController] class]],
-            @"endTime": event.eventEndTimeReference,
-            @"eventDuration": event.eventDuration,
-            @"timedEvenInfo" : timeEventInfo,
-            @"session_id":[BOSharedManager sharedInstance].sessionId
-        };
-        BOTimedEvent *timedEvent = [BOTimedEvent fromJSONDictionary:timeEventDict];
-        NSMutableArray *existingTimedEvent = [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified.timedEvent mutableCopy];
-        [existingTimedEvent addObject:timedEvent];
-        [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified setTimedEvent:existingTimedEvent];
-        
-        NSNumber *eventSubCode = [BOAUtilities codeForCustomCodifiedEvent:NSNullifyCheck(eventName)];
-        //Funnel execution and testing based
-        [[BOAFunnelSyncController sharedInstanceFunnelController] recordDevEvent:eventName withEventSubCode:eventSubCode withDetails:timeEventDict];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
--(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo withEventCode:(NSNumber*)eventCode{
++(NSDictionary*)prepareServerPayload:(NSArray*)events {
     @try {
-        if (!self.isEnabled) {
-            return;
+        NSMutableArray *eventData = [NSMutableArray array];
+        NSDictionary *metaInfo = [BOServerDataConverter prepareMetaData];
+        
+        for (NSDictionary *event  in events) {
+            [eventData addObject:[event valueForKey:BO_EVENTS]];
         }
-        [self logEvent:eventName withInformation:eventInfo happendAt:nil withEventCode:eventCode];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        
+        return @{BO_META:metaInfo,BO_EVENTS:eventData};
+    } @catch(NSException *exception) {
+        BOFLogDebug(@"%@", exception);
     }
 }
 
--(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime{
++(NSDictionary*)createEventObject:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo{
+    @try {
+        
+        if(eventSubcode == nil || [eventSubcode integerValue] == 0) {
+            eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
+        }
+        
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        [properties addEntriesFromDictionary:eventInfo];
+        
+        NSMutableDictionary *event = [NSMutableDictionary dictionary];
+        [event setValue:eventName forKey:BO_EVENT_NAME_MAPPING];
+        [event setValue: [BOAUtilities get13DigitNumberObjTimeStamp] forKey:BO_EVENTS_TIME];
+        [event setValue:eventSubcode forKey:BO_EVENT_CATEGORY_SUBTYPE];
+        [event setValue:[BOAUtilities getMessageIDForEvent:eventName] forKey:BO_MESSAGE_ID];
+        [event setValue:[BOAUtilities getDeviceId] forKey:BO_USER_ID];
+        [event setValue:screenName forKey:BO_SCREEN_NAME];
+        [event setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
+        [event setValue:properties forKey:@"additionalData"];
+            
+        return @{BO_EVENTS:event};
+        
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+    return nil;
+}
+
++(NSDictionary*)getEncryptedEvent:(NSString*)publicKey withSecretKey:(NSString*)secretKey withDictionary:(NSDictionary*)event isPHI:(BOOL)phiEvent {
     
-}
-
--(void)logEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime withEventCode:(NSNumber*)eventCode{
     @try {
-        if (!self.isEnabled) {
-            return;
-        }
-        if (BOAEvents.isSessionModelInitialised) {
-            NSNumber *timeStamp = eventTime ? [BOAUtilities get13DigitNumberObjTimeStampFor:eventTime] : [BOAUtilities get13DigitNumberObjTimeStamp];
+        NSString *personalEncryptedData = nil;
+        NSString *personalEncryptedSecretKey = nil;
+        if(event != nil ) {
+            NSData * dataToEncryptPII = [NSJSONSerialization dataWithJSONObject:event options:NSJSONWritingFragmentsAllowed error:nil ];
             
-            NSString *visibleVC = [self topViewController] ? [NSString stringWithFormat:@"%@",[[self topViewController] class]] : [NSString stringWithFormat:@"%@",[[[UIApplication sharedApplication] delegate] class]];
+            personalEncryptedData = [BOCrypt encryptDataWithoutHash:dataToEncryptPII key:secretKey iv:BO_CRYPTO_IVX];
             
-            //if ([eventName isEqualToString:@"customeEvent"])
-            NSNumber *eventSubCode = [[NSNumber alloc] init];
-            if([eventCode intValue] == 0) {
-                eventSubCode = [BOAUtilities codeForCustomCodifiedEvent:NSNullifyCheck(eventName)];
+            personalEncryptedSecretKey = [BOEncryptionManager encryptString:secretKey publicKey:publicKey];
+            
+            NSMutableDictionary *personalPayload = [NSMutableDictionary dictionary];
+            [personalPayload setObject:personalEncryptedSecretKey forKey:BO_KEY];
+            [personalPayload setObject:BO_CRYPTO_IVX forKey:BO_IV];
+            [personalPayload setObject:personalEncryptedData forKey:BO_DATA];
+            if(phiEvent) {
+                [personalPayload setObject:@"phi" forKey:@"payload_type"];
             } else {
-                eventSubCode = eventCode;
+                [personalPayload setObject:@"pii" forKey:@"payload_type"];
             }
-            NSDictionary *customEventModelDict = @{
-                BO_SENT_TO_SERVER: [NSNumber numberWithBool:NO],
-                BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent:eventName],
-                BO_SESSION_ID: [BOSharedManager sharedInstance].sessionId,
-                BO_TIME_STAMP: timeStamp,
-                BO_EVENT_NAME: NSNullifyCheck(eventName),
-                BO_EVENT_SUB_CODE: eventSubCode,
-                BO_VISIBLE_CLASS_NAME: visibleVC,
-                BO_EVENT_INFO: NSNullifyDictCheck(eventInfo)
-            };
-            BOCustomEvent *costumEventModel = [BOCustomEvent fromJSONDictionary:customEventModelDict];
-            NSMutableArray *existingCustomEvent = [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified.customEvents mutableCopy];
-            [existingCustomEvent addObject:costumEventModel];
-            [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified setCustomEvents:existingCustomEvent];
             
-            //Funnel execution and testing based
-            [[BOAFunnelSyncController sharedInstanceFunnelController] recordDevEvent:NSNullifyCheck(eventName) withEventSubCode:eventSubCode withDetails:customEventModelDict];
-            
+            if(personalEncryptedSecretKey != nil && personalEncryptedSecretKey.length > 0 && personalEncryptedData != nil && personalEncryptedData.length > 0) {
+                return personalPayload;
+            } else {
+                return nil;
+            }
+        } else {
+            return nil;
         }
-        
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
+    
+    return nil;
 }
 
--(void)logPIIEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime{
-    @try {
-        if (!self.isEnabled) {
-            return;
-        }
-        if (BOAEvents.isSessionModelInitialised) {
-            NSNumber *timeStamp = eventTime ? [BOAUtilities get13DigitNumberObjTimeStampFor:eventTime] : [BOAUtilities get13DigitNumberObjTimeStamp];
-            
-            NSString *visibleVC = [self topViewController] ? [NSString stringWithFormat:@"%@",[[self topViewController] class]] : [NSString stringWithFormat:@"%@",[[[UIApplication sharedApplication] delegate] class]];
-            
-            //if ([eventName isEqualToString:@"customeEvent"])
-            NSNumber *eventSubCode = [BOAUtilities codeForCustomCodifiedEvent:NSNullifyCheck(eventName)];
-            NSDictionary *customEventModelDict = @{
-                BO_SENT_TO_SERVER: [NSNumber numberWithBool:NO],
-                BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent:eventName],
-                BO_SESSION_ID: [BOSharedManager sharedInstance].sessionId,
-                BO_TIME_STAMP: timeStamp,
-                BO_EVENT_NAME: NSNullifyCheck(eventName),
-                BO_EVENT_SUB_CODE: eventSubCode,
-                BO_VISIBLE_CLASS_NAME: visibleVC,
-                BO_EVENT_INFO: NSNullifyDictCheck(eventInfo)
-            };
-            BOCustomEvent *costumEventModel = [BOCustomEvent fromJSONDictionary:customEventModelDict];
-            NSMutableArray *existingCustomEvent = [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified.piiEvents mutableCopy];
-            [existingCustomEvent addObject:costumEventModel];
-            [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified setPiiEvents:existingCustomEvent];
-            
-        }
-        
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
++(NSDictionary*)preparePersonalEvent:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent{
 
--(void)logPHIEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo happendAt:(nullable NSDate*)eventTime{
     @try {
-        if (!self.isEnabled) {
-            return;
-        }
-        if (BOAEvents.isSessionModelInitialised) {
-            NSNumber *timeStamp = eventTime ? [BOAUtilities get13DigitNumberObjTimeStampFor:eventTime] : [BOAUtilities get13DigitNumberObjTimeStamp];
-            
-            NSString *visibleVC = [self topViewController] ? [NSString stringWithFormat:@"%@",[[self topViewController] class]] : [NSString stringWithFormat:@"%@",[[[UIApplication sharedApplication] delegate] class]];
-            
-            //if ([eventName isEqualToString:@"customeEvent"])
-            NSNumber *eventSubCode = [BOAUtilities codeForCustomCodifiedEvent:NSNullifyCheck(eventName)];
-            NSDictionary *customEventModelDict = @{
-                BO_SENT_TO_SERVER: [NSNumber numberWithBool:NO],
-                BO_MESSAGE_ID: [BOAUtilities getMessageIDForEvent:eventName],
-                BO_SESSION_ID: [BOSharedManager sharedInstance].sessionId,
-                BO_TIME_STAMP: timeStamp,
-                BO_EVENT_NAME: NSNullifyCheck(eventName),
-                BO_EVENT_SUB_CODE: eventSubCode,
-                BO_VISIBLE_CLASS_NAME: visibleVC,
-                BO_EVENT_INFO: NSNullifyDictCheck(eventInfo)
-            };
-            BOCustomEvent *costumEventModel = [BOCustomEvent fromJSONDictionary:customEventModelDict];
-            NSMutableArray *existingCustomEvent = [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified.phiEvents mutableCopy];
-            [existingCustomEvent addObject:costumEventModel];
-            [[BOAppSessionData sharedInstanceFromJSONDictionary:nil].singleDaySessions.developerCodified setPhiEvents:existingCustomEvent];
-            
+
+        if(eventSubcode == nil) {
+            eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
         }
         
+        NSMutableDictionary *personalEvent = [NSMutableDictionary dictionary];
+        [personalEvent setValue:eventName forKey:BO_EVENT_NAME_MAPPING];
+        [personalEvent setValue: [BOAUtilities get13DigitNumberObjTimeStamp] forKey:BO_EVENTS_TIME];
+        [personalEvent setValue:eventSubcode forKey:BO_EVENT_CATEGORY_SUBTYPE];
+        [personalEvent setValue:[BOAUtilities getMessageIDForEvent:eventName] forKey:BO_MESSAGE_ID];
+        [personalEvent setValue:[BOAUtilities getDeviceId] forKey:BO_USER_ID];
+        [personalEvent setValue:screenName forKey:BO_SCREEN_NAME];
+        [personalEvent setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
+
+        NSString *secretKey = [BOAUtilities getUUIDString];
+        secretKey = [secretKey stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSDictionary *encryptedData = nil;
+        
+        if(phiEvent) {
+            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].phiPublickey withSecretKey:secretKey withDictionary:personalEvent isPHI:phiEvent];
+            return [BOADeveloperEvents createEventObject:eventName withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
+        } else {
+            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].piiPublicKey withSecretKey:secretKey withDictionary:personalEvent isPHI:phiEvent];
+            return [BOADeveloperEvents createEventObject:eventName withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
+        }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
+    return nil;
 }
 
 @end

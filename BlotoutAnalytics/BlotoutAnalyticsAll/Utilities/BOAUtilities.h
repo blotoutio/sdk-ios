@@ -37,13 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(int)getCurrentTimezoneOffsetInMin:(NSTimeZone*)timeZone;
 
 //Reference date is 1 Jan 1970 UTC time as per apple guidelines and if date is nil then current date time is used as default
-+(NSNumber*)get10DigitNumberObjTimeStampFor:(NSDate*)date;
-+(NSInteger)get10DigitIntegerTimeStampFor:(NSDate*)date;
 +(NSNumber*)get13DigitNumberObjTimeStampFor:(NSDate*)date;
 +(NSInteger)get13DigitIntegerTimeStampFor:(NSDate*)date;
 
-+(NSNumber*)get10DigitNumberObjTimeStamp;
-+(NSInteger)get10DigitIntegerTimeStamp;
 +(NSNumber*)get13DigitNumberObjTimeStamp;
 +(NSInteger)get13DigitIntegerTimeStamp;
 
@@ -103,7 +99,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)isDayMonthAndYearSameOfDate:(NSDate*)date1 andDateStr:(NSString*)date2Str inFomrat:(NSString*)format;
 
 +(NSArray<NSDate*>*)getAllDatesBetween:(NSDate*)startDate andDate2:(NSDate*)endDate;
-+(NSDate*)getDateBetween:(NSDate*)date1 andDate2:(NSDate*)date2;
 +(NSDate*)getDateGreaterThan:(NSDate*)date;
 +(NSDate*)getDateLessThan:(NSDate*)date;
 +(NSDate*)getPreviousDayDateFrom:(NSDate*)date;
@@ -117,28 +112,29 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)isNumberChar:(char)sChar;
 +(int)getAsciiSum:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive;
 +(int)getAsciiCustomIntSum:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive;
-+(int)getOnlyAsciiCharsCustomIntSumFromUnicode:(NSString *)input usingCaseSenstive:(BOOL)isCaseSenstive;
-+(int)getStringMD5CustomIntSum:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive;
-// - getStringMD5CustomIntSumWithCharIndexAdded seems to give unique number always until specific case mentioned in .m.
-+(int)getStringMD5CustomIntSumWithCharIndexAdded:(NSString*)input usingCaseSenstive:(BOOL)isCaseSenstive;
 
 +(NSString*)getMessageIDForEvent:(NSString*)eventName;
-+(NSString*)getMessageIDForEvent:(NSString*)eventName andIdentifier:(NSNumber*)eventID;
-+(NSString*)generateMessageIDForEvent:(NSString*)eventName evnetCode:(NSString*)eventCode happenedAt:(NSNumber*)eventTime;
 +(NSNumber*)codeForCustomCodifiedEvent:(NSString*)eventName;
 
 +(int)currentPlatformCode;
 
 +(NSString*)getDeviceId;
-+ (NSString *)getUUIDString;
++(NSString *)getUUIDString;
 
-+ (UIViewController *)topViewController:(UIViewController *)rootViewController;
++(UIViewController *)topViewController:(UIViewController *)rootViewController;
 
-+(float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
-+(float)randomIntBetween:(int)smallNumber and:(int)bigNumber;
 +(NSString*)convertTo64CharUUID:(NSString*)stringToConvert;
 +(NSString *)generateRandomNumber:(int)len;
 +(NSString *)getUUIDStringFromString:(NSString *)uuidStr;
+
++ (NSString *)systemName;
++ (NSString *)systemVersion;
++ (NSString *)deviceModel;
++ (NSNumber *)getUserBirthTimeStamp;
++ (NSData *_Nullable)dataFromPlist:(nonnull id)plist;
++ (id _Nullable)plistFromData:(NSData *_Nonnull)data;
++(NSString*)getIDFA;
++(BOOL)getAdTrackingEnabled;
 
 @end
 

@@ -8,16 +8,13 @@
 
 #import "UIViewController+Extensions.h"
 #import <objc/runtime.h>
-#import "BOAppSessionData.h"
 #import "BOSharedManager.h"
-#import "BOAFunnelSyncController.h"
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
 #import "BOAUtilities.h"
 #import "BONetworkEventService.h"
+#import "BOANetworkConstants.h"
 
 void loadAsUIViewControllerBOFoundationCat(void){
-    
 }
 
 @implementation UIViewController (Extensions)
@@ -92,70 +89,9 @@ void loadAsUIViewControllerBOFoundationCat(void){
             // Send sdk_start event
             [BONetworkEventService sendSdkStartEvent:[NSString stringWithFormat:@"%@", [top class]]];
         }
-        BOAppSessionData *appSessionData = [BOAppSessionData sharedInstanceFromJSONDictionary:nil];
-        BOSharedManager *extentionManager = [BOSharedManager sharedInstance];
-        
-        BOAppNavigation *navObject = [[BOAppNavigation alloc] init];
-        navObject.from = extentionManager.currentNavigation.to != nil ? [NSString stringWithFormat:@"%@",extentionManager.currentNavigation.to] : nil;
-        navObject.to = [NSString stringWithFormat:@"%@", [top class]];
-        extentionManager.currentNavigation = navObject;
-        
-        if(extentionManager.currentNavigation != nil && extentionManager.currentNavigation.from != nil && ![extentionManager.currentNavigation.from isEqualToString:extentionManager.currentNavigation.to]) {
-            NSMutableArray *appNavigationArray = [appSessionData.singleDaySessions.ubiAutoDetected.appNavigation mutableCopy];
-            //if(![[UIApplication sharedApplication] isNetworkActivityIndicatorVisible] &&
-            if(extentionManager.currentTime > 0.0) {
-                if (extentionManager.currentTimer) {
-                    [extentionManager.currentTimer invalidate];
-                }
-                extentionManager.currentNavigation.timeSpent = [NSNumber numberWithFloat:extentionManager.currentTime];
-            }
-            
-            [appNavigationArray addObject:extentionManager.currentNavigation];
-            
-            appSessionData.singleDaySessions.ubiAutoDetected.appNavigation = appNavigationArray;
-            
-            
-            //Funnel execution and testing based
-            [[BOAFunnelSyncController sharedInstanceFunnelController] recordNavigationEventFrom:navObject.from to:navObject.to withDetails:@{}];
-        }
-        
-        
-        //if([[UIApplication sharedApplication] isNetworkActivityIndicatorVisible]) {
-        //intialize network indicator if any
-        if (extentionManager.currentTimer) {
-            [extentionManager.currentTimer invalidate];
-        }
-        extentionManager.currentNavigation.networkIndicatorVisible = [NSNumber numberWithBool:YES];
-        extentionManager.currentTimer = [self createTimer];
-        extentionManager.currentTime = 0.0;
-        //}
         
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
-
-- (NSTimer *)createTimer {
-    @try {
-        return [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                target:self
-                                              selector:@selector(timerTicked:)
-                                              userInfo:nil
-                                               repeats:YES];
-        
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-- (void)timerTicked:(NSTimer *)timer {
-    @try {
-        BOSharedManager *extentionManager = [BOSharedManager sharedInstance];
-        extentionManager.currentTime += 0.1;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
-
 @end

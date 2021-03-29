@@ -8,14 +8,9 @@
 
 #import "BOEventsOperationExecutor.h"
 #import <UIKit/UIKit.h>
-#import "BOAConstants.h"
 
 #define  BO_ANALYTICS_SDK_SERIAL_QUEUE_KEY  "com.bo.sdk.queue.serial"
-#define  BO_ANALYTICS_SDK_FUNNEL_QUEUE_KEY  "com.bo.sdk.queue.funnel.serial"
-#define  BO_ANALYTICS_SDK_SEGMENT_QUEUE_KEY  "com.bo.sdk.queue.segment.serial"
 #define  BO_ANALYTICS_SDK_DEVICE_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.device.serial"
-#define  BO_ANALYTICS_SDK_RETENTION_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.retention.serial"
-#define  BO_ANALYTICS_SDK_LIFETIME_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.lifetime.serial"
 #define BO_ANALYTICS_SDK_BACKGROUND_QUEUE_KEY "com.bo.sdk.queue.background"
 #define  BO_ANALYTICS_SDK_INITIALIZATION_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.initialization.serial"
 #define  BO_ANALYTICS_SDK_SESSION_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.session.serial"
@@ -24,12 +19,8 @@ static id sBOFSharedInstance = nil;
 
 @interface BOEventsOperationExecutor ()
 @property (nonatomic, strong) dispatch_queue_t executorSerialQueue;
-@property (nonatomic, strong) dispatch_queue_t executorFunnelSerialQueue;
-@property (nonatomic, strong) dispatch_queue_t executorSegmentSerialQueue;
 @property (nonatomic, strong) dispatch_queue_t executorDeviceSerialQueue;
-@property (nonatomic, strong) dispatch_queue_t executorRetentionSerialQueue;
-@property (nonatomic, strong) dispatch_queue_t executorLifetimeSerialQueue;
-
+@property (nonatomic, strong) dispatch_queue_t executorInitializationSerialQueue;
 @property (nonatomic, strong) dispatch_queue_t executorBackgroundTaskQueue;
 @property (nonatomic, strong) dispatch_queue_t executorSessionDataSerialQueue;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier executorBackgroundTaskID;
@@ -52,11 +43,7 @@ static id sBOFSharedInstance = nil;
     if (self) {
         self.executorSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_SERIAL_QUEUE_KEY, DISPATCH_QUEUE_SERIAL);
         self.executorBackgroundTaskQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_BACKGROUND_QUEUE_KEY, DISPATCH_QUEUE_SERIAL);
-        self.executorFunnelSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_FUNNEL_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
-        self.executorSegmentSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_SEGMENT_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
         self.executorDeviceSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_DEVICE_OPERATION_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
-        self.executorRetentionSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_RETENTION_OPERATION_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
-        self.executorLifetimeSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_LIFETIME_OPERATION_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
         self.executorInitializationSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_INITIALIZATION_OPERATION_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
         self.executorSessionDataSerialQueue = bo_dispatch_queue_create_specific(BO_ANALYTICS_SDK_SESSION_OPERATION_QUEUE_KEY, DISPATCH_QUEUE_CONCURRENT);
     }
@@ -118,27 +105,18 @@ void bo_dispatch_specific_sync(dispatch_queue_t queue,
     bo_dispatch_specific(queue, block, YES);
 }
 
+- (void)dispatchBackgroundTask:(void (^)(void))block {
+    bo_dispatch_specific_async(_executorBackgroundTaskQueue, block);
+}
+
+
 - (void)dispatchEventsInBackground:(void (^)(void))block {
     bo_dispatch_specific_async(_executorSerialQueue, block);
 }
-- (void)dispatchFunnelEventsInBackground:(void (^)(void))block {
-    bo_dispatch_specific_async(_executorFunnelSerialQueue, block);
-}
-- (void)dispatchSegmentEventsInBackground:(void (^)(void))block {
-    bo_dispatch_specific_async(_executorSegmentSerialQueue, block);
-}
+
 - (void)dispatchDeviceOperationInBackground:(void (^)(void))block {
     bo_dispatch_specific_async(_executorDeviceSerialQueue, block);
 }
-
-- (void)dispatchGeoRetentionOperationInBackground:(void (^)(void))block {
-    bo_dispatch_specific_async(_executorRetentionSerialQueue, block);
-}
-
-- (void)dispatchLifetimeOperationInBackground:(void (^)(void))block {
-    bo_dispatch_specific_async(_executorLifetimeSerialQueue, block);
-}
-
 
 - (void)dispatchInBackgroundAndWait:(void (^)(void))block {
     bo_dispatch_specific_sync(_executorSerialQueue, block);
@@ -152,13 +130,8 @@ void bo_dispatch_specific_sync(dispatch_queue_t queue,
     bo_dispatch_specific_after_time(_executorInitializationSerialQueue, block, delayInterval);
 }
 
-- (void)dispatchLifetimeOperationInBackground:(void (^)(void))block afterDelay:(double)delayInterval {
-    bo_dispatch_specific_after_time(_executorLifetimeSerialQueue, block, delayInterval);
-}
-
 - (void)dispatchSessionOperationInBackground:(void (^)(void))block afterDelay:(double)delayInterval {
     bo_dispatch_specific_after_time(_executorSessionDataSerialQueue, block, delayInterval);
 }
-
 
 @end

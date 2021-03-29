@@ -9,7 +9,6 @@
 #import "BOADeviceAndAppFraudController.h"
 #import "UIKit/UIKit.h"
 #import <BlotoutFoundation/BOFLogs.h>
-#import "BOAConstants.h"
 #include <sys/utsname.h>
 #include <pwd.h>
 #include <mach/mach.h>
@@ -23,6 +22,7 @@
 #import <mach-o/dyld.h>
 #import <dlfcn.h>
 #import <TargetConditionals.h>
+#import "BOANetworkConstants.h"
 #if TARGET_OS_OSX
 #import <CFNetwork/CFNetwork.h>
 #import <CFNetwork/CFProxySupport.h>
@@ -233,59 +233,6 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
     return nil;
 }
 
-static int process_list(struct kinfo_proc **procList, size_t *procCount){
-    @try {
-        int err;
-        struct kinfo_proc * result;
-        bool  done;
-        static const int name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0};
-        size_t length;
-        *procCount = 0;
-        result = NULL;
-        done = false;
-        do {
-            assert(result == NULL);
-            length = 0;
-            err = sysctl( (int *) name, (sizeof(name) / sizeof(*name)) - 1, NULL, &length, NULL, 0);
-            if (err == -1) {
-                err = errno;
-            }
-            if (err == 0) {
-                result = malloc(length);
-                if (result == NULL) {
-                    err = ENOMEM;
-                }
-            }
-            if (err == 0) {
-                err = sysctl( (int *) name, (sizeof(name) / sizeof(*name)) - 1, result, &length, NULL, 0);
-                if (err == -1) {
-                    err = errno;
-                }
-                if (err == 0) {
-                    done = true;
-                } else if (err == ENOMEM) {
-                    assert(result != NULL);
-                    free(result);
-                    result = NULL;
-                    err = 0;
-                }
-            }
-        } while (err == 0 && ! done);
-        if (err != 0 && result != NULL) {
-            free(result);
-            result = NULL;
-        }
-        *procList = result;
-        if (err == 0) {
-            *procCount = length / sizeof(result);
-        }
-        assert( (err == 0) == (*procList != NULL) );
-        return err;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
-
 +(BOOL)isDeviceJailbroken{
     @try {
         if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]){
@@ -307,9 +254,18 @@ static int process_list(struct kinfo_proc **procList, size_t *procCount){
             //if PSProtector activated -- Tested on iOS 11.0.1
             return YES;
         }
-        if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]){
+        
+        __block bool isCydia;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]){
+                isCydia = YES;
+            }
+        });
+       
+        if(isCydia) {
             return YES;
         }
+        
         FILE *f = fopen("/bin/bash", "r");
         if (f != NULL) {
             fclose(f);
