@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) NSString *sessionId;
 @property (nonatomic,readwrite) bool isViewDidAppeared;
+@property (nonatomic,strong) NSString *currentScreenName;
 
 +(instancetype)sharedInstance;
 

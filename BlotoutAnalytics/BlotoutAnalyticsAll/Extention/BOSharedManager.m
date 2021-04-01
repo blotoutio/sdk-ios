@@ -30,6 +30,7 @@ static id sBOSharedManagerSharedInstance = nil;
     if (self) {
         [BOAUtilities getDeviceId];
         _sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
+        _currentScreenName = @"";
     }
     return self;
 }

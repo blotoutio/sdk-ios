@@ -60,7 +60,7 @@
         
         NSMutableDictionary *properties = [NSMutableDictionary dictionary];
         [properties addEntriesFromDictionary:eventInfo];
-        
+        NSString *screenName = (screenName != nil && screenName.length >0) ? screenName : [BOSharedManager sharedInstance].currentScreenName;
         NSMutableDictionary *event = [NSMutableDictionary dictionary];
         [event setValue:eventName forKey:BO_EVENT_NAME_MAPPING];
         [event setValue: [BOAUtilities get13DigitNumberObjTimeStamp] forKey:BO_EVENTS_TIME];
@@ -142,9 +142,14 @@
 
 +(NSDictionary*)getScreenPayload {
     NSMutableDictionary *screenInfo = [NSMutableDictionary dictionary];
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    [screenInfo setValue:@(screenSize.width) forKey:@"width"];
-    [screenInfo setValue:@(screenSize.height) forKey:@"height"];
-    return  screenInfo;
+    @try {
+        CGSize screenSize = [UIScreen mainScreen].bounds.size;
+        [screenInfo setValue:@(screenSize.width) forKey:@"width"];
+        [screenInfo setValue:@(screenSize.height) forKey:@"height"];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+    
+    return screenInfo;
 }
 @end

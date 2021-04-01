@@ -89,47 +89,52 @@ static id sBOASharedInstance = nil;
 
 -(void)init:(BlotoutAnalyticsConfiguration*)configuration andCompletionHandler:(void (^_Nullable)(BOOL isSuccess, NSError * _Nullable error))completionHandler {
     
-    if (![self validateData:configuration]) {
-        NSError *initError = [NSError errorWithDomain:@"io.blotout.analytics" code:100002 userInfo:@{
-            @"userInfo": @"Key and EndPoint Url can't be empty !"
-        }];
-        completionHandler(NO, initError);
-        return;
-    }
-    
-#if TARGET_OS_TV
-    BOAUserDefaultsStorage *storage = [[BOAUserDefaultsStorage alloc] initWithDefaults:[NSUserDefaults standardUserDefaults] namespacePrefix:nil crypto:[self getCrypto:configuration]];
-#else
-    BOAFileStorage *storage = [[BOAFileStorage alloc] initWithFolder:[NSURL fileURLWithPath:[BOFFileSystemManager getBOSDKRootDirectory]] crypto:[self getCrypto:configuration]];
-#endif
-    
-    self.eventManager = [[BOAEventsManager alloc] initWithConfiguration:configuration storage:storage];
-    self.token = configuration.token;
-    self.endPointUrl = configuration.endPointUrl;
-    [self registerApplicationStates];
-    
+    @try {
+        if (![self validateData:configuration]) {
+            NSError *initError = [NSError errorWithDomain:@"io.blotout.analytics" code:100002 userInfo:@{
+                @"userInfo": @"Key and EndPoint Url can't be empty !"
+            }];
+            completionHandler(NO, initError);
+            return;
+        }
+        
+    #if TARGET_OS_TV
+        BOAUserDefaultsStorage *storage = [[BOAUserDefaultsStorage alloc] initWithDefaults:[NSUserDefaults standardUserDefaults] namespacePrefix:nil crypto:[self getCrypto:configuration]];
+    #else
+        BOAFileStorage *storage = [[BOAFileStorage alloc] initWithFolder:[NSURL fileURLWithPath:[BOFFileSystemManager getBOSDKRootDirectory]] crypto:[self getCrypto:configuration]];
+    #endif
+        
+        self.eventManager = [[BOAEventsManager alloc] initWithConfiguration:configuration storage:storage];
+        self.token = configuration.token;
+        self.endPointUrl = configuration.endPointUrl;
+        [self registerApplicationStates];
+        
 
-#if !TARGET_OS_TV
-        if (configuration.trackPushNotifications && configuration.launchOptions) {
-            NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-            if (remoteNotification) {
-                [self trackPushNotification:remoteNotification fromLaunch:YES];
+    #if !TARGET_OS_TV
+            if (configuration.trackPushNotifications && configuration.launchOptions) {
+                NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+                if (remoteNotification) {
+                    [self trackPushNotification:remoteNotification fromLaunch:YES];
+                }
             }
-        }
-    
-        if(configuration.trackInAppPurchases) {
-            self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
-        }
-#endif
-    
-    [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
-        [self checkManifestAndInitAnalyticsWithCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
-            completionHandler(isSuccess, error);
+        
+            if(configuration.trackInAppPurchases) {
+                self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
+            }
+    #endif
+        
+        [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
+            [self checkManifestAndInitAnalyticsWithCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
+                completionHandler(isSuccess, error);
+            }];
         }];
-    }];
-    
-    //check for app tracking and fetch IDFA
-    [self checkAppTrackingStatus];
+        
+        //check for app tracking and fetch IDFA
+        [self checkAppTrackingStatus];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        completionHandler(NO, [NSError boErrorForDict:exception.userInfo]);
+    }
     
 }
 
@@ -177,11 +182,15 @@ static id sBOASharedInstance = nil;
 }
 
 -(id<BOACrypto>)getCrypto:(BlotoutAnalyticsConfiguration*)config {
-    if(config.crypto) {
-        return config.crypto;
-    } else {
-        BOAAESCrypto *crypto = [[BOAAESCrypto alloc] initWithPassword:[BOAUtilities getDeviceId] iv:BO_CRYPTO_IVX];
-        return crypto;
+    @try {
+        if(config.crypto) {
+            return config.crypto;
+        } else {
+            BOAAESCrypto *crypto = [[BOAAESCrypto alloc] initWithPassword:[BOAUtilities getDeviceId] iv:BO_CRYPTO_IVX];
+            return crypto;
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
@@ -292,85 +301,113 @@ static id sBOASharedInstance = nil;
 
 #pragma MARK- Application Delegates
 - (void)trackPushNotification:(NSDictionary *)properties fromLaunch:(BOOL)launch {
-    if (launch) {
-        [self capture:@"Push Notification Tapped" withInformation:properties withType:BO_SYSTEM];
-    } else {
-        [self capture:@"Push Notification Received" withInformation:properties withType:BO_SYSTEM];
+    @try {
+        if (launch) {
+            [self capture:@"Push Notification Tapped" withInformation:properties withType:BO_SYSTEM];
+        } else {
+            [self capture:@"Push Notification Received" withInformation:properties withType:BO_SYSTEM];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
 - (void)receivedRemoteNotification:(NSDictionary *)userInfo {
-    if (self.config.trackPushNotifications) {
-        [self trackPushNotification:userInfo fromLaunch:NO];
+    @try {
+        if (self.config.trackPushNotifications) {
+            [self trackPushNotification:userInfo fromLaunch:NO];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
 - (void)failedToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    if(self.config.trackPushNotifications) {
-        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-        [properties setValue:@(0) forKey:@"deviceRegistered"];
-        [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
+    @try {
+        if(self.config.trackPushNotifications) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+            [properties setValue:@(0) forKey:@"deviceRegistered"];
+            [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
 - (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    if(self.config.trackPushNotifications) {
-        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-       
-        const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
-        if (!buffer) {
-            return;
+    @try {
+        if(self.config.trackPushNotifications) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+           
+            const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
+            if (!buffer) {
+                return;
+            }
+            NSMutableString *token = [NSMutableString stringWithCapacity:(deviceToken.length * 2)];
+            for (NSUInteger i = 0; i < deviceToken.length; i++) {
+                [token appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)buffer[i]]];
+            }
+            
+            [properties setValue:token forKey:@"token"];
+            [properties setValue:@(1) forKey:@"deviceRegistered"];
+            [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
         }
-        NSMutableString *token = [NSMutableString stringWithCapacity:(deviceToken.length * 2)];
-        for (NSUInteger i = 0; i < deviceToken.length; i++) {
-            [token appendString:[NSString stringWithFormat:@"%02lx", (unsigned long)buffer[i]]];
-        }
-        
-        [properties setValue:token forKey:@"token"];
-        [properties setValue:@(1) forKey:@"deviceRegistered"];
-        [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
 - (void)continueUserActivity:(NSUserActivity *)activity {
-    if (!self.config.trackDeepLinks) {
-        return;
-    }
+    @try {
+        if (!self.config.trackDeepLinks) {
+            return;
+        }
 
-    if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
-        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:activity.userInfo.count + 2];
-        [properties addEntriesFromDictionary:activity.userInfo];
-        properties[@"url"] = activity.webpageURL.absoluteString;
-        properties[@"title"] = activity.title ?: @"";
-        properties = [BOAUtilities traverseJSON:properties];
-        [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+        if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+            NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:activity.userInfo.count + 2];
+            [properties addEntriesFromDictionary:activity.userInfo];
+            properties[@"url"] = activity.webpageURL.absoluteString;
+            properties[@"title"] = activity.title ?: @"";
+            properties = [BOAUtilities traverseJSON:properties];
+            [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
 - (void)openURL:(NSURL *)url options:(NSDictionary *)options {
-    if (!self.config.trackDeepLinks) {
-        return;
-    }
+    @try {
+        if (!self.config.trackDeepLinks) {
+            return;
+        }
 
-    NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:options.count + 2];
-    [properties addEntriesFromDictionary:options];
-    properties[@"url"] = url.absoluteString;
-    properties = [BOAUtilities traverseJSON:properties];
-    [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+        NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:options.count + 2];
+        [properties addEntriesFromDictionary:options];
+        properties[@"url"] = url.absoluteString;
+        properties = [BOAUtilities traverseJSON:properties];
+        [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 
 -(void)registerApplicationStates {
-    // Attach to application state change hooks
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    @try {
+        // Attach to application state change hooks
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 
-    for (NSString *name in @[ UIApplicationDidEnterBackgroundNotification,
-                              UIApplicationDidFinishLaunchingNotification,
-                              UIApplicationWillEnterForegroundNotification,
-                              UIApplicationWillTerminateNotification,
-                              UIApplicationWillResignActiveNotification,
-                              UIApplicationDidBecomeActiveNotification ]) {
-        [nc addObserver:self selector:@selector(handleAppStateNotification:) name:name object:nil];
+        for (NSString *name in @[ UIApplicationDidEnterBackgroundNotification,
+                                  UIApplicationDidFinishLaunchingNotification,
+                                  UIApplicationWillEnterForegroundNotification,
+                                  UIApplicationWillTerminateNotification,
+                                  UIApplicationWillResignActiveNotification,
+                                  UIApplicationDidBecomeActiveNotification ]) {
+            [nc addObserver:self selector:@selector(handleAppStateNotification:) name:name object:nil];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
@@ -390,52 +427,68 @@ static id sBOASharedInstance = nil;
 }
 
 - (void)_applicationDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [BOASystemEvents captureAppLaunchingInfoWithConfiguration:launchOptions];
+    @try {
+        if(self.config.trackSystemEvent) {
+            [BOASystemEvents captureAppLaunchingInfoWithConfiguration:launchOptions];
+        }
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 - (void)_applicationWillEnterForeground {
-    [self capture:@"Application Opened" withInformation:@{
-        @"from_background" : @YES,
-    } withType:BO_SYSTEM];
-    
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_VISIBLE properties:nil eventCode:@(BO_EVENT_VISIBILITY_VISIBLE) screenName:nil withType:BO_SYSTEM];
-    [self.eventManager capture:model];
+    @try {
+        if(self.config.trackSystemEvent) {
+            [self capture:@"Application Opened" withInformation:@{
+                @"from_background" : @YES,
+            } withType:BO_SYSTEM];
+        }
+        
+        BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_VISIBLE properties:nil eventCode:@(BO_EVENT_VISIBILITY_VISIBLE) screenName:nil withType:BO_SYSTEM];
+        [self.eventManager capture:model];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 - (void)_applicationDidEnterBackground {
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:nil withType:BO_SYSTEM];
-    [self.eventManager capture:model];
-    
-    [self capture: @"Application Backgrounded" withInformation:nil withType:BO_SYSTEM];
-    [self.eventManager applicationDidEnterBackground];
+    @try {
+        BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:nil withType:BO_SYSTEM];
+        [self.eventManager capture:model];
+        
+        if(self.config.trackSystemEvent) {
+            [self capture: @"Application Backgrounded" withInformation:nil withType:BO_SYSTEM];
+        }
+        [self.eventManager applicationDidEnterBackground];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 -(void)checkAppTrackingStatus {
     @try {
         NSString *statusString = @"";
         NSString *idfaString = @"";
-        if (@available(macCatalyst 14, *)) {
-            ATTrackingManagerAuthorizationStatus status = ATTrackingManager.trackingAuthorizationStatus;
-            switch (status) {
-                case ATTrackingManagerAuthorizationStatusAuthorized:
-                    statusString = @"Authorized";
-                    idfaString =  [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
-                    break;
-                case ATTrackingManagerAuthorizationStatusDenied:
-                    statusString = @"Denied";
-                    break;
-                case ATTrackingManagerAuthorizationStatusRestricted:
-                    statusString = @"Restricted";
-                    break;
-                case ATTrackingManagerAuthorizationStatusNotDetermined:
-                    statusString = @"Not Determined";
-                    break;
-                default:
-                    statusString = @"Unknown";
-                    break;
-            }
-            
-            
+        if (@available(iOS 14, *)) {
+                ATTrackingManagerAuthorizationStatus status = ATTrackingManager.trackingAuthorizationStatus;
+                switch (status) {
+                    case ATTrackingManagerAuthorizationStatusAuthorized:
+                        statusString = @"Authorized";
+                        idfaString =  [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+                        break;
+                    case ATTrackingManagerAuthorizationStatusDenied:
+                        statusString = @"Denied";
+                        break;
+                    case ATTrackingManagerAuthorizationStatusRestricted:
+                        statusString = @"Restricted";
+                        break;
+                    case ATTrackingManagerAuthorizationStatusNotDetermined:
+                        statusString = @"Not Determined";
+                        break;
+                    default:
+                        statusString = @"Unknown";
+                        break;
+                }
         } else {
             // Fallback on earlier version
             if([ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled) {

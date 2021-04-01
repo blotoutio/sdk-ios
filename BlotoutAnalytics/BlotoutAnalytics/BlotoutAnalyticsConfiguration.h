@@ -89,6 +89,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL trackInAppPurchases;
 
+/**
+ * Whether the analytics client should automatically track in-app purchases from the App Store.
+ */
+@property (nonatomic, assign) BOOL trackSystemEvent;
+
 @end
 
 NS_ASSUME_NONNULL_END

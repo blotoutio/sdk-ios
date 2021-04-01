@@ -8,17 +8,27 @@
 
 #import "BlotoutAnalyticsConfiguration.h"
 #import <UserNotifications/UserNotifications.h>
+#import <BlotoutFoundation/BOFLogs.h>
+#import "BOANetworkConstants.h"
 
 @implementation UIApplication (BOAApplicationProtocol)
 
 - (UIBackgroundTaskIdentifier)boa_beginBackgroundTaskWithName:(nullable NSString *)taskName expirationHandler:(void (^__nullable)(void))handler
 {
-    return [self beginBackgroundTaskWithName:taskName expirationHandler:handler];
+    @try {
+        return [self beginBackgroundTaskWithName:taskName expirationHandler:handler];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 - (void)boa_endBackgroundTask:(UIBackgroundTaskIdentifier)identifier
 {
-    [self endBackgroundTask:identifier];
+    @try {
+        [self endBackgroundTask:identifier];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 @end

@@ -109,8 +109,10 @@ void loadAsUIViewControllerBOFoundationCat(void){
             [BOSharedManager sharedInstance].isViewDidAppeared = YES;
             // Send sdk_start event
             // Send page_hide event
+            NSString *screenName = [self getScreenName:top];
+            [BOSharedManager sharedInstance].currentScreenName = screenName;
             if([BlotoutAnalytics sharedInstance].eventManager != nil) {
-                BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_SDK_START properties:nil eventCode:@(BO_EVENT_SDK_START) screenName:[self getScreenName:top] withType:BO_SYSTEM];
+                BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_SDK_START properties:nil eventCode:@(BO_EVENT_SDK_START) screenName:screenName withType:BO_SYSTEM];
                 [[BlotoutAnalytics sharedInstance].eventManager capture:model];
             }
         }

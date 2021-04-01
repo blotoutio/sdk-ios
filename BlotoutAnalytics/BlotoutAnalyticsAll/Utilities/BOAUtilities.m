@@ -847,71 +847,81 @@
 
 +(id)traverseJSON:(id)obj
 {
-    // Hotfix: Storage format should support NSNull instead
-    if ([obj isKindOfClass:[NSNull class]]) {
-        return @"<null>";
-    }
-    // if the object is a NSString, NSNumber
-    // then we're good
-    if ([obj isKindOfClass:[NSString class]] ||
-        [obj isKindOfClass:[NSNumber class]]) {
-        return obj;
-    }
-
-    if ([obj isKindOfClass:[NSArray class]]) {
-        NSMutableArray *array = [NSMutableArray array];
-        for (id i in obj) {
-            // Hotfix: Storage format should support NSNull instead
-            if ([i isKindOfClass:[NSNull class]]) {
-                continue;
-            }
-            [array addObject:[self traverseJSON:i]];
+    @try {
+        // Hotfix: Storage format should support NSNull instead
+        if ([obj isKindOfClass:[NSNull class]]) {
+            return @"<null>";
         }
-        return array;
-    }
-
-    if ([obj isKindOfClass:[NSDictionary class]]) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        for (NSString *key in obj) {
-            // Hotfix for issue where SEGFileStorage uses plist which does NOT support NSNull
-            // So when `[NSNull null]` gets passed in as track property values the queue serialization fails
-            if ([obj[key] isKindOfClass:[NSNull class]]) {
-                continue;
-            }
-            if (![key isKindOfClass:[NSString class]])
-                BOFLogDebug(@"warning: dictionary keys should be strings. got: %@. coercing "
-                       @"to: %@",
-                       [key class], [key description]);
-            dict[key.description] = [self traverseJSON:obj[key]];
+        // if the object is a NSString, NSNumber
+        // then we're good
+        if ([obj isKindOfClass:[NSString class]] ||
+            [obj isKindOfClass:[NSNumber class]]) {
+            return obj;
         }
-        return dict;
+
+        if ([obj isKindOfClass:[NSArray class]]) {
+            NSMutableArray *array = [NSMutableArray array];
+            for (id i in obj) {
+                // Hotfix: Storage format should support NSNull instead
+                if ([i isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                [array addObject:[self traverseJSON:i]];
+            }
+            return array;
+        }
+
+        if ([obj isKindOfClass:[NSDictionary class]]) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            for (NSString *key in obj) {
+                // Hotfix for issue where SEGFileStorage uses plist which does NOT support NSNull
+                // So when `[NSNull null]` gets passed in as track property values the queue serialization fails
+                if ([obj[key] isKindOfClass:[NSNull class]]) {
+                    continue;
+                }
+                if (![key isKindOfClass:[NSString class]])
+                    BOFLogDebug(@"warning: dictionary keys should be strings. got: %@. coercing "
+                           @"to: %@",
+                           [key class], [key description]);
+                dict[key.description] = [self traverseJSON:obj[key]];
+            }
+            return dict;
+        }
+
+        if ([obj isKindOfClass:[NSDate class]])
+            return [self iso8601FormattedString:obj];
+
+        if ([obj isKindOfClass:[NSURL class]])
+            return [obj absoluteString];
+
+        // default to sending the object's description
+        BOFLogDebug(@"warning: dictionary values should be valid json types. got: %@. "
+               @"coercing to: %@",
+               [obj class], [obj description]);
+        return [obj description];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"";
     }
-
-    if ([obj isKindOfClass:[NSDate class]])
-        return [self iso8601FormattedString:obj];
-
-    if ([obj isKindOfClass:[NSURL class]])
-        return [obj absoluteString];
-
-    // default to sending the object's description
-    BOFLogDebug(@"warning: dictionary values should be valid json types. got: %@. "
-           @"coercing to: %@",
-           [obj class], [obj description]);
-    return [obj description];
 }
 
 // Date Utils
 +(NSString *)iso8601FormattedString:(NSDate *)date
 {
-    static NSDateFormatter *dateFormatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'";
-        dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    });
-    return [dateFormatter stringFromDate:date];
+    @try {
+        static NSDateFormatter *dateFormatter;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+            dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'";
+            dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        });
+        return [dateFormatter stringFromDate:date];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+        return @"";
+    }
 }
 
 @end
