@@ -45,8 +45,11 @@ NSString *BO_RETENTION_EVENT_DATA_POST_API = @"boRetentionEventDataPOSTAPI";
 int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
 
-int const BO_EVENT_PAGE_HIDE = 11106;
-NSString * const BO_PAGE_HIDE= @"pagehide";
+NSString * const BO_VISIBILITY_VISIBLE= @"visibility_visible";
+NSString * const BO_VISIBILITY_HIDDEN= @"visibility_hidden";
+int const BO_EVENT_VISIBILITY_VISIBLE = 11131;
+int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
+
 
 NSString * const BO_APP_VERSION= @"app_version";
 NSString * const BO_EVENTS= @"events";
@@ -71,4 +74,12 @@ NSString * const BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY =                      @
 NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY =   @"sdk_manifest_last_sync_timestamp";
 NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS =                  @"com.blotout.sdk.Analytics.Dev_Custom_Event";
 NSString * const BO_ANALYTICS_USER_UNIQUE_KEY =                             @"UserUniqueId";
-NSString * const BO_SESSION_ID=@"session_id";
+NSString * const BO_SESSION_ID = @"session_id";
+NSString * const BO_VERSION_KEY = @"BOVersionKey";
+NSString * const BO_BUILD_KEYV1  = @"BOBuildKey";
+NSString * const BO_BUILD_KEYV2 = @"BOBuildKeyV2";
+
+NSString * const BO_SYSTEM = @"system";
+NSString * const BO_CODIFIED = @"codified";
+NSString * const BO_SCREEN = @"screen";
+NSString * const BO_TYPE = @"type";

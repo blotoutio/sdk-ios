@@ -24,8 +24,6 @@
 #import "BOEventsOperationExecutor.h"
 
 static id sBOAsdkManifestSharedInstance = nil;
-static long int SYNC_MAX_TIME_GAP_IN_SECONDS = 604800; //7*24*60*60 7 days
-static long int STORAGE_MAX_TIME_GAP_IN_SECONDS = 14*24*60*60; //14*24*60*60 //1209600 14 days
 
 @interface BOASDKManifestController ()
 

@@ -36,6 +36,10 @@
 		2B22B88A2610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */; };
 		2B22B8E12610FFC10039F05B /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */; };
 		2B22B8E22610FFC10039F05B /* NSError+BOAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */; };
+		2B22B92B2612D6470039F05B /* BOAStoreKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B92A2612D6470039F05B /* BOAStoreKitController.m */; };
+		2B22B92C2612D6470039F05B /* BOAStoreKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B92A2612D6470039F05B /* BOAStoreKitController.m */; };
+		2B22B9412613684C0039F05B /* BOASystemEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B9402613684C0039F05B /* BOASystemEvents.m */; };
+		2B22B9422613684C0039F05B /* BOASystemEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B22B9402613684C0039F05B /* BOASystemEvents.m */; };
 		2B4F8D52250A170300D6B877 /* BOManifestGeoAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D4D250A170200D6B877 /* BOManifestGeoAPI.m */; };
 		2B4F8D58250A28EF00D6B877 /* BOANetworkConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8D56250A28EF00D6B877 /* BOANetworkConstants.m */; };
 		2B4F8DB3250D10FA00D6B877 /* BOSDKAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8DB2250D10FA00D6B877 /* BOSDKAPITests.m */; };
@@ -72,7 +76,6 @@
 		74A92DB222EB0B13006BE5AD /* BOADeveloperEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */; };
 		74A92DCF22EB0C7C006BE5AD /* BOAUserDefaultsStorage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D8B22EB0B13006BE5AD /* BOAUserDefaultsStorage.h */; };
 		74A92DD422EB0C7C006BE5AD /* BOADeveloperEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */; };
-		E80872C325B6F5A40015C2F7 /* BONetworkEventService.m in Sources */ = {isa = PBXBuildFile; fileRef = E80872C225B6F5A40015C2F7 /* BONetworkEventService.m */; };
 		E81641E3258DD07800B53A61 /* UIViewControllerExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */; };
 		E82A9E17251882B100D2F46B /* BOASDKManifestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */; };
 		E82A9E44251882E200D2F46B /* BOASDKManifestConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */; };
@@ -207,6 +210,10 @@
 		2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeviceAndAppFraudController.m; sourceTree = "<group>"; };
 		2B22B8DF2610FFC10039F05B /* NSError+BOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BOAdditions.h"; sourceTree = "<group>"; };
 		2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BOAdditions.m"; sourceTree = "<group>"; };
+		2B22B9292612D6470039F05B /* BOAStoreKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAStoreKitController.h; sourceTree = "<group>"; };
+		2B22B92A2612D6470039F05B /* BOAStoreKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAStoreKitController.m; sourceTree = "<group>"; };
+		2B22B93F2613684C0039F05B /* BOASystemEvents.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOASystemEvents.h; sourceTree = "<group>"; };
+		2B22B9402613684C0039F05B /* BOASystemEvents.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASystemEvents.m; sourceTree = "<group>"; };
 		2B4F8D4D250A170200D6B877 /* BOManifestGeoAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOManifestGeoAPI.m; sourceTree = "<group>"; };
 		2B4F8D4E250A170200D6B877 /* BOManifestGeoAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOManifestGeoAPI.h; sourceTree = "<group>"; };
 		2B4F8D54250A28EF00D6B877 /* BOANetworkConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOANetworkConstants.h; sourceTree = "<group>"; };
@@ -253,8 +260,6 @@
 		74A92D8D22EB0B13006BE5AD /* BOAUserDefaultsStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAUserDefaultsStorage.m; sourceTree = "<group>"; };
 		74A92D9522EB0B13006BE5AD /* BOADeveloperEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOADeveloperEvents.m; sourceTree = "<group>"; };
 		74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOADeveloperEvents.h; sourceTree = "<group>"; };
-		E80872C125B6F5A40015C2F7 /* BONetworkEventService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BONetworkEventService.h; sourceTree = "<group>"; };
-		E80872C225B6F5A40015C2F7 /* BONetworkEventService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BONetworkEventService.m; sourceTree = "<group>"; };
 		E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerExtensionsTests.m; sourceTree = "<group>"; };
 		E82A9E1025187B2400D2F46B /* BOASDKManifestConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOASDKManifestConstants.m; sourceTree = "<group>"; };
 		E83782DB24684BCD00FA9F48 /* BOServerDataConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOServerDataConverter.h; sourceTree = "<group>"; };
@@ -346,7 +351,6 @@
 			children = (
 				2B22B8DF2610FFC10039F05B /* NSError+BOAdditions.h */,
 				2B22B8E02610FFC10039F05B /* NSError+BOAdditions.m */,
-				E80872C025B6F5680015C2F7 /* service */,
 				2BCB876523212A5B00AD2390 /* api */,
 				2BCB876123212A3B00AD2390 /* BONetworkManager.h */,
 				2BCB876223212A3B00AD2390 /* BONetworkManager.m */,
@@ -439,6 +443,8 @@
 		749493342363725E0030EE3E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2B22B9292612D6470039F05B /* BOAStoreKitController.h */,
+				2B22B92A2612D6470039F05B /* BOAStoreKitController.m */,
 				2B22B8872610AB5A0039F05B /* BOADeviceAndAppFraudController.h */,
 				2B22B8882610AB5A0039F05B /* BOADeviceAndAppFraudController.m */,
 				7443CD2023800A61000F6884 /* BOASDKManifestController.h */,
@@ -522,17 +528,10 @@
 				74A92D9C22EB0B13006BE5AD /* BOADeveloperEvents.h */,
 				2B22B75926084DF20039F05B /* BOAEventsManager.h */,
 				2B22B75A26084DF20039F05B /* BOAEventsManager.m */,
+				2B22B93F2613684C0039F05B /* BOASystemEvents.h */,
+				2B22B9402613684C0039F05B /* BOASystemEvents.m */,
 			);
 			path = Events;
-			sourceTree = "<group>";
-		};
-		E80872C025B6F5680015C2F7 /* service */ = {
-			isa = PBXGroup;
-			children = (
-				E80872C125B6F5A40015C2F7 /* BONetworkEventService.h */,
-				E80872C225B6F5A40015C2F7 /* BONetworkEventService.m */,
-			);
-			path = service;
 			sourceTree = "<group>";
 		};
 		E843AD3F249E0791006C10CE /* BlotoutAnalyticsTests */ = {
@@ -785,15 +784,16 @@
 				2B22B79726088AA60039F05B /* BOAAESCrypto.m in Sources */,
 				7443CD2223800A61000F6884 /* BOASDKManifestController.m in Sources */,
 				2B4F8D58250A28EF00D6B877 /* BOANetworkConstants.m in Sources */,
+				2B22B9412613684C0039F05B /* BOASystemEvents.m in Sources */,
 				2B4F8D52250A170300D6B877 /* BOManifestGeoAPI.m in Sources */,
 				7435E8C622E99062008480B8 /* BlotoutAnalytics.m in Sources */,
 				2B22B77A260850EF0039F05B /* BOACaptureModel.m in Sources */,
+				2B22B92B2612D6470039F05B /* BOAStoreKitController.m in Sources */,
 				2B22B786260881300039F05B /* BOAFileStorage.m in Sources */,
 				2B22B8892610AB5A0039F05B /* BOADeviceAndAppFraudController.m in Sources */,
 				2BCB876C23212AA300AD2390 /* BOEventPostAPI.m in Sources */,
 				2BCB876323212A3B00AD2390 /* BONetworkManager.m in Sources */,
 				2BC70BB5251C948400A8A068 /* BOEventsOperationExecutor.m in Sources */,
-				E80872C325B6F5A40015C2F7 /* BONetworkEventService.m in Sources */,
 				2B71D6A225FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m in Sources */,
 				E83782DD24684BCD00FA9F48 /* BOServerDataConverter.m in Sources */,
 				2B22B76A260850B50039F05B /* BOASDKManifest.m in Sources */,
@@ -813,10 +813,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B22B9422613684C0039F05B /* BOASystemEvents.m in Sources */,
 				E82A9E44251882E200D2F46B /* BOASDKManifestConstants.m in Sources */,
 				7443CD2323800A61000F6884 /* BOASDKManifestController.m in Sources */,
 				74A92D5F22EB08A0006BE5AD /* BlotoutAnalytics.m in Sources */,
 				2BCB876D23212AA300AD2390 /* BOEventPostAPI.m in Sources */,
+				2B22B92C2612D6470039F05B /* BOAStoreKitController.m in Sources */,
 				2BCB876423212A3B00AD2390 /* BONetworkManager.m in Sources */,
 				2B22B77B260850EF0039F05B /* BOACaptureModel.m in Sources */,
 				2B22B76B260850B50039F05B /* BOASDKManifest.m in Sources */,

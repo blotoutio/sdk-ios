@@ -18,11 +18,14 @@
 #import <BlotoutFoundation/BOFLogs.h>
 #import <BlotoutFoundation/BOFNetworkPromiseExecutor.h>
 #import "BOAEventsManager.h"
+#import "BOAStoreKitController.h"
 
 @interface BlotoutAnalytics ()
 
 @property(nonatomic,strong,nonnull) BlotoutAnalyticsConfiguration *config;
 @property(nonatomic,strong,nonnull) BOAEventsManager *eventManager;
+@property (nonatomic, strong, nonnull) BOAStoreKitController *storeKitController;
+
 //Server Endpoint Url e.g. https://blotout.io/sdk, http://blotout.io/sdk, It has to be a domain based, IP's are considered invalid.
 @property (nonatomic, strong, nullable) NSString *endPointUrl;
 @property (nonatomic, strong, nullable) NSString *token;
@@ -36,6 +39,8 @@
 
 // return sdk version
 -(nonnull NSString*)sdkVersion;
+
+-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo withType:(NSString* _Nonnull)type;
 
 @end
 

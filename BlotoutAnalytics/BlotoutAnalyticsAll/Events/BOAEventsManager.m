@@ -89,7 +89,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 - (void)capture:(BOACaptureModel *)payload
 {
     @try {
-        NSDictionary *event = [BOADeveloperEvents captureEvent:payload.event withInformation:payload.properties withEventCode:payload.eventSubCode];
+        NSDictionary *event = [BOADeveloperEvents captureEvent:payload];
         [self enqueueEvent:@"capture" dictionary:event];
     } @catch(NSException *exception) {
         BOFLogDebug(@"%@", exception);
@@ -98,7 +98,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 
 -(void)capturePersonal:(BOACaptureModel *)payload isPHI:(BOOL)phiEvent {
     @try {
-        NSDictionary *personalEvent = [BOADeveloperEvents capturePersonalEvent:payload.event withInformation:payload.properties isPHI:phiEvent];
+        NSDictionary *personalEvent = [BOADeveloperEvents capturePersonalEvent:payload isPHI:phiEvent];
         [self enqueueEvent:@"capturePersonal" dictionary:personalEvent];
     } @catch(NSException *exception) {
         BOFLogDebug(@"%@", exception);
@@ -245,5 +245,4 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
     [self.storage setArray:[self.queue copy] forKey:kBOAQueueFilename];
 #endif
 }
-
 @end

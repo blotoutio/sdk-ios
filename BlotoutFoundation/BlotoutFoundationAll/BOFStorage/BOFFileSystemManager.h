@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)removeFileFromLocationPath:(NSString*)fileLocationPath removalError:(NSError**)removalError;
 +(BOOL)removeRecurrsiveEmptyDirFromLocationPath:(NSString*)dirLocationPath removalError:(NSError**)removalError;
 
-+ (NSString *)bundleId;
++(NSString *)bundleId;
 +(BOOL)isDirectoryAtPath:(NSString*)path;
 
 

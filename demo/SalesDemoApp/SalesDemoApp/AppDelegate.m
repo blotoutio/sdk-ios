@@ -62,6 +62,8 @@
     NSLog(@"start = %f", [[NSDate date] timeIntervalSince1970]);
     BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io/sdk"];
     config.application = application;
+    config.launchOptions = launchOptions;
+    
     [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
         NSLog(@"end %f", [[NSDate date] timeIntervalSince1970]);
         NSLog(@"BlotoutAnalytics Init %d:or Error: %@", isSuccess, error);

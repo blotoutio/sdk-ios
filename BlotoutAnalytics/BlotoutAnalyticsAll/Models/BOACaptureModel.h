@@ -16,7 +16,11 @@
 
 @property (nonatomic, strong, nullable) NSNumber *eventSubCode;
 
+@property (nonatomic, strong, nullable) NSString *screenName;
+
+@property (nonatomic, strong, nullable) NSString *type;
+
 - (instancetype _Nonnull )initWithEvent:(NSString * _Nonnull)event
-                             properties:(NSDictionary * _Nonnull)properties eventCode:(NSNumber*_Nullable)eventCode;
+                             properties:(NSDictionary * _Nullable)properties eventCode:(NSNumber*_Nullable)eventCode screenName:(NSString* _Nullable)screenName withType:(NSString* _Nonnull)type;
 
 @end

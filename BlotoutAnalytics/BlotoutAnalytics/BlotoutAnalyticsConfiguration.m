@@ -7,6 +7,7 @@
 //
 
 #import "BlotoutAnalyticsConfiguration.h"
+#import <UserNotifications/UserNotifications.h>
 
 @implementation UIApplication (BOAApplicationProtocol)
 

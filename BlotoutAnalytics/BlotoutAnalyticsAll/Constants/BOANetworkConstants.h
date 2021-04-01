@@ -7,9 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BlotoutFoundation/BOFLogs.h>
-
-#pragma mark-
 
 extern  NSString *BO_GET;
 extern  NSString *BO_POST;
@@ -41,7 +38,10 @@ extern  NSString *BO_RETENTION_EVENT_DATA_POST_API;
 extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
 extern int const BO_EVENT_PAGE_HIDE;
-extern NSString * const BO_PAGE_HIDE;
+extern NSString * const BO_VISIBILITY_VISIBLE;
+extern NSString * const BO_VISIBILITY_HIDDEN;
+extern int const BO_EVENT_VISIBILITY_VISIBLE;
+extern int const BO_EVENT_VISIBILITY_HIDDEN;
 
 extern NSString * const BO_APP_VERSION;
 extern NSString * const BO_EVENTS;
@@ -74,3 +74,11 @@ extern NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_K
 extern NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS;
 extern NSString * const BO_ANALYTICS_USER_UNIQUE_KEY;
 
+extern NSString *const BO_VERSION_KEY;
+extern NSString *const BO_BUILD_KEYV1;
+extern NSString *const BO_BUILD_KEYV2;
+
+extern NSString * const BO_SYSTEM;
+extern NSString * const BO_CODIFIED;
+extern NSString * const BO_SCREEN;
+extern NSString * const BO_TYPE;

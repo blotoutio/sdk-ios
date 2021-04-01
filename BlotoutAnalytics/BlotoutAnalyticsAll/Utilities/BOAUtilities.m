@@ -102,111 +102,6 @@
     return nil;
 }
 
-+(NSDate*)getDateWithTimeInterval:(NSTimeInterval)timeInterval sinceDate:(NSDate*)referenceDate{
-    @try {
-        return [NSDate dateWithTimeInterval:timeInterval sinceDate:referenceDate];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSDate*)getDateWithTimeInterval:(NSTimeInterval)timeInterval{
-    @try {
-        int dateIntervalL = timeInterval / 1000;
-        return [NSDate dateWithTimeIntervalSince1970:dateIntervalL];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-//timeIntervalSince1970 is the number of seconds since January, 1st, 1970, 12:00 am (mid night)
-+(NSTimeInterval)getTimeIntervalSicne1970OfDate:(NSDate*)referenceDate;{
-    @try {
-        return [referenceDate timeIntervalSince1970];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-//timeIntervalSinceReferenceDate is the number of seconds since January, 1st, 2001: 12:00 am (mid night)
-+(NSTimeInterval)getTimeIntervalSicneReferenceDate{
-    @try {
-        return [NSDate timeIntervalSinceReferenceDate];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSTimeInterval)getTimeIntervalSicneReferenceDateOfDate:(NSDate*)referenceDate{
-    @try {
-        return [referenceDate timeIntervalSinceReferenceDate];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-//timeIntervalSinceNow is the number of seconds since now
-+(NSTimeInterval)getTimeIntervalSicneNowOfDate:(NSDate*)referenceDate{
-    @try {
-        return [referenceDate timeIntervalSinceNow];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSTimeInterval)milliSecondsIntervalBetween:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        return [date2 timeIntervalSinceDate:date1];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSUInteger)secondsIntervalBetween:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        return (NSUInteger)([date2 timeIntervalSinceDate:date1]*1000);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSNumber*)roundOffTimeStamp:(NSNumber*)timeStamp{
-    @try {
-        if(timeStamp !=nil && timeStamp.integerValue <= 0) {
-            return 0;
-        }
-        if([[BOASDKManifestController sharedInstance] sdkMapUserId]) {
-            return timeStamp;
-        }
-        
-        int dateIntervalL = [timeStamp doubleValue] / 1000;
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateIntervalL];
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate: date];
-        if(dateComponents.minute <= 58) {
-            dateComponents.minute = 0;
-            dateComponents.second = 0;
-        } else {
-            dateComponents.hour = dateComponents.hour + 1;
-            dateComponents.minute = 0;
-            dateComponents.second = 0;
-        }
-        NSDate *finalDate = [calendar dateFromComponents:dateComponents];
-        NSNumber *millis = [BOAUtilities get13DigitNumberObjTimeStampFor:finalDate];
-        return millis;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
 +(int)getCurrentTimezoneOffsetInMin {
     @try {
         NSTimeZone *timeZone = [NSTimeZone localTimeZone];
@@ -230,29 +125,6 @@
     return 0;
 }
 
-+(NSNumber*)get13DigitNumberObjTimeStampFor:(NSDate*)date{
-    @try {
-        NSDate *dateL = date ?  date : [NSDate date];
-        NSInteger timeStamp = (NSInteger)([dateL timeIntervalSince1970] * 1000);
-        NSNumber *timeStampObj = [NSNumber numberWithInteger:timeStamp];
-        return timeStampObj;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSInteger)get13DigitIntegerTimeStampFor:(NSDate*)date{
-    @try {
-        NSDate *dateL = date ?  date : [NSDate date];
-        NSInteger timeStamp = (NSInteger)([dateL timeIntervalSince1970] * 1000);
-        return timeStamp;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
 +(NSNumber*)get13DigitNumberObjTimeStamp{
     @try {
         NSInteger timeStamp = (NSInteger)([[NSDate date] timeIntervalSince1970] * 1000);
@@ -272,719 +144,6 @@
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
     return 0;
-}
-
-+(NSInteger)getDayFromDateString:(NSString*)dateString inFormat:(NSString*)format {
-    @try {
-        NSString *dateFormat = format ? format : @"yyyy-MM-dd";
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:dateFormat]; //yyyy-MM-dd //MM-dd-yyyy
-        
-        NSDate *date = [dateFormatter dateFromString:dateString];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: date];
-        
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.weekday); // Day in week: 3
-        BOFLogDebug(@"Day in month: %ld", (long)dateComponents.day);    // Day in month: 25
-        
-        return dateComponents.day;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getDayFromDate:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: date];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.weekday); // Day in week: 3
-        BOFLogDebug(@"Day in month: %ld", (long)dateComponents.day);    // Day in month: 25
-        return dateComponents.day;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getDayFromTodayDate{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: [NSDate date]];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.weekday); // Day in week: 3
-        BOFLogDebug(@"Day in month: %ld", (long)dateComponents.day);    // Day in month: 25
-        return dateComponents.day;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getMonthFromDateString:(NSString*)dateString inFormat:(NSString*)format{
-    @try {
-        NSString *dateFormat = format ? format : @"yyyy-MM-dd";
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:dateFormat]; //yyyy-MM-dd //MM-dd-yyyy
-        NSDate *date = [dateFormatter dateFromString:dateString];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: date];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.month); // Day in week: 3
-        return dateComponents.month;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getMonthFromDate:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: date];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.month); // Day in week: 3
-        return dateComponents.month;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getMonthFromTodayDate{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: [NSDate date]];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.month); // Day in week: 3
-        return dateComponents.month;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getYearFromDateString:(NSString*)dateString inFormat:(NSString*)format{
-    @try {
-        NSString *dateFormat = format ? format : @"yyyy-MM-dd";
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:dateFormat]; //yyyy-MM-dd //MM-dd-yyyy
-        NSDate *date = [dateFormatter dateFromString:dateString];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear fromDate: date];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.year); // Day in week: 3
-        return dateComponents.year;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getYearFromDate:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear fromDate: date];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.year); // Day in week: 3
-        return dateComponents.year;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)getYearFromTodayDate{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitYear fromDate: [NSDate date]];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.year); // Day in week: 3
-        return dateComponents.year;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-
-+(NSString*)convertDate:(nonnull NSDate*)date inFormat:(nullable NSString*)dateFormat{
-    @try {
-        if (!date) {
-            return nil;
-        }
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        [dateFormatter setDateFormat:dateFomratL];
-        NSString *dateString = [dateFormatter stringFromDate:date];
-        return dateString;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSString*)convertDateStr:(nonnull NSString*)dateStr inFormat:(nullable NSString*)dateFormat{
-    @try {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        
-        NSTimeInterval dateInterVal = 0;
-        int dateInterValInt = 0;
-        if ([dateFomratL isEqualToString:@"epoc"]) {
-            dateInterVal = [dateStr doubleValue];
-            if (dateStr.length == 13) {
-                dateInterValInt = dateInterVal / 1000;
-            }else{
-                dateInterValInt = dateInterVal;
-            }
-            dateFomratL = @"yyyy-MM-dd";
-            dateStr = [NSString stringWithFormat:@"%d",dateInterValInt];
-        }else if(dateStr.length == 13){
-            dateInterVal = [dateStr doubleValue];
-            dateInterValInt = dateInterVal / 1000;
-            dateStr = [NSString stringWithFormat:@"%d",dateInterValInt];
-        }
-        
-        [dateFormatter setDateFormat:dateFomratL];
-        NSDate *date  = [dateFormatter dateFromString:dateStr];
-        NSString *dateString = [dateFormatter stringFromDate:date];
-        return dateString;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSDate*)date:(nonnull NSDate*)date inFormat:(nullable NSString*)dateFormat{
-    @try {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        [dateFormatter setDateFormat:dateFomratL];
-        NSString *dateStr = [dateFormatter stringFromDate:date];
-        NSDate *dateL  = [dateFormatter dateFromString:dateStr];
-        return dateL;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSDate*)dateStr:(nonnull NSString*)dateStr inFormat:(nullable NSString*)dateFormat{
-    @try {
-        if (dateStr && ![dateStr isEqualToString:@""]) {
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-            [dateFormatter setDateFormat:dateFomratL];
-            NSDate *dateL  = [dateFormatter dateFromString:dateStr];
-            return dateL;
-        }
-        return nil;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSDate*)dateInFormat:(nonnull NSString*)dateFormat{
-    @try {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        [dateFormatter setDateFormat:dateFomratL];
-        NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
-        NSDate *dateL  = [dateFormatter dateFromString:dateStr];
-        return dateL;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSString*)dateStringInFormat:(nullable NSString*)dateFormat{
-    @try {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        [dateFormatter setDateFormat:dateFomratL];
-        NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
-        return dateStr;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(BOOL)isDate:(NSDate*)date1 greaterThan:(NSDate*)date2{
-    @try {
-        NSComparisonResult resut = [date2 compare:date1];
-        if (resut == NSOrderedAscending) {
-            return YES;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-+(BOOL)isDate:(NSDate*)date1 greaterThanEqualTo:(NSDate*)date2{
-    @try {
-        NSComparisonResult resut = [date2 compare:date1];
-        if ((resut == NSOrderedAscending) || (resut == NSOrderedSame)) {
-            return YES;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-+(BOOL)isDate:(NSDate*)date1 lessThan:(NSDate*)date2{
-    @try {
-        NSComparisonResult resut = [date2 compare:date1];
-        if (resut == NSOrderedDescending) {
-            return YES;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDate:(NSDate*)date1 lessThanEqualTo:(NSDate*)date2{
-    @try {
-        NSComparisonResult resut = [date2 compare:date1];
-        if ((resut == NSOrderedDescending) || (resut == NSOrderedSame)) {
-            return YES;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDate:(NSDate*)date1 equalTo:(NSDate*)date2{
-    @try {
-        NSComparisonResult resut = [date2 compare:date1];
-        if (resut == NSOrderedSame) {
-            return YES;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDate:(NSDate*)testDate between:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        BOOL result1 = [self isDate:testDate greaterThanEqualTo:date1];
-        BOOL result2 = [self isDate:testDate lessThanEqualTo:date2];
-        return (result1 && result2);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(NSInteger)weekStartDay{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: [NSDate date]];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.weekday); // Day in week: 3
-        BOFLogDebug(@"Day in month: %ld", (long)dateComponents.day);    // Day in month: 25
-        NSInteger weekStartDay = dateComponents.day - (dateComponents.weekday - 1);
-        return weekStartDay;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)weekEndDay{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay | NSCalendarUnitWeekday fromDate: [NSDate date]];
-        BOFLogDebug(@"Day in week: %ld", (long)dateComponents.weekday); // Day in week: 3
-        BOFLogDebug(@"Day in month: %ld", (long)dateComponents.day);    // Day in month: 25
-        NSInteger weekStartDay = dateComponents.day + (7 - dateComponents.weekday);
-        return weekStartDay;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)weekOfMonth{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekday | NSCalendarUnitWeekOfMonth fromDate: [NSDate date]];
-        return dateComponents.weekOfMonth;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)weekOfYear{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate: [NSDate date]];
-        return dateComponents.weekOfYear;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)weekOfYearForDate:(NSDate*)date{
-    @try {
-        if (date) {
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate:date];
-            return dateComponents.weekOfYear;
-        }
-        return 0;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)weekOfYearForDateInterval:(NSTimeInterval)dateInterval{
-    @try {
-        if (dateInterval > 0) {
-            int dateIntervalL = dateInterval / 1000;
-            NSDate *dateObj = [NSDate dateWithTimeIntervalSince1970:dateIntervalL];
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate:dateObj];
-            return dateComponents.weekOfYear;
-        }
-        return 0;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)monthStartDay{
-    return 1;
-}
-
-+(NSInteger)monthEndDay{
-    @try {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:[NSDate date]];
-        NSUInteger numberOfDaysInMonth = range.length;
-        return numberOfDaysInMonth;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)monthOfYearForDate:(NSDate*)date{
-    @try {
-        if (date) {
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth fromDate:date];
-            return dateComponents.month;
-        }
-        return 0;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)monthOfYearForDateInterval:(NSTimeInterval)dateInterval{
-    @try {
-        if (dateInterval > 0) {
-            int dateIntervalL = dateInterval / 1000;
-            NSDate *dateObj = [NSDate dateWithTimeIntervalSince1970:dateIntervalL];
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth fromDate:dateObj];
-            return dateComponents.month;
-        }
-        return 0;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(NSInteger)monthLength{
-    @try {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:[NSDate date]];
-        NSUInteger numberOfDaysInMonth = range.length;
-        return numberOfDaysInMonth;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return 0;
-}
-
-+(BOOL)isDate:(NSDate*)date underWeek:(NSInteger)weekOfMonth{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfMonth fromDate: date];
-        return (dateComponents.weekOfMonth == weekOfMonth);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDate:(NSDate*)date underWeekOfYear:(NSInteger)weekOfYear{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitWeekOfYear fromDate: date];
-        return (dateComponents.weekOfYear == weekOfYear);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-+(BOOL)isDate:(NSDate*)date underMonth:(NSInteger)monthOfYear{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitMonth fromDate: date];
-        return (dateComponents.month == monthOfYear);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-
-+(BOOL)isDaySameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitDay fromDate: date1];
-        NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitDay fromDate: date2];
-        return (dateComponents1.day == dateComponents2.day);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isWeekSameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitWeekOfYear fromDate: date1];
-        NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitWeekOfYear fromDate: date2];
-        return (dateComponents1.weekOfYear == dateComponents2.weekOfYear);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isMonthSameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        if (date1 && date2) {
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitMonth fromDate: date1];
-            NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitMonth fromDate: date2];
-            return (dateComponents1.month == dateComponents2.month);
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isYearSameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitYear fromDate: date1];
-        NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitYear fromDate: date2];
-        return (dateComponents1.year == dateComponents2.year);
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isMonthAndYearSameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date1];
-        NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date2];
-        return ((dateComponents1.month == dateComponents2.month) && (dateComponents1.year == dateComponents2.year));
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isMonthAndYearSameOfDate:(NSDate*)date1 andDateStr:(NSString*)date2Str inFormat:(NSString*)format{
-    @try {
-        if (format && date1 && date2Str && ![date2Str isEqualToString:@""]) {
-            NSDate *date2 = [self dateStr:date2Str inFormat:format];
-            return [self isMonthAndYearSameOfDate:date1 andDate2:date2];
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDayMonthAndYearSameOfDate:(NSDate*)date1 andDate2:(NSDate*)date2{
-    @try {
-        if (date1 && date2) {
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date1];
-            NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date2];
-            return ((dateComponents1.day == dateComponents2.day) && (dateComponents1.month == dateComponents2.month) && (dateComponents1.year == dateComponents2.year));
-        }else{
-            return NO;
-        }
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDayMonthAndYearSameOfDate:(NSString*)date1Str andDate2:(NSString*)date2Str inFomrat:(NSString*)format{
-    @try {
-        if (format && date1Str && ![date1Str isEqualToString:@""] && date2Str && ![date2Str isEqualToString:@""]) {
-            NSDate *date1 = [self dateStr:date1Str inFormat:format];
-            NSDate *date2 = [self dateStr:date2Str inFormat:format];
-            
-            NSCalendar * calendar = [NSCalendar currentCalendar];
-            NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date1];
-            NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date2];
-            return ((dateComponents1.day == dateComponents2.day) && (dateComponents1.month == dateComponents2.month) && (dateComponents1.year == dateComponents2.year));
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-+(BOOL)isDayMonthAndYearSameOfDate:(NSDate*)date1 andDateStr:(NSString*)date2Str inFomrat:(NSString*)format{
-    @try {
-        //TODO: IMP: Check on day change, once received [date2Str isEqualToString:@""] as [NSNull isEqualToString:@""] exception
-        //FOUND reason: mention in BOAEvents initSuccessForAppDailySession on day change, which will keep causing,
-        //now trying to fix
-        if (format && date1 && ![date1 isEqual:NSNull.null] && date2Str && ![date2Str isEqual:NSNull.null] && ![date2Str isEqualToString:@""]) {
-            NSDate *date2 = [self dateStr:date2Str inFormat:format];
-            if (date2) {
-                NSCalendar * calendar = [NSCalendar currentCalendar];
-                NSDateComponents * dateComponents1 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date1];
-                NSDateComponents * dateComponents2 = [calendar components: NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate: date2];
-                return ((dateComponents1.day == dateComponents2.day) && (dateComponents1.month == dateComponents2.month) && (dateComponents1.year == dateComponents2.year));
-            }
-            return NO;
-        }
-        return NO;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return NO;
-}
-
-
-+(NSArray<NSDate*>*)getAllDatesBetween:(NSDate*)startDate andDate2:(NSDate*)endDate{
-    @try {
-        //NSDateFormatter *dateFromatter = [[NSDateFormatter alloc] init];
-        NSMutableArray *dates = [NSMutableArray array];
-        
-        //NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-        NSCalendar *gregorianCalendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
-                                                            fromDate:startDate
-                                                              toDate:endDate
-                                                             options:0];
-        
-        for (int i = 1; i < components.day; ++i) {
-            NSDateComponents *newComponents = [NSDateComponents new];
-            newComponents.day = i;
-            
-            NSDate *date = [gregorianCalendar dateByAddingComponents:newComponents
-                                                              toDate:startDate
-                                                             options:0];
-            [dates addObject:date];
-        }
-        return dates;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return  nil;
-}
-
-+(NSDate*)getDateGreaterThan:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay fromDate: date];
-        dateComponents.day = dateComponents.day + 1;
-        
-        NSDate *newDate = [calendar dateByAddingComponents:dateComponents
-                                                    toDate:date
-                                                   options:0];
-        
-        return newDate;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-+(NSDate*)getDateLessThan:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay fromDate: date];
-        dateComponents.day = dateComponents.day - 1; // we can randomise this if needed using random number
-        
-        NSDate *newDate = [calendar dateByAddingComponents:dateComponents
-                                                    toDate:date
-                                                   options:0];
-        
-        return newDate;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-
-+(NSDate*)getPreviousDayDateFrom:(NSDate*)date{
-    @try {
-        NSCalendar * calendar = [NSCalendar currentCalendar];
-        NSDateComponents * dateComponents = [calendar components: NSCalendarUnitDay fromDate: date];
-        dateComponents.day = dateComponents.day - 1;
-        
-        NSDate *newDate = [calendar dateByAddingComponents:dateComponents
-                                                    toDate:date
-                                                   options:0];
-        
-        return newDate;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSDate*)getPreviousDayDateFrom:(NSString*)dateStr inFormat:(NSString*)dateFormat{
-    @try {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        NSString *dateFomratL = dateFormat ? dateFormat : @"yyyy-MM-dd";
-        [dateFormatter setDateFormat:dateFomratL];
-        NSDate *referenceDate  = [dateFormatter dateFromString:dateStr];
-        NSDate *previousDate = [self getPreviousDayDateFrom:referenceDate];
-        return previousDate;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
-}
-
-+(NSString*)getPreviousDayDateInFormat:(NSString*)dateFormat fromReferenceDate:(NSDate*)referenceDate{
-    @try {
-        NSDate *previousDate = [self getPreviousDayDateFrom:referenceDate];
-        return [self convertDate:previousDate inFormat:dateFormat];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return nil;
 }
 
 //================================================ other utility methods ===============================
@@ -1677,5 +836,82 @@
     }
 }
 
++(NSDictionary *)traverseJSONDict:(NSDictionary *)dict
+{
+    // make sure that a new dictionary exists even if the input is null
+    dict = dict ?: @{};
+    // coerce urls, and dates to the proper format
+    return [self traverseJSON:dict];
+}
+
+
++(id)traverseJSON:(id)obj
+{
+    // Hotfix: Storage format should support NSNull instead
+    if ([obj isKindOfClass:[NSNull class]]) {
+        return @"<null>";
+    }
+    // if the object is a NSString, NSNumber
+    // then we're good
+    if ([obj isKindOfClass:[NSString class]] ||
+        [obj isKindOfClass:[NSNumber class]]) {
+        return obj;
+    }
+
+    if ([obj isKindOfClass:[NSArray class]]) {
+        NSMutableArray *array = [NSMutableArray array];
+        for (id i in obj) {
+            // Hotfix: Storage format should support NSNull instead
+            if ([i isKindOfClass:[NSNull class]]) {
+                continue;
+            }
+            [array addObject:[self traverseJSON:i]];
+        }
+        return array;
+    }
+
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+        for (NSString *key in obj) {
+            // Hotfix for issue where SEGFileStorage uses plist which does NOT support NSNull
+            // So when `[NSNull null]` gets passed in as track property values the queue serialization fails
+            if ([obj[key] isKindOfClass:[NSNull class]]) {
+                continue;
+            }
+            if (![key isKindOfClass:[NSString class]])
+                BOFLogDebug(@"warning: dictionary keys should be strings. got: %@. coercing "
+                       @"to: %@",
+                       [key class], [key description]);
+            dict[key.description] = [self traverseJSON:obj[key]];
+        }
+        return dict;
+    }
+
+    if ([obj isKindOfClass:[NSDate class]])
+        return [self iso8601FormattedString:obj];
+
+    if ([obj isKindOfClass:[NSURL class]])
+        return [obj absoluteString];
+
+    // default to sending the object's description
+    BOFLogDebug(@"warning: dictionary values should be valid json types. got: %@. "
+           @"coercing to: %@",
+           [obj class], [obj description]);
+    return [obj description];
+}
+
+// Date Utils
++(NSString *)iso8601FormattedString:(NSDate *)date
+{
+    static NSDateFormatter *dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        dateFormatter.dateFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'";
+        dateFormatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    });
+    return [dateFormatter stringFromDate:date];
+}
 
 @end

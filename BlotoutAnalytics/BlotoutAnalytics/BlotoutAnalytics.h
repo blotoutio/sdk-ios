@@ -83,7 +83,16 @@
 - (void)disable;
 
 //Enable SDK Log Information
-@property (nonatomic, readwrite) BOOL isSDKLogEnabled;
+@property (nonatomic, readwrite) BOOL enableSDKLog;
 
+//reset SDK will create new blotout ID
+- (void)reset;
+
+//Application leval methods handling
+- (void)receivedRemoteNotification:(NSDictionary *_Nullable)userInfo;
+- (void)failedToRegisterForRemoteNotificationsWithError:(NSError *_Nullable)error;
+- (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *_Nullable)deviceToken;
+- (void)continueUserActivity:(NSUserActivity *_Nonnull)activity;
+- (void)openURL:(NSURL *_Nullable)url options:(NSDictionary *_Nonnull)options;
 
 @end

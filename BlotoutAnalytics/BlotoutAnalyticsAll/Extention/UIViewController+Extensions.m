@@ -11,8 +11,9 @@
 #import "BOSharedManager.h"
 #import <BlotoutFoundation/BOFLogs.h>
 #import "BOAUtilities.h"
-#import "BONetworkEventService.h"
 #import "BOANetworkConstants.h"
+#import "BOACaptureModel.h"
+#import "BlotoutAnalytics_Internal.h"
 
 void loadAsUIViewControllerBOFoundationCat(void){
 }
@@ -38,7 +39,12 @@ void loadAsUIViewControllerBOFoundationCat(void){
 
 + (UIViewController *)getTopmostViewController
 {
-    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *root;
+    if([BlotoutAnalytics sharedInstance].config.application != nil) {
+        root = [BlotoutAnalytics sharedInstance].config.application.delegate.window.rootViewController;
+    } else {
+        root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    }
     return [self topmostViewController:root];
 }
 
@@ -57,6 +63,18 @@ void loadAsUIViewControllerBOFoundationCat(void){
     return rootViewController;
 }
 
+-(NSString*)getScreenName:(UIViewController *)viewController {
+    NSString *name = [viewController title];
+    if (!name || name.length == 0) {
+        name = [[[viewController class] description] stringByReplacingOccurrencesOfString:@"ViewController" withString:@""];
+        if (name.length == 0) {
+            name = @"Unknown";
+        }
+    }
+    
+    return name;
+}
+
 - (void)logged_viewWillDisappear:(BOOL)animated {
     @try {
         
@@ -69,7 +87,10 @@ void loadAsUIViewControllerBOFoundationCat(void){
         
         [BOSharedManager sharedInstance].isViewDidAppeared = NO;
         // Send page_hide event
-        [BONetworkEventService sendPageHideEvent:[NSString stringWithFormat:@"%@", [top class]] storeEvents:NO];
+        if([BlotoutAnalytics sharedInstance].eventManager != nil) {
+            BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:[self getScreenName:top] withType:BO_SYSTEM];
+            [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+        }
         
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -87,7 +108,11 @@ void loadAsUIViewControllerBOFoundationCat(void){
         if(![BOSharedManager sharedInstance].isViewDidAppeared) {
             [BOSharedManager sharedInstance].isViewDidAppeared = YES;
             // Send sdk_start event
-            [BONetworkEventService sendSdkStartEvent:[NSString stringWithFormat:@"%@", [top class]]];
+            // Send page_hide event
+            if([BlotoutAnalytics sharedInstance].eventManager != nil) {
+                BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_SDK_START properties:nil eventCode:@(BO_EVENT_SDK_START) screenName:[self getScreenName:top] withType:BO_SYSTEM];
+                [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+            }
         }
         
     } @catch (NSException *exception) {

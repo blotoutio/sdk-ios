@@ -19,17 +19,17 @@
 
 @implementation BOADeveloperEvents
 
-+(NSDictionary*)captureEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo withEventCode:(NSNumber*)eventCode{
++(NSDictionary*)captureEvent:(BOACaptureModel*)payload{
     @try {
-        return [BOADeveloperEvents createEventObject:eventName withScreenName:@"" withEventSubcode:eventCode withEventInfo:eventInfo];
+        return [BOADeveloperEvents createEventObject:payload.event withType:payload.type withScreenName:payload.screenName withEventSubcode:payload.eventSubCode withEventInfo:payload.properties];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
-+(NSDictionary*)capturePersonalEvent:(NSString*)eventName withInformation:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent {
++(NSDictionary*)capturePersonalEvent:(BOACaptureModel*)payload isPHI:(BOOL)phiEvent {
     @try {
-        return [BOADeveloperEvents preparePersonalEvent:eventName withScreenName:@"" withEventSubcode:@(0) withEventInfo:eventInfo isPHI:phiEvent];
+        return [BOADeveloperEvents preparePersonalEvent:payload.event withScreenName:payload.screenName withEventSubcode:@(0) withEventInfo:payload.properties isPHI:phiEvent];
         
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -51,7 +51,7 @@
     }
 }
 
-+(NSDictionary*)createEventObject:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo{
++(NSDictionary*)createEventObject:(NSString*)eventName withType:(NSString*)type withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo{
     @try {
         
         if(eventSubcode == nil || [eventSubcode integerValue] == 0) {
@@ -68,7 +68,11 @@
         [event setValue:[BOAUtilities getMessageIDForEvent:eventName] forKey:BO_MESSAGE_ID];
         [event setValue:[BOAUtilities getDeviceId] forKey:BO_USER_ID];
         [event setValue:screenName forKey:BO_SCREEN_NAME];
+        [event setValue:[BOADeveloperEvents getScreenPayload] forKey:BO_SCREEN];
+        [event setValue:type forKey:BO_TYPE];
         [event setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
+        
+        
         [event setValue:properties forKey:@"additionalData"];
             
         return @{BO_EVENTS:event};
@@ -95,11 +99,6 @@
             [personalPayload setObject:personalEncryptedSecretKey forKey:BO_KEY];
             [personalPayload setObject:BO_CRYPTO_IVX forKey:BO_IV];
             [personalPayload setObject:personalEncryptedData forKey:BO_DATA];
-            if(phiEvent) {
-                [personalPayload setObject:@"phi" forKey:@"payload_type"];
-            } else {
-                [personalPayload setObject:@"pii" forKey:@"payload_type"];
-            }
             
             if(personalEncryptedSecretKey != nil && personalEncryptedSecretKey.length > 0 && personalEncryptedData != nil && personalEncryptedData.length > 0) {
                 return personalPayload;
@@ -124,25 +123,16 @@
             eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
         }
         
-        NSMutableDictionary *personalEvent = [NSMutableDictionary dictionary];
-        [personalEvent setValue:eventName forKey:BO_EVENT_NAME_MAPPING];
-        [personalEvent setValue: [BOAUtilities get13DigitNumberObjTimeStamp] forKey:BO_EVENTS_TIME];
-        [personalEvent setValue:eventSubcode forKey:BO_EVENT_CATEGORY_SUBTYPE];
-        [personalEvent setValue:[BOAUtilities getMessageIDForEvent:eventName] forKey:BO_MESSAGE_ID];
-        [personalEvent setValue:[BOAUtilities getDeviceId] forKey:BO_USER_ID];
-        [personalEvent setValue:screenName forKey:BO_SCREEN_NAME];
-        [personalEvent setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
-
         NSString *secretKey = [BOAUtilities getUUIDString];
         secretKey = [secretKey stringByReplacingOccurrencesOfString:@"-" withString:@""];
         NSDictionary *encryptedData = nil;
         
         if(phiEvent) {
-            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].phiPublickey withSecretKey:secretKey withDictionary:personalEvent isPHI:phiEvent];
-            return [BOADeveloperEvents createEventObject:eventName withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
+            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].phiPublickey withSecretKey:secretKey withDictionary:eventInfo isPHI:phiEvent];
+            return [BOADeveloperEvents createEventObject:eventName withType:BO_PHI withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
         } else {
-            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].piiPublicKey withSecretKey:secretKey withDictionary:personalEvent isPHI:phiEvent];
-            return [BOADeveloperEvents createEventObject:eventName withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
+            encryptedData = [self getEncryptedEvent:[BOASDKManifestController sharedInstance].piiPublicKey withSecretKey:secretKey withDictionary:eventInfo isPHI:phiEvent];
+            return [BOADeveloperEvents createEventObject:eventName withType:BO_PII withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -150,4 +140,11 @@
     return nil;
 }
 
++(NSDictionary*)getScreenPayload {
+    NSMutableDictionary *screenInfo = [NSMutableDictionary dictionary];
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    [screenInfo setValue:@(screenSize.width) forKey:@"width"];
+    [screenInfo setValue:@(screenSize.height) forKey:@"height"];
+    return  screenInfo;
+}
 @end
