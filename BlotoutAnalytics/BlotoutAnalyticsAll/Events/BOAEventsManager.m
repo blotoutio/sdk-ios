@@ -127,7 +127,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 
 - (void)flush
 {
-    [self flushWithMaxSize:self.maxBatchSize];
+    [self flushWithMaxSize:0];
 }
 
 - (void)flushWithMaxSize:(NSUInteger)maxBatchSize
@@ -144,12 +144,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
                 return;
             }
             
-            NSArray *batch;
-            if ([self.queue count] >= maxBatchSize) {
-                batch = [self.queue subarrayWithRange:NSMakeRange(0, maxBatchSize)];
-            } else {
-                batch = [NSArray arrayWithArray:self.queue];
-            }
+            NSArray *batch = [NSArray arrayWithArray:self.queue];
             
             [self sendData:batch];
         }];
@@ -217,12 +212,6 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
         BOFLogDebug(@"%@", exception);
     }
 }
-
-- (NSUInteger)maxBatchSize
-{
-    return 100;
-}
-
 
 - (NSMutableArray *)queue
 {

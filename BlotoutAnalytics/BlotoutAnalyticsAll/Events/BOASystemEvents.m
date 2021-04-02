@@ -36,14 +36,14 @@
             [analytics capture:@"Application Installed" withInformation:@{
                 @"version" : currentVersion ?: @"",
                 @"build" : currentBuild ?: @"",
-            } withType:BO_SYSTEM];
+            } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_INSTALLED)];
         } else if (![currentBuild isEqualToString:previousBuildV2]) {
             [analytics capture:@"Application Updated" withInformation:@{
                 @"previous_version" : previousVersion ?: @"",
                 @"previous_build" : previousBuildV2 ?: @"",
                 @"version" : currentVersion ?: @"",
                 @"build" : currentBuild ?: @"",
-            } withType:BO_SYSTEM];
+            } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_UPDATED)];
         }
         
         [analytics capture:@"Application Opened" withInformation:@{
@@ -52,7 +52,7 @@
             @"build" : currentBuild ?: @"",
             @"referring_application" : launchOptions[UIApplicationLaunchOptionsSourceApplicationKey] ?: @"",
             @"url" : launchOptions[UIApplicationLaunchOptionsURLKey] ?: @"",
-        } withType:BO_SYSTEM];
+        } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_OPENED)];
         
         [analyticsRootUD setObject:currentVersion forKey:BO_VERSION_KEY];
         [analyticsRootUD setObject:currentBuild forKey:BO_BUILD_KEYV2];

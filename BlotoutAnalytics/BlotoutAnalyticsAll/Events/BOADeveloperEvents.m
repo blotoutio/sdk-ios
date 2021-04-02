@@ -29,7 +29,7 @@
 
 +(NSDictionary*)capturePersonalEvent:(BOACaptureModel*)payload isPHI:(BOOL)phiEvent {
     @try {
-        return [BOADeveloperEvents preparePersonalEvent:payload.event withScreenName:payload.screenName withEventSubcode:@(0) withEventInfo:payload.properties isPHI:phiEvent];
+        return [BOADeveloperEvents preparePersonalEvent:payload.event withScreenName:payload.screenName withEventSubcode:payload.eventSubCode withEventInfo:payload.properties isPHI:phiEvent];
         
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

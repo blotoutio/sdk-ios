@@ -8,6 +8,8 @@
 
 #import "BOAStoreKitController.h"
 #import "BlotoutAnalytics_Internal.h"
+#import "BOSharedManager.h"
+#import "BOANetworkConstants.h"
 
 @interface BOAStoreKitController ()
 
@@ -84,20 +86,23 @@
 
     NSString *currency = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
 
-    [[BlotoutAnalytics sharedInstance] capture:@"Order Completed" withInformation:@{
-        @"orderId" : transaction.transactionIdentifier,
-        @"affiliation" : @"App Store",
-        @"currency" : currency ?: @"",
-        @"products" : @[
-            @{
-               @"sku" : transaction.transactionIdentifier,
-               @"quantity" : @(transaction.payment.quantity),
-               @"productId" : product.productIdentifier ?: @"",
-               @"price" : product.price ?: @0,
-               @"name" : product.localizedTitle ?: @"",
-            }
-        ]
-    }];
+    if([BlotoutAnalytics sharedInstance].eventManager != nil) {
+        BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"Transaction Completed" properties:@{
+            @"orderId" : transaction.transactionIdentifier,
+            @"affiliation" : @"App Store",
+            @"currency" : currency ?: @"",
+            @"products" : @[
+                @{
+                   @"sku" : transaction.transactionIdentifier,
+                   @"quantity" : @(transaction.payment.quantity),
+                   @"productId" : product.productIdentifier ?: @"",
+                   @"price" : product.price ?: @0,
+                   @"name" : product.localizedTitle ?: @"",
+                }
+            ]
+        } eventCode:@(BO_TRANSACTION_COMPLETED) screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
+        [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+    }
 }
 
 @end

@@ -19,7 +19,7 @@
 #import <BlotoutFoundation/BOFUserDefaults.h>
 #import "BlotoutAnalytics_Internal.h"
 #import "BOANetworkConstants.h"
-#import "BOManifestGeoAPI.h"
+#import "BOManifestAPI.h"
 #import "NSError+BOAdditions.h"
 #import "BOEventsOperationExecutor.h"
 
@@ -56,77 +56,12 @@ static id sBOAsdkManifestSharedInstance = nil;
     return  sBOAsdkManifestSharedInstance;
 }
 
--(NSTimeInterval) manifestRefreshInterval {
-    
-    int delayHour = [[BOASDKManifestController sharedInstance] intervalManifestRefresh].intValue;
-    if(delayHour >= 0) {
-        return delayHour*60*60;
-    }
-    
-    return 0;
-}
-
 //set Default value when manifest success to load
 -(void)setupManifestExtraParamOnSuccess {
     @try {
         BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
         NSNumber *currentTime = [BOAUtilities get13DigitNumberObjTimeStamp];
         [analyticsRootUD setObject:currentTime forKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
-
-/** This method will use to fetch manifest in Background */
--(void)syncManifestWithServer{
-    
-    if (![BlotoutAnalytics sharedInstance].isEnabled) {
-        return;
-    }
-    
-    __block BOASDKManifest *blockSDKManifest = self.sdkManifestModel;
-    
-    @try {
-        [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
-            BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-            NSNumber *lastManifestSyncTimeStamp = [analyticsRootUD objectForKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-            if([lastManifestSyncTimeStamp integerValue]> 0) {
-                NSInteger currentTime = [BOAUtilities get13DigitIntegerTimeStamp];
-                if((currentTime - [lastManifestSyncTimeStamp integerValue]) >= [self manifestRefreshInterval]*1000){
-                    
-                    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-                    
-                    NSDictionary *manifestBody = @{
-                        @"lastUpdatedTime": lastManifestSyncTimeStamp, //lastManifestSyncTimeStamp,
-                        // @0 will send as never synced and get whole manifest everytime, will implement partial fetch logic later
-                        @"bundleId": bundleIdentifier
-                    };
-                    
-                    NSData *manifestBodyData = [BOAUtilities jsonDataFrom:manifestBody withPrettyPrint:NO];
-                    
-                    BOManifestGeoAPI *api = [[BOManifestGeoAPI alloc] init];
-                    [api getManifestDataModel:manifestBodyData success:^(id  _Nonnull responseObject, id  _Nonnull data) {
-                        
-                        if (responseObject) {
-                            BOASDKManifest *sdkManifestM = (BOASDKManifest*)responseObject;
-                            if(sdkManifestM.variables != nil && sdkManifestM.variables.count > 0) {
-                                blockSDKManifest = sdkManifestM;
-                                NSString *manifestJSONStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                [self sdkManifestPathAfterWriting:manifestJSONStr];
-                                [self reloadManifestData];
-                                [self setupManifestExtraParamOnSuccess];
-                            } else {
-                                
-                            }
-                        } else {
-                
-                        }
-                    } failure:^(NSError * _Nonnull error) {
-                        
-                    }];
-                }
-            }
-        }];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
@@ -142,9 +77,8 @@ static id sBOAsdkManifestSharedInstance = nil;
             if (isSuccess) {
                 [self reloadManifestData];
                 [self setupManifestExtraParamOnSuccess];
-            }else{
-                //[self setupManifestExtraParamOnFailure];
             }
+            
             if (!self.sdkManifestModel) {
                 NSError *manifestReadError = nil;
                 BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:[self latestSDKManifestJSONString] encoding:NSUTF8StringEncoding error:&manifestReadError];
@@ -221,14 +155,8 @@ static id sBOAsdkManifestSharedInstance = nil;
  */
 -(void)fetchAndPrepareSDKModelWith:(void (^_Nullable) (BOOL isSuccess, NSError* error))callback{
     @try {
-        //TODO: as it's not implemented yet
-        BOOL isImplementedAtServer = YES;
-        if (!isImplementedAtServer) {
-            callback(NO, nil);
-            return;
-        }
         
-        BOManifestGeoAPI *api = [[BOManifestGeoAPI alloc] init];
+        BOManifestAPI *api = [[BOManifestAPI alloc] init];
         NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
         
         NSDictionary *manifestBody = @{
@@ -300,42 +228,9 @@ static id sBOAsdkManifestSharedInstance = nil;
             self.sdkManifestModel = sdkManifestM;
         }
         if (self.sdkManifestModel != nil) {
-            BOASDKVariable *codifiedMergeCounter = [self getManifestVariable:self.sdkManifestModel forValue: Event_CodifiedMergeCounter];
-            if (codifiedMergeCounter != nil) {
-                self.eventCodifiedMergeCounter = [self getNumberFrom:codifiedMergeCounter.value];
-            }
-            
-            BOASDKVariable *eventPushThresholdIntervals = [self getManifestVariable:self.sdkManifestModel forValue: Event_PushThreshold_Interval];
-            if (eventPushThresholdIntervals != nil) {
-                self.eventPushThresholdInterval = [self getNumberFrom:eventPushThresholdIntervals.value];
-            }
-            
-            BOASDKVariable *eventPushThresholdCounter = [self getManifestVariable:self.sdkManifestModel forValue: Event_PushThreshold_EventCounter];
-            self.eventPushThresholdEventCounter = [self getNumberFrom: eventPushThresholdCounter.value];
-            
-            BOASDKVariable *geoGrain = [self getManifestVariable:self.sdkManifestModel forValue: Event_GEOLocationGrain];
-            self.eventGEOLocationGrain = [self getNumberFrom: geoGrain.value];
-            
+           
             BOASDKVariable *deviceGrain = [self getManifestVariable:self.sdkManifestModel forValue: Event_DeviceInfoGrain];
             self.eventDeviceInfoGrain = [self getNumberFrom: deviceGrain.value];
-            
-            BOASDKVariable *eventSystemMergeCounters = [self getManifestVariable:self.sdkManifestModel forValue: Event_SystemMergeCounter];
-            self.eventSystemMergeCounter = [self getNumberFrom: eventSystemMergeCounters.value];
-            
-            BOASDKVariable *eventOfflineInterval = [self getManifestVariable:self.sdkManifestModel forValue: Event_Offline_Interval];
-            self.eventOfflineInterval = [self getNumberFrom: eventOfflineInterval.value];
-            
-            BOASDKVariable *licenseExpireDayAlives = [self getManifestVariable:self.sdkManifestModel forValue: License_Expire_Day_Alive];
-            self.licenseExpireDayAlive = [self getNumberFrom: licenseExpireDayAlives.value];
-            
-            BOASDKVariable *manifestRefresh = [self getManifestVariable:self.sdkManifestModel forValue: Interval_Manifest_Refresh];
-            self.intervalManifestRefresh = [self getNumberFrom: manifestRefresh.value];
-            
-            BOASDKVariable *storeEvents = [self getManifestVariable:self.sdkManifestModel forValue: Interval_Store_Events];
-            self.intervalStoreEvents = [self getNumberFrom: storeEvents.value];
-            
-            BOASDKVariable *intervalRetryIntervals = [self getManifestVariable:self.sdkManifestModel forValue: Interval_Retry];
-            self.intervalRetryInterval = [self getNumberFrom: intervalRetryIntervals.value];
             
             BOASDKVariable *serverBaseURL = [self getManifestVariable:self.sdkManifestModel forValue: Api_Endpoint];
             self.serverBaseURL = serverBaseURL.value;
@@ -349,31 +244,6 @@ static id sBOAsdkManifestSharedInstance = nil;
                 self.sdkPushSystemEvents = [sdkPushSystemEvent.value boolValue];
             }
             
-            BOASDKVariable *sdkPushPIIEvent = [self getManifestVariable:self.sdkManifestModel forValue: Event_Push_PII_Events];
-            if (sdkPushPIIEvent != nil) {
-                self.sdkPushPIIEvents = [sdkPushPIIEvent.value boolValue];
-            }
-            
-            BOASDKVariable *sdkPushPHIEvent = [self getManifestVariable:self.sdkManifestModel forValue: Event_Push_PHI_Events];
-            if (sdkPushPHIEvent != nil) {
-                self.sdkPushPHIEvents = [sdkPushPHIEvent.value boolValue];
-            }
-            
-            BOASDKVariable *sdkMapuserIdEvent = [self getManifestVariable:self.sdkManifestModel forValue: Event_SDK_Map_User_Id];
-            if (sdkMapuserIdEvent != nil) {
-                self.sdkMapUserId = [sdkMapuserIdEvent.value boolValue];
-            }
-            
-            BOASDKVariable *sdkBehaviourEvent = [self getManifestVariable:self.sdkManifestModel forValue: Event_SDK_Behaviour_Id];
-            if (sdkBehaviourEvent != nil) {
-                self.sdkBehaviourEvents = [sdkBehaviourEvent.value boolValue];
-            }
-            
-            BOASDKVariable *manifestPathData = [self getManifestVariable:self.sdkManifestModel forValue: Event_SDK_Manifest_Path];
-            if (manifestPathData != nil) {
-                self.manifestPath = manifestPathData.value;
-            }
-            
             BOASDKVariable *piiKey = [self getManifestVariable:self.sdkManifestModel forValue: Event_PII_Public_Key];
             if (piiKey != nil) {
                 self.piiPublicKey = piiKey.value;
@@ -383,11 +253,7 @@ static id sBOAsdkManifestSharedInstance = nil;
             if (phiKey != nil) {
                 self.phiPublickey = phiKey.value;
             }
-            
-            BOASDKVariable *sdkDeployment = [self getManifestVariable:self.sdkManifestModel forValue: Mode_Deployment];
-            if (sdkDeployment != nil) {
-                self.sdkDeploymentMode = [sdkDeployment.value boolValue];
-            }
+        
             
         }
     } @catch (NSException *exception) {
@@ -416,34 +282,6 @@ static id sBOAsdkManifestSharedInstance = nil;
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
     return NO;
-}
-
-- (int) delayInterval {
-    @try {
-        
-        NSNumber *delayHour = [BOASDKManifestController sharedInstance].eventPushThresholdInterval;
-        if ([delayHour intValue] > 0) {
-            return [delayHour intValue] * 60 * 60;
-        }
-        
-        return BO_DEFAULT_EVENT_PUSH_TIME;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    return BO_DEFAULT_EVENT_PUSH_TIME;
-}
-
--(NSNumber*)getStoreInterval {
-    @try {
-        int storeEvent = [[BOASDKManifestController sharedInstance] intervalStoreEvents].intValue;
-        if(storeEvent > 0) {
-            return @(0);  //@(storeEvent); // 0 days for firstPartySDK
-        }
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-    
-    return @(0);  // 0 days for firstPartySDK
 }
 
 @end

@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable instancetype)sharedInstance;
 
 +(NSMutableDictionary*)getCurrentBinaryInfo;
-+(NSString*)binaryInfoForx64;
-+(NSString*)binaryInfoForx32;
 +(BOOL)isDylibInjectedToProcessWithName:(NSString*)dylib_name;
 +(BOOL)isConnectionProxied;
 +(NSString *)proxy_host;

@@ -61,9 +61,8 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.flushAt = 20;
-        self.flushInterval = 30;
-        self.maxQueueSize = 1000;
+        self.flushAt = 1;
+        self.flushInterval = 20;
         Class applicationClass = NSClassFromString(@"UIApplication");
         if (applicationClass) {
 #pragma clang diagnostic push

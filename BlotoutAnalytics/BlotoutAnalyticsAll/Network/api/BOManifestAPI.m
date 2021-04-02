@@ -6,7 +6,7 @@
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
-#import "BOManifestGeoAPI.h"
+#import "BOManifestAPI.h"
 #import "BOAUtilities.h"
 #import "BlotoutAnalytics_Internal.h"
 #import <BlotoutFoundation/BOFLogs.h>
@@ -14,7 +14,7 @@
 #import "NSError+BOAdditions.h"
 #import "BOASDKManifest.h"
 
-@implementation BOManifestGeoAPI
+@implementation BOManifestAPI
 
 -(void)getManifestDataModel:(NSData*)eventData success:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure {
     @try {
@@ -31,7 +31,6 @@
         BOFLogDebug(@"DebugAPI_payload Event Data in Body %@", [[NSString alloc] initWithData:eventData encoding:NSUTF8StringEncoding]);
         
         [BONetworkManager asyncRequest:urlRequest success:^(id data , NSURLResponse *dataResponse) {
-            //TODO: this is a temporary fix for null value in manifest
             data = [self checkForNullValue:data];
             NSError *manifestReadError;
             BOASDKManifest *sdkManifestM = [BOASDKManifest fromData:data error:&manifestReadError];

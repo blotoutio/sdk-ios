@@ -16,25 +16,15 @@ extern  NSString *BO_APPLICATION_JSON;
 extern  NSString *BO_TOKEN;
 extern  NSString *BO_ACCEPT;
 extern  NSString *BO_VERSION;
-
 extern  NSString *BO_META;
 extern  NSString *BO_KEY;
 extern  NSString *BO_DATA;
 extern  NSString *BO_IV;
 extern  NSString *BO_PII;
 extern  NSString *BO_PHI;
-extern  NSString *BO_PII_EVENTS;
-extern  NSString *BO_PHI_EVENTS;
-
-extern  NSString *BO_TIME_ZONE_OFFSET;
 extern  NSString *BO_USER_ID;
-
 extern  NSString *BO_EVENT_MAP_ID;
 extern  NSString *BO_EVENT_MAP_Provider;
-
-extern  NSString *BO_EVENT_DATA_POST_API;
-extern  NSString *BO_RETENTION_EVENT_DATA_POST_API;
-
 extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
 extern int const BO_EVENT_PAGE_HIDE;
@@ -46,10 +36,8 @@ extern int const BO_EVENT_VISIBILITY_HIDDEN;
 extern NSString * const BO_APP_VERSION;
 extern NSString * const BO_EVENTS;
 extern NSString * const BO_EVENTS_TIME;
-extern NSString * const BO_EVENT_CATEGORY;
 extern NSString * const BO_MESSAGE_ID;
 extern NSString * const BO_EVENT_CATEGORY_SUBTYPE;
-extern NSString * const BO_TST;
 
 
 extern NSString * const BO_EVENT_NAME_MAPPING;
@@ -82,3 +70,23 @@ extern NSString * const BO_SYSTEM;
 extern NSString * const BO_CODIFIED;
 extern NSString * const BO_SCREEN;
 extern NSString * const BO_TYPE;
+
+extern NSString * const Api_Endpoint;
+extern NSString * const EVENT_PATH;
+extern NSString * const Event_PHI_Public_Key;
+extern NSString * const Event_PII_Public_Key;
+extern NSString * const Event_DeviceInfoGrain;
+extern NSString * const Event_Push_System_Events;
+
+extern int const BO_APPLICATION_OPENED;
+extern int const BO_APPLICATION_INSTALLED;
+extern int const BO_APPLICATION_UPDATED;
+extern int const BO_PUSH_NOTIFICATION_TAPPED;
+extern int const BO_PUSH_NOTIFICATION_RECEIVED;
+extern int const BO_REGISTER_FOR_REMOTE_NOTIFICATION;
+extern int const BO_DEEP_LINK_OPENED;
+extern int const BO_APPLICATION_BACKGROUNDED;
+extern int const BO_APP_TRACKING;
+extern int const BO_TRANSACTION_COMPLETED;
+
+

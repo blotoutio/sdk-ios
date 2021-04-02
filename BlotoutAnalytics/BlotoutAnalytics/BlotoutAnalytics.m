@@ -70,14 +70,6 @@ static id sBOASharedInstance = nil;
     }
 }
 
-- (void)setToken:(NSString *)token {
-    @try {
-        _token = token;
-    } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-    }
-}
-
 -(void)setEnableSDKLog:(BOOL)enableSDKLog {
     @try {
         _enableSDKLog = enableSDKLog;
@@ -92,7 +84,7 @@ static id sBOASharedInstance = nil;
     @try {
         if (![self validateData:configuration]) {
             NSError *initError = [NSError errorWithDomain:@"io.blotout.analytics" code:100002 userInfo:@{
-                @"userInfo": @"Key and EndPoint Url can't be empty !"
+                @"userInfo": @"Token and EndPoint Url can't be empty !"
             }];
             completionHandler(NO, initError);
             return;
@@ -144,23 +136,20 @@ static id sBOASharedInstance = nil;
     @try {
         
         BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
-        if (![sdkManifesCtrl isManifestAvailable]) {
-            [self fetchManifest:^(BOOL isSuccess, NSError *error) {
-                if(isSuccess) {
-                    completionHandler(isSuccess, error);
-                } else {
-                    NSError *serverInitError = [NSError errorWithDomain:@"io.blotout.analytics" code:100003 userInfo:@{
-                        @"userInfo": @"Server Sync failed, check your keys & network connection"}];
-                    completionHandler(NO, serverInitError);
-                }
-            }];
-        } else {
+        if ([sdkManifesCtrl isManifestAvailable]) {
             [sdkManifesCtrl reloadManifestData];
-            [[BOASDKManifestController sharedInstance] syncManifestWithServer];
-            completionHandler(YES, nil);
         }
-    }
-    @catch (NSException *exception) {
+        
+        [self fetchManifest:^(BOOL isSuccess, NSError *error) {
+            if(isSuccess) {
+                completionHandler(isSuccess, error);
+            } else {
+                NSError *serverInitError = [NSError errorWithDomain:@"io.blotout.analytics" code:100003 userInfo:@{
+                    @"userInfo": @"Server Sync failed, check your keys & network connection"}];
+                completionHandler(NO, serverInitError);
+            }
+        }];
+    } @catch (NSException *exception) {
         BOFLogInfo(@"%@:%@", BOA_DEBUG, exception);
         completionHandler(NO, [NSError boErrorForDict:exception.userInfo]);
     }
@@ -246,16 +235,16 @@ static id sBOASharedInstance = nil;
  */
 -(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo {
     @try {
-        [self capture:eventName withInformation:eventInfo withType:BO_CODIFIED];
+        [self capture:eventName withInformation:eventInfo withType:BO_CODIFIED withEventCode:@(0)];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
--(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo withType:(NSString*)type {
+-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo withType:(NSString*)type withEventCode:(NSNumber*)eventCode{
     @try {
         if (self.isEnabled) {
-            BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo eventCode:@(0) screenName:nil withType:type];
+            BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo eventCode:eventCode screenName:nil withType:type];
             [self.eventManager capture:model];
         }
     } @catch (NSException *exception) {
@@ -303,9 +292,9 @@ static id sBOASharedInstance = nil;
 - (void)trackPushNotification:(NSDictionary *)properties fromLaunch:(BOOL)launch {
     @try {
         if (launch) {
-            [self capture:@"Push Notification Tapped" withInformation:properties withType:BO_SYSTEM];
+            [self capture:@"Push Notification Tapped" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_PUSH_NOTIFICATION_TAPPED)];
         } else {
-            [self capture:@"Push Notification Received" withInformation:properties withType:BO_SYSTEM];
+            [self capture:@"Push Notification Received" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_PUSH_NOTIFICATION_RECEIVED)];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -327,7 +316,7 @@ static id sBOASharedInstance = nil;
         if(self.config.trackPushNotifications) {
             NSMutableDictionary *properties = [NSMutableDictionary dictionary];
             [properties setValue:@(0) forKey:@"deviceRegistered"];
-            [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
+            [self capture:@"Register For Remote Notification" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -350,7 +339,7 @@ static id sBOASharedInstance = nil;
             
             [properties setValue:token forKey:@"token"];
             [properties setValue:@(1) forKey:@"deviceRegistered"];
-            [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM];
+            [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -369,7 +358,7 @@ static id sBOASharedInstance = nil;
             properties[@"url"] = activity.webpageURL.absoluteString;
             properties[@"title"] = activity.title ?: @"";
             properties = [BOAUtilities traverseJSON:properties];
-            [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+            [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM withEventCode:@(BO_DEEP_LINK_OPENED)];
         }
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -386,7 +375,7 @@ static id sBOASharedInstance = nil;
         [properties addEntriesFromDictionary:options];
         properties[@"url"] = url.absoluteString;
         properties = [BOAUtilities traverseJSON:properties];
-        [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM];
+        [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM withEventCode:@(BO_DEEP_LINK_OPENED)];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
@@ -441,7 +430,7 @@ static id sBOASharedInstance = nil;
         if(self.config.trackSystemEvent) {
             [self capture:@"Application Opened" withInformation:@{
                 @"from_background" : @YES,
-            } withType:BO_SYSTEM];
+            } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_OPENED)];
         }
         
         BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_VISIBLE properties:nil eventCode:@(BO_EVENT_VISIBILITY_VISIBLE) screenName:nil withType:BO_SYSTEM];
@@ -457,7 +446,7 @@ static id sBOASharedInstance = nil;
         [self.eventManager capture:model];
         
         if(self.config.trackSystemEvent) {
-            [self capture: @"Application Backgrounded" withInformation:nil withType:BO_SYSTEM];
+            [self capture: @"Application Backgrounded" withInformation:nil withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_BACKGROUNDED)];
         }
         [self.eventManager applicationDidEnterBackground];
     } @catch (NSException *exception) {
@@ -499,7 +488,7 @@ static id sBOASharedInstance = nil;
             }
         }
         
-        BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"App Tracking" properties:@{@"status":statusString,@"idfa":idfaString} eventCode:@(0) screenName:nil withType:BO_SYSTEM];
+        BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"App Tracking" properties:@{@"status":statusString,@"idfa":idfaString} eventCode:@(BO_APP_TRACKING) screenName:nil withType:BO_SYSTEM];
         [self.eventManager capture:model];
     } @catch(NSException *exception) {
         BOFLogDebug(@"%@", exception);

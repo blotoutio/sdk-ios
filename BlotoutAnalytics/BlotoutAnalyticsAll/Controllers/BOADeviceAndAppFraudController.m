@@ -86,11 +86,9 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
         if (HardwareIs64BitArch()) {
             [dictionary setObject:@"x64" forKey:@"device_arch"];
             [dictionary setObject:[NSString stringWithFormat:@"%x",LC_ENCRYPTION_INFO_64] forKey:@"lc_info"];
-            [dictionary setObject:[self binaryInfoForx64] forKey:@"binary_info"];
         } else {
             [dictionary setObject:@"x32" forKey:@"device_arch"];
             [dictionary setObject:[NSString stringWithFormat:@"%x",LC_ENCRYPTION_INFO] forKey:@"lc_info"];
-            [dictionary setObject:[self binaryInfoForx32] forKey:@"binary_info"];
         }
         return dictionary;
     } @catch (NSException *exception) {
@@ -99,59 +97,6 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
     return nil;
 }
 
-+(NSString*)binaryInfoForx64{
-    /* @try {
-     const struct mach_header_64 *header;
-     Dl_info dlinfo;
-     if (dladdr(main, &dlinfo) == 0 || dlinfo.dli_fbase == NULL) {
-     return @"Error:can't get main";
-     }
-     header = dlinfo.dli_fbase;
-     struct load_command *cmd = (struct load_command *) (header+1);
-     for (uint32_t i = 0; cmd != NULL && i < header->ncmds; i++) {
-     if (cmd->cmd == LC_ENCRYPTION_INFO_64) {
-     struct encryption_info_command *crypt_cmd = (struct encryption_info_command *) cmd;
-     if (crypt_cmd->cryptid < 1) {
-     return @"cracked";
-     } else {
-     return @"encrypted";
-     }
-     }
-     cmd = (struct load_command *) ((uint8_t *) cmd + cmd->cmdsize);
-     }
-     return @"notfound";
-     } @catch (NSException *exception) {
-     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-     }*/
-    return @"notfound";
-}
-
-+(NSString*)binaryInfoForx32{
-    /*  @try {
-     const struct mach_header *header;
-     Dl_info dlinfo;
-     if (dladdr(main, &dlinfo) == 0 || dlinfo.dli_fbase == NULL) {
-     return @"Error:can't get main";
-     }
-     header = dlinfo.dli_fbase;
-     struct load_command *cmd = (struct load_command *) (header+1);
-     for (uint32_t i = 0; cmd != NULL && i < header->ncmds; i++) {
-     if (cmd->cmd == LC_ENCRYPTION_INFO) {
-     struct encryption_info_command *crypt_cmd = (struct encryption_info_command *) cmd;
-     if (crypt_cmd->cryptid < 1) {
-     return @"cracked";
-     } else {
-     return @"encrypted";
-     }
-     }
-     cmd = (struct load_command *) ((uint8_t *) cmd + cmd->cmdsize);
-     }
-     return @"notfound";
-     } @catch (NSException *exception) {
-     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-     }*/
-    return @"notfound";
-}
 
 +(BOOL)isDylibInjectedToProcessWithName:(NSString*)dylib_name{
     @try {

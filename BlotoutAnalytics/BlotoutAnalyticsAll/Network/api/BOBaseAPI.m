@@ -55,11 +55,7 @@
                 break;
             
             case BOUrlEndPointManifestGET:
-                if([BOASDKManifestController sharedInstance].manifestPath != nil && [BOASDKManifestController sharedInstance].manifestPath.length>0) {
-                    apiPath =[NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],[BOASDKManifestController sharedInstance].manifestPath];
-                } else {
                     apiPath = [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_MANIFEST_PULL_PATH];
-                }
                 break;
         }
         return apiPath;

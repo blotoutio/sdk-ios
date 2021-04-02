@@ -107,8 +107,7 @@ void loadAsUIViewControllerBOFoundationCat(void){
         [self logged_viewDidAppear:animated];
         if(![BOSharedManager sharedInstance].isViewDidAppeared) {
             [BOSharedManager sharedInstance].isViewDidAppeared = YES;
-            // Send sdk_start event
-            // Send page_hide event
+
             NSString *screenName = [self getScreenName:top];
             [BOSharedManager sharedInstance].currentScreenName = screenName;
             if([BlotoutAnalytics sharedInstance].eventManager != nil) {

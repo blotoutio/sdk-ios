@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BOManifestGeoAPI : BOBaseAPI
+@interface BOManifestAPI : BOBaseAPI
 
 /* These method perform getting Manifest data from server */
 -(void)getManifestDataModel:(NSData*)eventData success:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure;

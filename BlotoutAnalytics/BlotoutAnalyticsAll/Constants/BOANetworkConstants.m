@@ -13,7 +13,7 @@
 
 int const BOSDK_MAJOR_VERSION = 0;
 int const BOSDK_MINOR_VERSION = 7;
-int const BOSDK_PATCH_VERSION = 1;
+int const BOSDK_PATCH_VERSION = 0;
 
 NSString *BO_GET = @"GET";
 NSString *BO_POST = @"POST";
@@ -30,17 +30,11 @@ NSString *BO_DATA = @"data";
 NSString *BO_IV = @"iv";
 NSString *BO_PII = @"pii";
 NSString *BO_PHI = @"phi";
-NSString *BO_PII_EVENTS = @"piiEvents";
-NSString *BO_PHI_EVENTS = @"phiEvents";
 
-NSString *BO_TIME_ZONE_OFFSET = @"timeZoneOffset";
 NSString *BO_USER_ID = @"userid";
 
 NSString *BO_EVENT_MAP_ID = @"map_id";
 NSString *BO_EVENT_MAP_Provider = @"map_provider";
-
-NSString *BO_EVENT_DATA_POST_API = @"boEventDataPOSTAPI";
-NSString *BO_RETENTION_EVENT_DATA_POST_API = @"boRetentionEventDataPOSTAPI";
 
 int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
@@ -54,14 +48,10 @@ int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
 NSString * const BO_APP_VERSION= @"app_version";
 NSString * const BO_EVENTS= @"events";
 NSString * const BO_EVENTS_TIME= @"evt";
-NSString * const BO_EVENT_DAY_OCCURENCE_COUNT= @"evdc";
-NSString * const BO_EVENT_CATEGORY= @"evc";
 NSString * const BO_EVENT_CATEGORY_SUBTYPE= @"evcs";
 NSString * const BO_MESSAGE_ID= @"mid";
 NSString * const BO_EVENT_NAME_MAPPING= @"evn";
 NSString * const BO_SCREEN_NAME= @"scrn";
-NSString * const BO_TST= @"tst";
-
 NSString * const BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
 int const BO_DEV_EVENT_MAP_ID = 21001;
 NSString * const     BOA_DEBUG =                                                @"BOA-DEBUG";
@@ -83,3 +73,21 @@ NSString * const BO_SYSTEM = @"system";
 NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
+
+NSString * const Api_Endpoint = @"Api_Endpoint";
+NSString * const EVENT_PATH = @"Event_Path";
+NSString * const Event_PHI_Public_Key = @"PHI_Public_Key";
+NSString * const Event_PII_Public_Key = @"PII_Public_Key";
+NSString * const Event_DeviceInfoGrain = @"Event_Deviceinfo_Grain";
+NSString * const Event_Push_System_Events = @"SDK_Push_System_Events";
+
+int const BO_APPLICATION_OPENED = 11001;
+int const BO_APPLICATION_INSTALLED = 11002;
+int const BO_APPLICATION_UPDATED = 11003;
+int const BO_PUSH_NOTIFICATION_TAPPED = 11004;
+int const BO_PUSH_NOTIFICATION_RECEIVED = 11005;
+int const BO_REGISTER_FOR_REMOTE_NOTIFICATION = 11006;
+int const BO_DEEP_LINK_OPENED = 11007;
+int const BO_APPLICATION_BACKGROUNDED = 11008;
+int const BO_APP_TRACKING = 11009;
+int const BO_TRANSACTION_COMPLETED = 11010;
