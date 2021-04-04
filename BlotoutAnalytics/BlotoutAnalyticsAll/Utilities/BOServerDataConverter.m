@@ -15,6 +15,7 @@
 #import <BlotoutFoundation/BOFUserDefaults.h>
 #import "BOAUtilities.h"
 #import "BOAUserDefaultsStorage.h"
+#import "BOSharedManager.h"
 
 const int Continent = 1;
 const int Country = 2;
@@ -115,7 +116,8 @@ static NSMutableDictionary *appInfo;
             @"dm": [appInfoCurrentDict objectForKey:@"deviceModel"],
             @"sdkv": [appInfoCurrentDict objectForKey:@"sdkVersion"],
             @"tz_offset": [appInfoCurrentDict objectForKey:@"timeZoneOffset"],
-            @"user_id_created": timeStamp
+            @"user_id_created": timeStamp,
+            @"referrer" : [BOSharedManager sharedInstance].referrer
         }];
         
         if([[metaInfo allValues] count] > 0) {

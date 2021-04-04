@@ -31,6 +31,7 @@ static id sBOSharedManagerSharedInstance = nil;
         [BOAUtilities getDeviceId];
         _sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
         _currentScreenName = @"";
+        _referrer = @"";
     }
     return self;
 }
