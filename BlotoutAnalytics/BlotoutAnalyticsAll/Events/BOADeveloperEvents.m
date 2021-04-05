@@ -74,7 +74,7 @@
         
         
         [event setValue:properties forKey:@"additionalData"];
-            
+        
         return @{BO_EVENTS:event};
         
     } @catch (NSException *exception) {
@@ -116,9 +116,9 @@
 }
 
 +(NSDictionary*)preparePersonalEvent:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent{
-
+    
     @try {
-
+        
         if(eventSubcode == nil) {
             eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
         }

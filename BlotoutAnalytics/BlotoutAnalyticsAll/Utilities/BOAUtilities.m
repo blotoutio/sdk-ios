@@ -858,7 +858,7 @@
             [obj isKindOfClass:[NSNumber class]]) {
             return obj;
         }
-
+        
         if ([obj isKindOfClass:[NSArray class]]) {
             NSMutableArray *array = [NSMutableArray array];
             for (id i in obj) {
@@ -870,7 +870,7 @@
             }
             return array;
         }
-
+        
         if ([obj isKindOfClass:[NSDictionary class]]) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             for (NSString *key in obj) {
@@ -881,23 +881,23 @@
                 }
                 if (![key isKindOfClass:[NSString class]])
                     BOFLogDebug(@"warning: dictionary keys should be strings. got: %@. coercing "
-                           @"to: %@",
-                           [key class], [key description]);
+                                @"to: %@",
+                                [key class], [key description]);
                 dict[key.description] = [self traverseJSON:obj[key]];
             }
             return dict;
         }
-
+        
         if ([obj isKindOfClass:[NSDate class]])
             return [self iso8601FormattedString:obj];
-
+        
         if ([obj isKindOfClass:[NSURL class]])
             return [obj absoluteString];
-
+        
         // default to sending the object's description
         BOFLogDebug(@"warning: dictionary values should be valid json types. got: %@. "
-               @"coercing to: %@",
-               [obj class], [obj description]);
+                    @"coercing to: %@",
+                    [obj class], [obj description]);
         return [obj description];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

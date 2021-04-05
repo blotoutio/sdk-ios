@@ -33,7 +33,7 @@
 
 - (NSData * _Nullable)encrypt:(NSData * _Nonnull)data {
     @try {
-    return [BOCrypt encryptAndReturnData:data key:self.password iv:self.iv];
+        return [BOCrypt encryptAndReturnData:data key:self.password iv:self.iv];
     }@catch(NSException *exception) {
         NSLog(@"%@",exception);
     }

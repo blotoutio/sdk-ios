@@ -136,7 +136,7 @@ static NSMutableDictionary *appInfo;
                     break;
             }
         }
-    
+        
         return metaInfo;
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

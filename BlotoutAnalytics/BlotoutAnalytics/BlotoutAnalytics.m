@@ -90,30 +90,30 @@ static id sBOASharedInstance = nil;
             return;
         }
         
-    #if TARGET_OS_TV
+#if TARGET_OS_TV
         BOAUserDefaultsStorage *storage = [[BOAUserDefaultsStorage alloc] initWithDefaults:[NSUserDefaults standardUserDefaults] namespacePrefix:nil crypto:[self getCrypto:configuration]];
-    #else
+#else
         BOAFileStorage *storage = [[BOAFileStorage alloc] initWithFolder:[NSURL fileURLWithPath:[BOFFileSystemManager getBOSDKRootDirectory]] crypto:[self getCrypto:configuration]];
-    #endif
+#endif
         
         self.eventManager = [[BOAEventsManager alloc] initWithConfiguration:configuration storage:storage];
         self.token = configuration.token;
         self.endPointUrl = configuration.endPointUrl;
         [self registerApplicationStates];
         
-
-    #if !TARGET_OS_TV
-            if (configuration.trackPushNotifications && configuration.launchOptions) {
-                NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-                if (remoteNotification) {
-                    [self trackPushNotification:remoteNotification fromLaunch:YES];
-                }
-            }
         
-            if(configuration.trackInAppPurchases) {
-                self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
+#if !TARGET_OS_TV
+        if (configuration.trackPushNotifications && configuration.launchOptions) {
+            NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+            if (remoteNotification) {
+                [self trackPushNotification:remoteNotification fromLaunch:YES];
             }
-    #endif
+        }
+        
+        if(configuration.trackInAppPurchases) {
+            self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
+        }
+#endif
         
         [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
             [self checkManifestAndInitAnalyticsWithCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {
@@ -327,7 +327,7 @@ static id sBOASharedInstance = nil;
     @try {
         if(self.config.trackPushNotifications) {
             NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-           
+            
             const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
             if (!buffer) {
                 return;
@@ -351,7 +351,7 @@ static id sBOASharedInstance = nil;
         if (!self.config.trackDeepLinks) {
             return;
         }
-
+        
         if ([activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
             NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:activity.userInfo.count + 2];
             [properties addEntriesFromDictionary:activity.userInfo];
@@ -371,7 +371,7 @@ static id sBOASharedInstance = nil;
         if (!self.config.trackDeepLinks) {
             return;
         }
-
+        
         NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:options.count + 2];
         [properties addEntriesFromDictionary:options];
         properties[@"url"] = url.absoluteString;
@@ -384,7 +384,7 @@ static id sBOASharedInstance = nil;
 }
 
 -(void)refreshSessionAndReferrer:(NSString*)referrerUrl {
-    if([BOSharedManager sharedInstance].referrer.length > 0) {
+    if([BOSharedManager sharedInstance].referrer.length > 0 && ![[BOSharedManager sharedInstance].referrer isEqual:referrerUrl]) {
         [BOSharedManager refreshSession];
     }
     
@@ -395,7 +395,7 @@ static id sBOASharedInstance = nil;
     @try {
         // Attach to application state change hooks
         NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-
+        
         for (NSString *name in @[ UIApplicationDidEnterBackgroundNotification,
                                   UIApplicationDidFinishLaunchingNotification,
                                   UIApplicationWillEnterForegroundNotification,
@@ -468,25 +468,25 @@ static id sBOASharedInstance = nil;
         NSString *statusString = @"";
         NSString *idfaString = @"";
         if (@available(iOS 14, *)) {
-                ATTrackingManagerAuthorizationStatus status = ATTrackingManager.trackingAuthorizationStatus;
-                switch (status) {
-                    case ATTrackingManagerAuthorizationStatusAuthorized:
-                        statusString = @"Authorized";
-                        idfaString =  [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
-                        break;
-                    case ATTrackingManagerAuthorizationStatusDenied:
-                        statusString = @"Denied";
-                        break;
-                    case ATTrackingManagerAuthorizationStatusRestricted:
-                        statusString = @"Restricted";
-                        break;
-                    case ATTrackingManagerAuthorizationStatusNotDetermined:
-                        statusString = @"Not Determined";
-                        break;
-                    default:
-                        statusString = @"Unknown";
-                        break;
-                }
+            ATTrackingManagerAuthorizationStatus status = ATTrackingManager.trackingAuthorizationStatus;
+            switch (status) {
+                case ATTrackingManagerAuthorizationStatusAuthorized:
+                    statusString = @"Authorized";
+                    idfaString =  [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+                    break;
+                case ATTrackingManagerAuthorizationStatusDenied:
+                    statusString = @"Denied";
+                    break;
+                case ATTrackingManagerAuthorizationStatusRestricted:
+                    statusString = @"Restricted";
+                    break;
+                case ATTrackingManagerAuthorizationStatusNotDetermined:
+                    statusString = @"Not Determined";
+                    break;
+                default:
+                    statusString = @"Unknown";
+                    break;
+            }
         } else {
             // Fallback on earlier version
             if([ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled) {
