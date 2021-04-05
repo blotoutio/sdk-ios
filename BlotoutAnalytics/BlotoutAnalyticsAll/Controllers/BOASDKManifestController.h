@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSString *eventPath;
 @property (assign, nonatomic) NSString *piiPublicKey;
 @property (assign, nonatomic) NSString *phiPublickey;
-@property (assign, readwrite) bool *sdkPushSystemEvents;
+@property (assign, readwrite) bool sdkPushSystemEvents;
 
 - (nullable instancetype) init __attribute__((unavailable("Must use sharedInstance instead.")));
 + (nullable instancetype)sharedInstance;

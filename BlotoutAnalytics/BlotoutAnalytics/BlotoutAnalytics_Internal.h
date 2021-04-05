@@ -40,7 +40,7 @@
 // return sdk version
 -(nonnull NSString*)sdkVersion;
 
--(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo withType:(NSString*)type withEventCode:(NSNumber*)eventCode;
+-(void)capture:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo withType:(NSString* _Nonnull)type withEventCode:(NSNumber* _Nonnull)eventCode;
 
 @end
 

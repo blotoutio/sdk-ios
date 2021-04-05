@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) NSString *referrer;
 
 +(instancetype)sharedInstance;
-
++(void)refreshSession;
 
 @end
 

@@ -358,7 +358,7 @@ static id sBOASharedInstance = nil;
             properties[@"url"] = activity.webpageURL.absoluteString;
             properties[@"title"] = activity.title ?: @"";
             properties = [BOAUtilities traverseJSON:properties];
-            [BOSharedManager sharedInstance].referrer = activity.webpageURL.absoluteString;
+            [self refreshSessionAndReferrer:activity.webpageURL.absoluteString];
             [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM withEventCode:@(BO_DEEP_LINK_OPENED)];
         }
     } @catch (NSException *exception) {
@@ -376,13 +376,20 @@ static id sBOASharedInstance = nil;
         [properties addEntriesFromDictionary:options];
         properties[@"url"] = url.absoluteString;
         properties = [BOAUtilities traverseJSON:properties];
-        [BOSharedManager sharedInstance].referrer = url.absoluteString;
+        [self refreshSessionAndReferrer:url.absoluteString];
         [self capture:@"Deep Link Opened" withInformation:[properties copy] withType:BO_SYSTEM withEventCode:@(BO_DEEP_LINK_OPENED)];
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
 }
 
+-(void)refreshSessionAndReferrer:(NSString*)referrerUrl {
+    if([BOSharedManager sharedInstance].referrer.length > 0) {
+        [BOSharedManager refreshSession];
+    }
+    
+    [BOSharedManager sharedInstance].referrer = referrerUrl;
+}
 
 -(void)registerApplicationStates {
     @try {

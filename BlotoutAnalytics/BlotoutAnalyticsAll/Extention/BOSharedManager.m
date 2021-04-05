@@ -36,4 +36,7 @@ static id sBOSharedManagerSharedInstance = nil;
     return self;
 }
 
++(void)refreshSession {
+    [BOSharedManager sharedInstance].sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
+}
 @end
