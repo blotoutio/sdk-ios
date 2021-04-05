@@ -12,6 +12,7 @@
 #import "BOADeveloperEvents.h"
 #import "BOEventPostAPI.h"
 #import <BlotoutFoundation/BOFLogs.h>
+#import "BOAUtilities.h"
 
 NSString *const BOAQueueKey = @"BOAQueue";
 NSString *const kBOAQueueFilename = @"blotout.queue.plist";
@@ -168,6 +169,9 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 
 - (void)sendData:(NSArray *)batch {
     @try {
+        
+        batch = [BOAUtilities traverseJSON:batch];
+        
         [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
             BOEventPostAPI *post = [[BOEventPostAPI alloc] init];
             NSDictionary *json =  [BOADeveloperEvents prepareServerPayload:batch];
