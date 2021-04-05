@@ -228,7 +228,7 @@ static id sBOAsdkManifestSharedInstance = nil;
             self.sdkManifestModel = sdkManifestM;
         }
         if (self.sdkManifestModel != nil) {
-           
+            
             BOASDKVariable *deviceGrain = [self getManifestVariable:self.sdkManifestModel forValue: Event_DeviceInfoGrain];
             self.eventDeviceInfoGrain = [self getNumberFrom: deviceGrain.value];
             
@@ -253,7 +253,7 @@ static id sBOAsdkManifestSharedInstance = nil;
             if (phiKey != nil) {
                 self.phiPublickey = phiKey.value;
             }
-        
+            
             
         }
     } @catch (NSException *exception) {

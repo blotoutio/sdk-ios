@@ -206,7 +206,7 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
                 isCydia = YES;
             }
         });
-       
+        
         if(isCydia) {
             return YES;
         }

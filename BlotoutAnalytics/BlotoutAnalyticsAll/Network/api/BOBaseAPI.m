@@ -31,11 +31,11 @@
     
     NSString *urlDomainStr = @"";
     
-        if([BOASDKManifestController sharedInstance].serverBaseURL != nil && [BOASDKManifestController sharedInstance].serverBaseURL.length>0) {
-            urlDomainStr = [BOASDKManifestController sharedInstance].serverBaseURL;
-        } else {
-            urlDomainStr = [BlotoutAnalytics sharedInstance].endPointUrl;
-        }
+    if([BOASDKManifestController sharedInstance].serverBaseURL != nil && [BOASDKManifestController sharedInstance].serverBaseURL.length>0) {
+        urlDomainStr = [BOASDKManifestController sharedInstance].serverBaseURL;
+    } else {
+        urlDomainStr = [BlotoutAnalytics sharedInstance].endPointUrl;
+    }
     
     return urlDomainStr;
 }
@@ -53,9 +53,9 @@
                     apiPath = [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_EVENTS_PUSH_PATH];
                 }
                 break;
-            
+                
             case BOUrlEndPointManifestGET:
-                    apiPath = [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_MANIFEST_PULL_PATH];
+                apiPath = [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_MANIFEST_PULL_PATH];
                 break;
         }
         return apiPath;

@@ -34,12 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Application token that you can get in your dashboard
-*/
+ */
 @property (nonatomic, copy, readonly, nonnull) NSString *token;
 
 /**
  * Url where you will be sending data
-*/
+ */
 @property (nonatomic, copy, readonly, nonnull) NSString *endPointUrl;
 
 /**

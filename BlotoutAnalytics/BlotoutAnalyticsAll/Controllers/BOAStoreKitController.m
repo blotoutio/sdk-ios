@@ -33,7 +33,7 @@
         _config = configuration;
         _productRequests = [NSMutableDictionary dictionaryWithCapacity:1];
         _transactions = [NSMutableDictionary dictionaryWithCapacity:1];
-
+        
         [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     }
     return self;
@@ -51,7 +51,7 @@
         if (transaction.transactionState != SKPaymentTransactionStatePurchased) {
             continue;
         }
-
+        
         SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:transaction.payment.productIdentifier]];
         @synchronized(self)
         {
@@ -80,25 +80,25 @@
 #pragma mark - Track
 - (void)trackTransaction:(SKPaymentTransaction *)transaction forProduct:(SKProduct *)product
 {
-     if (transaction.transactionIdentifier == nil) {
+    if (transaction.transactionIdentifier == nil) {
         return;
     }
-
+    
     NSString *currency = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
-
+    
     if([BlotoutAnalytics sharedInstance].eventManager != nil) {
         BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"Transaction Completed" properties:@{
             @"orderId" : transaction.transactionIdentifier,
             @"affiliation" : @"App Store",
             @"currency" : currency ?: @"",
             @"products" : @[
-                @{
-                   @"sku" : transaction.transactionIdentifier,
-                   @"quantity" : @(transaction.payment.quantity),
-                   @"productId" : product.productIdentifier ?: @"",
-                   @"price" : product.price ?: @0,
-                   @"name" : product.localizedTitle ?: @"",
-                }
+                    @{
+                        @"sku" : transaction.transactionIdentifier,
+                        @"quantity" : @(transaction.payment.quantity),
+                        @"productId" : product.productIdentifier ?: @"",
+                        @"price" : product.price ?: @0,
+                        @"name" : product.localizedTitle ?: @"",
+                    }
             ]
         } eventCode:@(BO_TRANSACTION_COMPLETED) screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
         [[BlotoutAnalytics sharedInstance].eventManager capture:model];
