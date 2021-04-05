@@ -22,7 +22,7 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
     BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
     
     BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"token" withUrl:@"endPointUrl"];
-    
+    config.launchOptions = launchOptions;
     [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nonnull error) {
              NSLog(@"BlotoutAnalytics Init %d:or Error: %@", isSuccess, error);
     }];
@@ -36,7 +36,7 @@ func boSDKInit() throws -> Void {
     let boaSDK : BlotoutAnalytics
     boaSDK =  BlotoutAnalytics.sharedInstance()!
     let config = BlotoutAnalyticsConfiguration.init(token: "token", withUrl: "endPointUrl")
-    
+    config.launchOptions = launchOptions;
     boaSDK.`init`(config) { (isSuccess : Bool, errorObj:Error?) in
         if isSuccess{
             print("Integration Successful.")

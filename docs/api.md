@@ -15,6 +15,7 @@ The `init` method is used for initializing SDK. This sets all required configura
 ```js
 BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"token" withUrl:@"endPointUrl"];
+config.launchOptions = launchOptions;
 [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nonnull error) {
     NSLog(@"BlotoutAnalytics Init %d:or Error: %@", isSuccess, error);
     [boaObj capture:@"AppLaunched" withInformation:launchOptions]; 
@@ -104,4 +105,12 @@ Returns user ID as `string`.
 #### Example
 ```js
 NSString *userId = [[BlotoutAnalytics sharedInstance] getUserId];
+```
+
+## enableSDKLog
+The `enableSDKLog` method allows you to print all SDK logs on console.
+
+#### Example
+```js
+[BlotoutAnalytics sharedInstance].enableSDKLog = YES;
 ```
