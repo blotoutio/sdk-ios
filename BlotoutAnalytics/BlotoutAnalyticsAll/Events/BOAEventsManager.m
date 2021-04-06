@@ -117,6 +117,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 - (void)queuePayload:(NSDictionary *)payload
 {
     @try {
+        payload = [BOAUtilities traverseJSON:payload];
         [self.queue addObject:payload];
         [self persistQueue];
         [self flushQueueByLength];
@@ -170,8 +171,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 - (void)sendData:(NSArray *)batch {
     @try {
         
-        batch = [BOAUtilities traverseJSON:batch];
-        
+        self.batchRequest = YES;
         [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
             BOEventPostAPI *post = [[BOEventPostAPI alloc] init];
             NSDictionary *json =  [BOADeveloperEvents prepareServerPayload:batch];
@@ -181,15 +181,17 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
             [post postEventDataModel:data withAPICode:BOUrlEndPointEventDataPOST success:^(id  _Nonnull responseObject) {
                 [self.queue removeObjectsInArray:batch];
                 [self persistQueue];
+                self.batchRequest = NO;
                 [self endBackgroundTask];
-                
             } failure:^(NSURLResponse * _Nonnull urlResponse, id  _Nonnull dataOrLocation, NSError * _Nonnull error) {
+                self.batchRequest = NO;
                 NSLog(@"%@",[error description]);
             }];
         }];
         
     } @catch(NSException *exception) {
         BOFLogDebug(@"%@", exception);
+        self.batchRequest = NO;
     }
 }
 
