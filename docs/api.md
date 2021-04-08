@@ -114,3 +114,88 @@ The `enableSDKLog` method allows you to print all SDK logs on console.
 ```js
 [BlotoutAnalytics sharedInstance].enableSDKLog = YES;
 ```
+
+## enable
+The `enable` method allows you to enable the sending of analytics data. Enabled by default.
+
+#### Example
+```js
+[BlotoutAnalytics sharedInstance].enable = YES;
+```
+
+## disable
+The `disable` method allows you to disable the sending of analytics data. disabled by default.
+
+#### Example
+```js
+[BlotoutAnalytics sharedInstance].disable = YES;
+```
+
+## Application leval methods handling
+
+## Remote Notification
+This method is used for tracking remote notification
+
+## input
+- (void)receivedRemoteNotification:(NSDictionary *_Nullable)userInfo;
+
+#### Example
+```js
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    [BlotoutAnalytics sharedInstance] receivedRemoteNotification:notification.userInfo];
+}
+```
+
+## Remote Notification
+This method is used to notify when app failed to register for remote notification
+
+## input
+- (void)failedToRegisterForRemoteNotificationsWithError:(NSError *_Nullable)error;
+
+#### Example
+```js
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error  {
+    [BlotoutAnalytics sharedInstance] failedToRegisterForRemoteNotificationsWithError:error];
+}
+```
+
+## Remote Notification
+This method is used to notify when app register for remote notification
+
+## input
+- (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *_Nullable)deviceToken;
+
+#### Example
+```js
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [BlotoutAnalytics sharedInstance] registeredForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+```
+
+## User Activity
+This method is used to track deep linking
+
+## input
+- (void)continueUserActivity:(NSUserActivity *_Nonnull)activity;
+
+#### Example
+```js
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray<id<UIUserActivityRestoring>> * __nullable restorableObjects))restorationHandler {
+    [BlotoutAnalytics sharedInstance] continueUserActivity:userActivity];
+}
+```
+
+## User Activity
+This method is used to track deep linking
+
+## input
+- (void)openURL:(NSURL *_Nullable)url options:(NSDictionary *_Nonnull)options;
+
+#### Example
+```js
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
+    [BlotoutAnalytics sharedInstance] openURL:url options:options];
+}
+```
+
+

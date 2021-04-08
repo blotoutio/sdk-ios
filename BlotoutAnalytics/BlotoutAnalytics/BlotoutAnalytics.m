@@ -284,10 +284,6 @@ static id sBOASharedInstance = nil;
     self.isEnabled = NO;
 }
 
-- (void)reset {
-    
-}
-
 #pragma MARK- Application Delegates
 - (void)trackPushNotification:(NSDictionary *)properties fromLaunch:(BOOL)launch {
     @try {

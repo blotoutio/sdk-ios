@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSTimeInterval flushInterval;
 
 /**
- * Set a custom crypto
+ * Set a your own implementation for encrption/decryption local data.
  */
 @property (nonatomic, strong, nullable) id<BOACrypto> crypto;
 
@@ -76,7 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL trackPushNotifications;
 
-
+/**
+ * Whether the blotout analytics client should  track deep links.
+ */
 @property (nonatomic, assign) BOOL trackDeepLinks;
 
 /**
