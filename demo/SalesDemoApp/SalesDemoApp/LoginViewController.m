@@ -142,7 +142,7 @@ void report_memory(void) {
     if ([self.modeButton.titleLabel.text isEqualToString:@"Mode: Test"]) {
         self.modeButton.titleLabel.text = @"Mode: Production";
         [self.modeButton setTitle:@"Mode: Production" forState:UIControlStateNormal];
-    }else{
+    } else{
         [self.modeButton setTitle:@"Mode: Test" forState:UIControlStateNormal];
     }
 }

@@ -88,7 +88,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 - (void)capture:(BOACaptureModel *)payload {
   @try {
     NSDictionary *event = [BOADeveloperEvents captureEvent:payload];
-    if(event == nil) {
+    if (event == nil) {
       return;
     }
     
@@ -101,7 +101,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
 -(void)capturePersonal:(BOACaptureModel *)payload isPHI:(BOOL)phiEvent {
   @try {
     NSDictionary *personalEvent = [BOADeveloperEvents capturePersonalEvent:payload isPHI:phiEvent];
-    if(personalEvent == nil) {
+    if (personalEvent == nil) {
       return;
     }
     

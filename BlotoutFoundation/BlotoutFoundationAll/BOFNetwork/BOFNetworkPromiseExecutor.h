@@ -2,7 +2,6 @@
 //  BOFNetworkPromiseExecutor.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 27/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -13,10 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class BOFNetworkPromise;
 @protocol BOFNetworkPromiseExecutorDeleagte;
 
-@interface BOFNetworkPromiseExecutor : NSObject
-{
-    
-}
+@interface BOFNetworkPromiseExecutor : NSObject {}
 @property (nonatomic, assign) BOOL isNetworkSyncEnabled;
 @property (nonatomic, assign) BOOL isSDKEnabled;
 @property (nullable, nonatomic, weak)   id<BOFNetworkPromiseExecutorDeleagte> delegate;

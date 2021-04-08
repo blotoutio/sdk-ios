@@ -2,7 +2,6 @@
 //  BOFNetworkPromise.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 26/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -14,13 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 // dataOrLocation will be either NSData or NSUrl
 // Based on BOANetworkPromise executed as data promise or download promise
 // If resumeData or downloadAsFile is set then BOANetworkPromise will be executed as download promise else determined by system.
-typedef void (^BOFNetworkPromiseCompletionHandler)( NSURLResponse * _Nullable urlResponse, id _Nullable dataOrLocation, NSError * _Nullable error );
+typedef void (^BOFNetworkPromiseCompletionHandler)( NSURLResponse * _Nullable urlResponse, id _Nullable dataOrLocation, NSError * _Nullable error);
 
 typedef NS_ENUM(NSInteger, BOFNetworkPromiseTaskState) {
-    BOFNetworkPromiseTaskStateRunning = 0,
-    BOFNetworkPromiseTaskStateSuspended = 1,
-    BOFNetworkPromiseTaskStateCanceling = 2,
-    BOFNetworkPromiseTaskStateCompleted = 3,
+  BOFNetworkPromiseTaskStateRunning = 0,
+  BOFNetworkPromiseTaskStateSuspended = 1,
+  BOFNetworkPromiseTaskStateCanceling = 2,
+  BOFNetworkPromiseTaskStateCompleted = 3,
 } NS_ENUM_AVAILABLE(NSURLSESSION_AVAILABLE, 7_0);
 
 FOUNDATION_EXPORT const float BOFNetworkPromiseTaskPriorityDefault NS_AVAILABLE(10_10, 8_0);
@@ -29,21 +28,16 @@ FOUNDATION_EXPORT const float BOFNetworkPromiseTaskPriorityHigh NS_AVAILABLE(10_
 
 @class BOFNetworkPromiseFileHandler, BOFNetworkPromiseStringHandler, BOFNetworkPromiseJSONHandler, BOFNetworkPromiseXMLHandler;
 
-@interface BOFNetworkPromise : NSObject
-{
-    
-}
+@interface BOFNetworkPromise : NSObject { }
 @property (nullable, nonatomic, strong) id<BOFNetworkPromiseDeleagte> delegate;
-@property(nonatomic)       NSInteger    numberOfRetries;
-@property (readwrite)      BOOL         downloadAsFile;   //default download will try to download as NSData, like data task.
-
-@property (nullable, copy)              NSString      *networkPromiseDescription;
-@property (readonly)                    NSUInteger    networkPromiseIdentifier;
-@property (nullable, readonly, copy)    NSURLRequest  *originalRequest;
-@property (nullable, readonly, copy)    NSURLRequest  *currentRequest;
-@property (nullable, readonly, copy)    NSURLResponse *response;
-@property (nullable, readonly, strong)  NSMutableData *responseData;
-
+@property(nonatomic) NSInteger numberOfRetries;
+@property (readwrite) BOOL downloadAsFile;   //default download will try to download as NSData, like data task.
+@property (nullable, copy) NSString *networkPromiseDescription;
+@property (readonly) NSUInteger networkPromiseIdentifier;
+@property (nullable, readonly, copy) NSURLRequest *originalRequest;
+@property (nullable, readonly, copy) NSURLRequest *currentRequest;
+@property (nullable, readonly, copy) NSURLResponse *response;
+@property (nullable, readonly, strong) NSMutableData *responseData;
 
 @property (readonly) BOFNetworkPromiseTaskState state;
 @property (nullable, readonly, copy) NSError *error;

@@ -185,7 +185,7 @@ static id sBOASharedInstance = nil;
   NSString* token = [configuration.token stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
   NSString* endPointUrl = [configuration.endPointUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
   
-  if (!token || [token isEqualToString:@""] || !endPointUrl || [endPointUrl isEqualToString:@""] ) {
+  if (!token || [token isEqualToString:@""] || !endPointUrl || [endPointUrl isEqualToString:@""]) {
     return NO;
   }
   

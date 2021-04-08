@@ -2,7 +2,6 @@
 //  BOFNetworkPromise_Private.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 27/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -34,7 +33,6 @@ FOUNDATION_EXTERN NSString * _Nonnull const BOFNetworkPromiseCreatedNewTask;
 
 -(void)sessionTaskComplettionHandlerDownloaded:(id _Nullable)dataOrLocation response:(NSURLResponse * _Nullable) response error:(NSError * _Nullable) error session:(NSURLSession * _Nullable)session;
 
-
 -(void)BOFURLSession:(NSURLSession * _Nullable)session downloadTask:(NSURLSessionDownloadTask * _Nullable)downloadTask didFinishDownloadingToURL:(NSURL * _Nullable)location;
 -(void)BOFURLSession:(NSURLSession * _Nullable)session task:(NSURLSessionTask * _Nullable)task didCompleteWithError:(NSError * _Nullable)error;
 -(void)BOFURLSession:(NSURLSession * _Nullable)session downloadTask:(NSURLSessionDownloadTask * _Nullable)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite;
@@ -44,5 +42,4 @@ FOUNDATION_EXTERN NSString * _Nonnull const BOFNetworkPromiseCreatedNewTask;
 
 @end
 
-
-#endif /* BOFNetworkPromise_Private_h */
+#endif

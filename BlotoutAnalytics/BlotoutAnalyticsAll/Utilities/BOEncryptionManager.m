@@ -254,7 +254,7 @@ static NSData *base64_decode(NSString *str) {
                              data_len,
                              outbuf,
                              &outlen
-                             );
+                            );
     } else {
       status = SecKeyEncrypt(keyRef,
                              kSecPaddingNone,
@@ -262,7 +262,7 @@ static NSData *base64_decode(NSString *str) {
                              data_len,
                              outbuf,
                              &outlen
-                             );
+                            );
     }
     if (status != 0) {
       NSLog(@"SecKeyEncrypt fail. Error Code: %d",(int) status);
@@ -321,7 +321,7 @@ static NSData *base64_decode(NSString *str) {
                            data_len,
                            outbuf,
                            &outlen
-                           );
+                          );
     if (status != 0) {
       NSLog(@"SecKeyEncrypt fail. Error Code: %d", (int)status);
       ret = nil;
@@ -332,8 +332,8 @@ static NSData *base64_decode(NSString *str) {
     int idxFirstZero = -1;
     int idxNextZero = (int)outlen;
     for (int i = 0; i < outlen; i++) {
-        if ( outbuf[i] == 0 ) {
-            if ( idxFirstZero < 0 ) {
+        if (outbuf[i] == 0) {
+            if (idxFirstZero < 0) {
                 idxFirstZero = i;
             } else {
                 idxNextZero = i;

@@ -85,7 +85,7 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
           (flags & kSCNetworkReachabilityFlagsIsLocalAddress)       ? 'l' : '-',
           (flags & kSCNetworkReachabilityFlagsIsDirect)             ? 'd' : '-',
           comment
-          );
+         );
 #endif
 }
 
@@ -182,7 +182,7 @@ static BOReachability *sharedInstance = nil;
 
 -(instancetype)init{
     self = [super init];
-    if ( self ) {
+    if (self) {
         
     }
     return self;
@@ -226,7 +226,7 @@ static BOReachability *sharedInstance = nil;
 
 -(void)notifyInternetAvailability{
     BONetworkStatus status = [self currentReachabilityStatus];
-    if ( status != BONotReachable ) {
+    if (status != BONotReachable) {
         [[NSNotificationCenter defaultCenter] postNotificationName:BOWebServiceInternetConnectionAvailableNotification object:self];
     }
 }
@@ -266,7 +266,7 @@ static BOReachability *sharedInstance = nil;
 		returnValue = BOReachableViaWiFi;
 	}
 
-	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
+	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand) != 0) ||
         (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
 	{
         /*

@@ -252,7 +252,7 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
     }
     
     char buf[MAXPATHLEN + 1];
-    if (fcntl(fd, F_GETPATH, buf ) >= 0) {
+    if (fcntl(fd, F_GETPATH, buf) >= 0) {
       if (strcmp(buf, "/dev/null") == 0) {
         return NO;
       }
@@ -285,7 +285,7 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
     size_t size = sizeof(info);
     int junk = sysctl(mib, sizeof(mib) / sizeof(*mib), &info, &size, NULL, 0);
     assert(junk == 0);
-    return ( (info.kp_proc.p_flag & P_TRACED) != 0 );
+    return((info.kp_proc.p_flag & P_TRACED) != 0);
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }

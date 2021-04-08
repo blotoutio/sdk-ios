@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong, nullable) NSString *type;
 
-- (instancetype _Nonnull )initWithEvent:(NSString * _Nonnull)event
+- (instancetype _Nonnull)initWithEvent:(NSString * _Nonnull)event
                              properties:(NSDictionary * _Nullable)properties eventCode:(NSNumber*_Nullable)eventCode screenName:(NSString* _Nullable)screenName withType:(NSString* _Nonnull)type;
 
 @end

@@ -142,7 +142,7 @@ static NSMutableDictionary *appInfo;
 + (int)getDeviceGrain {
   @try {
     int deviceGrain = [[BOASDKManifestController sharedInstance] eventDeviceInfoGrain].intValue;
-    if(deviceGrain > 0) {
+    if (deviceGrain > 0) {
       return deviceGrain;
     }
   } @catch (NSException *exception) {

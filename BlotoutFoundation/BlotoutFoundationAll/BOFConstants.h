@@ -2,7 +2,6 @@
 //  BOFConstants.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 27/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 

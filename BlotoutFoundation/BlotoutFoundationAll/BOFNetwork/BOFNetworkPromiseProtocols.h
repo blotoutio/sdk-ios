@@ -2,7 +2,6 @@
 //  BOFNetworkPromiseProtocols.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 27/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -13,9 +12,8 @@
 
 @class BOFNetworkPromise;
 
-typedef void (^downloadProgressHandler) ( double percentageComplete, int64_t bytesWritten, int64_t totalBytesWritten,int64_t  totalBytesExpected);
-typedef void (^downloadResumeHandler)   ( int64_t resumeOffset, int64_t  totalBytesExpected);
-
+typedef void (^downloadProgressHandler)(double percentageComplete, int64_t bytesWritten, int64_t totalBytesWritten,int64_t  totalBytesExpected);
+typedef void (^downloadResumeHandler)  (int64_t resumeOffset, int64_t  totalBytesExpected);
 
 @protocol BOFNetworkPromiseDeleagte <NSObject>
 @optional
@@ -27,5 +25,4 @@ typedef void (^downloadResumeHandler)   ( int64_t resumeOffset, int64_t  totalBy
 
 @end
 
-
-#endif /* BOFNetworkPromiseProtocols_h */
+#endif

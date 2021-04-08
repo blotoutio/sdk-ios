@@ -2,7 +2,6 @@
 //  BOFLogs.h
 //  BlotoutFoundation
 //
-//  Created by Blotout on 22/09/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
