@@ -8,7 +8,7 @@
 
 #import "NSData+Base64.h"
 
-void loadAsNSDataBase64FoundationCat(void){
+void loadAsNSDataBase64FoundationCat(void) {
     
 }
 

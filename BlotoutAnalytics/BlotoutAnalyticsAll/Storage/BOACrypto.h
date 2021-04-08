@@ -2,7 +2,6 @@
 //  BOACrypto.h
 //  BlotoutAnalytics
 //
-//  Created by ankuradhikari on 22/03/21.
 //  Copyright © 2021 Blotout. All rights reserved.
 //
 

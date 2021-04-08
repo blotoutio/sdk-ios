@@ -52,7 +52,7 @@
     //
     //    NSString *encryptedSTring = [BOEncryptionManager encryptString:@"hello world" publicKey:publicKey];
     //
-    //    if([encryptedSTring isEqualToString:convertedString]) {
+    //    if ([encryptedSTring isEqualToString:convertedString]) {
     //        NSLog(@"data sync in iOS and android");
     //    }
     //

@@ -205,7 +205,7 @@
     NSMutableDictionary *dictionary=nil;
     for(id node in nodes)
     {
-        if(dictionary==nil)
+        if (dictionary==nil)
             dictionary=[[NSMutableDictionary alloc]init];
         
         NSUInteger child=[node childCount];
@@ -267,7 +267,7 @@
     
     for(id node in nodes)
     {
-        if(dictionary==nil)
+        if (dictionary==nil)
             dictionary=[[NSMutableDictionary alloc]init];
         NSUInteger child=[node childCount];
         for(int index=0;index<child;index++)
@@ -285,7 +285,7 @@
     
     NSLog(@"Dictionary Data  %@ ",dataArray);
     
-    if(ddDoc)
+    if (ddDoc)
     {
         ddDoc = nil;
     }

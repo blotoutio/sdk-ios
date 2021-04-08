@@ -2,7 +2,6 @@
 //  BOServerDataConverter.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 10/05/20.
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
@@ -11,8 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class BOAppSessionData;
-@interface BOServerDataConverter : NSObject {
-}
+@interface BOServerDataConverter : NSObject {}
 + (NSDictionary *)prepareMetaData;
 
 @end

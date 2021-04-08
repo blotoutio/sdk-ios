@@ -2,14 +2,11 @@
 //  BOANetworkConstants.m
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 07/08/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
 #import "BOANetworkConstants.h"
 #import <Foundation/Foundation.h>
-
-
 
 int const BOSDK_MAJOR_VERSION = 0;
 int const BOSDK_MINOR_VERSION = 7;
@@ -33,37 +30,37 @@ NSString *BO_PHI = @"phi";
 
 NSString *BO_USER_ID = @"userid";
 
+int const BO_DEV_EVENT_MAP_ID = 21001;
 NSString *BO_EVENT_MAP_ID = @"map_id";
-NSString *BO_EVENT_MAP_Provider = @"map_provider";
+NSString *BO_EVENT_MAP_PROVIDER = @"map_provider";
 
 int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
 
-NSString * const BO_VISIBILITY_VISIBLE= @"visibility_visible";
-NSString * const BO_VISIBILITY_HIDDEN= @"visibility_hidden";
 int const BO_EVENT_VISIBILITY_VISIBLE = 11131;
-int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
+NSString * const BO_VISIBILITY_VISIBLE= @"visibility_visible";
 
+int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
+NSString * const BO_VISIBILITY_HIDDEN= @"visibility_hidden";
 
 NSString * const BO_APP_VERSION= @"app_version";
 NSString * const BO_EVENTS= @"events";
 NSString * const BO_EVENTS_TIME= @"evt";
-NSString * const BO_EVENT_CATEGORY_SUBTYPE= @"evcs";
+NSString * const BO_EVENT_CATEGORY_SUBCODE= @"evcs";
 NSString * const BO_MESSAGE_ID= @"mid";
 NSString * const BO_EVENT_NAME_MAPPING= @"evn";
 NSString * const BO_SCREEN_NAME= @"scrn";
 NSString * const BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
-int const BO_DEV_EVENT_MAP_ID = 21001;
-NSString * const     BOA_DEBUG =                                                @"BOA-DEBUG";
+NSString * const BOA_DEBUG = @"BOA-DEBUG";
 int const BO_DEV_EVENT_CUSTOM_KEY= 21100;
 int const BO_DEFAULT_EVENT_PUSH_TIME = 3;
-NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH =                           @"v1/manifest/pull";
-NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH =                         @"v1/events/publish";
-NSString * const BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY =                          @"com.blotout.sdk.Analytics.Root";
-NSString * const BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY =                      @"com.blotout.sdk.Analytics.Root.UserBirthTimeStamp";
-NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY =   @"sdk_manifest_last_sync_timestamp";
-NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS =                  @"com.blotout.sdk.Analytics.Dev_Custom_Event";
-NSString * const BO_ANALYTICS_USER_UNIQUE_KEY =                             @"UserUniqueId";
+NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH = @"v1/manifest/pull";
+NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH = @"v1/events/publish";
+NSString * const BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY = @"com.blotout.sdk.Analytics.Root";
+NSString * const BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY = @"com.blotout.sdk.Analytics.Root.UserBirthTimeStamp";
+NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY = @"sdk_manifest_last_sync_timestamp";
+NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS = @"com.blotout.sdk.Analytics.Dev_Custom_Event";
+NSString * const BO_ANALYTICS_USER_UNIQUE_KEY = @"UserUniqueId";
 NSString * const BO_SESSION_ID = @"session_id";
 NSString * const BO_VERSION_KEY = @"BOVersionKey";
 NSString * const BO_BUILD_KEYV1  = @"BOBuildKey";
@@ -74,12 +71,12 @@ NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
 
-NSString * const Api_Endpoint = @"Api_Endpoint";
+NSString * const API_ENDPOINT = @"Api_Endpoint";
 NSString * const EVENT_PATH = @"Event_Path";
-NSString * const Event_PHI_Public_Key = @"PHI_Public_Key";
-NSString * const Event_PII_Public_Key = @"PII_Public_Key";
-NSString * const Event_DeviceInfoGrain = @"Event_Deviceinfo_Grain";
-NSString * const Event_Push_System_Events = @"SDK_Push_System_Events";
+NSString * const EVENT_PHI_PUBLIC_KEY = @"PHI_Public_Key";
+NSString * const EVENT_PII_PUBLIC_KEY = @"PII_Public_Key";
+NSString * const EVENT_DEVICE_INFO_GRAIN = @"Event_Deviceinfo_Grain";
+NSString * const EVENT_PUSH_SYSTEM_EVENT = @"SDK_Push_System_Events";
 
 int const BO_APPLICATION_OPENED = 11001;
 int const BO_APPLICATION_INSTALLED = 11002;

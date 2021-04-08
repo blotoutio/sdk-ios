@@ -35,7 +35,7 @@ enum {
  * We use it to check the type of a structure, and then perform the appropriate cast.
  * 
  * For example:
- * if(genericPtr->type == XML_ATTRIBUTE_NODE)
+ * if (genericPtr->type == XML_ATTRIBUTE_NODE)
  * {
  *     xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
  *     // Do something with attr

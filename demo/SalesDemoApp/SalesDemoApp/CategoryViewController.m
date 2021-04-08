@@ -30,7 +30,7 @@
     UIImageView *pImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"windows-shopper.png"]];
     self.navigationItem.titleView = pImageView;
     [[BlotoutAnalytics sharedInstance] capture:@"CategoryView" withInformation:nil];
-    if(self.categoryID <= 0) {
+    if (self.categoryID <= 0) {
         eBayAPI *api = [[eBayAPI alloc] init];
         [api getCategoryInfoWithsuccess:^(id  _Nonnull responseObject) {
             //Ashish filterning Art as it contain 18+ content and should be avoided
@@ -115,7 +115,7 @@
     
     NSDictionary *dict=[self.catagoryArray objectAtIndex:indexPath.row];
     NSString *status=[dict objectForKey:@"LeafCategory"];
-    if([status isEqualToString:@"false"]) {
+    if ([status isEqualToString:@"false"]) {
         CategoryViewController *categoryListController = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryViewController"];
         
         categoryListController.categoryID=[[dict objectForKey:@"CategoryID"]longLongValue];

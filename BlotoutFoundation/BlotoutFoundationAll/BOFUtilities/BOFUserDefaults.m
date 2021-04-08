@@ -35,7 +35,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
 -(instancetype)initWithProduct:(NSString *)key{
     @try {
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.productKey = key;
         }
         return self;
@@ -50,7 +50,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
         __block BOFUserDefaults *defaultsInstance = nil;
         dispatch_sync(sBOFDefaultsSerialQueue, ^{
             defaultsInstance = (BOFUserDefaults *)[sBOFDefaultMap objectForKey:product];
-            if( defaultsInstance == nil ){
+            if ( defaultsInstance == nil ) {
                 defaultsInstance = [[BOFUserDefaults alloc] initWithProduct:product];
                 [sBOFDefaultMap setObject:defaultsInstance forKey:product];
             }
@@ -69,7 +69,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
         
         NSDictionary *rootImmutable = [ud dictionaryForKey:BO_SDK_ROOT_USER_DEFAULTS_KEY];
         
-        if( rootImmutable == nil  ){
+        if ( rootImmutable == nil  ) {
             rootImmutable = @{};
         }
         
@@ -99,13 +99,13 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
             //      -- Product2
             //          --Product2 defaults
             NSMutableDictionary *productContainer = [[root objectForKey:weakSelf.productKey] mutableCopy];
-            if( productContainer == nil ){
+            if ( productContainer == nil ) {
                 productContainer = [@{} mutableCopy];
             }
             
             //have the defaults write to product container
             BOOL hasChanged = updateBlock(productContainer);
-            if (hasChanged ){
+            if (hasChanged ) {
                 [root setObject:productContainer forKey:weakSelf.productKey];
             }
             
@@ -118,12 +118,12 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
 
 -(void)setObject:(nullable id)obj forKey:(nonnull id<NSCopying>)aKey{
     @try {
-        if( obj == nil ){
+        if ( obj == nil ) {
             return;
         }
         
         //We have batch updates in progress
-        if( self.productContainer != nil ){
+        if ( self.productContainer != nil ) {
             [self.productContainer setObject:obj forKey:aKey];
         }
         else{
@@ -139,7 +139,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
 
 -(void)removeObjectForKey:(nonnull id<NSCopying>)aKey{
     @try {
-        if( self.productContainer != nil ){
+        if ( self.productContainer != nil ) {
             [self.productContainer removeObjectForKey:aKey];
         }
         else{
@@ -158,7 +158,7 @@ static dispatch_queue_t sBOFDefaultsSerialQueue = nil;
     @try {
         __block id object = nil;
         
-        if (self.productContainer != nil ){
+        if (self.productContainer != nil ) {
             object = [self.productContainer objectForKey:key];
         }
         else{

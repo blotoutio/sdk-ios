@@ -34,12 +34,12 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
 
 - (instancetype)initWithURLRequest:(NSURLRequest * )request completionHandler:(BOFNetworkPromiseCompletionHandler)networkPromiseCompletionHandler{
     @try {
-        if ( request == nil ){
+        if ( request == nil ) {
             return nil;
         }
         
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.urlRequest = request;
             self.completionHandler = networkPromiseCompletionHandler;
             [self customInitialization];
@@ -55,12 +55,12 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
 - (instancetype)initWithResumeData:(NSData *)resumedData completionHandler:(BOFNetworkPromiseCompletionHandler)networkPromiseCompletionHandler{
     
     @try {
-        if ( resumedData == nil ){
+        if ( resumedData == nil ) {
             return nil;
         }
         
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.resumeData = resumedData;
             self.completionHandler = networkPromiseCompletionHandler;
             [self customInitialization];
@@ -75,12 +75,12 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
 - (nullable instancetype)initWithURLRequest:(nonnull NSURLRequest *)request responseHandler:( id<BOFNetworkPromiseDeleagte> _Nonnull)networkResponseHandler;
 {
     @try {
-        if ( request == nil ){
+        if ( request == nil ) {
             return nil;
         }
         
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.urlRequest = request;
             self.delegateForHandler = networkResponseHandler;
             [self customInitialization];
@@ -134,7 +134,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
     @try {
         if (self.completionHandler) {
             self.completionHandler(response,dataOrLocation,error);
-        }else{
+        } else {
             if (self.delegate && [self.delegate respondsToSelector:@selector(BOFNetworkPromise:didCompleteWithError:)]) {
                 [self.delegate BOFNetworkPromise:self didCompleteWithError:error];
             }
@@ -166,7 +166,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
         dispatch_async(dispatch_get_main_queue(), ^{
             //shoould retry
             NSHTTPURLResponse *httpResponse  = (NSHTTPURLResponse *)response;
-            if ( (error != nil && [error code] >= 500 ) || ([httpResponse statusCode] >= 500 )){
+            if ( (error != nil && [error code] >= 500 ) || ([httpResponse statusCode] >= 500 )) {
                 
                 if (self.totalAttempts < self.numberOfRetries) {
                     //[self doRetryOnErrorWithSession:session];
@@ -175,7 +175,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
                         [self startWithSession:session];
                         [self postNotificationForNewTaskCreation];
                     });
-                }else{
+                } else {
                     [self doNecessaryCallbackInvocationOnCompletion:dataOrLocation response:response error:error];
                     //self.completionHandler ? self.completionHandler(response,dataOrLocation,error) : nil;
                     //[self postNotificationForTaskCompletion];
@@ -200,8 +200,8 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
                 
                 [self sessionTaskComplettionHandlerDownloaded:location response:response error:error session:session];
             }];
-        }else if(self.urlRequest){
-            anySessionTask = [session downloadTaskWithRequest:self.urlRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error){
+        }else if (self.urlRequest) {
+            anySessionTask = [session downloadTaskWithRequest:self.urlRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 [self sessionTaskComplettionHandlerDownloaded:location response:response error:error session:session];
             }];
@@ -218,9 +218,9 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
     @try {
         NSURLSessionTask *anySessionTask = nil;
         
-        if(self.downloadAsFile || self.resumeData){
+        if (self.downloadAsFile || self.resumeData) {
             anySessionTask = [self getAsyncDownloadUrlSessionTask:session];
-        }else if(self.urlRequest){
+        }else if (self.urlRequest) {
             anySessionTask = [session dataTaskWithRequest:self.urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
                 
                 [self sessionTaskComplettionHandlerDownloaded:data response:response error:error session:session];
@@ -238,13 +238,13 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
 -(nullable NSURLSessionTask*)getSyncUrlSessionTask:(NSURLSession * _Nullable)session{
     @try {
         NSURLSessionTask *anySessionTask = nil;
-        if(self.downloadAsFile || self.resumeData){
+        if (self.downloadAsFile || self.resumeData) {
             if (self.resumeData) {
                 anySessionTask = [session downloadTaskWithResumeData:_resumeData];
-            }else if(self.urlRequest){
+            }else if (self.urlRequest) {
                 anySessionTask = [session downloadTaskWithRequest:self.urlRequest];
             }
-        }else if(self.urlRequest){
+        }else if (self.urlRequest) {
             anySessionTask = [session dataTaskWithRequest:self.urlRequest];
         }
         return anySessionTask;
@@ -264,7 +264,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
             
             //self.anySessionTask = [self getAsyncUrlSessionTask:session];
             self.anySessionTask = [self getSyncUrlSessionTask:session];
-        }else if(session){
+        }else if (session) {
             self.anySessionTask = [self getSyncUrlSessionTask:session];
         }
         
@@ -273,7 +273,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
         }
         
         _anySessionTask.taskDescription = _networkPromiseDescription;
-        if( NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0){
+        if ( NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) {
             _anySessionTask.priority = _priority;
         }
         [_anySessionTask resume];
@@ -342,7 +342,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
         BOFNetworkPromiseTaskState currentState;
         if (!_anySessionTask) {
             currentState = BOFNetworkPromiseTaskStateSuspended;
-        }else{
+        } else {
             switch (_anySessionTask.state) {
                 case NSURLSessionTaskStateRunning:
                     currentState = BOFNetworkPromiseTaskStateRunning;
@@ -385,7 +385,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
 }
 -(float)priority{
     @try {
-        if( NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0){
+        if ( NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) {
             return _anySessionTask.priority;
         }
         return _priority;  // should be same as _priority
@@ -439,7 +439,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
             if (success) {
                 location = self.downloadLocation;
             }
-        }else{
+        } else {
             self.downloadLocation = location;
         }
         
@@ -503,7 +503,7 @@ const float BOFNetworkPromiseTaskPriorityHigh          =   1.0;
        didReceiveData:(NSData * _Nullable)data
 {
     @try {
-        if( self.responseData == nil ){
+        if ( self.responseData == nil ) {
             self.responseData = [[NSMutableData alloc] init];
         }
         

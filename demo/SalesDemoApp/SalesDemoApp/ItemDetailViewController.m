@@ -28,19 +28,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[BlotoutAnalytics sharedInstance] capture:@"Item Detail View" withInformation:nil];
-    if(dateFormatter == nil)
+    if (dateFormatter == nil)
     {
         dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"dd MMM yyyy hh:mm:ss"];
     }
     
-    if(dateComps == nil)
+    if (dateComps == nil)
         dateComps = [[NSDateComponents alloc] init];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if(self.isCartView) {
+    if (self.isCartView) {
         self.addToCartAction.hidden = YES;
     }
     
@@ -83,7 +83,7 @@
     NSUserDefaults *userDefauts = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *cartDict;
     NSDictionary *dictionary =[userDefauts valueForKey:@"CartData"];
-    if(dictionary == nil) {
+    if (dictionary == nil) {
         cartDict  = [NSMutableDictionary dictionary];
         [cartDict setValue:self.itemDict forKey:self.itemID];
     } else {

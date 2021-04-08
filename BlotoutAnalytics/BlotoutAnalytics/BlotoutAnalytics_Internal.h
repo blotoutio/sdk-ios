@@ -2,7 +2,6 @@
 //  BlotoutAnalytics_Internal.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 16/02/20.
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
@@ -25,8 +24,6 @@
 @property(nonatomic,strong,nonnull) BlotoutAnalyticsConfiguration *config;
 @property(nonatomic,strong,nonnull) BOAEventsManager *eventManager;
 @property (nonatomic, strong, nonnull) BOAStoreKitController *storeKitController;
-
-//Server Endpoint Url e.g. https://blotout.io/sdk, http://blotout.io/sdk, It has to be a domain based, IP's are considered invalid.
 @property (nonatomic, strong, nullable) NSString *endPointUrl;
 @property (nonatomic, strong, nullable) NSString *token;
 

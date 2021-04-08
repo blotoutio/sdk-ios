@@ -17,7 +17,7 @@
     // If a wrapper object already exists, the _private variable is pointing to it.
     
     xmlDocPtr doc = (xmlDocPtr)kindPtr;
-    if(doc->_private == NULL)
+    if (doc->_private == NULL)
         return [[[DDXMLDocument alloc] initWithCheckedPrimitive:kindPtr] autorelease];
     else
         return [[((DDXMLDocument *)(doc->_private)) retain] autorelease];
@@ -54,9 +54,9 @@
  **/
 - (id)initWithData:(NSData *)data options:(NSUInteger)mask error:(NSError **)error
 {
-    if(data == nil || [data length] == 0)
+    if (data == nil || [data length] == 0)
     {
-        if(error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:0 userInfo:nil];
+        if (error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:0 userInfo:nil];
         
         [self release];
         return nil;
@@ -70,9 +70,9 @@
     xmlKeepBlanksDefault(0);
     
     xmlDocPtr doc = xmlParseMemory([data bytes], [data length]);
-    if(doc == NULL)
+    if (doc == NULL)
     {
-        if(error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:1 userInfo:nil];
+        if (error) *error = [NSError errorWithDomain:@"DDXMLErrorDomain" code:1 userInfo:nil];
         
         [self release];
         return nil;
@@ -92,7 +92,7 @@
     
     xmlNodePtr rootNode = xmlDocGetRootElement(doc);
     
-    if(rootNode != NULL)
+    if (rootNode != NULL)
         return [DDXMLElement nodeWithPrimitive:(xmlKindPtr)rootNode];
     else
         return nil;

@@ -32,7 +32,7 @@
 
 +(NSString *)urlEncodeForString:(NSString *)str usingEncoding:(CFStringEncoding)encoding{
     @try {
-        if( [str respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)] ){
+        if ( [str respondsToSelector:@selector(stringByAddingPercentEncodingWithAllowedCharacters:)] ) {
             return [str stringByAddingPercentEncodingWithAllowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@"!*'\"();:@&=+$,/?%#[]% "] invertedSet]];
         }
         return str;
@@ -122,7 +122,7 @@
     @try {
         NSString *encryptionKey =  [[BlotoutFoundation sharedInstance] encryptionKey];
    
-        if(encryptionKey == nil) {
+        if (encryptionKey == nil) {
             encryptionKey = kEncryptionKey;
         }
         NSMutableString *newEncryptionKey = [NSMutableString string];

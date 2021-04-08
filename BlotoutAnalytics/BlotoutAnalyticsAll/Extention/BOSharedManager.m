@@ -2,7 +2,6 @@
 //  BOSharedManager.m
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 22/08/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -15,28 +14,26 @@ static id sBOSharedManagerSharedInstance = nil;
 @implementation BOSharedManager
 
 +(instancetype)sharedInstance {
-    
-    static dispatch_once_t BOSharedManagerOnceToken = 0;
-    dispatch_once(&BOSharedManagerOnceToken, ^{
-        sBOSharedManagerSharedInstance = [[BOSharedManager alloc] init];
-    });
-    
-    return sBOSharedManagerSharedInstance;
+  static dispatch_once_t BOSharedManagerOnceToken = 0;
+  dispatch_once(&BOSharedManagerOnceToken, ^{
+    sBOSharedManagerSharedInstance = [[BOSharedManager alloc] init];
+  });
+  
+  return sBOSharedManagerSharedInstance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [BOAUtilities getDeviceId];
-        _sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
-        _currentScreenName = @"";
-        _referrer = @"";
-    }
-    return self;
+- (instancetype)init {
+  self = [super init];
+  if (self) {
+    [BOAUtilities getDeviceId];
+    _sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
+    _currentScreenName = @"";
+    _referrer = @"";
+  }
+  return self;
 }
 
 +(void)refreshSession {
-    [BOSharedManager sharedInstance].sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
+  [BOSharedManager sharedInstance].sessionId = [NSString stringWithFormat:@"%ld",(long)[BOAUtilities get13DigitIntegerTimeStamp]];
 }
 @end

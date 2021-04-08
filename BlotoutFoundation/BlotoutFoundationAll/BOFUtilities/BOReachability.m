@@ -182,7 +182,7 @@ static BOReachability *sharedInstance = nil;
 
 -(instancetype)init{
     self = [super init];
-    if( self ){
+    if ( self ) {
         
     }
     return self;
@@ -226,7 +226,7 @@ static BOReachability *sharedInstance = nil;
 
 -(void)notifyInternetAvailability{
     BONetworkStatus status = [self currentReachabilityStatus];
-    if( status != BONotReachable ){
+    if ( status != BONotReachable ) {
         [[NSNotificationCenter defaultCenter] postNotificationName:BOWebServiceInternetConnectionAvailableNotification object:self];
     }
 }

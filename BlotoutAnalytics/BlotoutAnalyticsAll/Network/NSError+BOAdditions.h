@@ -2,7 +2,6 @@
 //  NSError+BOAdditions.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 05/09/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -10,12 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 typedef NS_ENUM(NSUInteger, BOErrorCodes) {
-    BOErrorUnknownn = 10001,
-    BOErrorNoInternetConnection,
-    BOErrorParsingError,
-    BOManifestSyncError
+  BOErrorUnknownn = 10001,
+  BOErrorNoInternetConnection,
+  BOErrorParsingError,
+  BOManifestSyncError
 };
 
 @interface NSError (BOAdditions)

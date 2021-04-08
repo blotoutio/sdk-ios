@@ -59,7 +59,7 @@
 }
 
 - (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventDeviceInfoGrain {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_DeviceInfoGrain];
+    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:EVENT_DEVICE_INFO_GRAIN];
     XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
 }
 
@@ -95,7 +95,7 @@
 }
 
 - (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForApiEndpoint {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Api_Endpoint];
+    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:API_ENDPOINT];
     XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
 }
 
@@ -105,7 +105,7 @@
 }
 
 - (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventPushSystemEvents {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_Push_System_Events];
+    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:EVENT_PUSH_SYSTEM_EVENT];
     XCTAssertTrue([variable.value boolValue], @"Can not find value for key in manifest");
 }
 

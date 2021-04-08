@@ -2,7 +2,6 @@
 //  BOSharedManager.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 22/08/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 

@@ -67,7 +67,7 @@ void report_memory(void) {
                                    TASK_BASIC_INFO,
                                    (task_info_t)&info,
                                    &size);
-    if( kerr == KERN_SUCCESS ) {
+    if ( kerr == KERN_SUCCESS ) {
         NSLog(@"Memory in use (in bytes): %lu", info.resident_size);
         NSLog(@"Memory in use (in MiB): %f", ((CGFloat)info.resident_size / 1048576));
         memInfoStr = [NSString stringWithFormat:@"Memory use(MiB): %f", ((CGFloat)info.resident_size / 1048576)];

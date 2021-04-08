@@ -1188,7 +1188,7 @@
 //	{
 //		NSXMLNode *child = [children objectAtIndex:i];
 //				
-//		if([child kind] == NSXMLElementKind)
+//		if ([child kind] == NSXMLElementKind)
 //		{
 //			NSAssert([child isMemberOfClass:[NSXMLElement class]], @"Failed CHECK 1");
 //		}
@@ -1202,7 +1202,7 @@
 //	{
 //		DDXMLNode *child = [children objectAtIndex:i];
 //		
-//		if([child kind] == DDXMLElementKind)
+//		if ([child kind] == DDXMLElementKind)
 //		{
 //			NSAssert([child isMemberOfClass:[DDXMLElement class]], @"Failed test 1");
 //		}
@@ -1430,7 +1430,7 @@
 //	NSArray *nsChildren = [[nsDoc rootElement] elementsForName:@"x"];
 //	NSArray *ddChildren = [[ddDoc rootElement] elementsForName:@"x"];
 //	
-//	if([nsChildren count] > 0)
+//	if ([nsChildren count] > 0)
 //	{
 //		NSLog(@"Good news: Apple finally fixed that elementsForName: bug!");
 //	}

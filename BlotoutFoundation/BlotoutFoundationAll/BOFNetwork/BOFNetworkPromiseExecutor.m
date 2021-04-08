@@ -141,7 +141,7 @@ __strong static id sBOFSharedInstanceForCampaign = nil;
 - (instancetype)init{
     @try {
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.taskPromiseObjectMap = [NSMapTable strongToStrongObjectsMapTable];
             [self executorConfiguration];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionTaskDidComplete:) name:BOFNetworkPromiseDidCompleteExecution object:nil];
@@ -159,11 +159,11 @@ __strong static id sBOFSharedInstanceForCampaign = nil;
 - (instancetype)initWithBackgroundIdentifier:(NSString *)identifier{
     @try {
         self = [super init];
-        if ( self ){
+        if ( self ) {
             self.taskPromiseObjectMap = [NSMapTable strongToStrongObjectsMapTable];
             if (identifier && (identifier.length > 0)) {
                 [self executorConfigurationWithBackgroundIdentifier:identifier];
-            }else{
+            } else {
                 [self executorConfiguration];
             }
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionTaskDidComplete:) name:BOFNetworkPromiseDidCompleteExecution object:nil];
@@ -186,7 +186,7 @@ __strong static id sBOFSharedInstanceForCampaign = nil;
             if (sessionTask && networkPromise) {
                 [self.taskPromiseObjectMap setObject:networkPromise forKey:sessionTask];
             }
-        }else{
+        } else {
             BOFLogDebug(@"BOSDK_DEBUG: %@", @"Network sync disabled by developer");
         }
     } @catch (NSException *exception) {

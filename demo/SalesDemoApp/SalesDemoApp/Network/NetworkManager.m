@@ -18,7 +18,7 @@
                                               downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSData *data = [NSData dataWithContentsOfURL:location];
         
-        if(error == nil) {
+        if (error == nil) {
             successBlock_(data,response);
         } else {
             failureBlock_(data,response,error);

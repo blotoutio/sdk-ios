@@ -15,7 +15,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 + (void)initialize
 {
     static BOOL initialized = NO;
-    if(!initialized)
+    if (!initialized)
     {
         // Redirect error output to our own function (don't clog up the console)
         initGenericErrorDefaultFunc(NULL);
@@ -58,7 +58,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     xmlAttrPtr attr = xmlNewProp(NULL, [name xmlChar], [stringValue xmlChar]);
     
-    if(attr == NULL) return nil;
+    if (attr == NULL) return nil;
     
     return [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)attr] autorelease];
 }
@@ -67,7 +67,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     xmlAttrPtr attr = xmlNewProp(NULL, [name xmlChar], [stringValue xmlChar]);
     
-    if(attr == NULL) return nil;
+    if (attr == NULL) return nil;
     
     DDXMLNode *result = [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)attr] autorelease];
     [result setURI:URI];
@@ -82,7 +82,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     xmlNsPtr ns = xmlNewNs(NULL, [stringValue xmlChar], xmlName);
     
-    if(ns == NULL) return nil;
+    if (ns == NULL) return nil;
     
     return [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)ns] autorelease];
 }
@@ -91,7 +91,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     xmlNodePtr procInst = xmlNewPI([name xmlChar], [stringValue xmlChar]);
     
-    if(procInst == NULL) return nil;
+    if (procInst == NULL) return nil;
     
     return [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)procInst] autorelease];
 }
@@ -100,7 +100,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     xmlNodePtr comment = xmlNewComment([stringValue xmlChar]);
     
-    if(comment == NULL) return nil;
+    if (comment == NULL) return nil;
     
     return [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)comment] autorelease];
 }
@@ -109,7 +109,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     xmlNodePtr text = xmlNewText([stringValue xmlChar]);
     
-    if(text == NULL) return nil;
+    if (text == NULL) return nil;
     
     return [[[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)text] autorelease];
 }
@@ -120,11 +120,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 + (id)nodeWithUnknownPrimitive:(xmlKindPtr)kindPtr
 {
-    if(kindPtr->type == XML_DOCUMENT_NODE)
+    if (kindPtr->type == XML_DOCUMENT_NODE)
     {
         return [DDXMLDocument nodeWithPrimitive:kindPtr];
     }
-    else if(kindPtr->type == XML_ELEMENT_NODE)
+    else if (kindPtr->type == XML_ELEMENT_NODE)
     {
         return [DDXMLElement nodeWithPrimitive:kindPtr];
     }
@@ -146,10 +146,10 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     // If a wrapper object already exists, the _private variable is pointing to it.
     // Warning: The _private variable is in a different location in the xmlNsPtr
     
-    if([self isXmlNsPtr:kindPtr])
+    if ([self isXmlNsPtr:kindPtr])
     {
         xmlNsPtr ns = (xmlNsPtr)kindPtr;
-        if(ns->_private != NULL)
+        if (ns->_private != NULL)
         {
             return [[((DDXMLNode *)(ns->_private)) retain] autorelease];
         }
@@ -157,7 +157,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     else
     {
         xmlStdPtr node = (xmlStdPtr)kindPtr;
-        if(node->_private != NULL)
+        if (node->_private != NULL)
         {
             return [[((DDXMLNode *)(node->_private)) retain] autorelease];
         }
@@ -174,7 +174,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (id)initWithCheckedPrimitive:(xmlKindPtr)kindPtr
 {
-    if((self = [super init]))
+    if ((self = [super init]))
     {
         genericPtr = kindPtr;
         nsParentPtr = NULL;
@@ -194,7 +194,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     // If a wrapper object already exists, the _private variable is pointing to it.
     
-    if(ns->_private == NULL)
+    if (ns->_private == NULL)
         return [[[DDXMLNode alloc] initWithCheckedPrimitive:ns nsParent:parent] autorelease];
     else
         return [[((DDXMLNode *)(ns->_private)) retain] autorelease];
@@ -208,7 +208,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (id)initWithCheckedPrimitive:(xmlNsPtr)ns nsParent:(xmlNodePtr)parent
 {
-    if((self = [super init]))
+    if ((self = [super init]))
     {
         genericPtr = (xmlKindPtr)ns;
         nsParentPtr = parent;
@@ -221,7 +221,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     // Check if genericPtr is NULL
     // This may be the case if, eg, DDXMLElement calls [self release] from it's init method
-    if(genericPtr != NULL)
+    if (genericPtr != NULL)
     {
         [self nodeRelease];
     }
@@ -234,50 +234,50 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    if([self isXmlDocPtr])
+    if ([self isXmlDocPtr])
     {
         xmlDocPtr copyDocPtr = xmlCopyDoc((xmlDocPtr)genericPtr, 1);
         
-        if(copyDocPtr == NULL) return nil;
+        if (copyDocPtr == NULL) return nil;
         
         return [[DDXMLDocument alloc] initWithCheckedPrimitive:(xmlKindPtr)copyDocPtr];
     }
     
-    if([self isXmlNodePtr])
+    if ([self isXmlNodePtr])
     {
         xmlNodePtr copyNodePtr = xmlCopyNode((xmlNodePtr)genericPtr, 1);
         
-        if(copyNodePtr == NULL) return nil;
+        if (copyNodePtr == NULL) return nil;
         
-        if([self isKindOfClass:[DDXMLElement class]])
+        if ([self isKindOfClass:[DDXMLElement class]])
             return [[DDXMLElement alloc] initWithCheckedPrimitive:(xmlKindPtr)copyNodePtr];
         else
             return [[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)copyNodePtr];
     }
     
-    if([self isXmlAttrPtr])
+    if ([self isXmlAttrPtr])
     {
         xmlAttrPtr copyAttrPtr = xmlCopyProp(NULL, (xmlAttrPtr)genericPtr);
         
-        if(copyAttrPtr == NULL) return nil;
+        if (copyAttrPtr == NULL) return nil;
         
         return [[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)copyAttrPtr];
     }
     
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         xmlNsPtr copyNsPtr = xmlCopyNamespace((xmlNsPtr)genericPtr);
         
-        if(copyNsPtr == NULL) return nil;
+        if (copyNsPtr == NULL) return nil;
         
         return [[DDXMLNode alloc] initWithCheckedPrimitive:copyNsPtr nsParent:NULL];
     }
     
-    if([self isXmlDtdPtr])
+    if ([self isXmlDtdPtr])
     {
         xmlDtdPtr copyDtdPtr = xmlCopyDtd((xmlDtdPtr)genericPtr);
         
-        if(copyDtdPtr == NULL) return nil;
+        if (copyDtdPtr == NULL) return nil;
         
         return [[DDXMLNode alloc] initWithCheckedPrimitive:(xmlKindPtr)copyDtdPtr];
     }
@@ -291,7 +291,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 - (DDXMLNodeKind)kind
 {
-    if(genericPtr != NULL)
+    if (genericPtr != NULL)
         return genericPtr->type;
     else
         return DDXMLInvalidKind;
@@ -299,7 +299,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 - (void)setName:(NSString *)name
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         xmlNsPtr ns = (xmlNsPtr)genericPtr;
         
@@ -315,10 +315,10 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 - (NSString *)name
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         xmlNsPtr ns = (xmlNsPtr)genericPtr;
-        if(ns->prefix != NULL)
+        if (ns->prefix != NULL)
             return [NSString stringWithUTF8String:((const char*)ns->prefix)];
         else
             return @"";
@@ -327,7 +327,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     {
         const char *name = (const char *)((xmlStdPtr)genericPtr)->name;
         
-        if(name == NULL)
+        if (name == NULL)
             return nil;
         else
             return [NSString stringWithUTF8String:name];
@@ -336,18 +336,18 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 
 - (void)setStringValue:(NSString *)string
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         xmlNsPtr ns = (xmlNsPtr)genericPtr;
         
         xmlFree((xmlChar *)ns->href);
         ns->href = xmlEncodeSpecialChars(NULL, [string xmlChar]);
     }
-    else if([self isXmlAttrPtr])
+    else if ([self isXmlAttrPtr])
     {
         xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
         
-        if(attr->children != NULL)
+        if (attr->children != NULL)
         {
             xmlChar *escapedString = xmlEncodeSpecialChars(attr->doc, [string xmlChar]);
             xmlNodeSetContent((xmlNodePtr)attr, escapedString);
@@ -359,7 +359,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
             attr->children = text;
         }
     }
-    else if([self isXmlNodePtr])
+    else if ([self isXmlNodePtr])
     {
         xmlStdPtr node = (xmlStdPtr)genericPtr;
         
@@ -382,22 +382,22 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSString *)stringValue
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         return [NSString stringWithUTF8String:((const char *)((xmlNsPtr)genericPtr)->href)];
     }
-    else if([self isXmlAttrPtr])
+    else if ([self isXmlAttrPtr])
     {
         xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
         
-        if(attr->children != NULL)
+        if (attr->children != NULL)
         {
             return [NSString stringWithUTF8String:(const char *)attr->children->content];
         }
         
         return nil;
     }
-    else if([self isXmlNodePtr])
+    else if ([self isXmlNodePtr])
     {
         xmlChar *content = xmlNodeGetContent((xmlNodePtr)genericPtr);
         
@@ -420,17 +420,17 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSUInteger)index
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         // The xmlNsPtr has no prev pointer, so we have to search from the parent
-        if(nsParentPtr == NULL) return 0;
+        if (nsParentPtr == NULL) return 0;
         
         xmlNsPtr currentNs = nsParentPtr->nsDef;
         
         NSUInteger result = 0;
         while(currentNs != NULL)
         {
-            if(currentNs == (xmlNsPtr)genericPtr)
+            if (currentNs == (xmlNsPtr)genericPtr)
             {
                 return result;
             }
@@ -461,7 +461,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 - (NSUInteger)level
 {
     xmlNodePtr currentNode;
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
         currentNode = nsParentPtr;
     else
         currentNode = ((xmlStdPtr)genericPtr)->parent;
@@ -484,12 +484,12 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 - (DDXMLDocument *)rootDocument
 {
     xmlStdPtr node;
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
         node = (xmlStdPtr)nsParentPtr;
     else
         node = (xmlStdPtr)genericPtr;
     
-    if(node == NULL || node->doc == NULL)
+    if (node == NULL || node->doc == NULL)
         return nil;
     else
         return [DDXMLDocument nodeWithPrimitive:(xmlKindPtr)node->doc];
@@ -504,16 +504,16 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)parent
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
-        if(nsParentPtr == NULL) return nil;
+        if (nsParentPtr == NULL) return nil;
         
         return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)nsParentPtr];
     }
     
     xmlStdPtr node = (xmlStdPtr)genericPtr;
     
-    if(node->parent == NULL) return nil;
+    if (node->parent == NULL) return nil;
     
     return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)node->parent];
 }
@@ -524,7 +524,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSUInteger)childCount
 {
-    if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return 0;
+    if (![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return 0;
     
     NSUInteger result = 0;
     
@@ -543,7 +543,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSArray *)children
 {
-    if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
+    if (![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
     
     NSMutableArray *result = [NSMutableArray array];
     
@@ -569,13 +569,13 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)childAtIndex:(NSUInteger)index
 {
-    if(![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
+    if (![self isXmlDocPtr] && ![self isXmlNodePtr] && ![self isXmlDtdPtr]) return nil;
     
     NSUInteger i = 0;
     
     xmlNodePtr child = ((xmlStdPtr)genericPtr)->children;
     
-    if(child == NULL)
+    if (child == NULL)
     {
         // NSXML doesn't raise an exception if there are no children
         return nil;
@@ -583,7 +583,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     while(child != NULL)
     {
-        if(i == index)
+        if (i == index)
         {
             return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)child];
         }
@@ -606,11 +606,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)previousSibling
 {
-    if([self isXmlNsPtr]) return nil;
+    if ([self isXmlNsPtr]) return nil;
     
     xmlStdPtr node = (xmlStdPtr)genericPtr;
     
-    if(node->prev == NULL) return nil;
+    if (node->prev == NULL) return nil;
     
     return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)node->prev];
 }
@@ -624,11 +624,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)nextSibling
 {
-    if([self isXmlNsPtr]) return nil;
+    if ([self isXmlNsPtr]) return nil;
     
     xmlStdPtr node = (xmlStdPtr)genericPtr;
     
-    if(node->next == NULL) return nil;
+    if (node->next == NULL) return nil;
     
     return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)node->next];
 }
@@ -643,7 +643,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)previousNode
 {
-    if([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
+    if ([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
     
     // If the node has a previous sibling,
     // then we need the last child of the last child of the last child etc
@@ -653,9 +653,9 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     xmlStdPtr node = (xmlStdPtr)genericPtr;
     xmlStdPtr previousSibling = node->prev;
     
-    if(previousSibling != NULL)
+    if (previousSibling != NULL)
     {
-        if(previousSibling->last != NULL)
+        if (previousSibling->last != NULL)
         {
             xmlNodePtr lastChild = previousSibling->last;
             while(lastChild->last != NULL)
@@ -676,7 +676,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     // Note: rootNode.parent == docNode
     
-    if(node->parent == NULL || node->parent->type == XML_DOCUMENT_NODE)
+    if (node->parent == NULL || node->parent->type == XML_DOCUMENT_NODE)
         return nil;
     else
         return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)node->parent];
@@ -692,17 +692,17 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (DDXMLNode *)nextNode
 {
-    if([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
+    if ([self isXmlNsPtr] || [self isXmlAttrPtr]) return nil;
     
     // If the node has children, then next node is the first child
     DDXMLNode *firstChild = [self childAtIndex:0];
-    if(firstChild)
+    if (firstChild)
         return firstChild;
     
     // If the node has a next sibling, then next node is the same as next sibling
     
     DDXMLNode *nextSibling = [self nextSibling];
-    if(nextSibling)
+    if (nextSibling)
         return nextSibling;
     
     // There are no children, and no more siblings, so we need to get the next sibling of the parent.
@@ -714,7 +714,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     while(parent != NULL)
     {
         xmlNodePtr parentNextSibling = parent->next;
-        if(parentNextSibling != NULL)
+        if (parentNextSibling != NULL)
             return [DDXMLNode nodeWithUnknownPrimitive:(xmlKindPtr)parentNextSibling];
         else
             parent = parent->parent;
@@ -731,9 +731,9 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (void)detach
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
-        if(nsParentPtr != NULL)
+        if (nsParentPtr != NULL)
         {
             [[self class] removeNamespace:(xmlNsPtr)genericPtr fromNode:nsParentPtr];
         }
@@ -742,13 +742,13 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     xmlStdPtr node = (xmlStdPtr)genericPtr;
     
-    if(node->parent == NULL) return;
+    if (node->parent == NULL) return;
     
-    if([self isXmlAttrPtr])
+    if ([self isXmlAttrPtr])
     {
         [[self class] detachAttribute:(xmlAttrPtr)node fromNode:node->parent];
     }
-    else if([self isXmlNodePtr])
+    else if ([self isXmlNodePtr])
     {
         [[self class] detachChild:(xmlNodePtr)node fromNode:node->parent];
     }
@@ -764,20 +764,20 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     xmlStdPtr node = NULL;
     
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         node = (xmlStdPtr)nsParentPtr;
         
-        if(node == NULL)
+        if (node == NULL)
             [result appendFormat:@"namespace::%@", [self name]];
         else
             [result appendFormat:@"/namespace::%@", [self name]];
     }
-    else if([self isXmlAttrPtr])
+    else if ([self isXmlAttrPtr])
     {
         node = (xmlStdPtr)(((xmlAttrPtr)genericPtr)->parent);
         
-        if(node == NULL)
+        if (node == NULL)
             [result appendFormat:@"@%@", [self name]];
         else
             [result appendFormat:@"/@%@", [self name]];
@@ -791,7 +791,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     while((node != NULL) && (node->type != XML_DOCUMENT_NODE))
     {
-        if((node->parent == NULL) && (node->doc == NULL))
+        if ((node->parent == NULL) && (node->doc == NULL))
         {
             // We're at the top of the heirarchy, and there is no xml document.
             // Thus we don't use a leading '/', and we don't need an index.
@@ -808,7 +808,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
             xmlStdPtr prevNode = node->prev;
             while(prevNode != NULL)
             {
-                if(xmlStrEqual(node->name, prevNode->name))
+                if (xmlStrEqual(node->name, prevNode->name))
                 {
                     index++;
                 }
@@ -836,11 +836,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSString *)localName
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         // Strangely enough, the localName of a namespace is the prefix, and the prefix is an empty string
         xmlNsPtr ns = (xmlNsPtr)genericPtr;
-        if(ns->prefix != NULL)
+        if (ns->prefix != NULL)
             return [NSString stringWithUTF8String:((const char *)ns->prefix)];
         else
             return @"";
@@ -858,7 +858,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSString *)prefix
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         // Strangely enough, the localName of a namespace is the prefix, and the prefix is an empty string
         return @"";
@@ -873,15 +873,15 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (void)setURI:(NSString *)URI
 {
-    if([self isXmlNodePtr])
+    if ([self isXmlNodePtr])
     {
         xmlNodePtr node = (xmlNodePtr)genericPtr;
-        if(node->ns != NULL)
+        if (node->ns != NULL)
         {
             [[self class] removeNamespace:node->ns fromNode:node];
         }
         
-        if(URI)
+        if (URI)
         {
             // Create a new xmlNsPtr, add it to the nsDef list, and make ns point to it
             xmlNsPtr ns = xmlNewNs(NULL, [URI xmlChar], NULL);
@@ -890,10 +890,10 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
             node->ns = ns;
         }
     }
-    else if([self isXmlAttrPtr])
+    else if ([self isXmlAttrPtr])
     {
         xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
-        if(attr->ns != NULL)
+        if (attr->ns != NULL)
         {
             // An attribute can only have a single namespace attached to it.
             // In addition, this namespace can only be accessed via the URI method.
@@ -902,7 +902,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
             attr->ns = NULL;
         }
         
-        if(URI)
+        if (URI)
         {
             // Create a new xmlNsPtr, and make ns point to it
             xmlNsPtr ns = xmlNewNs(NULL, [URI xmlChar], NULL);
@@ -920,18 +920,18 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (NSString *)URI
 {
-    if([self isXmlAttrPtr])
+    if ([self isXmlAttrPtr])
     {
         xmlAttrPtr attr = (xmlAttrPtr)genericPtr;
-        if(attr->ns != NULL)
+        if (attr->ns != NULL)
         {
             return [NSString stringWithUTF8String:((const char *)attr->ns->href)];
         }
     }
-    else if([self isXmlNodePtr])
+    else if ([self isXmlNodePtr])
     {
         xmlNodePtr node = (xmlNodePtr)genericPtr;
-        if(node->ns != NULL)
+        if (node->ns != NULL)
         {
             return [NSString stringWithUTF8String:((const char *)node->ns->href)];
         }
@@ -951,11 +951,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 + (NSString *)localNameForName:(NSString *)name
 {
-    if(name)
+    if (name)
     {
         NSRange range = [name rangeOfString:@":"];
         
-        if(range.length != 0)
+        if (range.length != 0)
             return [name substringFromIndex:(range.location + range.length)];
         else
             return name;
@@ -975,11 +975,11 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 + (NSString *)prefixForName:(NSString *)name
 {
-    if(name)
+    if (name)
     {
         NSRange range = [name rangeOfString:@":"];
         
-        if(range.length != 0)
+        if (range.length != 0)
         {
             return [name substringToIndex:range.location];
         }
@@ -1010,25 +1010,25 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     // once parsed.
     // Disabled by default
     
-    if(options & DDXMLNodeCompactEmptyElement)
+    if (options & DDXMLNodeCompactEmptyElement)
         xmlSaveNoEmptyTags = 0;
     else
         xmlSaveNoEmptyTags = 1;
     
     int format = 0;
-    if(options & DDXMLNodePrettyPrint)
+    if (options & DDXMLNodePrettyPrint)
     {
         format = 1;
         xmlIndentTreeOutput = 1;
     }
     
     xmlBufferPtr bufferPtr = xmlBufferCreate();
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
         xmlNodeDump(bufferPtr, NULL, (xmlNodePtr)genericPtr, 0, format);
     else
         xmlNodeDump(bufferPtr, ((xmlStdPtr)genericPtr)->doc, (xmlNodePtr)genericPtr, 0, format);
     
-    if([self kind] == DDXMLTextKind)
+    if ([self kind] == DDXMLTextKind)
     {
         NSString *result = [NSString stringWithUTF8String:(const char *)bufferPtr->content];
         
@@ -1062,15 +1062,15 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     BOOL isTempDoc = NO;
     xmlDocPtr doc;
     
-    if([DDXMLNode isXmlDocPtr:genericPtr])
+    if ([DDXMLNode isXmlDocPtr:genericPtr])
     {
         doc = (xmlDocPtr)genericPtr;
     }
-    else if([DDXMLNode isXmlNodePtr:genericPtr])
+    else if ([DDXMLNode isXmlNodePtr:genericPtr])
     {
         doc = ((xmlNodePtr)genericPtr)->doc;
         
-        if(doc == NULL)
+        if (doc == NULL)
         {
             isTempDoc = YES;
             
@@ -1093,7 +1093,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     }
     
     xmlNodePtr rootNode = (doc)->children;
-    if(rootNode != NULL)
+    if (rootNode != NULL)
     {
         xmlNsPtr ns = rootNode->nsDef;
         while(ns != NULL)
@@ -1108,18 +1108,18 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     NSArray *result;
     
-    if(xpathObj == NULL)
+    if (xpathObj == NULL)
     {
-        if(error) *error = [[self class] lastError];
+        if (error) *error = [[self class] lastError];
         result = nil;
     }
     else
     {
-        if(error) *error = nil;
+        if (error) *error = nil;
         
         int count = xmlXPathNodeSetGetLength(xpathObj->nodesetval);
         
-        if(count == 0)
+        if (count == 0)
         {
             result = [NSArray array];
         }
@@ -1139,10 +1139,10 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         }
     }
     
-    if(xpathObj) xmlXPathFreeObject(xpathObj);
-    if(xpathCtx) xmlXPathFreeContext(xpathCtx);
+    if (xpathObj) xmlXPathFreeObject(xpathObj);
+    if (xpathCtx) xmlXPathFreeContext(xpathCtx);
     
-    if(isTempDoc)
+    if (isTempDoc)
     {
         xmlUnlinkNode((xmlNodePtr)genericPtr);
         xmlFreeDoc(doc);
@@ -1167,15 +1167,15 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     BOOL isTempDoc = NO;
     xmlDocPtr doc;
     
-    if([DDXMLNode isXmlDocPtr:genericPtr])
+    if ([DDXMLNode isXmlDocPtr:genericPtr])
     {
         doc = (xmlDocPtr)genericPtr;
     }
-    else if([DDXMLNode isXmlNodePtr:genericPtr])
+    else if ([DDXMLNode isXmlNodePtr:genericPtr])
     {
         doc = ((xmlNodePtr)genericPtr)->doc;
         
-        if(doc == NULL)
+        if (doc == NULL)
         {
             isTempDoc = YES;
             
@@ -1192,7 +1192,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     xpathCtx->node = (xmlNodePtr)genericPtr;
     
     xmlNodePtr rootNode = (doc)->children;
-    if(rootNode != NULL)
+    if (rootNode != NULL)
     {
         xmlNsPtr ns = rootNode->nsDef;
         while(ns != NULL)
@@ -1207,18 +1207,18 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     NSArray *result;
     
-    if(xpathObj == NULL)
+    if (xpathObj == NULL)
     {
-        if(error) *error = [[self class] lastError];
+        if (error) *error = [[self class] lastError];
         result = nil;
     }
     else
     {
-        if(error) *error = nil;
+        if (error) *error = nil;
         
         int count = xmlXPathNodeSetGetLength(xpathObj->nodesetval);
         
-        if(count == 0)
+        if (count == 0)
         {
             result = [NSArray array];
         }
@@ -1238,10 +1238,10 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         }
     }
     
-    if(xpathObj) xmlXPathFreeObject(xpathObj);
-    if(xpathCtx) xmlXPathFreeContext(xpathCtx);
+    if (xpathObj) xmlXPathFreeObject(xpathObj);
+    if (xpathCtx) xmlXPathFreeContext(xpathCtx);
     
-    if(isTempDoc)
+    if (isTempDoc)
     {
         xmlUnlinkNode((xmlNodePtr)genericPtr);
         xmlFreeDoc(doc);
@@ -1353,7 +1353,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
  **/
 - (BOOL)hasParent
 {
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         return (nsParentPtr != NULL);
     }
@@ -1448,7 +1448,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     NSAssert1([self isXmlNodePtr:(xmlKindPtr)node], @"Wrong kind of node passed to nodeFree: %i", node->type);
     
-    if(node->_private == NULL)
+    if (node->_private == NULL)
     {
         [self removeAllAttributesFromNode:node];
         [self removeAllNamespacesFromNode:node];
@@ -1461,7 +1461,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         node->parent = NULL;
         node->prev   = NULL;
         node->next   = NULL;
-        if(node->doc != NULL) [self recursiveStripDocPointersFromNode:node];
+        if (node->doc != NULL) [self recursiveStripDocPointersFromNode:node];
     }
 }
 
@@ -1473,9 +1473,9 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 + (void)detachAttribute:(xmlAttrPtr)attr fromNode:(xmlNodePtr)node
 {
     // Update the surrounding prev/next pointers
-    if(attr->prev == NULL)
+    if (attr->prev == NULL)
     {
-        if(attr->next == NULL)
+        if (attr->next == NULL)
         {
             node->properties = NULL;
         }
@@ -1487,7 +1487,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     }
     else
     {
-        if(attr->next == NULL)
+        if (attr->next == NULL)
         {
             attr->prev->next = NULL;
         }
@@ -1502,7 +1502,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     attr->parent = NULL;
     attr->prev   = NULL;
     attr->next   = NULL;
-    if(attr->doc != NULL) [self stripDocPointersFromAttr:attr];
+    if (attr->doc != NULL) [self stripDocPointersFromAttr:attr];
 }
 
 /**
@@ -1516,7 +1516,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     [self detachAttribute:attr fromNode:node];
     
     // Free the attr if it's no longer in use
-    if(attr->_private == NULL)
+    if (attr->_private == NULL)
     {
         xmlFreeProp(attr);
     }
@@ -1536,7 +1536,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         xmlAttrPtr nextAttr = attr->next;
         
         // Free the attr if it's no longer in use
-        if(attr->_private == NULL)
+        if (attr->_private == NULL)
         {
             xmlFreeProp(attr);
         }
@@ -1545,7 +1545,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
             attr->parent = NULL;
             attr->prev   = NULL;
             attr->next   = NULL;
-            if(attr->doc != NULL) [self stripDocPointersFromAttr:attr];
+            if (attr->doc != NULL) [self stripDocPointersFromAttr:attr];
         }
         
         attr = nextAttr;
@@ -1566,9 +1566,9 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     xmlNsPtr currentNs = node->nsDef;
     while(currentNs != NULL)
     {
-        if(currentNs == ns)
+        if (currentNs == ns)
         {
-            if(previousNs == NULL)
+            if (previousNs == NULL)
                 node->nsDef = currentNs->next;
             else
                 previousNs->next = currentNs->next;
@@ -1583,13 +1583,13 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     // Nullify pointers
     ns->next = NULL;
     
-    if(node->ns == ns)
+    if (node->ns == ns)
     {
         node->ns = NULL;
     }
     
     // We also have to nullify the nsParentPtr, which is in the cocoa wrapper object (if one exists)
-    if(ns->_private != NULL)
+    if (ns->_private != NULL)
     {
         DDXMLNode *node = (DDXMLNode *)ns->_private;
         node->nsParentPtr = NULL;
@@ -1607,7 +1607,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     [self detachNamespace:ns fromNode:node];
     
     // Free the ns if it's no longer in use
-    if(ns->_private == NULL)
+    if (ns->_private == NULL)
     {
         xmlFreeNs(ns);
     }
@@ -1627,14 +1627,14 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         xmlNsPtr nextNs = ns->next;
         
         // We manage the nsParent pointer, which is in the cocoa wrapper object, so we have to nullify it ourself
-        if(ns->_private != NULL)
+        if (ns->_private != NULL)
         {
             DDXMLNode *node = (DDXMLNode *)ns->_private;
             node->nsParentPtr = NULL;
         }
         
         // Free the ns if it's no longer in use
-        if(ns->_private == NULL)
+        if (ns->_private == NULL)
         {
             xmlFreeNs(ns);
         }
@@ -1658,9 +1658,9 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 + (void)detachChild:(xmlNodePtr)child fromNode:(xmlNodePtr)node andNullifyPointers:(BOOL)flag
 {
     // Update the surrounding prev/next pointers
-    if(child->prev == NULL)
+    if (child->prev == NULL)
     {
-        if(child->next == NULL)
+        if (child->next == NULL)
         {
             node->children = NULL;
             node->last = NULL;
@@ -1673,7 +1673,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     }
     else
     {
-        if(child->next == NULL)
+        if (child->next == NULL)
         {
             node->last = child->prev;
             child->prev->next = NULL;
@@ -1685,13 +1685,13 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         }
     }
     
-    if(flag)
+    if (flag)
     {
         // Nullify pointers
         child->parent = NULL;
         child->prev   = NULL;
         child->next   = NULL;
-        if(child->doc != NULL) [self recursiveStripDocPointersFromNode:child];
+        if (child->doc != NULL) [self recursiveStripDocPointersFromNode:child];
     }
 }
 
@@ -1762,22 +1762,22 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     {
         xmlNodePtr nextChild = child->next;
         
-        if(child->type == XML_ELEMENT_NODE)
+        if (child->type == XML_ELEMENT_NODE)
         {
             // Remove child from list of children
-            if(child->prev != NULL)
+            if (child->prev != NULL)
             {
                 child->prev->next = child->next;
             }
-            if(child->next != NULL)
+            if (child->next != NULL)
             {
                 child->next->prev = child->prev;
             }
-            if(doc->children == child)
+            if (doc->children == child)
             {
                 doc->children = child->next;
             }
-            if(doc->last == child)
+            if (doc->last == child)
             {
                 doc->last = child->prev;
             }
@@ -1803,7 +1803,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 {
     // Warning: The _private variable is in a different location in the xmlNsPtr
     
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
         ((xmlNsPtr)genericPtr)->_private = self;
     else
         ((xmlStdPtr)genericPtr)->_private = self;
@@ -1822,12 +1822,12 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
     
     // Warning: The _private variable is in a different location in the xmlNsPtr
     
-    if([self isXmlNsPtr])
+    if ([self isXmlNsPtr])
     {
         xmlNsPtr ns = (xmlNsPtr)genericPtr;
         ns->_private = NULL;
         
-        if(nsParentPtr == NULL)
+        if (nsParentPtr == NULL)
         {
             xmlFreeNs(ns);
         }
@@ -1841,17 +1841,17 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
         xmlStdPtr node = (xmlStdPtr)genericPtr;
         node->_private = NULL;
         
-        if(node->parent == NULL)
+        if (node->parent == NULL)
         {
-            if([self isXmlAttrPtr])
+            if ([self isXmlAttrPtr])
             {
                 xmlFreeProp((xmlAttrPtr)genericPtr);
             }
-            else if([self isXmlDtdPtr])
+            else if ([self isXmlDtdPtr])
             {
                 xmlFreeDtd((xmlDtdPtr)genericPtr);
             }
-            else if([self isXmlDocPtr])
+            else if ([self isXmlDocPtr])
             {
                 [[self class] removeAllChildrenFromDoc:(xmlDocPtr)genericPtr];
                 xmlFreeDoc((xmlDocPtr)genericPtr);
@@ -1875,7 +1875,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error);
 + (NSError *)lastError
 {
     NSValue *lastErrorValue = [[[NSThread currentThread] threadDictionary] objectForKey:DDLastErrorKey];
-    if(lastErrorValue)
+    if (lastErrorValue)
     {
         xmlError lastError;
         [lastErrorValue getValue:&lastError];
@@ -1901,7 +1901,7 @@ static void MyErrorHandler(void * userData, xmlErrorPtr error)
     // Extract error message and store in the current thread's dictionary.
     // This ensure's thread safey, and easy access for all other DDXML classes.
     
-    if(error == NULL)
+    if (error == NULL)
     {
         [[[NSThread currentThread] threadDictionary] removeObjectForKey:DDLastErrorKey];
     }

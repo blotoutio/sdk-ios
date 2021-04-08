@@ -14,7 +14,7 @@
 
 NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 
-void loadAsNSDataCommonDigestFoundationCat(void){
+void loadAsNSDataCommonDigestFoundationCat(void) {
     
 }
 
@@ -119,7 +119,7 @@ void loadAsNSDataCommonDigestFoundationCat(void){
     (void) CC_SHA1( [self bytes], (CC_LONG)[self length], hash );
     
     NSMutableString *hashString = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH*2];
-    for(int i = 0; i<CC_SHA1_DIGEST_LENGTH; i++) {
+    for (int i = 0; i<CC_SHA1_DIGEST_LENGTH; i++) {
         [hashString appendFormat:@"%02x",hash[i]];
     }
 

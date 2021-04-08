@@ -11,9 +11,9 @@
 
 static id sBOFLogsSharedInstance = nil;
 
-void BOFLogDebug(NSString *frmt, ...){
+void BOFLogDebug(NSString *frmt, ...) {
     @autoreleasepool {
-        if([BOFLogs sharedInstance].isSDKLogEnabled) {
+        if ([BOFLogs sharedInstance].isSDKLogEnabled) {
             va_list args;
             va_start(args,frmt);
             
@@ -25,8 +25,8 @@ void BOFLogDebug(NSString *frmt, ...){
     }
 }
 
-void BOFLogError(NSString *frmt, ...){
-    if([BOFLogs sharedInstance].isSDKLogEnabled) {
+void BOFLogError(NSString *frmt, ...) {
+    if ([BOFLogs sharedInstance].isSDKLogEnabled) {
         @autoreleasepool {
                 va_list args;
                 va_start(args,frmt);
@@ -39,8 +39,8 @@ void BOFLogError(NSString *frmt, ...){
     }
 }
 
-void BOFLogInfo(NSString *frmt, ...){
-    if([BOFLogs sharedInstance].isSDKLogEnabled) {
+void BOFLogInfo(NSString *frmt, ...) {
+    if ([BOFLogs sharedInstance].isSDKLogEnabled) {
         @autoreleasepool {
             va_list args;
             va_start(args,frmt);

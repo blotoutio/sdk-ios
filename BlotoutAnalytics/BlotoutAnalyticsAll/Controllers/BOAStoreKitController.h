@@ -2,7 +2,6 @@
 //  BOADeviceAndAppFraudController.h
 //  BlotoutAnalytics
 //
-//  Created by AnKur dhikari on 30/03/21.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 

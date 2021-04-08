@@ -31,7 +31,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(BOOL)addSkipBackupAttributeToFilePath:(NSString *)filePath
 {
     @try {
-        if(!filePath)
+        if (!filePath)
             return 0;
         
         const char* attrName = "com.apple.MobileBackup";                                                                                            //ADDED
@@ -53,7 +53,7 @@ static BOOL sNeverDeleteSDKData = NO;
             NSError *error = nil;
             success = [URL setResourceValue:[NSNumber numberWithBool: YES]
                                      forKey: NSURLIsExcludedFromBackupKey error: &error];
-            if(!success){
+            if (!success) {
                 BOFLogDebug(@"Error excluding %@ from backup %@", [URL lastPathComponent], error);
             }
         }
@@ -118,7 +118,7 @@ static BOOL sNeverDeleteSDKData = NO;
         for (NSURL *f in files) {
             NSDate *creationDate;
             if ([f getResourceValue:&creationDate forKey:NSURLCreationDateKey error:&err]) {
-                if(creationDate)
+                if (creationDate)
                     [urlWithDate setObject:creationDate forKey:f];
             }
         }
@@ -141,7 +141,7 @@ static BOOL sNeverDeleteSDKData = NO;
         unsigned long long fileSize = 0;
         if (location) {
             fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[location path] error:nil] fileSize];
-        }else if(data){
+        }else if (data) {
             fileSize = [data length];
         }
         NSNumber *downloadSizeL = [NSNumber numberWithUnsignedLongLong:fileSize];
@@ -211,12 +211,12 @@ static BOOL sNeverDeleteSDKData = NO;
                 if ([self getAllContentInside:dirPath].count == 0) {
                     success = [fileManager removeItemAtPath:dirPath error:&deleteError];
                     *removalError = deleteError;
-                }else{
+                } else {
                     NSError *removeError = nil;
                     [self removeRecurrsiveEmptyDirFromLocationPath:dirPath removalError:&removeError];
                 }
             }
-        }else if(isDirExist && !isDir){
+        }else if (isDirExist && !isDir) {
             //don't remove files as we are removing emptry dir only
         }
         return success;
@@ -244,14 +244,14 @@ static BOOL sNeverDeleteSDKData = NO;
         for (NSString *oneContent in allContent) {
             
             //stop removing sdkManifest file
-            if([oneContent containsString:@"sdkManifest.txt"])
+            if ([oneContent containsString:@"sdkManifest.txt"])
                 continue;
             
             BOOL isDir = NO;
             BOOL isDirExist = [fileManager fileExistsAtPath:oneContent isDirectory:&isDir];
             if (isDirExist && isDir && isRecursively) {
                 isAllFiledDeleted = [self deleteFilesRecursively:isRecursively olderThanDays:days underRootDirPath:oneContent removalError:removalError];
-            }else if (isDirExist && !isDir){
+            }else if (isDirExist && !isDir) {
                 //NSDate *fileCreationDate = [self getCreationDateOfItemAtPath:oneContent];
                 NSDate *fileModificationDate = [self getModificationDateOfItemAtPath:oneContent];
                 
@@ -300,7 +300,7 @@ static BOOL sNeverDeleteSDKData = NO;
             BOOL isDirExist = [fileManager fileExistsAtPath:oneContent isDirectory:&isDir];
             if (isDirExist && isDir && isRecursively) {
                 isAllFiledDeleted = [self deleteFilesRecursively:isRecursively olderThan:dateTime underRootDirPath:oneContent removalError:removalError];
-            }else if (isDirExist && !isDir){
+            }else if (isDirExist && !isDir) {
                 //NSDate *fileCreationDate = [self getCreationDateOfItemAtPath:oneContent];
                 NSDate *fileModificationDate = [self getModificationDateOfItemAtPath:oneContent];
                 
@@ -348,7 +348,7 @@ static BOOL sNeverDeleteSDKData = NO;
             BOOL isDirExist = [fileManager fileExistsAtPath:oneContent isDirectory:&isDir];
             if (isDirExist && isDir && isRecursively) {
                 isAllFiledDeleted = [self deleteFilesAndDirectoryRecursively:isRecursively olderThanDays:days underRootDirPath:oneContent removalError:removalError];
-            }else if(isDirExist){
+            }else if (isDirExist) {
                 //NSDate *fileCreationDate = [self getCreationDateOfItemAtPath:oneContent];
                 NSDate *fileModificationDate = [self getModificationDateOfItemAtPath:oneContent];
                 
@@ -398,7 +398,7 @@ static BOOL sNeverDeleteSDKData = NO;
             BOOL isDirExist = [fileManager fileExistsAtPath:oneContent isDirectory:&isDir];
             if (isDirExist && isDir && isRecursively) {
                 isAllFiledDeleted = [self deleteFilesAndDirectoryRecursively:isRecursively olderThan:dateTime underRootDirPath:oneContent removalError:removalError];
-            }else if(isDirExist){
+            }else if (isDirExist) {
                 //NSDate *fileCreationDate = [self getCreationDateOfItemAtPath:oneContent];
                 NSDate *fileModificationDate = [self getModificationDateOfItemAtPath:oneContent];
                 
@@ -447,11 +447,11 @@ static BOOL sNeverDeleteSDKData = NO;
         
         BOOL existAndDic = ([fileManager fileExistsAtPath:filePath isDirectory:&isDir] && isDir);
         BOOL newExistAndDic = ([fileManager fileExistsAtPath:newFilePath isDirectory:&isNewDir] && isNewDir);
-        if(!existAndDic && newExistAndDic){
+        if (!existAndDic && newExistAndDic) {
             NSString* fileName = [fileLocation lastPathComponent];
             newFilePath = [newFilePath stringByAppendingPathComponent:fileName];
             success = [fileManager moveItemAtURL:fileLocation toURL:[NSURL fileURLWithPath:newFilePath] error:&moveError];
-        }else{
+        } else {
             success = [fileManager moveItemAtURL:fileLocation toURL:[NSURL fileURLWithPath:newFilePath] error:&moveError];
         }
         *relocationError = moveError;
@@ -483,11 +483,11 @@ static BOOL sNeverDeleteSDKData = NO;
         
         BOOL existAndDic = ([fileManager fileExistsAtPath:filePath isDirectory:&isDir] && isDir);
         BOOL newExistAndDic = ([fileManager fileExistsAtPath:newFilePath isDirectory:&isNewDir] && isNewDir);
-        if(!existAndDic && newExistAndDic){
+        if (!existAndDic && newExistAndDic) {
             NSString* fileName = [fileLocation lastPathComponent];
             newFilePath = [newFilePath stringByAppendingPathComponent:fileName];
             success = [fileManager moveItemAtPath:fileLocation toPath:newFilePath error:&moveError];
-        }else{
+        } else {
             success = [fileManager moveItemAtPath:fileLocation toPath:newLocation error:&moveError];
         }
         *relocationError = moveError;
@@ -518,11 +518,11 @@ static BOOL sNeverDeleteSDKData = NO;
         
         BOOL existAndDic = ([fileManager fileExistsAtPath:filePath isDirectory:&isDir] && isDir);
         BOOL newExistAndDic = ([fileManager fileExistsAtPath:newFilePath isDirectory:&isNewDir] && isNewDir);
-        if(!existAndDic && newExistAndDic){
+        if (!existAndDic && newExistAndDic) {
             NSString* fileName = [fileLocation lastPathComponent];
             newFilePath = [newFilePath stringByAppendingPathComponent:fileName];
             success = [fileManager copyItemAtURL:fileLocation toURL:[NSURL fileURLWithPath:newFilePath] error:&moveError];
-        }else{
+        } else {
             success = [fileManager copyItemAtURL:fileLocation toURL:newLocation error:&moveError];
         }
         *relocationError = moveError;
@@ -574,7 +574,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(BOOL)isDirectoryAtPath:(NSString*)path{
     @try {
         BOOL isDir = NO;
-        if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir){
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
         }
         return isDir;
     } @catch (NSException *exception) {
@@ -591,7 +591,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(BOOL)isWritableDirectoryAtPath:(NSString*)path{
     @try {
         BOOL isDir = NO;
-        if([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir){
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && isDir) {
             isDir = [[NSFileManager defaultManager] isWritableFileAtPath:path];
         }
         return isDir;
@@ -612,7 +612,7 @@ static BOOL sNeverDeleteSDKData = NO;
         BOOL isDir = NO;
         if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir] && !isDir) {
             isWritableFile = [[NSFileManager defaultManager] isWritableFileAtPath:path];
-        }else if(!isDir){
+        }else if (!isDir) {
             isWritableFile = [[NSFileManager defaultManager] createFileAtPath:path contents:nil attributes:nil];
         }
         return isWritableFile;
@@ -632,7 +632,7 @@ static BOOL sNeverDeleteSDKData = NO;
         NSString* filePath = nil;
         if ([givenPath isKindOfClass:[NSURL class]]) {
             filePath = [(NSURL*)givenPath path];
-        }else if ([givenPath isKindOfClass:[NSString class]]){
+        }else if ([givenPath isKindOfClass:[NSString class]]) {
             filePath = givenPath;
         }
         
@@ -691,7 +691,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return writableFilePath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -725,7 +725,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return writableFilePath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -755,7 +755,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return fileUrlPath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -784,7 +784,7 @@ static BOOL sNeverDeleteSDKData = NO;
                 [fileHandle seekToEndOfFile];
                 [fileHandle writeData:contentData];
                 [fileHandle closeFile];
-            }else{
+            } else {
                 BOOL success = [contentData writeToFile:writableFilePath options:NSDataWritingAtomic error:&writeError];
                 if (!success) {
                     writableFilePath = nil;
@@ -792,7 +792,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return writableFilePath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -821,7 +821,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return writableFilePath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -850,7 +850,7 @@ static BOOL sNeverDeleteSDKData = NO;
             }
             *error = writeError;
             return fileUrlPath;
-        }else{
+        } else {
             NSError *writeError = [NSError errorWithDomain:@"io.blotout.FileSystem" code:90001 userInfo:@{@"info":@"data write for blotout SDK not allowed"}];
             *error = writeError;
             return nil;
@@ -966,7 +966,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(NSString*)getDocumentDirectoryPath{
     @try {
         static NSString *sBOFSDKDocumentsDirectory = nil;
-        if( !sBOFSDKDocumentsDirectory )
+        if ( !sBOFSDKDocumentsDirectory )
         {
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             sBOFSDKDocumentsDirectory = [paths objectAtIndex:0];
@@ -988,8 +988,8 @@ static BOOL sNeverDeleteSDKData = NO;
 +(NSString*)createDirectoryIfRequiredAndReturnPath:(NSString*)directoryPath{
     @try {
         NSError *dirError = nil;
-        if (![[NSFileManager defaultManager] fileExistsAtPath:directoryPath]){
-            if(![[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:NO attributes:nil error:&dirError]){
+        if (![[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
+            if (![[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:NO attributes:nil error:&dirError]) {
                 directoryPath = nil;
             }//Create folder
         }
@@ -1008,9 +1008,9 @@ static BOOL sNeverDeleteSDKData = NO;
 +(NSString*)getBOSDKRootDirecotyPossibleExistancePath{
     @try {
         NSString *systemRootDirectory = nil;
-        if(IS_OS_6_OR_LATER){
+        if (IS_OS_6_OR_LATER) {
             systemRootDirectory = [self getApplicationSupportDirectoryPath];
-        }else{
+        } else {
             systemRootDirectory = [self getDocumentDirectoryPath];
         }
         NSString *BOFSDKRootDir = [systemRootDirectory stringByAppendingPathComponent:kBOSDKRootDirectoryName];
@@ -1279,7 +1279,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(void)cleanDirectory:(NSString*)directoryPath error:(NSError**)error{
     @try {
         NSError *dirError = nil;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]){
+        if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
             [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:&dirError];
             //Will recreate a blank directory
             [self createDirectoryIfRequiredAndReturnPath:directoryPath];
@@ -1298,7 +1298,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(void)delateDirectory:(NSString*)directoryPath error:(NSError**)error{
     @try {
         NSError *dirError = nil;
-        if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]){
+        if ([[NSFileManager defaultManager] fileExistsAtPath:directoryPath]) {
             [[NSFileManager defaultManager] removeItemAtPath:directoryPath error:&dirError];
         }
         *error = dirError;
@@ -1314,7 +1314,7 @@ static BOOL sNeverDeleteSDKData = NO;
 + (NSString *)bundleId{
     @try {
         static NSString *sBofBundleid = @"";
-        if( [sBofBundleid isEqualToString:@""] ){
+        if ( [sBofBundleid isEqualToString:@""] ) {
             sBofBundleid = [[NSBundle mainBundle] bundleIdentifier];
         }
         return sBofBundleid;
@@ -1333,7 +1333,7 @@ static BOOL sNeverDeleteSDKData = NO;
 +(BOOL)migrateIfExistsOldFile:(NSString *)oldFilePath toNewFilePath:(NSString *)newFile{
     @try {
         BOOL isMigrationSuccess = NO;
-        if( [[NSFileManager defaultManager] fileExistsAtPath:oldFilePath] ){
+        if ( [[NSFileManager defaultManager] fileExistsAtPath:oldFilePath] ) {
             isMigrationSuccess = [[NSFileManager defaultManager] moveItemAtPath:oldFilePath toPath:newFile error:nil];
             [[NSFileManager defaultManager] removeItemAtPath:oldFilePath error:nil];
         }

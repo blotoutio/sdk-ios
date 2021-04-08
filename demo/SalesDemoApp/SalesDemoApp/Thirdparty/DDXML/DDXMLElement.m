@@ -17,7 +17,7 @@
     // If a wrapper object already exists, the _private variable is pointing to it.
     
     xmlNodePtr node = (xmlNodePtr)kindPtr;
-    if(node->_private == NULL)
+    if (node->_private == NULL)
         return [[[DDXMLElement alloc] initWithCheckedPrimitive:kindPtr] autorelease];
     else
         return [[((DDXMLElement *)(node->_private)) retain] autorelease];
@@ -40,7 +40,7 @@
     // Note: Make every guarantee that genericPtr is not null
     
     xmlNodePtr node = xmlNewNode(NULL, [name xmlChar]);
-    if(node == NULL)
+    if (node == NULL)
     {
         [self release];
         return nil;
@@ -54,7 +54,7 @@
     // Note: Make every guarantee that genericPtr is not null
     
     xmlNodePtr node = xmlNewNode(NULL, [name xmlChar]);
-    if(node == NULL)
+    if (node == NULL)
     {
         [self release];
         return nil;
@@ -71,7 +71,7 @@
     // Note: Make every guarantee that genericPtr is not null
     
     xmlNodePtr node = xmlNewNode(NULL, [name xmlChar]);
-    if(node == NULL)
+    if (node == NULL)
     {
         [self release];
         return nil;
@@ -86,7 +86,7 @@
 - (id)initWithXMLString:(NSString *)string error:(NSError **)error
 {
     DDXMLDocument *doc = [[DDXMLDocument alloc] initWithXMLString:string options:0 error:error];
-    if(doc == nil)
+    if (doc == nil)
     {
         [self release];
         return nil;
@@ -113,7 +113,7 @@
  **/
 - (NSArray *)elementsForName:(NSString *)name
 {
-    if(name == nil) return [NSArray array];
+    if (name == nil) return [NSArray array];
     
     // We need to check to see if name has a prefix.
     // If it does have a prefix, we need to figure out what the corresponding URI is for that prefix,
@@ -121,11 +121,11 @@
     // Otherwise we loop through the children as usual and do a string compare on the name
     
     NSString *prefix = [[self class] prefixForName:name];
-    if([prefix length] > 0)
+    if ([prefix length] > 0)
     {
         xmlNodePtr node = (xmlNodePtr)genericPtr;
         xmlNsPtr ns = xmlSearchNs(node->doc, node, [prefix xmlChar]);
-        if(ns != NULL)
+        if (ns != NULL)
         {
             NSString *uri = [NSString stringWithUTF8String:((const char *)ns->href)];
             return [self elementsWithName:name uri:uri];
@@ -139,13 +139,13 @@
 
 - (NSArray *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI
 {
-    if(localName == nil) return [NSArray array];
+    if (localName == nil) return [NSArray array];
     
     // We need to figure out what the prefix is for this URI.
     // Then we search for elements that are named prefix:localName OR (named localName AND have the given URI).
     
     NSString *prefix = [self resolvePrefixForNamespaceURI:URI];
-    if(prefix != nil)
+    if (prefix != nil)
     {
         NSString *name = [NSString stringWithFormat:@"%@:%@", prefix, localName];
         
@@ -177,10 +177,10 @@
     xmlNodePtr child = node->children;
     while(child != NULL)
     {
-        if(child->type == XML_ELEMENT_NODE)
+        if (child->type == XML_ELEMENT_NODE)
         {
             BOOL match = NO;
-            if(uri == nil)
+            if (uri == nil)
             {
                 match = xmlStrEqual(child->name, [name xmlChar]);
             }
@@ -190,18 +190,18 @@
                 BOOL localNameMatch = xmlStrEqual(child->name, [localName xmlChar]);
                 
                 BOOL uriMatch = NO;
-                if(child->ns != NULL)
+                if (child->ns != NULL)
                 {
                     uriMatch = xmlStrEqual(child->ns->href, [uri xmlChar]);
                 }
                 
-                if(hasPrefix)
+                if (hasPrefix)
                     match = nameMatch || (localNameMatch && uriMatch);
                 else
                     match = nameMatch && uriMatch;
             }
             
-            if(match)
+            if (match)
             {
                 [result addObject:[DDXMLElement nodeWithPrimitive:(xmlKindPtr)child]];
             }
@@ -251,7 +251,7 @@
     xmlAttrPtr attr = ((xmlNodePtr)genericPtr)->properties;
     while(attr != NULL)
     {
-        if(xmlStrEqual(attr->name, [name xmlChar]))
+        if (xmlStrEqual(attr->name, [name xmlChar]))
         {
             [self removeAttribute:attr];
             return;
@@ -282,7 +282,7 @@
     xmlAttrPtr attr = ((xmlNodePtr)genericPtr)->properties;
     while(attr != NULL)
     {
-        if(attr->ns && attr->ns->prefix)
+        if (attr->ns && attr->ns->prefix)
         {
             // If the attribute name was originally something like "xml:quack",
             // then attr->name is "quack" and attr->ns->prefix is "xml".
@@ -290,14 +290,14 @@
             // So if the user is searching for "xml:quack" we need to take the prefix into account.
             // Note that "xml:quack" is what would be printed if we output the attribute.
             
-            if(xmlStrQEqual(attr->ns->prefix, attr->name, attrName))
+            if (xmlStrQEqual(attr->ns->prefix, attr->name, attrName))
             {
                 return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)attr];
             }
         }
         else
         {
-            if(xmlStrEqual(attr->name, attrName))
+            if (xmlStrEqual(attr->name, attrName))
             {
                 return [DDXMLNode nodeWithPrimitive:(xmlKindPtr)attr];
             }
@@ -339,7 +339,7 @@
     [self removeNamespaceForPrefix:[namespace name]];
     
     xmlNsPtr currentNs = ((xmlNodePtr)genericPtr)->nsDef;
-    if(currentNs == NULL)
+    if (currentNs == NULL)
     {
         ((xmlNodePtr)genericPtr)->nsDef = (xmlNsPtr)namespace->genericPtr;
     }
@@ -347,7 +347,7 @@
     {
         while(currentNs != NULL)
         {
-            if(currentNs->next == NULL)
+            if (currentNs->next == NULL)
             {
                 currentNs->next = (xmlNsPtr)namespace->genericPtr;
                 break; // Yes this break is needed
@@ -360,7 +360,7 @@
     namespace->nsParentPtr = (xmlNodePtr)genericPtr;
     
     // Did we just add a default namespace
-    if([[namespace name] isEqualToString:@""])
+    if ([[namespace name] isEqualToString:@""])
     {
         ((xmlNodePtr)genericPtr)->ns = (xmlNsPtr)namespace->genericPtr;
         
@@ -386,7 +386,7 @@
     xmlNsPtr ns = ((xmlNodePtr)genericPtr)->nsDef;
     while(ns != NULL)
     {
-        if(xmlStrEqual(ns->prefix, xmlName))
+        if (xmlStrEqual(ns->prefix, xmlName))
         {
             [self removeNamespace:ns];
             break;
@@ -416,11 +416,11 @@
 {
     // If the prefix is nil or the empty string, the user is requesting the default namespace
     
-    if([prefix length] == 0)
+    if ([prefix length] == 0)
     {
         // Requesting the default namespace
         xmlNsPtr ns = ((xmlNodePtr)genericPtr)->ns;
-        if(ns != NULL)
+        if (ns != NULL)
         {
             return [DDXMLNode nodeWithPrimitive:ns nsParent:(xmlNodePtr)genericPtr];
         }
@@ -430,7 +430,7 @@
         xmlNsPtr ns = ((xmlNodePtr)genericPtr)->nsDef;
         while(ns != NULL)
         {
-            if(xmlStrEqual(ns->prefix, [prefix xmlChar]))
+            if (xmlStrEqual(ns->prefix, [prefix xmlChar]))
             {
                 return [DDXMLNode nodeWithPrimitive:ns nsParent:(xmlNodePtr)genericPtr];
             }
@@ -458,12 +458,12 @@
  **/
 + (DDXMLNode *)resolveNamespaceForPrefix:(NSString *)prefix atNode:(xmlNodePtr)nodePtr
 {
-    if(nodePtr == NULL) return nil;
+    if (nodePtr == NULL) return nil;
     
     xmlNsPtr ns = nodePtr->nsDef;
     while(ns != NULL)
     {
-        if(xmlStrEqual(ns->prefix, [prefix xmlChar]))
+        if (xmlStrEqual(ns->prefix, [prefix xmlChar]))
         {
             return [DDXMLNode nodeWithPrimitive:ns nsParent:nodePtr];
         }
@@ -480,14 +480,14 @@
 - (DDXMLNode *)resolveNamespaceForName:(NSString *)name
 {
     // If the user passes nil or an empty string for name, they're looking for the default namespace.
-    if([name length] == 0)
+    if ([name length] == 0)
     {
         return [[self class] resolveNamespaceForPrefix:nil atNode:(xmlNodePtr)genericPtr];
     }
     
     NSString *prefix = [[self class] prefixForName:name];
     
-    if([prefix length] > 0)
+    if ([prefix length] > 0)
     {
         // Unfortunately we can't use xmlSearchNs because it returns an xmlNsPtr.
         // This gives us mostly what we want, except we also need to know the nsParent.
@@ -504,14 +504,14 @@
  **/
 + (NSString *)resolvePrefixForURI:(NSString *)uri atNode:(xmlNodePtr)nodePtr
 {
-    if(nodePtr == NULL) return nil;
+    if (nodePtr == NULL) return nil;
     
     xmlNsPtr ns = nodePtr->nsDef;
     while(ns != NULL)
     {
-        if(xmlStrEqual(ns->href, [uri xmlChar]))
+        if (xmlStrEqual(ns->href, [uri xmlChar]))
         {
-            if(ns->prefix != NULL)
+            if (ns->prefix != NULL)
             {
                 return [NSString stringWithUTF8String:((const char *)ns->prefix)];
             }
@@ -556,9 +556,9 @@
     while(child != NULL)
     {
         // Ignore all but element, comment, text, or processing instruction nodes
-        if([[self class] isXmlNodePtr:(xmlKindPtr)child])
+        if ([[self class] isXmlNodePtr:(xmlKindPtr)child])
         {
-            if(i == index)
+            if (i == index)
             {
                 [self removeChild:child];
                 return;
@@ -591,9 +591,9 @@
     while(childNodePtr != NULL)
     {
         // Ignore all but element, comment, text, or processing instruction nodes
-        if([[self class] isXmlNodePtr:(xmlKindPtr)childNodePtr])
+        if ([[self class] isXmlNodePtr:(xmlKindPtr)childNodePtr])
         {
-            if(i == index)
+            if (i == index)
             {
                 xmlAddPrevSibling(childNodePtr, (xmlNodePtr)child->genericPtr);
                 return;
@@ -604,7 +604,7 @@
         childNodePtr = childNodePtr->next;
     }
     
-    if(i == index)
+    if (i == index)
     {
         xmlAddChild((xmlNodePtr)genericPtr, (xmlNodePtr)child->genericPtr);
         return;

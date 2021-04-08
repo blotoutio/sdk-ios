@@ -2,7 +2,6 @@
 //  BlotoutAnalytics.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 25/07/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -30,7 +29,6 @@
 
 -(void)init:(BlotoutAnalyticsConfiguration*_Nullable)configuration andCompletionHandler:(void (^_Nullable)(BOOL isSuccess, NSError * _Nullable error))completionHandler;
 
-
 /**
  * @param eventName name of the event
  * @param eventInfo properties in key/value pair
@@ -43,7 +41,6 @@
  * @param phiEvent boolean value
  */
 -(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;
-
 
 /**
  *
@@ -58,29 +55,41 @@
  */
 -(nullable NSString*)getUserId;
 
-/*!
+/**
  Enable the sending of analytics data. Enabled by default. Set NO to stop sending data
  */
 @property (nonatomic, readwrite) BOOL enable;
 
-//Enable SDK Log Information
+/**
+ Enable SDK Log Information
+ */
 @property (nonatomic, readwrite) BOOL enableSDKLog;
 
 //Application leval methods handling
 
-// called when user will received any notification
+/**
+ called when user will received any notification
+ */
 - (void)receivedRemoteNotification:(NSDictionary *_Nullable)userInfo;
 
-// called when device failed to register for remote notification
+/**
+ called when device failed to register for remote notification
+ */
 - (void)failedToRegisterForRemoteNotificationsWithError:(NSError *_Nullable)error;
 
-// called when device register for remote notification
+/**
+ called when device register for remote notification
+ */
 - (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *_Nullable)deviceToken;
 
-// called when device has detect user activity
+/**
+ called when device has detect user activity
+ */
 - (void)continueUserActivity:(NSUserActivity *_Nonnull)activity;
 
-// called when device has detect openUrl in case of deep link
+/**
+ called when device has detect openUrl in case of deep link
+ */
 - (void)openURL:(NSURL *_Nullable)url options:(NSDictionary *_Nonnull)options;
 
 @end

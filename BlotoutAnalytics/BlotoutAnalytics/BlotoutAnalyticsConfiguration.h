@@ -2,7 +2,6 @@
 //  BlotoutAnalyticsConfiguration.h
 //  BlotoutAnalytics
 //
-//  Created by ankuradhikari on 12/03/21.
 //  Copyright © 2021 Blotout. All rights reserved.
 //
 
@@ -11,7 +10,6 @@
 #import "BOACrypto.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 @protocol BOAApplicationProtocol <NSObject>
 @property (nullable, nonatomic, assign) id<UIApplicationDelegate> delegate;

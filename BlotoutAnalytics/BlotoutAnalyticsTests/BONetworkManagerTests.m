@@ -29,7 +29,7 @@
     [BONetworkManager asyncRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://jsonplaceholder.typicode.com/todos/1"]] success:^(id data , NSURLResponse *dataResponse) {
         if (data) {
             [completionExpectation fulfill];
-        }else{
+        } else {
             XCTFail();
         }
         
@@ -46,7 +46,7 @@
         if (data) {
             XCTFail();
             
-        }else{
+        } else {
             [completionExpectation fulfill];
         }
         

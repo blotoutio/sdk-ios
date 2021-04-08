@@ -9,7 +9,7 @@
 #import "NSString+Base64.h"
 #import <Foundation/Foundation.h>
 
-void loadAsNSStringBase64FoundationCat(void){
+void loadAsNSStringBase64FoundationCat(void) {
     
 }
 

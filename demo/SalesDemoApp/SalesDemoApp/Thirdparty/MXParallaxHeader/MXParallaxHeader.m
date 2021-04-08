@@ -118,7 +118,7 @@ static void * const kMXParallaxHeaderKVOContext = (void*)&kMXParallaxHeaderKVOCo
 }
 
 - (void)setProgress:(CGFloat)progress {
-    if(_progress != progress) {
+    if (_progress != progress) {
         _progress = progress;
         
         if ([self.delegate respondsToSelector:@selector(parallaxHeaderDidScroll:)]) {

@@ -1,3 +1,9 @@
+//
+//  BOASDKManifest.h
+//  BlotoutAnalytics
+//
+//  Copyright © 2021 Blotout. All rights reserved.
+//
 // To parse this JSON:
 //
 //   NSError *error;

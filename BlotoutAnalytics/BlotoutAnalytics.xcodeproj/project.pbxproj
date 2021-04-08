@@ -14,6 +14,7 @@
 				2EBB30F5261F0589009615AF /* ShellScript */,
 			);
 			dependencies = (
+				2EBB3182261F29BF009615AF /* PBXTargetDependency */,
 			);
 			name = OCLint;
 			productName = OCLint;
@@ -101,6 +102,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2EBB3181261F29BF009615AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7435E8AB22E98F5C008480B8;
+			remoteInfo = BlotoutFoundation;
+		};
 		7435E8D422E990A4008480B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
@@ -895,6 +903,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2EBB3182261F29BF009615AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BlotoutFoundation;
+			targetProxy = 2EBB3181261F29BF009615AF /* PBXContainerItemProxy */;
+		};
 		7435E8D722E990C2008480B8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BlotoutFoundation;

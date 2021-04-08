@@ -2,7 +2,6 @@
 //  BOANetworkConstants.h
 //  BlotoutAnalytics
 //
-//  Created by Blotout on 07/08/19.
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
@@ -23,34 +22,35 @@ extern  NSString *BO_IV;
 extern  NSString *BO_PII;
 extern  NSString *BO_PHI;
 extern  NSString *BO_USER_ID;
+
+extern int const BO_DEV_EVENT_MAP_ID;
 extern  NSString *BO_EVENT_MAP_ID;
-extern  NSString *BO_EVENT_MAP_Provider;
+extern  NSString *BO_EVENT_MAP_PROVIDER;
+
 extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
-extern int const BO_EVENT_PAGE_HIDE;
-extern NSString * const BO_VISIBILITY_VISIBLE;
-extern NSString * const BO_VISIBILITY_HIDDEN;
+
 extern int const BO_EVENT_VISIBILITY_VISIBLE;
+extern NSString * const BO_VISIBILITY_VISIBLE;
+
 extern int const BO_EVENT_VISIBILITY_HIDDEN;
+extern NSString * const BO_VISIBILITY_HIDDEN;
 
 extern NSString * const BO_APP_VERSION;
 extern NSString * const BO_EVENTS;
 extern NSString * const BO_EVENTS_TIME;
 extern NSString * const BO_MESSAGE_ID;
-extern NSString * const BO_EVENT_CATEGORY_SUBTYPE;
-
+extern NSString * const BO_EVENT_CATEGORY_SUBCODE;
 
 extern NSString * const BO_EVENT_NAME_MAPPING;
 extern NSString * const BO_SCREEN_NAME;
 extern NSString * const BO_SESSION_ID;
-
 
 extern int const BOSDK_MAJOR_VERSION;
 extern int const BOSDK_MINOR_VERSION;
 extern int const BOSDK_PATCH_VERSION;
 
 extern NSString * const BO_CRYPTO_IVX;
-extern int const BO_DEV_EVENT_MAP_ID;
 extern NSString * const BOA_DEBUG;
 extern int const BO_DEV_EVENT_CUSTOM_KEY;
 extern int const BO_DEFAULT_EVENT_PUSH_TIME;
@@ -71,13 +71,15 @@ extern NSString * const BO_CODIFIED;
 extern NSString * const BO_SCREEN;
 extern NSString * const BO_TYPE;
 
-extern NSString * const Api_Endpoint;
+// Manifest keys
+extern NSString * const API_ENDPOINT;
 extern NSString * const EVENT_PATH;
-extern NSString * const Event_PHI_Public_Key;
-extern NSString * const Event_PII_Public_Key;
-extern NSString * const Event_DeviceInfoGrain;
-extern NSString * const Event_Push_System_Events;
+extern NSString * const EVENT_PHI_PUBLIC_KEY;
+extern NSString * const EVENT_PII_PUBLIC_KEY;
+extern NSString * const EVENT_DEVICE_INFO_GRAIN;
+extern NSString * const EVENT_PUSH_SYSTEM_EVENT;
 
+// System event codes
 extern int const BO_APPLICATION_OPENED;
 extern int const BO_APPLICATION_INSTALLED;
 extern int const BO_APPLICATION_UPDATED;
@@ -88,5 +90,3 @@ extern int const BO_DEEP_LINK_OPENED;
 extern int const BO_APPLICATION_BACKGROUNDED;
 extern int const BO_APP_TRACKING;
 extern int const BO_TRANSACTION_COMPLETED;
-
-

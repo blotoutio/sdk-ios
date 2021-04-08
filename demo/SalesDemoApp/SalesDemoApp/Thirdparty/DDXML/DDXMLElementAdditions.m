@@ -19,7 +19,7 @@
 - (DDXMLElement *)elementForName:(NSString *)name
 {
     NSArray *elements = [self elementsForName:name];
-    if([elements count] > 0)
+    if ([elements count] > 0)
     {
         return [elements objectAtIndex:0];
     }
@@ -57,7 +57,7 @@
 - (DDXMLElement *)elementForName:(NSString *)name xmlns:(NSString *)xmlns
 {
     NSArray *elements = [self elementsForLocalName:name URI:xmlns];
-    if([elements count] > 0)
+    if ([elements count] > 0)
     {
         return [elements objectAtIndex:0];
     }
