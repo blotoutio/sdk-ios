@@ -59,14 +59,9 @@
 -(nullable NSString*)getUserId;
 
 /*!
- Enable the sending of analytics data. Enabled by default.
+ Enable the sending of analytics data. Enabled by default. Set NO to stop sending data
  */
-- (void)enable;
-
-/*!
- Completely disable the sending of any analytics data.
- */
-- (void)disable;
+@property (nonatomic, readwrite) BOOL enable;
 
 //Enable SDK Log Information
 @property (nonatomic, readwrite) BOOL enableSDKLog;

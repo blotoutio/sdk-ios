@@ -153,7 +153,7 @@ static NSMutableDictionary *appInfo;
     } @catch (NSException *exception) {
         BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
-    return -1;
+    return 1;
 }
 
 @end
