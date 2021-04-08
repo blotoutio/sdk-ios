@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		2EBB30EA261F0570009615AF /* OCLint */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2EBB30EB261F0570009615AF /* Build configuration list for PBXAggregateTarget "OCLint" */;
+			buildPhases = (
+				2EBB30F5261F0589009615AF /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = OCLint;
+			productName = OCLint;
+		};
 		E8D4E71724F28A6600BBB3EB /* UniversalLib */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = E8D4E71A24F28A6700BBB3EB /* Build configuration list for PBXAggregateTarget "UniversalLib" */;
@@ -659,6 +670,9 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = Blotout;
 				TargetAttributes = {
+					2EBB30EA261F0570009615AF = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					7435E8C022E99062008480B8 = {
 						CreatedOnToolsVersion = 10.3;
 					};
@@ -704,6 +718,7 @@
 				74A92CB122EB0811006BE5AD /* BlotoutAnalyticsMacOS */,
 				E843AD3D249E0791006C10CE /* BlotoutAnalyticsTests */,
 				E8D4E71724F28A6600BBB3EB /* UniversalLib */,
+				2EBB30EA261F0570009615AF /* OCLint */,
 			);
 		};
 /* End PBXProject section */
@@ -750,6 +765,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2EBB30F5261F0589009615AF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${SRCROOT}\nxcodebuild clean\nxcodebuild | xcpretty -r json-compilation-database\noclint-json-compilation-database -- -report-type xcode\n";
+		};
 		E8D4E71B24F28A7D00BBB3EB /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -891,6 +923,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		2EBB30EC261F0570009615AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2EBB30ED261F0570009615AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		7435E8C822E99062008480B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1168,6 +1216,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2EBB30EB261F0570009615AF /* Build configuration list for PBXAggregateTarget "OCLint" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EBB30EC261F0570009615AF /* Debug */,
+				2EBB30ED261F0570009615AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7435E8BC22E99062008480B8 /* Build configuration list for PBXProject "BlotoutAnalytics" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
