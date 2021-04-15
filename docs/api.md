@@ -116,27 +116,19 @@ The `enableSDKLog` method allows you to print all SDK logs on console.
 ```
 
 ## enable
-The `enable` method allows you to enable the sending of analytics data. Enabled by default.
+The `enable` method allows you to enable/disable the sending of analytics data. Enabled by default.
 
 #### Example
 ```js
-[BlotoutAnalytics sharedInstance].enable = YES;
+[BlotoutAnalytics sharedInstance].enable = NO;
 ```
 
-## disable
-The `disable` method allows you to disable the sending of analytics data. disabled by default.
-
-#### Example
-```js
-[BlotoutAnalytics sharedInstance].disable = YES;
-```
-
-## Application leval methods handling
+## Application level methods handling
 
 ## Remote Notification
 This method is used for tracking remote notification
 
-## input
+#### Input
 - (void)receivedRemoteNotification:(NSDictionary *_Nullable)userInfo;
 
 #### Example
@@ -149,7 +141,7 @@ This method is used for tracking remote notification
 ## Remote Notification
 This method is used to notify when app failed to register for remote notification
 
-## input
+#### Input
 - (void)failedToRegisterForRemoteNotificationsWithError:(NSError *_Nullable)error;
 
 #### Example
@@ -162,7 +154,7 @@ This method is used to notify when app failed to register for remote notificatio
 ## Remote Notification
 This method is used to notify when app register for remote notification
 
-## input
+#### Input
 - (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *_Nullable)deviceToken;
 
 #### Example
@@ -175,7 +167,7 @@ This method is used to notify when app register for remote notification
 ## User Activity
 This method is used to track deep linking
 
-## input
+#### Input
 - (void)continueUserActivity:(NSUserActivity *_Nonnull)activity;
 
 #### Example
@@ -188,7 +180,7 @@ This method is used to track deep linking
 ## User Activity
 This method is used to track deep linking
 
-## input
+#### Input
 - (void)openURL:(NSURL *_Nullable)url options:(NSDictionary *_Nonnull)options;
 
 #### Example
