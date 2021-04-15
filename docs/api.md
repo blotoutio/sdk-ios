@@ -36,11 +36,11 @@ The `capture` method is used to record developer events. This allows you to send
 #### Example
 ```js
 NSMutableDictionary *eventInfo = [[NSMutableDictionary alloc] init];
-[eventInfo setValue:@"developers@blotout.io" forKey:@"emailId"];
-[eventInfo setValue:@"Male" forKey:@"gender"];
+[eventInfo setValue:@"SKU" forKey:@"123123"];
+[eventInfo setValue:@"itemName" forKey:@"phone"];
 
 BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
-[boaObj capture:@"LoginView" withInformation:eventInfo];
+[boaObj capture:@"add-to-cart" withInformation:eventInfo];
 ```
 
 ## capturePersonal
@@ -54,20 +54,21 @@ In Blotout managed or deployed Infrastructure, PII and PHI events data is encryp
 |||||
 |---|---|---|---|
 | `eventName` | `String` |  | Name of the event that you are sending |
-| `eventInfo` | `Object` | Optional | You can provide some additional data to this event. There is no limitation as this is just a key-value pair send to the server. |
+| `eventInfo` | `Object` | | You can provide some additional data to this event. There is no limitation as this is just a key-value pair send to the server. |
 | `phiEvent` | `Boolean` | Optional | You can specify specific event type to an event|
 
 
 #### Example
 ```js
-NSMutableDictionary *eventInfo = [[NSMutableDictionary alloc] init];
-[eventInfo setValue:@"developers@blotout.io" forKey:@"emailId"];
-[eventInfo setValue:@"Male" forKey:@"gender"];
-
 BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 
-[boaObj capturePersonal:@"PII Event" withInformation:eventInfo isPHI:NO];
-[boaObj capturePersonal:@"PHI Event" withInformation:eventInfo isPHI:YES];
+NSMutableDictionary *PIIInfo = [[NSMutableDictionary alloc] init];
+[eventInfo setValue:@"developers@blotout.io" forKey:@"emailId"];
+[boaObj capturePersonal:@"PII Event" withInformation:PIIInfo isPHI:NO];
+
+NSMutableDictionary *PHIInfo = [[NSMutableDictionary alloc] init];
+[eventInfo setValue:@"bloodType" forKey:@"A+"];
+[boaObj capturePersonal:@"PHI Event" withInformation:PHIInfo isPHI:YES];
 ```
 
 
@@ -93,7 +94,6 @@ BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
 
 [boaObj mapID:@"92j2jr230r-232j9j2342j3-jiji" forProvider:@"hubspot" withInformation:NULL];
 [boaObj mapID:@"92j2jr230r-232j9j2342j3-jiji" forProvider:@"hubspot" withInformation:eventInfo];
-
 ```
 
 ## getUserId
@@ -189,3 +189,12 @@ This method is used to track deep linking
     [BlotoutAnalytics sharedInstance] openURL:url options:options];
 }
 ```
+
+## Appendix
+
+**BlotoutAnalyticsConfiguration**
+
+|||||
+|---|---|---|---|
+| `token` | `String` |  | Application token that you can get in your dashboard. |
+| `endpointUrl` | `String` |  | Url where you will be sending data. |

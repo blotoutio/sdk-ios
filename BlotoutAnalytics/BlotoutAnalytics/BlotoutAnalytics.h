@@ -40,7 +40,7 @@
  * @param eventInfo properties in key/value pair
  * @param phiEvent boolean value
  */
--(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nullable NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;
+-(void)capturePersonal:(nonnull NSString*)eventName withInformation:(nonnull NSDictionary*)eventInfo isPHI:(BOOL)phiEvent;
 
 /**
  *
