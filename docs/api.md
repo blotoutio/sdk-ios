@@ -197,5 +197,3 @@ This method is used to track deep linking
     [BlotoutAnalytics sharedInstance] openURL:url options:options];
 }
 ```
-
-
