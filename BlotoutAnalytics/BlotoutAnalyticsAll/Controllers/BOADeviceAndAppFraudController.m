@@ -190,17 +190,6 @@ static id sBOAsdkFraudCheckSharedInstance = nil;
       return YES;
     }
     
-    __block bool isCydia;
-    dispatch_sync(dispatch_get_main_queue(), ^{
-      if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]) {
-        isCydia = YES;
-      }
-    });
-    
-    if (isCydia) {
-      return YES;
-    }
-    
     FILE *f = fopen("/bin/bash", "r");
     if (f != NULL) {
       fclose(f);
