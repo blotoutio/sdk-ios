@@ -44,9 +44,6 @@ static NSMutableDictionary *appInfo;
       NSString * sdkVersion = [NSString stringWithFormat:@"%d.%d.%d", BOSDK_MAJOR_VERSION,BOSDK_MINOR_VERSION,BOSDK_PATCH_VERSION];
       [appInfo setObject:sdkVersion forKey:@"sdkVersion"];
       
-      NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-      [appInfo setObject:bundleIdentifier forKey:@"bundle"];
-      
       NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
       NSString *prodName = [bundleInfo objectForKey:@"CFBundleName"];
       [appInfo setObject:prodName forKey:@"name"]; //Check this, coming as SalesDemoApp, which is app name
@@ -99,7 +96,6 @@ static NSMutableDictionary *appInfo;
     NSMutableDictionary *metaInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
       @"plf": [appInfoCurrentDict objectForKey:@"platform"],
       @"appv": [appInfoCurrentDict objectForKey:@"version"],
-      @"appn": [appInfoCurrentDict objectForKey:@"bundle"],
       @"jbrkn": [appInfoCurrentDict objectForKey:@"jbnStatus"],
       @"vpn": [appInfoCurrentDict objectForKey:@"vpnStatus"],
       @"dcomp": [appInfoCurrentDict objectForKey:@"dcompStatus"],
