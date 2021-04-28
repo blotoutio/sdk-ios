@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 #define EPAContentApplicationJson @"application/json"
 
 typedef NS_ENUM(NSUInteger, BOUrlEndPoint) {
-    BOUrlEndPointEventDataPOST = 0,
-    BOUrlEndPointManifestGET
+  BOUrlEndPointEventPublish = 0,
+  BOUrlEndPointManifestPull
 };
 
 @interface BOBaseAPI : NSObject

@@ -58,7 +58,6 @@ extern NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH;
 extern NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH;
 extern NSString * const BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY;
 extern NSString * const BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY;
-extern NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY;
 extern NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS;
 extern NSString * const BO_ANALYTICS_USER_UNIQUE_KEY;
 
@@ -72,11 +71,8 @@ extern NSString * const BO_SCREEN;
 extern NSString * const BO_TYPE;
 
 // Manifest keys
-extern NSString * const API_ENDPOINT;
-extern NSString * const EVENT_PATH;
 extern NSString * const EVENT_PHI_PUBLIC_KEY;
 extern NSString * const EVENT_PII_PUBLIC_KEY;
-extern NSString * const EVENT_DEVICE_INFO_GRAIN;
 extern NSString * const EVENT_PUSH_SYSTEM_EVENT;
 
 // System event codes

@@ -16,10 +16,6 @@
 #import "BOAUserDefaultsStorage.h"
 #import "BOSharedManager.h"
 
-const int DeviceGrainHigh = 1;
-const int DeviceGrainMedium = 2;
-const int DeviceGrainAll = 3;
-
 static NSMutableDictionary *appInfo;
 
 @interface BOServerDataConverter ()
@@ -110,41 +106,11 @@ static NSMutableDictionary *appInfo;
       @"referrer" : [BOSharedManager sharedInstance].referrer
     }];
     
-    if ([[metaInfo allValues] count] > 0) {
-      int deviceGrain = [self getDeviceGrain];
-      switch (deviceGrain) {
-        case DeviceGrainHigh: {
-          [metaInfo removeObjectForKey:@"osn"];
-          [metaInfo removeObjectForKey:@"osv"];
-          [metaInfo removeObjectForKey:@"dmft"];
-          [metaInfo removeObjectForKey:@"dm"];
-          break;
-        }
-        case DeviceGrainMedium:
-        case DeviceGrainAll:
-          break;
-        default:
-          break;
-      }
-    }
-    
     return metaInfo;
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
   return nil;
-}
-
-+ (int)getDeviceGrain {
-  @try {
-    int deviceGrain = [[BOASDKManifestController sharedInstance] eventDeviceInfoGrain].intValue;
-    if (deviceGrain > 0) {
-      return deviceGrain;
-    }
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-  }
-  return 1;
 }
 
 @end

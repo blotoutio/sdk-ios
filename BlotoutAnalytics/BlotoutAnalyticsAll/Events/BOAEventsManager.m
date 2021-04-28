@@ -178,7 +178,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
       NSError *error = nil;
       NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:&error];
       
-      [post postEventDataModel:data withAPICode:BOUrlEndPointEventDataPOST success:^(id  _Nonnull responseObject) {
+      [post postEventDataModel:data withAPICode:BOUrlEndPointEventPublish success:^(id  _Nonnull responseObject) {
         [self.queue removeObjectsInArray:batch];
         [self persistQueue];
         self.batchRequest = NO;

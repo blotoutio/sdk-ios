@@ -136,7 +136,7 @@ NSString *kTabBarOrderPrefKey = @"kTabBarOrder";  // The ordering of the tabs.
     //boaObj.isEnabled = NO;
     //NSLog(@"BlotoutAnalytics SDK allSysInfo%@:", [boaObj allSystemInfo]);
     //Test inProductionMode Yes/No and InDev mode also
-    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io"];
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"B6PSYZ355NS383V" withUrl:@"https://stage.blotout.io/sdk"];
     
     __block BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
     [boaObj init:config andCompletionHandler:^(BOOL isSuccess, NSError * _Nullable error) {

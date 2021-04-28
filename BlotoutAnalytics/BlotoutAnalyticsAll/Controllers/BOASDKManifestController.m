@@ -32,16 +32,6 @@ static id sBOAsdkManifestSharedInstance = nil;
 
 -(instancetype)init {
   self = [super init];
-  if (!self) {
-    return self;
-  }
-
-  BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-  
-  NSNumber *lastManifestSyncTimeStampInit = [analyticsRootUD objectForKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-  if (!([lastManifestSyncTimeStampInit intValue] > 0)) {
-    [analyticsRootUD setObject:@0 forKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-  }
   return self;
 }
 
@@ -57,17 +47,6 @@ static id sBOAsdkManifestSharedInstance = nil;
   return sBOAsdkManifestSharedInstance;
 }
 
-//set Default value when manifest success to load
--(void)setupManifestExtraParamOnSuccess {
-  @try {
-    BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-    NSNumber *currentTime = [BOAUtilities get13DigitNumberObjTimeStamp];
-    [analyticsRootUD setObject:currentTime forKey:BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY];
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-  }
-}
-
 /**
  * sync manifest and reload menifest data
  */
@@ -76,7 +55,6 @@ static id sBOAsdkManifestSharedInstance = nil;
     [self fetchAndPrepareSDKModelWith:^(BOOL isSuccess, NSError *error) {
       if (isSuccess) {
         [self reloadManifestData];
-        [self setupManifestExtraParamOnSuccess];
       }
       
       if (!self.sdkManifestModel) {
@@ -158,15 +136,8 @@ static id sBOAsdkManifestSharedInstance = nil;
 -(void)fetchAndPrepareSDKModelWith:(void (^_Nullable) (BOOL isSuccess, NSError* error))callback {
   @try {
     BOManifestAPI *api = [[BOManifestAPI alloc] init];
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     
-    NSDictionary *manifestBody = @{
-      @"lastUpdatedTime": @0,
-      @"bundleId": bundleIdentifier
-    };
-    NSData *manifestBodyData = [BOAUtilities jsonDataFrom:manifestBody withPrettyPrint:NO];
-    
-    [api getManifestDataModel:manifestBodyData success:^(id  _Nonnull responseObject, id  _Nonnull data) {
+    [api getManifestDataModel:^(id  _Nonnull responseObject, id  _Nonnull data) {
       if (!responseObject) {
         self.isSyncedNow = NO;
         callback(NO, nil);
@@ -229,15 +200,6 @@ static id sBOAsdkManifestSharedInstance = nil;
     if (self.sdkManifestModel == nil) {
       return;
     }
-    
-    BOASDKVariable *deviceGrain = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_DEVICE_INFO_GRAIN];
-    self.eventDeviceInfoGrain = [self getNumberFrom: deviceGrain.value];
-    
-    BOASDKVariable *serverBaseURL = [self getManifestVariable:self.sdkManifestModel forValue: API_ENDPOINT];
-    self.serverBaseURL = serverBaseURL.value;
-    
-    BOASDKVariable *eventPaths = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PATH];
-    self.eventPath = eventPaths.value;
     
     BOASDKVariable *sdkPushSystemEvent = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PUSH_SYSTEM_EVENT];
     if (sdkPushSystemEvent != nil) {

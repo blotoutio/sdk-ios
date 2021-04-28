@@ -16,25 +16,19 @@
 
 @implementation BOManifestAPI
 
--(void)getManifestDataModel:(NSData*)eventData success:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure {
+-(void)getManifestDataModel:(void (^)(id responseObject, id data))success failure:(void (^)(NSError *error))failure {
   @try {
-    NSString *apiEndPoint = [self resolveAPIEndPoint:BOUrlEndPointManifestGET];
+    NSString *apiEndPoint = [self resolveAPIEndPoint:BOUrlEndPointManifestPull];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:apiEndPoint]];
     [urlRequest setHTTPMethod:EPAPostAPI];
     [urlRequest setAllHTTPHeaderFields:[self prepareRequestHeaders]];
     
-    if (eventData != nil) {
-      [urlRequest setHTTPBody:eventData];
-    }
-    
-    BOFLogDebug(@"DebugAPI_payload Event Data in Body %@", [[NSString alloc] initWithData:eventData encoding:NSUTF8StringEncoding]);
-    
-    [BONetworkManager asyncRequest:urlRequest success:^(id data , NSURLResponse *dataResponse) {
+    [BONetworkManager asyncRequest:urlRequest success:^(id data, NSURLResponse *dataResponse) {
       data = [self checkForNullValue:data];
       NSError *manifestReadError;
       BOASDKManifest *sdkManifestM = [BOASDKManifest fromData:data error:&manifestReadError];
       if (manifestReadError == nil) {
-        success(sdkManifestM,data);
+        success(sdkManifestM, data);
         return;
       }
       

@@ -58,7 +58,6 @@ NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH = @"v1/manifest/pull";
 NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH = @"v1/events/publish";
 NSString * const BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY = @"com.blotout.sdk.Analytics.Root";
 NSString * const BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY = @"com.blotout.sdk.Analytics.Root.UserBirthTimeStamp";
-NSString * const BO_ANALYTICS_SDK_MANIFEST_LAST_TIMESTAMP_SYNC_DEFAULTS_KEY = @"sdk_manifest_last_sync_timestamp";
 NSString * const BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS = @"com.blotout.sdk.Analytics.Dev_Custom_Event";
 NSString * const BO_ANALYTICS_USER_UNIQUE_KEY = @"UserUniqueId";
 NSString * const BO_SESSION_ID = @"session_id";

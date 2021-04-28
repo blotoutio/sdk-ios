@@ -31,26 +31,22 @@
 }
 
 -(NSString*)resolveAPIEndPoint:(BOUrlEndPoint)endPoint {
-  @try {
-    switch (endPoint) {
-      case BOUrlEndPointEventDataPOST: {
-        return [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_EVENTS_PUSH_PATH];
-      }
-      case BOUrlEndPointManifestGET:
-        return [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_MANIFEST_PULL_PATH];
+  NSString *url;
+  switch (endPoint) {
+    case BOUrlEndPointEventPublish: {
+      url = [NSString stringWithFormat:@"%@/%@", [self getBaseServerUrl],BO_SDK_REST_API_EVENTS_PUSH_PATH];
     }
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    case BOUrlEndPointManifestPull:
+      url = [NSString stringWithFormat:@"%@/%@", [self getBaseServerUrl], BO_SDK_REST_API_MANIFEST_PULL_PATH];
   }
-  return nil;
+  
+  return [NSString stringWithFormat:@"%@?token=%@", url, [BlotoutAnalytics sharedInstance].token];
 }
 
 -(NSDictionary*)prepareRequestHeaders {
   return @{
       BO_ACCEPT: @"application/json",
-      BO_CONTENT_TYPE: @"application/json",
-      BO_TOKEN: [BlotoutAnalytics sharedInstance].token,
-      BO_VERSION: @"v1"
+      BO_CONTENT_TYPE: @"application/json"
   };
 }
 

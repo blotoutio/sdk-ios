@@ -20,9 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) BOASDKManifest *sdkManifestModel;
 @property (assign, nonatomic) BOOL isSyncedNow;
 
-@property (assign, nonatomic) NSNumber *eventDeviceInfoGrain;
-@property (assign, nonatomic) NSString *serverBaseURL;
-@property (assign, nonatomic) NSString *eventPath;
 @property (assign, nonatomic) NSString *piiPublicKey;
 @property (assign, nonatomic) NSString *phiPublickey;
 @property (assign, readwrite) bool sdkPushSystemEvents;

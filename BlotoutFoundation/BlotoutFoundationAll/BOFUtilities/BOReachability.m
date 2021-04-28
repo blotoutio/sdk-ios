@@ -182,9 +182,6 @@ static BOReachability *sharedInstance = nil;
 
 -(instancetype)init{
     self = [super init];
-    if (self) {
-        
-    }
     return self;
 }
 
