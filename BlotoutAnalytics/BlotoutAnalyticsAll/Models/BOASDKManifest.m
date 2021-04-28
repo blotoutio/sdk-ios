@@ -194,8 +194,6 @@ NSString *_Nullable BOASDKManifestToJSON(BOASDKManifest *manifest, NSStringEncod
         @"variableId": @"variableID",
         @"value": @"value",
         @"variableDataType": @"variableDataType",
-        @"variableName": @"variableName",
-        @"isEditable": @"isEditable",
     };
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

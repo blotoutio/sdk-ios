@@ -31,8 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable, strong) NSNumber *variableID;
 @property (nonatomic, nullable, copy)   NSString *value;
 @property (nonatomic, nullable, strong) NSNumber *variableDataType;
-@property (nonatomic, nullable, copy)   NSString *variableName;
-@property (nonatomic, nullable, strong) NSNumber *isEditable;
 
 @end
 

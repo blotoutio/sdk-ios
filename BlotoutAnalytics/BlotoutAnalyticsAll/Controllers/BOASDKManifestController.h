@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString*)latestSDKManifestPath;
 -(NSString*)latestSDKManifestJSONString;
 -(NSNumber *)getNumberFrom:(NSString *)string;
--(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forValue:(NSString*)value;
+-(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forID:(int)ID;
 
 @end
 

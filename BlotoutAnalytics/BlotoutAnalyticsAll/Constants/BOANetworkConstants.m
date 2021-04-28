@@ -70,12 +70,9 @@ NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
 
-NSString * const API_ENDPOINT = @"Api_Endpoint";
-NSString * const EVENT_PATH = @"Event_Path";
-NSString * const EVENT_PHI_PUBLIC_KEY = @"PHI_Public_Key";
-NSString * const EVENT_PII_PUBLIC_KEY = @"PII_Public_Key";
-NSString * const EVENT_DEVICE_INFO_GRAIN = @"Event_Deviceinfo_Grain";
-NSString * const EVENT_PUSH_SYSTEM_EVENT = @"SDK_Push_System_Events";
+int const MANIFEST_PHI_PUBLIC_KEY = 5997;
+int const MANIFEST_PII_PUBLIC_KEY = 5998;
+int const MANIFEST_PUSH_SYSTEM_EVENT = 5023;
 
 int const BO_APPLICATION_OPENED = 11001;
 int const BO_APPLICATION_INSTALLED = 11002;

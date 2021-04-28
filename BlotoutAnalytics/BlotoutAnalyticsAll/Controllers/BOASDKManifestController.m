@@ -162,14 +162,14 @@ static id sBOAsdkManifestSharedInstance = nil;
 
 /**
  * method to get manifest variable
- * @param value as String
+ * @param ID as String
  * @return oneVar as BOASDKVariable
  */
--(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forValue:(NSString*)value {
+-(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forID:(int)ID {
   @try {
     BOASDKVariable *oneVar = nil;
     for (BOASDKVariable *oneVariableDict in manifest.variables) {
-      if (oneVariableDict != nil && [oneVariableDict.variableName isEqualToString: value]) {
+      if (oneVariableDict != nil && [oneVariableDict.variableID intValue] == ID) {
         oneVar = oneVariableDict;
         break;
       }
@@ -201,17 +201,17 @@ static id sBOAsdkManifestSharedInstance = nil;
       return;
     }
     
-    BOASDKVariable *sdkPushSystemEvent = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PUSH_SYSTEM_EVENT];
+    BOASDKVariable *sdkPushSystemEvent = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_PUSH_SYSTEM_EVENT];
     if (sdkPushSystemEvent != nil) {
       self.sdkPushSystemEvents = [sdkPushSystemEvent.value boolValue];
     }
     
-    BOASDKVariable *piiKey = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PII_PUBLIC_KEY];
+    BOASDKVariable *piiKey = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_PII_PUBLIC_KEY];
     if (piiKey != nil) {
       self.piiPublicKey = piiKey.value;
     }
     
-    BOASDKVariable *phiKey = [self getManifestVariable:self.sdkManifestModel forValue: EVENT_PHI_PUBLIC_KEY];
+    BOASDKVariable *phiKey = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_PHI_PUBLIC_KEY];
     if (phiKey != nil) {
       self.phiPublickey = phiKey.value;
     }

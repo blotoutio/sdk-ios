@@ -71,9 +71,9 @@ extern NSString * const BO_SCREEN;
 extern NSString * const BO_TYPE;
 
 // Manifest keys
-extern NSString * const EVENT_PHI_PUBLIC_KEY;
-extern NSString * const EVENT_PII_PUBLIC_KEY;
-extern NSString * const EVENT_PUSH_SYSTEM_EVENT;
+extern int const MANIFEST_PHI_PUBLIC_KEY;
+extern int const MANIFEST_PII_PUBLIC_KEY;
+extern int const MANIFEST_PUSH_SYSTEM_EVENT;
 
 // System event codes
 extern int const BO_APPLICATION_OPENED;
