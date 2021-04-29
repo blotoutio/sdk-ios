@@ -201,9 +201,9 @@ static id sBOAsdkManifestSharedInstance = nil;
       return;
     }
     
-    BOASDKVariable *sdkPushSystemEvent = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_PUSH_SYSTEM_EVENT];
-    if (sdkPushSystemEvent != nil) {
-      self.sdkPushSystemEvents = [sdkPushSystemEvent.value boolValue];
+    BOASDKVariable *systemEvents = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_SYSTEM_EVENTS];
+    if (systemEvents != nil) {
+      self.enabledSystemEvents = [systemEvents.value componentsSeparatedByString:@","];
     }
     
     BOASDKVariable *piiKey = [self getManifestVariable:self.sdkManifestModel forID:MANIFEST_PII_PUBLIC_KEY];
@@ -218,12 +218,6 @@ static id sBOAsdkManifestSharedInstance = nil;
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
-}
-
--(NSNumber *)getNumberFrom:(NSString *)string {
-  NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-  f.numberStyle = NSNumberFormatterDecimalStyle;
-  return [f numberFromString: string];
 }
 
 /**
@@ -241,6 +235,14 @@ static id sBOAsdkManifestSharedInstance = nil;
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
   return NO;
+}
+
+-(BOOL)isSystemEventEnabled:(int)eventCode {
+  if (self.enabledSystemEvents == nil) {
+    return false;
+  }
+  
+  return [self.enabledSystemEvents containsObject: [@(eventCode) stringValue]];
 }
 
 @end

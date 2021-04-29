@@ -73,7 +73,7 @@ extern NSString * const BO_TYPE;
 // Manifest keys
 extern int const MANIFEST_PHI_PUBLIC_KEY;
 extern int const MANIFEST_PII_PUBLIC_KEY;
-extern int const MANIFEST_PUSH_SYSTEM_EVENT;
+extern int const MANIFEST_SYSTEM_EVENTS;
 
 // System event codes
 extern int const BO_APPLICATION_OPENED;

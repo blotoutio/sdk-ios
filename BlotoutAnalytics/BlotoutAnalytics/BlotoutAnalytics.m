@@ -100,16 +100,14 @@ static id sBOASharedInstance = nil;
     [self registerApplicationStates];
     
 #if !TARGET_OS_TV
-    if (configuration.trackPushNotifications && configuration.launchOptions) {
+    if (configuration.launchOptions) {
       NSDictionary *remoteNotification = configuration.launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
       if (remoteNotification) {
         [self trackPushNotification:remoteNotification fromLaunch:YES];
       }
     }
     
-    if (configuration.trackInAppPurchases) {
-      self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
-    }
+    self.storeKitController = [BOAStoreKitController trackTransactionsForConfiguration:configuration];
 #endif
     
     [[BOEventsOperationExecutor sharedInstance] dispatchInitializationInBackground:^{
@@ -213,6 +211,7 @@ static id sBOASharedInstance = nil;
     if (!self.isEnabled) {
       return;
     }
+    
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
       NSMutableDictionary *mapIdInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:userId, provider,nil] forKeys:[NSArray arrayWithObjects:BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER,nil]];
       if (eventInfo) {
@@ -289,9 +288,11 @@ static id sBOASharedInstance = nil;
       return;
     }
     
-    if (launch) {
+    BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+    
+    if (launch && [sdkManifesCtrl isSystemEventEnabled:BO_PUSH_NOTIFICATION_TAPPED]) {
       [self capture:@"Push Notification Tapped" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_PUSH_NOTIFICATION_TAPPED)];
-    } else {
+    } else if ([sdkManifesCtrl isSystemEventEnabled:BO_PUSH_NOTIFICATION_RECEIVED]) {
       [self capture:@"Push Notification Received" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_PUSH_NOTIFICATION_RECEIVED)];
     }
   } @catch (NSException *exception) {
@@ -301,7 +302,7 @@ static id sBOASharedInstance = nil;
 
 - (void)receivedRemoteNotification:(NSDictionary *)userInfo {
   @try {
-    if (!self.isEnabled || !self.config.trackPushNotifications) {
+    if (!self.isEnabled) {
       return;
     }
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
@@ -314,13 +315,16 @@ static id sBOASharedInstance = nil;
 
 - (void)failedToRegisterForRemoteNotificationsWithError:(NSError *)error {
   @try {
-    if (!self.isEnabled || !self.config.trackPushNotifications) {
+    if (!self.isEnabled) {
       return;
     }
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
-      NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-      [properties setValue:@(0) forKey:@"deviceRegistered"];
-      [self capture:@"Register For Remote Notification" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
+      BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+      if ([sdkManifesCtrl isSystemEventEnabled:BO_REGISTER_FOR_REMOTE_NOTIFICATION]) {
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        [properties setValue:@(0) forKey:@"deviceRegistered"];
+        [self capture:@"Register For Remote Notification" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
+      }
     }];
     
   } @catch (NSException *exception) {
@@ -330,9 +334,10 @@ static id sBOASharedInstance = nil;
 
 - (void)registeredForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   @try {
-    if (!self.isEnabled || !self.config.trackPushNotifications) {
+    if (!self.isEnabled) {
       return;
     }
+
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
       NSMutableDictionary *properties = [NSMutableDictionary dictionary];
       const unsigned char *buffer = (const unsigned char *)[deviceToken bytes];
@@ -347,19 +352,23 @@ static id sBOASharedInstance = nil;
       
       [properties setValue:token forKey:@"token"];
       [properties setValue:@(1) forKey:@"deviceRegistered"];
-      [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
-    }];
-    
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-  }
+      
+      BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+      if ([sdkManifesCtrl isSystemEventEnabled:BO_REGISTER_FOR_REMOTE_NOTIFICATION]) {
+        [self capture:@"Remote Notification Register" withInformation:properties withType:BO_SYSTEM withEventCode:@(BO_REGISTER_FOR_REMOTE_NOTIFICATION)];
+      }}];
+    } @catch (NSException *exception) {
+      BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
 }
 
 - (void)continueUserActivity:(NSUserActivity *)activity {
   @try {
-    if (!self.isEnabled || !self.config.trackDeepLinks || ![activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb]) {
+    BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+    if (!self.isEnabled || ![activity.activityType isEqualToString:NSUserActivityTypeBrowsingWeb] || ![sdkManifesCtrl isSystemEventEnabled:BO_DEEP_LINK_OPENED]) {
       return;
     }
+    
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
       NSMutableDictionary *properties = [NSMutableDictionary dictionaryWithCapacity:activity.userInfo.count + 2];
       [properties addEntriesFromDictionary:activity.userInfo];
@@ -377,7 +386,8 @@ static id sBOASharedInstance = nil;
 
 - (void)openURL:(NSURL *)url options:(NSDictionary *)options {
   @try {
-    if (!self.isEnabled || !self.config.trackDeepLinks) {
+    BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+    if (!self.isEnabled || ![sdkManifesCtrl isSystemEventEnabled:BO_DEEP_LINK_OPENED]) {
       return;
     }
     
@@ -439,7 +449,7 @@ static id sBOASharedInstance = nil;
 
 - (void)_applicationDidFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   @try {
-    if (!self.isEnabled || !self.config.trackSystemEvent) {
+    if (!self.isEnabled) {
       return;
     }
     
@@ -455,7 +465,8 @@ static id sBOASharedInstance = nil;
       return;
     }
     
-    if (self.config.trackSystemEvent) {
+    BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+    if ([sdkManifesCtrl isSystemEventEnabled:BO_APPLICATION_OPENED]) {
       [self capture:@"Application Opened" withInformation:@{
         @"from_background" : @YES,
       } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_OPENED)];
@@ -477,9 +488,11 @@ static id sBOASharedInstance = nil;
     BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:nil withType:BO_SYSTEM];
     [self.eventManager capture:model];
     
-    if (self.config.trackSystemEvent) {
+    BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+    if ([sdkManifesCtrl isSystemEventEnabled:BO_APPLICATION_BACKGROUNDED]) {
       [self capture: @"Application Backgrounded" withInformation:nil withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_BACKGROUNDED)];
     }
+    
     [self.eventManager applicationDidEnterBackground];
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -492,6 +505,12 @@ static id sBOASharedInstance = nil;
       return;
     }
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+
+      BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+      if (![sdkManifesCtrl isSystemEventEnabled:BO_APP_TRACKING]) {
+        return;
+      }
+
       NSString *statusString = @"";
       NSString *idfaString = @"";
       if (@available(iOS 14, *)) {

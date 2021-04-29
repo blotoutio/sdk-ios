@@ -10,6 +10,7 @@
 #import "BOSharedManager.h"
 #import "BOANetworkConstants.h"
 #import "BOEventsOperationExecutor.h"
+#import "BOASDKManifestController.h"
 
 @interface BOAStoreKitController ()
 
@@ -74,6 +75,11 @@
 
 #pragma mark - Track
 - (void)trackTransaction:(SKPaymentTransaction *)transaction forProduct:(SKProduct *)product {
+  BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
+  if (![sdkManifesCtrl isSystemEventEnabled:BO_TRANSACTION_COMPLETED]) {
+    return;
+  }
+  
   if (transaction.transactionIdentifier == nil || [BlotoutAnalytics sharedInstance].eventManager == nil) {
     return;
   }

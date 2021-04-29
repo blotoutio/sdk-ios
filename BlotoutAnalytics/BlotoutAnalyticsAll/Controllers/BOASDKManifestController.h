@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) BOASDKManifest *sdkManifestModel;
 @property (assign, nonatomic) BOOL isSyncedNow;
 
-@property (assign, nonatomic) NSString *piiPublicKey;
-@property (assign, nonatomic) NSString *phiPublickey;
-@property (assign, readwrite) bool sdkPushSystemEvents;
+@property (strong, nonatomic) NSString *piiPublicKey;
+@property (strong, nonatomic) NSString *phiPublickey;
+@property (strong, nonatomic) NSArray *enabledSystemEvents;
 
 - (nullable instancetype) init __attribute__((unavailable("Must use sharedInstance instead.")));
 + (nullable instancetype)sharedInstance;
@@ -33,8 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString*)sdkManifestPathAfterWriting:(NSString*)sdkManifest;
 -(NSString*)latestSDKManifestPath;
 -(NSString*)latestSDKManifestJSONString;
--(NSNumber *)getNumberFrom:(NSString *)string;
 -(BOASDKVariable*)getManifestVariable:(BOASDKManifest*)manifest forID:(int)ID;
+-(BOOL)isSystemEventEnabled:(int)eventCode;
 
 @end
 

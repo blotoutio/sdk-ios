@@ -69,26 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, nullable) id<BOAApplicationProtocol> application;
 
-/**
- * Whether the blotout analytics client should automatically track push notifications.
- */
-@property (nonatomic, assign) BOOL trackPushNotifications;
-
-/**
- * Whether the blotout analytics client should  track deep links.
- */
-@property (nonatomic, assign) BOOL trackDeepLinks;
-
-/**
- * Whether the analytics client should automatically track in-app purchases from the App Store.
- */
-@property (nonatomic, assign) BOOL trackInAppPurchases;
-
-/**
- * Whether the analytics client should automatically track in-app purchases from the App Store.
- */
-@property (nonatomic, assign) BOOL trackSystemEvent;
-
 @end
 
 NS_ASSUME_NONNULL_END

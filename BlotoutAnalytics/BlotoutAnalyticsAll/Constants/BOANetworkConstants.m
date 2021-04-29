@@ -70,9 +70,9 @@ NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
 
-int const MANIFEST_PHI_PUBLIC_KEY = 5997;
+int const MANIFEST_PHI_PUBLIC_KEY = 5997;	
 int const MANIFEST_PII_PUBLIC_KEY = 5998;
-int const MANIFEST_PUSH_SYSTEM_EVENT = 5023;
+int const MANIFEST_SYSTEM_EVENTS = 5001;
 
 int const BO_APPLICATION_OPENED = 11001;
 int const BO_APPLICATION_INSTALLED = 11002;
