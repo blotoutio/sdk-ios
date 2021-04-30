@@ -27,10 +27,6 @@
 }
 
 -(NSString*)getBaseServerUrl {
-  if ([BOASDKManifestController sharedInstance].serverBaseURL != nil && [BOASDKManifestController sharedInstance].serverBaseURL.length>0) {
-    return [BOASDKManifestController sharedInstance].serverBaseURL;
-  }
-    
   return [BlotoutAnalytics sharedInstance].endPointUrl;
 }
 
@@ -38,9 +34,6 @@
   @try {
     switch (endPoint) {
       case BOUrlEndPointEventDataPOST: {
-        if ([BOASDKManifestController sharedInstance].eventPath != nil && [BOASDKManifestController sharedInstance].eventPath.length>0) {
-          return [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],[BOASDKManifestController sharedInstance].eventPath];
-        }
         return [NSString stringWithFormat:@"%@/%@",[self getBaseServerUrl],BO_SDK_REST_API_EVENTS_PUSH_PATH];
       }
       case BOUrlEndPointManifestGET:

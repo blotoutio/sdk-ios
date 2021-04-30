@@ -21,7 +21,7 @@ void BOFLogDebug(NSString *frmt, ...) {
     
     NSString * msg = [[NSString alloc] initWithFormat:frmt  arguments:args];
     va_end(args);
-    NSString *logMessage = [NSString stringWithFormat:@"[File Name : %s] [File Path : %s] [Method Name: %s] [Line No: %d] %@", __FILE_NAME__ ,__FILE__, __PRETTY_FUNCTION__ , __LINE__, msg];
+    NSString *logMessage = [NSString stringWithFormat:@"[File Name : %s] [Method Name: %s] [Line No: %d] %@", __FILE_NAME__, __PRETTY_FUNCTION__ , __LINE__, msg];
     NSLog(@"Info: %@",logMessage);
   }
 }
@@ -37,7 +37,7 @@ void BOFLogError(NSString *frmt, ...) {
     
     NSString * msg = [[NSString alloc] initWithFormat:frmt  arguments:args];
     va_end(args);
-    NSString *logMessage = [NSString stringWithFormat:@"[File Name : %s] [File Path : %s] [Method Name: %s] [Line No: %d] %@", __FILE_NAME__ ,__FILE__, __PRETTY_FUNCTION__ , __LINE__, msg];
+    NSString *logMessage = [NSString stringWithFormat:@"[File Name : %s] [Method Name: %s] [Line No: %d] %@", __FILE_NAME__, __PRETTY_FUNCTION__ , __LINE__, msg];
     NSLog(@"Info: %@",logMessage);
   }
 }
