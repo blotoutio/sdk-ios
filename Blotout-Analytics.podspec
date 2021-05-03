@@ -16,9 +16,9 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "Blotout-Analytics"
-  spec.version      = "0.7.1"
+  spec.version      = "0.7.2"
   spec.summary      = "Blotout Mobile Analytics SDK"
-  spec.source           = { :git => 'https://github.com/blotoutio/sdk-ios.git', :tag => '0.7.1' }
+  spec.source           = { :git => 'https://github.com/blotoutio/sdk-ios.git', :tag => '0.7.2' }
   spec.source_files   = 'dist/sdk/**/*'
   spec.public_header_files = 'dist/sdk/**/*.h'
   spec.vendored_libraries = 'dist/sdk/libBlotoutAnalytics.a'
