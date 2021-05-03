@@ -13,6 +13,7 @@
 #import "BOANetworkConstants.h"
 #import "BOACaptureModel.h"
 #import "BlotoutAnalytics_Internal.h"
+#import "BOEventsOperationExecutor.h"
 
 void loadAsUIViewControllerBOFoundationCat(void) {}
 
@@ -86,8 +87,13 @@ void loadAsUIViewControllerBOFoundationCat(void) {}
       return;
     }
     
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:[self getScreenName:top] withType:BO_SYSTEM];
-    [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+    NSString *screen = [self getScreenName:top];
+    
+    [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:screen withType:BO_SYSTEM];
+      [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+    }];
+    
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
@@ -108,12 +114,18 @@ void loadAsUIViewControllerBOFoundationCat(void) {}
     
     [BOSharedManager sharedInstance].isViewDidAppeared = YES;
     
+    if ([BlotoutAnalytics sharedInstance].eventManager == nil) {
+      return;
+    }
+    
     NSString *screenName = [self getScreenName:top];
     [BOSharedManager sharedInstance].currentScreenName = screenName;
-    if ([BlotoutAnalytics sharedInstance].eventManager != nil) {
+   
+    [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
       BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_SDK_START properties:nil eventCode:@(BO_EVENT_SDK_START) screenName:screenName withType:BO_SYSTEM];
       [[BlotoutAnalytics sharedInstance].eventManager capture:model];
-    }
+    }];
+    
   } @catch (NSException *exception) {
       BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }

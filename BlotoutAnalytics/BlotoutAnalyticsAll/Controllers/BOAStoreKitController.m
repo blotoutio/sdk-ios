@@ -9,6 +9,7 @@
 #import "BlotoutAnalytics_Internal.h"
 #import "BOSharedManager.h"
 #import "BOANetworkConstants.h"
+#import "BOEventsOperationExecutor.h"
 
 @interface BOAStoreKitController ()
 
@@ -76,23 +77,26 @@
   if (transaction.transactionIdentifier == nil || [BlotoutAnalytics sharedInstance].eventManager == nil) {
     return;
   }
-    
+  
   NSString *currency = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
-  BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"Transaction Completed" properties:@{
-    @"orderId" : transaction.transactionIdentifier,
-    @"affiliation" : @"App Store",
-    @"currency" : currency ?: @"",
-    @"products" : @[
-      @{
-          @"sku" : transaction.transactionIdentifier,
-          @"quantity" : @(transaction.payment.quantity),
-          @"productId" : product.productIdentifier ?: @"",
-          @"price" : product.price ?: @0,
-          @"name" : product.localizedTitle ?: @"",
-      }
-    ]
-  } eventCode:@(BO_TRANSACTION_COMPLETED) screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
-  [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+  [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+    
+    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"Transaction Completed" properties:@{
+      @"orderId" : transaction.transactionIdentifier,
+      @"affiliation" : @"App Store",
+      @"currency" : currency ?: @"",
+      @"products" : @[
+          @{
+            @"sku" : transaction.transactionIdentifier,
+            @"quantity" : @(transaction.payment.quantity),
+            @"productId" : product.productIdentifier ?: @"",
+            @"price" : product.price ?: @0,
+            @"name" : product.localizedTitle ?: @"",
+          }
+      ]
+    } eventCode:@(BO_TRANSACTION_COMPLETED) screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
+    [[BlotoutAnalytics sharedInstance].eventManager capture:model];
+  }];
 }
 
 @end
