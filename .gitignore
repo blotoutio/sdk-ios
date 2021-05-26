@@ -1,0 +1,11 @@
+build
+build/*
+Build
+Build/*
+xcuserdata
+xcuserdata/*
+.DS_Store
+node_modules
+.idea
+.vscode
+
