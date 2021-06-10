@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 int const BOSDK_MAJOR_VERSION = 0;
-int const BOSDK_MINOR_VERSION = 7;
-int const BOSDK_PATCH_VERSION = 2;
+int const BOSDK_MINOR_VERSION = 8;
+int const BOSDK_PATCH_VERSION = 0;
 
 NSString *BO_GET = @"GET";
 NSString *BO_POST = @"POST";
@@ -70,7 +70,7 @@ NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
 
-int const MANIFEST_PHI_PUBLIC_KEY = 5997;	
+int const MANIFEST_PHI_PUBLIC_KEY = 5997;
 int const MANIFEST_PII_PUBLIC_KEY = 5998;
 int const MANIFEST_SYSTEM_EVENTS = 5001;
 

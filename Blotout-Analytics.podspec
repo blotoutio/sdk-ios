@@ -16,9 +16,9 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "Blotout-Analytics"
-  spec.version      = "0.7.2"
+  spec.version      = "0.8.0"
   spec.summary      = "Blotout Mobile Analytics SDK"
-  spec.source           = { :git => 'https://github.com/blotoutio/sdk-ios.git', :tag => '0.7.2' }
+  spec.source           = { :git => 'https://github.com/blotoutio/sdk-ios.git', :tag => '0.8.0' }
   spec.source_files   = 'dist/sdk/**/*'
   spec.public_header_files = 'dist/sdk/**/*.h'
   spec.vendored_libraries = 'dist/sdk/libBlotoutAnalytics.a'
@@ -44,6 +44,6 @@ IDs or IP Addresses.
   #spec.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
   spec.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   spec.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-  
-  
+
+
 end
