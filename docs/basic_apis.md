@@ -71,31 +71,6 @@ NSMutableDictionary *PHIInfo = [[NSMutableDictionary alloc] init];
 [boaObj capturePersonal:@"PHI Event" withInformation:PHIInfo isPHI:YES];
 ```
 
-
-## mapID
-The `mapID` method allows you to map external services to Blotout ID.
-
-#### Input
-`-(void)mapID:(nonnull NSString*)externalId forProvider:(nonnull NSString*)provider withInformation:(nullable NSDictionary*)eventInfo;`
-
-|||||
-|---|---|---|---|
-| `externalId` | `String` |  | External ID that you want to link to Blotout ID |
-| `provider` | `String` |  | Provider that generated external ID, for example `hubspot` |
-| `eventInfo` | `Object` | Optional | You can provide some additional data to this event. There is no limitation as this is just a key-value pair send to the server. |
-
-#### Example
-```js
-NSMutableDictionary *eventInfo = [[NSMutableDictionary alloc] init];
-[eventInfo setValue:@"developers@blotout.io" forKey:@"emailId"];
-[eventInfo setValue:@"Male" forKey:@"gender"];
-
-BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
-
-[boaObj mapID:@"92j2jr230r-232j9j2342j3-jiji" forProvider:@"hubspot" withInformation:NULL];
-[boaObj mapID:@"92j2jr230r-232j9j2342j3-jiji" forProvider:@"hubspot" withInformation:eventInfo];
-```
-
 ## getUserId
 The `getUserId` method allows you to go get Blotout user id that is linked to all data that is sent to the server.
 

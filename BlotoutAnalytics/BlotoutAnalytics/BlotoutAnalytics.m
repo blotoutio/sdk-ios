@@ -202,18 +202,17 @@ static id sBOASharedInstance = nil;
 
 /**
  *
- * @param userId any userid
- * @param provider e.g google, Mixpanel
+ * @param mapIDData map data with externalID and provider
  * @param eventInfo dictionary of events
  */
--(void)mapID:(nonnull NSString*)userId forProvider:(nonnull NSString*)provider withInformation:(nullable NSDictionary*)eventInfo {
+-(void)mapID:(nonnull BOAMapIDDataModel*)mapIDData withInformation:(nullable NSDictionary*)eventInfo {
   @try {
     if (!self.isEnabled) {
       return;
     }
     
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
-      NSMutableDictionary *mapIdInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:userId, provider,nil] forKeys:[NSArray arrayWithObjects:BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER,nil]];
+      NSMutableDictionary *mapIdInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:mapIDData.externalID, mapIDData.provider,nil] forKeys:[NSArray arrayWithObjects:BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER,nil]];
       if (eventInfo) {
         [mapIdInfo addEntriesFromDictionary:eventInfo];
       }
