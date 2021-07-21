@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BlotoutAnalyticsConfiguration.h"
+#import "BOAMapIDDataModel.h"
 
 @interface BlotoutAnalytics : NSObject
 
@@ -44,11 +45,10 @@
 
 /**
  *
- * @param userId any userid
- * @param provider e.g google, Mixpanel
+ * @param mapIDData map data with externalID and provider
  * @param eventInfo dictionary of events
  */
--(void)mapID:(nonnull NSString*)userId forProvider:(nonnull NSString*)provider withInformation:(nullable NSDictionary*)eventInfo;
+-(void)mapID:(nonnull BOAMapIDDataModel*)mapIDData withInformation:(nullable NSDictionary*)eventInfo;
 
 /**
  The getUserId method allows you to go get Blotout user id that is linked to all data that is sent to the server.

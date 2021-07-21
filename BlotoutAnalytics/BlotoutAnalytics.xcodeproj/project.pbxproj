@@ -72,6 +72,7 @@
 		2BCEA25D22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */; };
 		2BCEA25E22F0B18B00EBA2F2 /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */; };
 		2BFA1978251A722F008DE9F4 /* BOEncryptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFA1977251A722F008DE9F4 /* BOEncryptionManager.m */; };
+		2E95D23F26A7F1F1007C7C18 /* BOAMapIDDataModel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2E95D23C26A7E873007C7C18 /* BOAMapIDDataModel.h */; };
 		7435E8C622E99062008480B8 /* BlotoutAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8C522E99062008480B8 /* BlotoutAnalytics.m */; };
 		7435E8C722E99062008480B8 /* BlotoutAnalytics.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8C422E99062008480B8 /* BlotoutAnalytics.h */; };
 		7435E8CF22E9907F008480B8 /* libBlotoutFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7435E8CE22E9907F008480B8 /* libBlotoutFoundation.a */; };
@@ -181,6 +182,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				2E95D23F26A7F1F1007C7C18 /* BOAMapIDDataModel.h in CopyFiles */,
 				2B22B816260F5E1A0039F05B /* BOACrypto.h in CopyFiles */,
 				2B71D6B225FC817C003D5186 /* BlotoutAnalyticsConfiguration.h in CopyFiles */,
 				7435E8C722E99062008480B8 /* BlotoutAnalytics.h in CopyFiles */,
@@ -255,6 +257,7 @@
 		2BCEA25C22F0B18B00EBA2F2 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		2BFA1976251A722F008DE9F4 /* BOEncryptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOEncryptionManager.h; sourceTree = "<group>"; };
 		2BFA1977251A722F008DE9F4 /* BOEncryptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOEncryptionManager.m; sourceTree = "<group>"; };
+		2E95D23C26A7E873007C7C18 /* BOAMapIDDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOAMapIDDataModel.h; sourceTree = "<group>"; };
 		741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics_Internal.h; sourceTree = "<group>"; };
 		7435E8C122E99062008480B8 /* libBlotoutAnalytics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutAnalytics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7435E8C422E99062008480B8 /* BlotoutAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
@@ -515,6 +518,7 @@
 				2B22B769260850B50039F05B /* BOASDKManifest.m */,
 				2B22B778260850EF0039F05B /* BOACaptureModel.h */,
 				2B22B779260850EF0039F05B /* BOACaptureModel.m */,
+				2E95D23C26A7E873007C7C18 /* BOAMapIDDataModel.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
