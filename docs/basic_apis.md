@@ -1,4 +1,4 @@
-# API
+# Basic API's
 
 ## init
 The `init` method is used for initializing SDK. This sets all required configurations and also sends system event `sdk_start` which allows it to record user.
