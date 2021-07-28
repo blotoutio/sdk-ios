@@ -1,20 +1,25 @@
 # Integration
 
-## Download Link
-
-[https://assets.blotout.io/latest/sdk/ios.zip](https://assets.blotout.io/latest/sdk/ios.zip)
-
 ## Add Blotout Analytics SDK into your project
+Blotout Analytics SDK is available through CocoaPods. To install it, simply follow below steps:
 
-To add the SDK to the Xcode project, simply drag the “SDK Library“ folder into your Xcode project and follow the on screen instructions. Please refer to the image below for recommended settings, click finish.
+### CocoaPods
 
-![Screenshot](assets/images/sdkintegration.png)
+Use [CocoaPods](http://www.cocoapods.org). Cocoapods is a dependency manager for Cocoa projects. For usage visit their website.
+
+1. To install CocoaPods, run `sudo gem install cocoapods` in your console.
+2. Change the directory on the terminal to the Xcode project file (.xcodeproj)'s location. `cd ~/BlotoutDemo`
+3. Run `touch Podfile` on the terminal to create the Podfile in that directory.
+4. Now open the pod file created in previous step and add `pod 'Blotout-Analytics'` to your *Podfile*.
+5. Install the pod(s) by running `pod install`.
+6. Moving forward open the project using workspace file (.xcworkspace)
+7. Add `import Blotout_Analytics` in the .swift files where you want to use it.
 
 ## Initialization
 
 ### Option 1 Objective-C:
 
-```js
+```ios
 #import "BlotoutAnalytics.h"
 #import "BlotoutAnalyticsConfiguration.h"
     
@@ -31,7 +36,7 @@ To add the SDK to the Xcode project, simply drag the “SDK Library“ folder in
 ```
 
 ### Option 2 Swift:
-```js
+```ios
 func boSDKInit() throws -> Void {
     let boaSDK : BlotoutAnalytics
     boaSDK =  BlotoutAnalytics.sharedInstance()!
