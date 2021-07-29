@@ -1,0 +1,5 @@
+target ‘SampleAppObjc’ do
+
+pod 'Blotout-Analytics'
+
+end
