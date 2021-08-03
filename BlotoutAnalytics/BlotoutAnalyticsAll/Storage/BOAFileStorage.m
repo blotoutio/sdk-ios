@@ -121,16 +121,21 @@
 }
 
 - (NSData *_Nullable)dataFromPlist:(nonnull id)plist {
-  NSError *error = nil;
-  NSData *data = [NSPropertyListSerialization dataWithPropertyList:plist
-                                                            format:NSPropertyListXMLFormat_v1_0
-                                                           options:0
-                                                             error:&error];
-  if (error) {
-    BOFLogDebug(@"Unable to serialize data from plist object", error, plist);
-  }
-  
-  return data;
+    @try{
+        NSError *error = nil;
+        NSData *data = [NSPropertyListSerialization dataWithPropertyList:plist
+                                                                  format:NSPropertyListXMLFormat_v1_0
+                                                                 options:0
+                                                                   error:&error];
+        if (error) {
+            BOFLogDebug(@"Unable to serialize data from plist object", error, plist);
+        }
+        
+        return data;
+    }@catch(NSException *exception) {
+        return nil;
+    }
+    
 }
 
 - (id _Nullable)plistFromData:(NSData *_Nonnull)data {
