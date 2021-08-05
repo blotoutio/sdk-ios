@@ -13,6 +13,7 @@
 #import "BOANetworkConstants.h"
 #import "NSError+BOAdditions.h"
 #import "BOASDKManifest.h"
+#import "BOEventsOperationExecutor.h"
 
 @implementation BOManifestAPI
 
@@ -23,17 +24,22 @@
     [urlRequest setHTTPMethod:EPAPostAPI];
     [urlRequest setAllHTTPHeaderFields:[self prepareRequestHeaders]];
     
+     
     [BONetworkManager asyncRequest:urlRequest success:^(id data, NSURLResponse *dataResponse) {
-      data = [self checkForNullValue:data];
+   
+        __block id blockData = data;
+        [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+            blockData = [self checkForNullValue:blockData];
       NSError *manifestReadError;
-      BOASDKManifest *sdkManifestM = [BOASDKManifest fromData:data error:&manifestReadError];
+      BOASDKManifest *sdkManifestM = [BOASDKManifest fromData:blockData error:&manifestReadError];
       if (manifestReadError == nil) {
-        success(sdkManifestM, data);
+        success(sdkManifestM, blockData);
         return;
       }
       
       NSError *error = [NSError boErrorForCode:BOErrorParsingError withMessage:nil];
       failure(error);
+        }];
     } failure:^(id data, NSURLResponse *dataResponse, NSError *error) {
       failure(error);
     }];

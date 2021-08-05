@@ -13,12 +13,10 @@
 		74E302D5242BEE8D0092A81C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E302D3242BEE8D0092A81C /* Main.storyboard */; };
 		74E302D7242BEE8F0092A81C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74E302D6242BEE8F0092A81C /* Assets.xcassets */; };
 		74E302DA242BEE8F0092A81C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E302D8242BEE8F0092A81C /* LaunchScreen.storyboard */; };
-		74E302E8242BEF760092A81C /* libBlotoutAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E302E6242BEF760092A81C /* libBlotoutAnalytics.a */; };
 		74E302EC242BEFF30092A81C /* ObjcLibraryHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E302EB242BEFF30092A81C /* ObjcLibraryHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B71D70425FCD3A2003D5186 /* BlotoutAnalyticsConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsConfiguration.h; sourceTree = "<group>"; };
 		74E302CA242BEE8D0092A81C /* SampleAppSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E302CD242BEE8D0092A81C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74E302CF242BEE8D0092A81C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,8 +25,6 @@
 		74E302D6242BEE8F0092A81C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74E302D9242BEE8F0092A81C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74E302DB242BEE8F0092A81C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		74E302E6242BEF760092A81C /* libBlotoutAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBlotoutAnalytics.a; sourceTree = "<group>"; };
-		74E302E7242BEF760092A81C /* BlotoutAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 		74E302E9242BEFF20092A81C /* SampleAppSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleAppSwift-Bridging-Header.h"; sourceTree = "<group>"; };
 		74E302EA242BEFF30092A81C /* ObjcLibraryHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjcLibraryHandler.h; sourceTree = "<group>"; };
 		74E302EB242BEFF30092A81C /* ObjcLibraryHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcLibraryHandler.m; sourceTree = "<group>"; };
@@ -39,7 +35,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74E302E8242BEF760092A81C /* libBlotoutAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,7 +44,6 @@
 		74E302C1242BEE8D0092A81C = {
 			isa = PBXGroup;
 			children = (
-				74E302E5242BEF760092A81C /* BlotoutSDK */,
 				74E302CC242BEE8D0092A81C /* SampleAppSwift */,
 				74E302CB242BEE8D0092A81C /* Products */,
 			);
@@ -78,16 +72,6 @@
 				74E302E9242BEFF20092A81C /* SampleAppSwift-Bridging-Header.h */,
 			);
 			path = SampleAppSwift;
-			sourceTree = "<group>";
-		};
-		74E302E5242BEF760092A81C /* BlotoutSDK */ = {
-			isa = PBXGroup;
-			children = (
-				2B71D70425FCD3A2003D5186 /* BlotoutAnalyticsConfiguration.h */,
-				74E302E6242BEF760092A81C /* libBlotoutAnalytics.a */,
-				74E302E7242BEF760092A81C /* BlotoutAnalytics.h */,
-			);
-			path = BlotoutSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,0 +1,5 @@
+target ‘SampleAppSwift’ do
+
+pod 'Blotout-Analytics'
+
+end

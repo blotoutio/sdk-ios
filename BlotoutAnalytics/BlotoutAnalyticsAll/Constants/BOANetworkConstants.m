@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 
 int const BOSDK_MAJOR_VERSION = 0;
-int const BOSDK_MINOR_VERSION = 8;
-int const BOSDK_PATCH_VERSION = 0;
+int const BOSDK_MINOR_VERSION = 9;
+int const BOSDK_PATCH_VERSION = 1;
 
 NSString *BO_GET = @"GET";
 NSString *BO_POST = @"POST";
