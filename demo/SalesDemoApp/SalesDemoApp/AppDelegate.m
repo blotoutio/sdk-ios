@@ -60,7 +60,7 @@
     
     //Test inProductionMode Yes/No and InDev mode also
     NSLog(@"start = %f", [[NSDate date] timeIntervalSince1970]);
-    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"P8X3A6EF334A2E3" withUrl:@"https://stage.blotout.io/sdk"];
+    BlotoutAnalyticsConfiguration *config = [BlotoutAnalyticsConfiguration configurationWithToken:@"X5THPQXV3K5D9GA" withUrl:@"https://sandbox.blotout.io/sdk"];
     config.application = application;
     config.launchOptions = launchOptions;
     boaObj.enableSDKLog = YES;
