@@ -10,7 +10,7 @@
 
 int const BOSDK_MAJOR_VERSION = 0;
 int const BOSDK_MINOR_VERSION = 9;
-int const BOSDK_PATCH_VERSION = 1;
+int const BOSDK_PATCH_VERSION = 2;
 
 NSString *BO_GET = @"GET";
 NSString *BO_POST = @"POST";
