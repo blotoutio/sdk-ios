@@ -35,9 +35,12 @@
   switch (endPoint) {
     case BOUrlEndPointEventPublish: {
       url = [NSString stringWithFormat:@"%@/%@", [self getBaseServerUrl],BO_SDK_REST_API_EVENTS_PUSH_PATH];
+      break;
     }
-    case BOUrlEndPointManifestPull:
+    case BOUrlEndPointManifestPull: {
       url = [NSString stringWithFormat:@"%@/%@", [self getBaseServerUrl], BO_SDK_REST_API_MANIFEST_PULL_PATH];
+      break;
+    }
   }
   
   return [NSString stringWithFormat:@"%@?token=%@", url, [BlotoutAnalytics sharedInstance].token];
