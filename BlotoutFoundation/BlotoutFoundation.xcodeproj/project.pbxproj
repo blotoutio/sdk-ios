@@ -7,117 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2BCB87972327C5B800AD2390 /* BOReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB87952327C5B800AD2390 /* BOReachability.m */; };
-		2BCB87982327C5B800AD2390 /* BOReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB87952327C5B800AD2390 /* BOReachability.m */; };
-		2BCB87992327C6A400AD2390 /* BOReachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BCB87962327C5B800AD2390 /* BOReachability.h */; };
-		2BCB879A2327C6CA00AD2390 /* BOReachability.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BCB87962327C5B800AD2390 /* BOReachability.h */; };
-		2BFA197A251B0AEC008DE9F4 /* BOCrypt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E893FD8A24D5971000EDE4DD /* BOCrypt.h */; };
-		2BFA197B251B0BA5008DE9F4 /* BOCrypt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E893FD8A24D5971000EDE4DD /* BOCrypt.h */; };
-		7435E8B122E98F5C008480B8 /* BlotoutFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */; };
-		7435E8B222E98F5C008480B8 /* BlotoutFoundation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */; };
-		746C66B122EEC79C00C71698 /* BOFUserDefaults.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */; };
-		746C66B222EEC7A200C71698 /* BOFConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1C22EC877F006BE5AD /* BOFConstants.h */; };
-		746C66B322EEC7B100C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */; };
-		746C66B422EEC7C200C71698 /* BOFFileSystemManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1F22EC9175006BE5AD /* BOFFileSystemManager.h */; };
-		746C66B622EEC7D500C71698 /* BOFFileSystemManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1F22EC9175006BE5AD /* BOFFileSystemManager.h */; };
-		746C66B722EEC7D900C71698 /* BOFUserDefaults.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */; };
-		746C66B822EEC7DF00C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */; };
-		746C66B922EEC7E400C71698 /* BOFConstants.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1C22EC877F006BE5AD /* BOFConstants.h */; };
-		74A8CD3123001C6900C87CC0 /* BOFNetworkPromiseProtocols.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1022EC844A006BE5AD /* BOFNetworkPromiseProtocols.h */; };
-		74A92C7A22EB07BD006BE5AD /* BlotoutFoundationWatchOS.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92C7722EB07BD006BE5AD /* BlotoutFoundationWatchOS.h */; };
-		74A92D6222EB08BB006BE5AD /* BlotoutFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */; };
-		74A92D6322EB091D006BE5AD /* BlotoutFoundation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */; };
-		74A92E0422EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0322EB1A0C006BE5AD /* BOFNetworkPromise.m */; };
-		74A92E0522EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0322EB1A0C006BE5AD /* BOFNetworkPromise.m */; };
-		74A92E0622EB1A32006BE5AD /* BOFNetworkPromise.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0222EB1A0C006BE5AD /* BOFNetworkPromise.h */; };
-		74A92E0722EB1A4B006BE5AD /* BOFNetworkPromise.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E0222EB1A0C006BE5AD /* BOFNetworkPromise.h */; };
-		74A92E0C22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0B22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m */; };
-		74A92E0D22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0B22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m */; };
-		74A92E1822EC85CE006BE5AD /* BOFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E1622EC85CE006BE5AD /* BOFUtilities.m */; };
-		74A92E1922EC85CE006BE5AD /* BOFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E1622EC85CE006BE5AD /* BOFUtilities.m */; };
-		74A92E1A22EC85DE006BE5AD /* BOFUtilities.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1722EC85CE006BE5AD /* BOFUtilities.h */; };
-		74A92E1B22EC85E6006BE5AD /* BOFUtilities.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74A92E1722EC85CE006BE5AD /* BOFUtilities.h */; };
-		74A92E2122EC9175006BE5AD /* BOFFileSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */; };
-		74A92E2222EC9175006BE5AD /* BOFFileSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */; };
-		74A92E4A22EDF929006BE5AD /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */; };
-		74A92E4B22EDF929006BE5AD /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */; };
-		74F9DAD823379FB700CBB160 /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F9DAD623379FB700CBB160 /* BOFLogs.m */; };
-		74F9DAD923379FB700CBB160 /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F9DAD623379FB700CBB160 /* BOFLogs.m */; };
-		74F9DAFF2337E63500CBB160 /* BOFLogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74F9DAD723379FB700CBB160 /* BOFLogs.h */; };
-		74F9DB002337E64500CBB160 /* BOFLogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 74F9DAD723379FB700CBB160 /* BOFLogs.h */; };
-		E893FD8724D5938B00EDE4DD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8124D5938B00EDE4DD /* NSData+Base64.m */; };
-		E893FD8824D5938B00EDE4DD /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8324D5938B00EDE4DD /* NSData+CommonCrypto.m */; };
-		E893FD8924D5938B00EDE4DD /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8524D5938B00EDE4DD /* NSString+Base64.m */; };
-		E893FD8C24D5971000EDE4DD /* BOCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8B24D5971000EDE4DD /* BOCrypt.m */; };
+		2B6BE34D26C3DEEB00EDD68A /* BlotoutFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6BE34426C3DEEB00EDD68A /* BlotoutFoundation.framework */; };
+		2B6BE35226C3DEEB00EDD68A /* BlotoutFoundationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE35126C3DEEB00EDD68A /* BlotoutFoundationTests.m */; };
+		2B6BE37026C3DF3700EDD68A /* BlotoutFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE36F26C3DF3700EDD68A /* BlotoutFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE37526C3E01500EDD68A /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F9DAD623379FB700CBB160 /* BOFLogs.m */; };
+		2B6BE37626C3E01500EDD68A /* BOFFileSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E2022EC9175006BE5AD /* BOFFileSystemManager.m */; };
+		2B6BE37726C3E01500EDD68A /* BOCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8B24D5971000EDE4DD /* BOCrypt.m */; };
+		2B6BE37826C3E01500EDD68A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8124D5938B00EDE4DD /* NSData+Base64.m */; };
+		2B6BE37926C3E01500EDD68A /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8324D5938B00EDE4DD /* NSData+CommonCrypto.m */; };
+		2B6BE37A26C3E01500EDD68A /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E893FD8524D5938B00EDE4DD /* NSString+Base64.m */; };
+		2B6BE37B26C3E01500EDD68A /* BOReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCB87952327C5B800AD2390 /* BOReachability.m */; };
+		2B6BE37C26C3E01500EDD68A /* BOFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E1622EC85CE006BE5AD /* BOFUtilities.m */; };
+		2B6BE37D26C3E01500EDD68A /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E4922EDF929006BE5AD /* BOFUserDefaults.m */; };
+		2B6BE37E26C3E01500EDD68A /* BOFNetworkPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0322EB1A0C006BE5AD /* BOFNetworkPromise.m */; };
+		2B6BE37F26C3E01500EDD68A /* BOFNetworkPromiseExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 74A92E0B22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m */; };
+		2B6BE38026C3E01600EDD68A /* BlotoutFoundationSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 7435E8B022E98F5C008480B8 /* BlotoutFoundationSDK.m */; };
+		2B6BE38326C3E03000EDD68A /* BOFLogs.h in Headers */ = {isa = PBXBuildFile; fileRef = 74F9DAD723379FB700CBB160 /* BOFLogs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38426C3E03000EDD68A /* BOFFileSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E1F22EC9175006BE5AD /* BOFFileSystemManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38526C3E03000EDD68A /* BOCrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = E893FD8A24D5971000EDE4DD /* BOCrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38626C3E03000EDD68A /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = E893FD8024D5938B00EDE4DD /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38726C3E03000EDD68A /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = E893FD8224D5938B00EDE4DD /* NSData+CommonCrypto.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38826C3E03000EDD68A /* NSString+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = E893FD8424D5938B00EDE4DD /* NSString+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38926C3E03000EDD68A /* BOReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BCB87962327C5B800AD2390 /* BOReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38A26C3E03000EDD68A /* BOFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E1722EC85CE006BE5AD /* BOFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38B26C3E03000EDD68A /* BOFUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E4822EDF929006BE5AD /* BOFUserDefaults.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38C26C3E03000EDD68A /* BOFNetworkPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E0222EB1A0C006BE5AD /* BOFNetworkPromise.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38D26C3E03000EDD68A /* BOFNetworkPromiseExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38E26C3E03000EDD68A /* BOFNetworkPromise_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E0E22EC82D3006BE5AD /* BOFNetworkPromise_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE38F26C3E03000EDD68A /* BOFNetworkPromiseExecutor_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E0F22EC8309006BE5AD /* BOFNetworkPromiseExecutor_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE39026C3E03000EDD68A /* BOFNetworkPromiseProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E1022EC844A006BE5AD /* BOFNetworkPromiseProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE39126C3E03000EDD68A /* BOFConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A92E1C22EC877F006BE5AD /* BOFConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE39B26C3E1F800EDD68A /* BlotoutFoundationSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE39826C3E11000EDD68A /* BlotoutFoundationSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		7435E8AA22E98F5C008480B8 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				2BFA197B251B0BA5008DE9F4 /* BOCrypt.h in CopyFiles */,
-				2BCB879A2327C6CA00AD2390 /* BOReachability.h in CopyFiles */,
-				74F9DAFF2337E63500CBB160 /* BOFLogs.h in CopyFiles */,
-				7435E8B222E98F5C008480B8 /* BlotoutFoundation.h in CopyFiles */,
-				74A92E0622EB1A32006BE5AD /* BOFNetworkPromise.h in CopyFiles */,
-				746C66B622EEC7D500C71698 /* BOFFileSystemManager.h in CopyFiles */,
-				74A8CD3123001C6900C87CC0 /* BOFNetworkPromiseProtocols.h in CopyFiles */,
-				746C66B822EEC7DF00C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */,
-				746C66B922EEC7E400C71698 /* BOFConstants.h in CopyFiles */,
-				746C66B722EEC7D900C71698 /* BOFUserDefaults.h in CopyFiles */,
-				74A92E1A22EC85DE006BE5AD /* BOFUtilities.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
+/* Begin PBXContainerItemProxy section */
+		2B6BE34E26C3DEEB00EDD68A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7435E8A422E98F5C008480B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B6BE34326C3DEEB00EDD68A;
+			remoteInfo = BlotoutFoundation;
 		};
-		74A92C6622EB07A9006BE5AD /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				2BFA197A251B0AEC008DE9F4 /* BOCrypt.h in CopyFiles */,
-				2BCB87992327C6A400AD2390 /* BOReachability.h in CopyFiles */,
-				746C66B322EEC7B100C71698 /* BOFNetworkPromiseExecutor.h in CopyFiles */,
-				74F9DB002337E64500CBB160 /* BOFLogs.h in CopyFiles */,
-				746C66B222EEC7A200C71698 /* BOFConstants.h in CopyFiles */,
-				746C66B122EEC79C00C71698 /* BOFUserDefaults.h in CopyFiles */,
-				746C66B422EEC7C200C71698 /* BOFFileSystemManager.h in CopyFiles */,
-				74A92D6322EB091D006BE5AD /* BlotoutFoundation.h in CopyFiles */,
-				74A92E0722EB1A4B006BE5AD /* BOFNetworkPromise.h in CopyFiles */,
-				74A92E1B22EC85E6006BE5AD /* BOFUtilities.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		74A92C7322EB07BD006BE5AD /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-				74A92C7A22EB07BD006BE5AD /* BlotoutFoundationWatchOS.h in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B6BE34426C3DEEB00EDD68A /* BlotoutFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlotoutFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6BE34726C3DEEB00EDD68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B6BE34C26C3DEEB00EDD68A /* BlotoutFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlotoutFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6BE35126C3DEEB00EDD68A /* BlotoutFoundationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationTests.m; sourceTree = "<group>"; };
+		2B6BE35326C3DEEB00EDD68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B6BE36F26C3DF3700EDD68A /* BlotoutFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundation.h; sourceTree = "<group>"; };
+		2B6BE39826C3E11000EDD68A /* BlotoutFoundationSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundationSDK.h; sourceTree = "<group>"; };
 		2BCB87952327C5B800AD2390 /* BOReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOReachability.m; sourceTree = "<group>"; };
 		2BCB87962327C5B800AD2390 /* BOReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOReachability.h; sourceTree = "<group>"; };
-		7435E8AC22E98F5C008480B8 /* libBlotoutFoundation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundation.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundation.h; sourceTree = "<group>"; };
-		7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundation.m; sourceTree = "<group>"; };
-		74A92C6822EB07A9006BE5AD /* libBlotoutFoundationTVOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundationTVOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		74A92C6A22EB07A9006BE5AD /* BlotoutFoundationTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundationTVOS.h; sourceTree = "<group>"; };
-		74A92C6B22EB07A9006BE5AD /* BlotoutFoundationTVOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationTVOS.m; sourceTree = "<group>"; };
-		74A92C7522EB07BD006BE5AD /* libBlotoutFoundationWatchOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundationWatchOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		74A92C7722EB07BD006BE5AD /* BlotoutFoundationWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundationWatchOS.h; sourceTree = "<group>"; };
-		74A92C7822EB07BD006BE5AD /* BlotoutFoundationWatchOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationWatchOS.m; sourceTree = "<group>"; };
-		74A92C8222EB07CE006BE5AD /* libBlotoutFoundationMacOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBlotoutFoundationMacOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		74A92C8422EB07CE006BE5AD /* BlotoutFoundationMacOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutFoundationMacOS.h; sourceTree = "<group>"; };
-		74A92C8622EB07CE006BE5AD /* BlotoutFoundationMacOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationMacOS.m; sourceTree = "<group>"; };
+		7435E8B022E98F5C008480B8 /* BlotoutFoundationSDK.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutFoundationSDK.m; sourceTree = "<group>"; };
 		74A92E0222EB1A0C006BE5AD /* BOFNetworkPromise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromise.h; sourceTree = "<group>"; };
 		74A92E0322EB1A0C006BE5AD /* BOFNetworkPromise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOFNetworkPromise.m; sourceTree = "<group>"; };
 		74A92E0A22EC818D006BE5AD /* BOFNetworkPromiseExecutor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromiseExecutor.h; sourceTree = "<group>"; };
@@ -145,45 +88,39 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7435E8A922E98F5C008480B8 /* Frameworks */ = {
+		2B6BE34126C3DEEB00EDD68A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74A92C6522EB07A9006BE5AD /* Frameworks */ = {
+		2B6BE34926C3DEEB00EDD68A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		74A92C7222EB07BD006BE5AD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		74A92C8022EB07CE006BE5AD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				2B6BE34D26C3DEEB00EDD68A /* BlotoutFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B6BE35026C3DEEB00EDD68A /* BlotoutFoundationTests */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE35126C3DEEB00EDD68A /* BlotoutFoundationTests.m */,
+				2B6BE35326C3DEEB00EDD68A /* Info.plist */,
+			);
+			path = BlotoutFoundationTests;
+			sourceTree = "<group>";
+		};
 		7435E8A322E98F5C008480B8 = {
 			isa = PBXGroup;
 			children = (
 				74A92D7622EB0AC8006BE5AD /* BlotoutFoundationAll */,
 				7435E8AE22E98F5C008480B8 /* BlotoutFoundation */,
-				74A92C6922EB07A9006BE5AD /* BlotoutFoundationTVOS */,
-				74A92C7622EB07BD006BE5AD /* BlotoutFoundationWatchOS */,
-				74A92C8322EB07CE006BE5AD /* BlotoutFoundationMacOS */,
+				2B6BE35026C3DEEB00EDD68A /* BlotoutFoundationTests */,
 				7435E8AD22E98F5C008480B8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -191,10 +128,8 @@
 		7435E8AD22E98F5C008480B8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7435E8AC22E98F5C008480B8 /* libBlotoutFoundation.a */,
-				74A92C6822EB07A9006BE5AD /* libBlotoutFoundationTVOS.a */,
-				74A92C7522EB07BD006BE5AD /* libBlotoutFoundationWatchOS.a */,
-				74A92C8222EB07CE006BE5AD /* libBlotoutFoundationMacOS.a */,
+				2B6BE34426C3DEEB00EDD68A /* BlotoutFoundation.framework */,
+				2B6BE34C26C3DEEB00EDD68A /* BlotoutFoundationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,37 +137,12 @@
 		7435E8AE22E98F5C008480B8 /* BlotoutFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				7435E8AF22E98F5C008480B8 /* BlotoutFoundation.h */,
-				7435E8B022E98F5C008480B8 /* BlotoutFoundation.m */,
+				2B6BE36F26C3DF3700EDD68A /* BlotoutFoundation.h */,
+				2B6BE39826C3E11000EDD68A /* BlotoutFoundationSDK.h */,
+				7435E8B022E98F5C008480B8 /* BlotoutFoundationSDK.m */,
+				2B6BE34726C3DEEB00EDD68A /* Info.plist */,
 			);
 			path = BlotoutFoundation;
-			sourceTree = "<group>";
-		};
-		74A92C6922EB07A9006BE5AD /* BlotoutFoundationTVOS */ = {
-			isa = PBXGroup;
-			children = (
-				74A92C6A22EB07A9006BE5AD /* BlotoutFoundationTVOS.h */,
-				74A92C6B22EB07A9006BE5AD /* BlotoutFoundationTVOS.m */,
-			);
-			path = BlotoutFoundationTVOS;
-			sourceTree = "<group>";
-		};
-		74A92C7622EB07BD006BE5AD /* BlotoutFoundationWatchOS */ = {
-			isa = PBXGroup;
-			children = (
-				74A92C7722EB07BD006BE5AD /* BlotoutFoundationWatchOS.h */,
-				74A92C7822EB07BD006BE5AD /* BlotoutFoundationWatchOS.m */,
-			);
-			path = BlotoutFoundationWatchOS;
-			sourceTree = "<group>";
-		};
-		74A92C8322EB07CE006BE5AD /* BlotoutFoundationMacOS */ = {
-			isa = PBXGroup;
-			children = (
-				74A92C8422EB07CE006BE5AD /* BlotoutFoundationMacOS.h */,
-				74A92C8622EB07CE006BE5AD /* BlotoutFoundationMacOS.m */,
-			);
-			path = BlotoutFoundationMacOS;
 			sourceTree = "<group>";
 		};
 		74A92D7622EB0AC8006BE5AD /* BlotoutFoundationAll */ = {
@@ -311,23 +221,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		74A92C7E22EB07CE006BE5AD /* Headers */ = {
+		2B6BE33F26C3DEEB00EDD68A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B6BE38326C3E03000EDD68A /* BOFLogs.h in Headers */,
+				2B6BE38426C3E03000EDD68A /* BOFFileSystemManager.h in Headers */,
+				2B6BE38526C3E03000EDD68A /* BOCrypt.h in Headers */,
+				2B6BE38626C3E03000EDD68A /* NSData+Base64.h in Headers */,
+				2B6BE38726C3E03000EDD68A /* NSData+CommonCrypto.h in Headers */,
+				2B6BE38826C3E03000EDD68A /* NSString+Base64.h in Headers */,
+				2B6BE38926C3E03000EDD68A /* BOReachability.h in Headers */,
+				2B6BE38A26C3E03000EDD68A /* BOFUtilities.h in Headers */,
+				2B6BE38B26C3E03000EDD68A /* BOFUserDefaults.h in Headers */,
+				2B6BE38C26C3E03000EDD68A /* BOFNetworkPromise.h in Headers */,
+				2B6BE38D26C3E03000EDD68A /* BOFNetworkPromiseExecutor.h in Headers */,
+				2B6BE38E26C3E03000EDD68A /* BOFNetworkPromise_Private.h in Headers */,
+				2B6BE38F26C3E03000EDD68A /* BOFNetworkPromiseExecutor_Private.h in Headers */,
+				2B6BE39026C3E03000EDD68A /* BOFNetworkPromiseProtocols.h in Headers */,
+				2B6BE39126C3E03000EDD68A /* BOFConstants.h in Headers */,
+				2B6BE39B26C3E1F800EDD68A /* BlotoutFoundationSDK.h in Headers */,
+				2B6BE37026C3DF3700EDD68A /* BlotoutFoundation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		7435E8AB22E98F5C008480B8 /* BlotoutFoundation */ = {
+		2B6BE34326C3DEEB00EDD68A /* BlotoutFoundation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7435E8B522E98F5C008480B8 /* Build configuration list for PBXNativeTarget "BlotoutFoundation" */;
+			buildConfigurationList = 2B6BE35526C3DEEB00EDD68A /* Build configuration list for PBXNativeTarget "BlotoutFoundation" */;
 			buildPhases = (
-				7435E8A822E98F5C008480B8 /* Sources */,
-				7435E8A922E98F5C008480B8 /* Frameworks */,
-				7435E8AA22E98F5C008480B8 /* CopyFiles */,
+				2B6BE33F26C3DEEB00EDD68A /* Headers */,
+				2B6BE34026C3DEEB00EDD68A /* Sources */,
+				2B6BE34126C3DEEB00EDD68A /* Frameworks */,
+				2B6BE34226C3DEEB00EDD68A /* Resources */,
 			);
 			buildRules = (
 			);
@@ -335,59 +263,26 @@
 			);
 			name = BlotoutFoundation;
 			productName = BlotoutFoundation;
-			productReference = 7435E8AC22E98F5C008480B8 /* libBlotoutFoundation.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 2B6BE34426C3DEEB00EDD68A /* BlotoutFoundation.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		74A92C6722EB07A9006BE5AD /* BlotoutFoundationTVOS */ = {
+		2B6BE34B26C3DEEB00EDD68A /* BlotoutFoundationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 74A92C6E22EB07A9006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationTVOS" */;
+			buildConfigurationList = 2B6BE35826C3DEEB00EDD68A /* Build configuration list for PBXNativeTarget "BlotoutFoundationTests" */;
 			buildPhases = (
-				74A92C6422EB07A9006BE5AD /* Sources */,
-				74A92C6522EB07A9006BE5AD /* Frameworks */,
-				74A92C6622EB07A9006BE5AD /* CopyFiles */,
+				2B6BE34826C3DEEB00EDD68A /* Sources */,
+				2B6BE34926C3DEEB00EDD68A /* Frameworks */,
+				2B6BE34A26C3DEEB00EDD68A /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2B6BE34F26C3DEEB00EDD68A /* PBXTargetDependency */,
 			);
-			name = BlotoutFoundationTVOS;
-			productName = BlotoutFoundationTVOS;
-			productReference = 74A92C6822EB07A9006BE5AD /* libBlotoutFoundationTVOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		74A92C7422EB07BD006BE5AD /* BlotoutFoundationWatchOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 74A92C7B22EB07BD006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationWatchOS" */;
-			buildPhases = (
-				74A92C7122EB07BD006BE5AD /* Sources */,
-				74A92C7222EB07BD006BE5AD /* Frameworks */,
-				74A92C7322EB07BD006BE5AD /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BlotoutFoundationWatchOS;
-			productName = BlotoutFoundationWatchOS;
-			productReference = 74A92C7522EB07BD006BE5AD /* libBlotoutFoundationWatchOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		74A92C8122EB07CE006BE5AD /* BlotoutFoundationMacOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 74A92C8822EB07CE006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationMacOS" */;
-			buildPhases = (
-				74A92C7E22EB07CE006BE5AD /* Headers */,
-				74A92C7F22EB07CE006BE5AD /* Sources */,
-				74A92C8022EB07CE006BE5AD /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = BlotoutFoundationMacOS;
-			productName = BlotoutFoundationMacOS;
-			productReference = 74A92C8222EB07CE006BE5AD /* libBlotoutFoundationMacOS.a */;
-			productType = "com.apple.product-type.library.static";
+			name = BlotoutFoundationTests;
+			productName = BlotoutFoundationTests;
+			productReference = 2B6BE34C26C3DEEB00EDD68A /* BlotoutFoundationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -398,17 +293,11 @@
 				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = Blotout;
 				TargetAttributes = {
-					7435E8AB22E98F5C008480B8 = {
-						CreatedOnToolsVersion = 10.3;
+					2B6BE34326C3DEEB00EDD68A = {
+						CreatedOnToolsVersion = 12.4;
 					};
-					74A92C6722EB07A9006BE5AD = {
-						CreatedOnToolsVersion = 10.3;
-					};
-					74A92C7422EB07BD006BE5AD = {
-						CreatedOnToolsVersion = 10.3;
-					};
-					74A92C8122EB07CE006BE5AD = {
-						CreatedOnToolsVersion = 10.3;
+					2B6BE34B26C3DEEB00EDD68A = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -425,66 +314,156 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7435E8AB22E98F5C008480B8 /* BlotoutFoundation */,
-				74A92C6722EB07A9006BE5AD /* BlotoutFoundationTVOS */,
-				74A92C7422EB07BD006BE5AD /* BlotoutFoundationWatchOS */,
-				74A92C8122EB07CE006BE5AD /* BlotoutFoundationMacOS */,
+				2B6BE34326C3DEEB00EDD68A /* BlotoutFoundation */,
+				2B6BE34B26C3DEEB00EDD68A /* BlotoutFoundationTests */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		2B6BE34226C3DEEB00EDD68A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2B6BE34A26C3DEEB00EDD68A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		7435E8A822E98F5C008480B8 /* Sources */ = {
+		2B6BE34026C3DEEB00EDD68A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BCB87972327C5B800AD2390 /* BOReachability.m in Sources */,
-				74A92E1822EC85CE006BE5AD /* BOFUtilities.m in Sources */,
-				E893FD8C24D5971000EDE4DD /* BOCrypt.m in Sources */,
-				74F9DAD823379FB700CBB160 /* BOFLogs.m in Sources */,
-				74A92E0422EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */,
-				E893FD8824D5938B00EDE4DD /* NSData+CommonCrypto.m in Sources */,
-				E893FD8724D5938B00EDE4DD /* NSData+Base64.m in Sources */,
-				74A92E4A22EDF929006BE5AD /* BOFUserDefaults.m in Sources */,
-				7435E8B122E98F5C008480B8 /* BlotoutFoundation.m in Sources */,
-				74A92E2122EC9175006BE5AD /* BOFFileSystemManager.m in Sources */,
-				E893FD8924D5938B00EDE4DD /* NSString+Base64.m in Sources */,
-				74A92E0C22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */,
+				2B6BE37526C3E01500EDD68A /* BOFLogs.m in Sources */,
+				2B6BE37626C3E01500EDD68A /* BOFFileSystemManager.m in Sources */,
+				2B6BE37726C3E01500EDD68A /* BOCrypt.m in Sources */,
+				2B6BE37826C3E01500EDD68A /* NSData+Base64.m in Sources */,
+				2B6BE37926C3E01500EDD68A /* NSData+CommonCrypto.m in Sources */,
+				2B6BE37A26C3E01500EDD68A /* NSString+Base64.m in Sources */,
+				2B6BE37B26C3E01500EDD68A /* BOReachability.m in Sources */,
+				2B6BE37C26C3E01500EDD68A /* BOFUtilities.m in Sources */,
+				2B6BE37D26C3E01500EDD68A /* BOFUserDefaults.m in Sources */,
+				2B6BE37E26C3E01500EDD68A /* BOFNetworkPromise.m in Sources */,
+				2B6BE37F26C3E01500EDD68A /* BOFNetworkPromiseExecutor.m in Sources */,
+				2B6BE38026C3E01600EDD68A /* BlotoutFoundationSDK.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		74A92C6422EB07A9006BE5AD /* Sources */ = {
+		2B6BE34826C3DEEB00EDD68A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BCB87982327C5B800AD2390 /* BOReachability.m in Sources */,
-				74A92E1922EC85CE006BE5AD /* BOFUtilities.m in Sources */,
-				74F9DAD923379FB700CBB160 /* BOFLogs.m in Sources */,
-				74A92E0522EB1A0C006BE5AD /* BOFNetworkPromise.m in Sources */,
-				74A92E4B22EDF929006BE5AD /* BOFUserDefaults.m in Sources */,
-				74A92D6222EB08BB006BE5AD /* BlotoutFoundation.m in Sources */,
-				74A92E2222EC9175006BE5AD /* BOFFileSystemManager.m in Sources */,
-				74A92E0D22EC818D006BE5AD /* BOFNetworkPromiseExecutor.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		74A92C7122EB07BD006BE5AD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		74A92C7F22EB07CE006BE5AD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				2B6BE35226C3DEEB00EDD68A /* BlotoutFoundationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2B6BE34F26C3DEEB00EDD68A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B6BE34326C3DEEB00EDD68A /* BlotoutFoundation */;
+			targetProxy = 2B6BE34E26C3DEEB00EDD68A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		2B6BE35626C3DEEB00EDD68A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = BlotoutFoundation/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blotout.BlotoutFoundation;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2B6BE35726C3DEEB00EDD68A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				INFOPLIST_FILE = BlotoutFoundation/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blotout.BlotoutFoundation;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2B6BE35926C3DEEB00EDD68A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BlotoutFoundationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blotout.BlotoutFoundationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2B6BE35A26C3DEEB00EDD68A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BlotoutFoundationTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blotout.BlotoutFoundationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		7435E8B322E98F5C008480B8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -512,7 +491,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -524,7 +503,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -538,7 +517,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -573,7 +552,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -585,7 +564,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -593,7 +572,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -601,158 +580,32 @@
 			};
 			name = Release;
 		};
-		7435E8B622E98F5C008480B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		7435E8B722E98F5C008480B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		74A92C6F22EB07A9006BE5AD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.4;
-			};
-			name = Debug;
-		};
-		74A92C7022EB07A9006BE5AD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.4;
-			};
-			name = Release;
-		};
-		74A92C7C22EB07BD006BE5AD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.3;
-			};
-			name = Debug;
-		};
-		74A92C7D22EB07BD006BE5AD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 5.3;
-			};
-			name = Release;
-		};
-		74A92C8922EB07CE006BE5AD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				EXECUTABLE_PREFIX = lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		74A92C8A22EB07CE006BE5AD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6AX2KV37GF;
-				EXECUTABLE_PREFIX = lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2B6BE35526C3DEEB00EDD68A /* Build configuration list for PBXNativeTarget "BlotoutFoundation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B6BE35626C3DEEB00EDD68A /* Debug */,
+				2B6BE35726C3DEEB00EDD68A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2B6BE35826C3DEEB00EDD68A /* Build configuration list for PBXNativeTarget "BlotoutFoundationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B6BE35926C3DEEB00EDD68A /* Debug */,
+				2B6BE35A26C3DEEB00EDD68A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7435E8A722E98F5C008480B8 /* Build configuration list for PBXProject "BlotoutFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7435E8B322E98F5C008480B8 /* Debug */,
 				7435E8B422E98F5C008480B8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7435E8B522E98F5C008480B8 /* Build configuration list for PBXNativeTarget "BlotoutFoundation" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7435E8B622E98F5C008480B8 /* Debug */,
-				7435E8B722E98F5C008480B8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		74A92C6E22EB07A9006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationTVOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				74A92C6F22EB07A9006BE5AD /* Debug */,
-				74A92C7022EB07A9006BE5AD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		74A92C7B22EB07BD006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationWatchOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				74A92C7C22EB07BD006BE5AD /* Debug */,
-				74A92C7D22EB07BD006BE5AD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		74A92C8822EB07CE006BE5AD /* Build configuration list for PBXNativeTarget "BlotoutFoundationMacOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				74A92C8922EB07CE006BE5AD /* Debug */,
-				74A92C8A22EB07CE006BE5AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

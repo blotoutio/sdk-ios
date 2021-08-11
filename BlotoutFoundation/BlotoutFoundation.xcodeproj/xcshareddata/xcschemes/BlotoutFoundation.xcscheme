@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7435E8AB22E98F5C008480B8"
-               BuildableName = "libBlotoutFoundation.a"
+               BlueprintIdentifier = "2B6BE2A926C3C80700EDD68A"
+               BuildableName = "BlotoutFoundation.framework"
                BlueprintName = "BlotoutFoundation"
                ReferencedContainer = "container:BlotoutFoundation.xcodeproj">
             </BuildableReference>
@@ -50,8 +50,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7435E8AB22E98F5C008480B8"
-            BuildableName = "libBlotoutFoundation.a"
+            BlueprintIdentifier = "2B6BE2A926C3C80700EDD68A"
+            BuildableName = "BlotoutFoundation.framework"
             BlueprintName = "BlotoutFoundation"
             ReferencedContainer = "container:BlotoutFoundation.xcodeproj">
          </BuildableReference>

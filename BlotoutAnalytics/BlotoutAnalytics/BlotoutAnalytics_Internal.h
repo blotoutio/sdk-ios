@@ -11,11 +11,8 @@
 #import "BlotoutAnalytics.h"
 #import "BOADeveloperEvents.h"
 #import <BlotoutFoundation/BlotoutFoundation.h>
-#import <BlotoutFoundation/BOFFileSystemManager.h>
 #import "UIViewController+Extensions.h"
 #import "BOAUtilities.h"
-#import <BlotoutFoundation/BOFLogs.h>
-#import <BlotoutFoundation/BOFNetworkPromiseExecutor.h>
 #import "BOAEventsManager.h"
 #import "BOAStoreKitController.h"
 

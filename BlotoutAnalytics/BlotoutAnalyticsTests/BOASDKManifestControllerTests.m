@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "BOASDKManifestController.h"
 #import "BOASDKManifestConstants.h"
-#import <BlotoutFoundation/BOFUserDefaults.h>
+#import <BlotoutFoundation/BlotoutFoundation.h>
 #import "BlotoutAnalytics.h"
 
 

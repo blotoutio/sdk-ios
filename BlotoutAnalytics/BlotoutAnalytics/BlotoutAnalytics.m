@@ -10,7 +10,7 @@
  */
 
 #import "BlotoutAnalytics_Internal.h"
-#import <BlotoutFoundation/BOFFileSystemManager.h>
+#import <BlotoutFoundation/BlotoutFoundation.h>
 #import "NSError+BOAdditions.h"
 #import "BOSharedManager.h"
 #import "BOEventsOperationExecutor.h"
@@ -32,7 +32,7 @@ static id sBOASharedInstance = nil;
   self = [super init];
   if (self) {
     self.isEnabled = YES;
-    [BlotoutFoundation sharedInstance].isEnabled = YES;
+    [BlotoutFoundationSDK sharedInstance].isEnabled = YES;
     loadAsUIViewControllerBOFoundationCat();
     [BOSharedManager sharedInstance];
   }
@@ -59,7 +59,7 @@ static id sBOASharedInstance = nil;
     [BOFNetworkPromiseExecutor sharedInstance].isSDKEnabled = isEnabled;
     [BOFNetworkPromiseExecutor sharedInstanceForCampaign].isSDKEnabled = isEnabled;
     [BOFFileSystemManager setIsSDKEnabled:isEnabled];
-    [BlotoutFoundation sharedInstance].isEnabled = isEnabled;
+    [BlotoutFoundationSDK sharedInstance].isEnabled = isEnabled;
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }

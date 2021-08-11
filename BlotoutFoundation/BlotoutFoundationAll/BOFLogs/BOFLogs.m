@@ -14,7 +14,7 @@ void BOFLogDebug(NSString *frmt, ...) {
   if (![BOFLogs sharedInstance].isSDKLogEnabled) {
     return;
   }
-  
+
   @autoreleasepool {
     va_list args;
     va_start(args,frmt);

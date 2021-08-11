@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "BOAUtilities.h"
-#import <BlotoutFoundation/BOFUserDefaults.h>
+#import <BlotoutFoundation/BlotoutFoundation.h>
 #import "BOANetworkConstants.h"
 
 @interface BOAUtilitiesTests : XCTestCase
