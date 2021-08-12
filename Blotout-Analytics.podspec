@@ -22,7 +22,7 @@ IDs or IP Addresses.
   s.homepage         = "https://github.com/blotoutio/sdk-ios"
   s.license          =  {:file => 'LICENSE'}
   s.author           = { "Blotout" => "developers@blotout.io" }
-  s.source           = { :git => "https://github.com/BlotoutAnalytics/BlotoutAnalytics.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/blotoutio/sdk-ios.git", :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
   s.tvos.deployment_target = '10.0'
