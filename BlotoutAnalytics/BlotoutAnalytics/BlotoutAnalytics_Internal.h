@@ -10,7 +10,6 @@
 
 #import "BlotoutAnalytics.h"
 #import "BOADeveloperEvents.h"
-
 #import "UIViewController+Extensions.h"
 #import "BOAUtilities.h"
 #import "BOAEventsManager.h"

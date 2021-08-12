@@ -13,20 +13,6 @@
 #import "BlotoutAnalyticsConfiguration.h"
 #import "BOAMapIDDataModel.h"
 
-//! Project version number for BlotoutAnalyticsSDK.
-FOUNDATION_EXPORT double BlotoutAnalyticsVersionNumber;
-
-//! Project version string for BlotoutAnalyticsSDK.
-FOUNDATION_EXPORT const unsigned char BlotoutAnalyticsVersionString[];
-
-// In this header, you should import all the public headers of your framework using statements like #import <BlotoutAnalyticsSDK/PublicHeader.h>
-
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
-#import <BlotoutAnalytics/BlotoutAnalyticsConfiguration.h>
-#import <BlotoutAnalytics/BOAMapIDDataModel.h>
-#import <BlotoutAnalytics/BOACrypto.h>
-
-
 @interface BlotoutAnalytics : NSObject
 
 /**

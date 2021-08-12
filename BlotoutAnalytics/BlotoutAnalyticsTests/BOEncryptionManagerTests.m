@@ -6,9 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BOEncryptionManager.h"
-#import "BOAUtilities.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 @interface BOEncryptionManagerTests : XCTestCase
 

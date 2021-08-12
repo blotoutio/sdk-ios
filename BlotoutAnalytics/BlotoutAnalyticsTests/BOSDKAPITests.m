@@ -6,11 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BOAUtilities.h"
-#import "BlotoutAnalytics_Internal.h"
-#import "BOBaseAPI.h"
-#import "BOANetworkConstants.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 
 @interface BOSDKAPITests : XCTestCase

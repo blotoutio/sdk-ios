@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2B6BE15026C3A3A400EDD68A"
-               BuildableName = "BlotoutAnalytics.framework"
-               BlueprintName = "BlotoutAnalytics"
+               BuildableName = "BlotoutAnalyticsSDK.framework"
+               BlueprintName = "BlotoutAnalyticsSDK"
                ReferencedContainer = "container:BlotoutAnalytics.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,8 +51,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B6BE15026C3A3A400EDD68A"
-            BuildableName = "BlotoutAnalytics.framework"
-            BlueprintName = "BlotoutAnalytics"
+            BuildableName = "BlotoutAnalyticsSDK.framework"
+            BlueprintName = "BlotoutAnalyticsSDK"
             ReferencedContainer = "container:BlotoutAnalytics.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

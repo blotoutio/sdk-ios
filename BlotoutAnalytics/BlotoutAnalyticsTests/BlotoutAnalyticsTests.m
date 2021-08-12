@@ -6,8 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BlotoutAnalytics.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 @interface BlotoutAnalyticsTests : XCTestCase
 @property (nonatomic) BlotoutAnalytics *blotoutAnalytics;

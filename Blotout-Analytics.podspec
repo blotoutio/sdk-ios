@@ -24,10 +24,8 @@ IDs or IP Addresses.
   s.author           = { "Blotout" => "developers@blotout.io" }
   s.source           = { :git => "https://github.com/blotoutio/sdk-ios.git", :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
-  s.tvos.deployment_target = '10.0'
-  s.osx.deployment_target = '10.13'
-
+  s.ios.deployment_target = '12.0'
+  s.framework      = 'XCTest'
   s.source_files = [
     'BlotoutAnalytics/**/*.{h,m}',
   ]

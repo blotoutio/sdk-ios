@@ -6,8 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BOServerDataConverter.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 @interface BOServerDataConverterTests : XCTestCase
 

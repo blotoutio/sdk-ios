@@ -6,11 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BOASDKManifestController.h"
-#import "BOASDKManifestConstants.h"
-
-#import "BlotoutAnalytics.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 
 @interface BOASDKManifestControllerTests : XCTestCase
@@ -33,76 +30,6 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testRequiredValueUsingModelOfVariableNameKeyValueForEventCodifiedMergecounter {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_CodifiedMergeCounter];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredValueUsingModelOfVariableNameKeyValueForEventPushThresholdInterval {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_PushThreshold_Interval];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventPushThresholdInterval {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_PushThreshold_Interval];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventPushThresholdEventCounter {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_PushThreshold_EventCounter];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventGEOLocationGrain {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_GEOLocationGrain];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventSystemMergeCounter {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_SystemMergeCounter];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventOfflineInterval {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_Offline_Interval];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForLicenseExpireDayAlive {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:License_Expire_Day_Alive];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForIntervalManifestRefresh {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Interval_Manifest_Refresh];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForIntervalStoreEvents {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Interval_Store_Events];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForIntervalRetry {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Interval_Retry];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForApiEndpoint {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:API_ENDPOINT];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredVariableObjectUsingModelOfVariableNameKeyValueForEventPushSystemEvents {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:EVENT_PUSH_SYSTEM_EVENT];
-    XCTAssertTrue([variable.value boolValue], @"Can not find value for key in manifest");
-}
-
-- (void)testRequiredValueUsingModelOfVariableNameKeyValueForEventPushPIIEvents {
-    BOASDKVariable *variable = [self.objBOASDKManifestController getManifestVariable:self.objBOASDKManifestController.sdkManifestModel forValue:Event_Push_PII_Events];
-    XCTAssertNotNil(variable.value, @"Can not find value for key in manifest");
-}
 
 - (void)testIsManifestAvailable {
     BOOL status = [self.objBOASDKManifestController isManifestAvailable];
@@ -122,23 +49,6 @@
 - (void)testSdkManifestPathAfterWriting {
     NSString *manifestPath = [self.objBOASDKManifestController sdkManifestPathAfterWriting:[self manifestJsonString]];
     XCTAssertNotNil(manifestPath, @"Can not find manifest path");
-}
-
-- (void)testManifestRefreshInterval {
-    NSTimeInterval interval = [self.objBOASDKManifestController manifestRefreshInterval];
-    XCTAssertEqual(interval, 0);
-}
-
-- (void)testGetNumberFrom {
-    NSNumber *number = [self.objBOASDKManifestController getNumberFrom:@"5"];
-    XCTAssertEqual([number integerValue], 5);
-}
-
-- (void)testGetManifestVariable {
-    NSError *manifestReadError = nil;
-    BOASDKManifest *sdkManifestM = [BOASDKManifest fromJSON:[self manifestJsonString] encoding: NSUTF8StringEncoding error:&manifestReadError];
-    BOASDKVariable *codifiedMergeCounter = [self.objBOASDKManifestController getManifestVariable:sdkManifestM forValue: Event_CodifiedMergeCounter];
-    XCTAssertNotNil(codifiedMergeCounter);
 }
 
 - (NSString *)manifestJsonString {

@@ -6,10 +6,8 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
-#import "BOASDKManifestController.h"
-
-#import "BOAUtilities.h"
+@import XCTest;
+@import BlotoutAnalyticsSDK;
 
 @interface BOFFileSystemManagerTests : XCTestCase
 @property (nonatomic) BOASDKManifestController *objBOASDKManifestController;
@@ -38,12 +36,6 @@
     XCTAssertTrue(status, @"File doesn't exist at given path");
 }
 
-- (void)testGetCreationDateOfItemAtPath {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    NSDate *creationDate = [BOFFileSystemManager getCreationDateOfItemAtPath: path];
-    XCTAssertNotNil(creationDate, @"Get creation date of item at path failed");
-}
-
 - (void)testGetDocumentDirectoryPath {
     NSString *dirPath = [BOFFileSystemManager getDocumentDirectoryPath];
     XCTAssertNotNil(dirPath, @"Couldn't find directory path");
@@ -54,45 +46,10 @@
     XCTAssertNotNil(supportDirPath, @"Couldn't find application support directory path");
 }
 
-- (void)testGetApplicationCacheDirectoryPath {
-    NSString *cacheDirPath = [BOFFileSystemManager getApplicationCacheDirectoryPath];
-    XCTAssertNotNil(cacheDirPath, @"Couldn't find application Cache directory path");
-}
-
-- (void)testgetApplicationDownloadsDirectoryPath {
-    NSString *downloadDirPath = [BOFFileSystemManager getApplicationDownloadsDirectoryPath];
-    XCTAssertNotNil(downloadDirPath, @"Couldn't find application download directory path");
-}
 
 - (void)testGetBOSDKRootDirecoty {
     NSString *rootDir = [BOFFileSystemManager getBOSDKRootDirectory];
     XCTAssertNotNil(rootDir, @"Couldn't find BOSDK root directory");
-}
-
-- (void)testGetBOFNetworkDownloadsDirectoryPath {
-    NSString *downloadDir = [BOFFileSystemManager getBOFNetworkDownloadsDirectoryPath];
-    XCTAssertNotNil(downloadDir, @"Couldn't find download directory path");
-}
-
-- (void)testGetBOSDKVolatileRootDirectoryPath {
-    NSString *volatileRootDir = [BOFFileSystemManager getBOSDKVolatileRootDirectoryPath];
-    XCTAssertNotNil(volatileRootDir, @"Couldn't find volatile root directory path");
-}
-
-- (void)testGetBOSDKNonVolatileRootDirectoryPath {
-    NSString *nonVolatileRootDir = [BOFFileSystemManager getBOSDKNonVolatileRootDirectoryPath];
-    XCTAssertNotNil(nonVolatileRootDir, @"Couldn't find non volatile root directory path");
-}
-
-- (void)testGetAllFilesWithExtention {
-    NSString *sdkManifestDir = [BOFFileSystemManager getSDKManifestDirectoryPath];
-    NSArray *manifestLogFiles = [BOFFileSystemManager getAllFilesWithExtention:@"txt" fromDir: sdkManifestDir];
-    XCTAssertNotNil(manifestLogFiles, @"Couldn't find files with given extenstion");
-}
-
-- (void)testGetAllDirsInside {
-    NSArray *allDir = [BOFFileSystemManager getAllDirsInside: [BOFFileSystemManager getBOSDKRootDirectory]];
-    XCTAssertNotNil(allDir, @"Couldn't find dir inside given path");
 }
 
 - (void)testRemoveFileFromLocationPath {
@@ -103,33 +60,6 @@
     
     status = [BOFFileSystemManager removeFileFromLocation:[NSURL URLWithString:sdkManifestDir] removalError:&junkFileRemove];
     XCTAssertTrue(status, @"Couldn't remove file from given location");
-    
-    status = [BOFFileSystemManager removeRecurrsiveEmptyDirFromLocationPath:sdkManifestDir removalError:&junkFileRemove];
-    XCTAssertFalse(status, @"Couldn't remove file from given location");
-}
-
-- (void)testDeleteFilesRecursively {
-    NSError *removeError = nil;
-    BOOL status = [BOFFileSystemManager deleteFilesRecursively:YES olderThanDays:[NSNumber numberWithFloat:180.0] underRootDirPath:[BOFFileSystemManager getBOSDKRootDirectory] removalError:&removeError];
-    XCTAssertTrue(status, @"Couldn't delete files recursively");
-    
-    status = [BOFFileSystemManager deleteFilesRecursively:YES olderThan:[NSDate now] underRootDirPath:[BOFFileSystemManager getBOSDKRootDirectory] removalError:&removeError];
-    XCTAssertTrue(status, @"Couldn't delete files recursively");
-    
-    status = [BOFFileSystemManager deleteFilesAndDirectoryRecursively:YES olderThan:[NSDate date] underRootDirPath:[BOFFileSystemManager getBOSDKRootDirectory] removalError:&removeError];
-    XCTAssertTrue(status, @"Couldn't delete files recursively");
-    
-    status = [BOFFileSystemManager deleteFilesAndDirectoryRecursively:YES olderThanDays:[NSNumber numberWithFloat:180.0] underRootDirPath:[BOFFileSystemManager getBOSDKRootDirectory] removalError:&removeError];
-    XCTAssertTrue(status, @"Couldn't delete files recursively");
-}
-
-- (void)testSearchFilePathForFileName {
-    BOOL status = [BOFFileSystemManager searchFilePathForFileName:@"local" ofType:@"txt"];
-    XCTAssertFalse(status, @"Couldn't move file from given location path");
-    
-    NSString *sdkManifestDir = [BOFFileSystemManager getSDKManifestDirectoryPath];
-    status = [BOFFileSystemManager searchFilePathForFileName:@"local" ofType:@"txt" inDirectory:sdkManifestDir];
-    XCTAssertFalse(status, @"Couldn't move file from given location path");
 }
 
 - (void)testPathAfterWritingString {
@@ -143,72 +73,10 @@
     
 }
 
-- (void)testCleanDirectory {
-    NSError *cleanDirError = nil;
-    NSString *sdkManifestFilePath = [self.objBOASDKManifestController latestSDKManifestPath];
-    [BOFFileSystemManager cleanDirectory: sdkManifestFilePath error:&cleanDirError];
-    XCTAssertTrue([self.objBOASDKManifestController latestSDKManifestPath] != nil, @"Couldn't clean the given dir");
-}
-
-- (void)testDelateDirectory {
-    NSError *cleanDirError = nil;
-    NSString *sdkManifestFilePath = [self.objBOASDKManifestController latestSDKManifestPath];
-    [BOFFileSystemManager delateDirectory: sdkManifestFilePath error:&cleanDirError];
-    XCTAssertTrue([self.objBOASDKManifestController latestSDKManifestPath] != nil, @"Couldn't delete the given dir");
-}
-
-- (void)testMigrateIfExistsOldFile {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    BOOL status = [BOFFileSystemManager migrateIfExistsOldFile: path toNewFilePath: path];
-    XCTAssertTrue(status, @"Couldn't migrate the given dir");
-}
-
 - (void)testGetBundleId {
     NSString *bundleId = [BOFFileSystemManager bundleId];
     XCTAssertNotNil(bundleId, @"Couldn't find bundle id");
     XCTAssertGreaterThan([bundleId length], 0);
-}
-
-- (void)testIsDirectoryExistAtPath {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    BOOL status = [BOFFileSystemManager isDirectoryExistAtPath:path];
-    XCTAssertFalse(status, @"Couldn't find dir at path");
-    
-    status = [BOFFileSystemManager isDirectoryExistAtURL:[NSURL URLWithString:path]];
-    XCTAssertFalse(status, @"Couldn't find dir at path");
-}
-
-- (void)testIsFileExist {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    BOOL status = [BOFFileSystemManager isFileExistAtURL:[NSURL URLWithString:path]];
-    XCTAssertFalse(status, @"Couldn't find dir at path");
-}
-
-- (void)testGetAttributesOfItemAtPath {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    NSDictionary *atttributes = [BOFFileSystemManager getAttributesOfItemAtPath:path];
-    XCTAssertNotNil(atttributes, @"Couldn't find attributes at path");
-}
-
-- (void)testGetDownloadSize {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    
-    NSString *str = @"BlotoutAnalytics";
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    NSNumber *size = [BOFFileSystemManager getDownloadSize:[NSURL URLWithString:path] data:data];
-    XCTAssertNotNil(size, @"Couldn't find attributes at path");
-}
-
-- (void)testSortFilesInFolderByCreationDate {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    NSArray *result = [BOFFileSystemManager sortFilesInFolderByCreationDate: path];
-    XCTAssertNil(result, @"Couldn't find attributes at path");
-}
-
-- (void)testIsDirectoryAtPath {
-    NSString *path = [self.objBOASDKManifestController latestSDKManifestPath];
-    BOOL status = [BOFFileSystemManager isDirectoryAtPath:path];
-    XCTAssertFalse(status, @"Couldn't find attributes at path");
 }
 
 - (void)testAddSkipBackupAttributeToFilePath {
