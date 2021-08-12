@@ -7,7 +7,7 @@
 
 #import "BOBaseAPI.h"
 #import "BONetworkManager.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOASDKManifestController.h"
 #import "BlotoutAnalytics_Internal.h"
 

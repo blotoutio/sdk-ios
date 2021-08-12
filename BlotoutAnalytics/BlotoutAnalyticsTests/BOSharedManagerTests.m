@@ -6,7 +6,7 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "BOSharedManager.h"
 
 @interface BOSharedManagerTests : XCTestCase

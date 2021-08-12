@@ -8,11 +8,12 @@
 #import "BOAUtilities.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "BOANetworkConstants.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
-#import <UIKit/UIKit.h>
+#import "BOFLogs.h"
 #import "BOASDKManifestController.h"
 #import "BlotoutAnalytics_Internal.h"
 #import <AdSupport/ASIdentifierManager.h>
+#import "BOFUtilities.h"
+#import "BOFUserDefaults.h"
 
 @implementation BOAUtilities
 
@@ -187,7 +188,6 @@
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
   
-  [BlotoutFoundationSDK sharedInstance].encryptionKey = deviceId;
   return deviceId;
 }
 

@@ -6,9 +6,9 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "BOAUtilities.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+
 #import "BOANetworkConstants.h"
 
 @interface BOAUtilitiesTests : XCTestCase

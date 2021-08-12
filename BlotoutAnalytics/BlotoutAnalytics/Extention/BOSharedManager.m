@@ -6,7 +6,7 @@
 //
 
 #import "BOSharedManager.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+
 #import "BOAUtilities.h"
 static id sBOSharedManagerSharedInstance = nil;
 

@@ -7,7 +7,7 @@
 
 #import "NSError+BOAdditions.h"
 #import "BOANetworkConstants.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 
 NSString *const BOErrorDomain = @"com.blotout.sdk";
 NSString *const BOUnknownErrorMsg = @"Unable to process the request. Unknown error occurred from server. Please try again later";

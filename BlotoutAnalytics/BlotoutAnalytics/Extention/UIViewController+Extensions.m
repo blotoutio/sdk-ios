@@ -8,7 +8,7 @@
 #import "UIViewController+Extensions.h"
 #import <objc/runtime.h>
 #import "BOSharedManager.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOAUtilities.h"
 #import "BOANetworkConstants.h"
 #import "BOACaptureModel.h"

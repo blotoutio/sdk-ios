@@ -6,10 +6,10 @@
 //  Copyright © 2020 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "BOASDKManifestController.h"
 #import "BOASDKManifestConstants.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+
 #import "BlotoutAnalytics.h"
 
 

@@ -6,7 +6,7 @@
 //
 
 #import "BOASDKManifest.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOANetworkConstants.h"
 
 // Shorthand for simple blocks

@@ -10,7 +10,4 @@
    <FileRef
       location = "group:BlotoutAnalytics/BlotoutAnalytics.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:BlotoutFoundation/BlotoutFoundation.xcodeproj">
-   </FileRef>
 </Workspace>

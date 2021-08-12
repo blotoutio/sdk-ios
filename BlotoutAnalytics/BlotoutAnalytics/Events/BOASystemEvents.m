@@ -9,8 +9,9 @@
 #import "BlotoutAnalytics.h"
 #import "BlotoutAnalytics_Internal.h"
 #import "BOANetworkConstants.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOASDKManifestController.h"
+#import "BOFUserDefaults.h"
 
 @implementation BOASystemEvents
 +(void)captureAppLaunchingInfoWithConfiguration:(NSDictionary *)launchOptions {
