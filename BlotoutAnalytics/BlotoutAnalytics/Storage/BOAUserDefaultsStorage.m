@@ -6,7 +6,7 @@
 //
 
 #import "BOAUserDefaultsStorage.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOAUtilities.h"
 
 @implementation BOAUserDefaultsStorage

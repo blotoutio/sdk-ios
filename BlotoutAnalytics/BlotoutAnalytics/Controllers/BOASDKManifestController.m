@@ -10,13 +10,14 @@
  */
 
 #import "BOASDKManifestController.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
 #import "BOAUtilities.h"
 #import "BlotoutAnalytics_Internal.h"
 #import "BOANetworkConstants.h"
 #import "BOManifestAPI.h"
 #import "NSError+BOAdditions.h"
 #import "BOEventsOperationExecutor.h"
+#import "BOFLogs.h"
+#import "BOFFileSystemManager.h"
 
 static id sBOAsdkManifestSharedInstance = nil;
 

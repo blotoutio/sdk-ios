@@ -8,9 +8,8 @@
 #import "BOServerDataConverter.h"
 #import "BOADeviceAndAppFraudController.h"
 #import "BOASDKManifestController.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOANetworkConstants.h"
-#import <UIKit/UIKit.h>
 #import "BOAUtilities.h"
 #import "BOAUserDefaultsStorage.h"
 #import "BOSharedManager.h"

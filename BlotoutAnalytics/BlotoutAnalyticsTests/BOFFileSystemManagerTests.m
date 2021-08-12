@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "BOASDKManifestController.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+
 #import "BOAUtilities.h"
 
 @interface BOFFileSystemManagerTests : XCTestCase

@@ -7,7 +7,7 @@
 //
 
 #import "BOEventsOperationExecutor.h"
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 #define  BO_ANALYTICS_SDK_SERIAL_QUEUE_KEY  "com.bo.sdk.queue.serial"
 #define  BO_ANALYTICS_SDK_DEVICE_OPERATION_QUEUE_KEY  "com.bo.sdk.queue.device.serial"

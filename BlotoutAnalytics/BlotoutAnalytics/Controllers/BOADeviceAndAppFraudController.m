@@ -7,7 +7,7 @@
 
 #import "BOADeviceAndAppFraudController.h"
 #import "UIKit/UIKit.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #include <sys/utsname.h>
 #include <pwd.h>
 #include <mach/mach.h>

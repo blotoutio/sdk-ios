@@ -14,7 +14,6 @@
 				2EBB30F5261F0589009615AF /* ShellScript */,
 			);
 			dependencies = (
-				2EBB3182261F29BF009615AF /* PBXTargetDependency */,
 			);
 			name = OCLint;
 			productName = OCLint;
@@ -69,13 +68,13 @@
 		2B6BE27C26C3C52700EDD68A /* BOASystemEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE20626C3C46300EDD68A /* BOASystemEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE27D26C3C52700EDD68A /* BOADeveloperEvents.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE20726C3C46300EDD68A /* BOADeveloperEvents.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE27E26C3C52700EDD68A /* BOAEventsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE20826C3C46300EDD68A /* BOAEventsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6BE27F26C3C52700EDD68A /* UIViewController+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21D26C3C46400EDD68A /* UIViewController+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE27F26C3C52700EDD68A /* UIViewController+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21D26C3C46400EDD68A /* UIViewController+Extensions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2B6BE28026C3C52700EDD68A /* BOSharedManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21F26C3C46400EDD68A /* BOSharedManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28126C3C52700EDD68A /* BOACaptureModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE22326C3C46400EDD68A /* BOACaptureModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28226C3C52700EDD68A /* BOASDKManifest.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE22426C3C46400EDD68A /* BOASDKManifest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28326C3C52700EDD68A /* BOAMapIDDataModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE22526C3C46400EDD68A /* BOAMapIDDataModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28426C3C52700EDD68A /* BONetworkManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1ED26C3C46300EDD68A /* BONetworkManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6BE28526C3C52700EDD68A /* NSError+BOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1EE26C3C46300EDD68A /* NSError+BOAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B6BE28526C3C52700EDD68A /* NSError+BOAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1EE26C3C46300EDD68A /* NSError+BOAdditions.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2B6BE28626C3C52700EDD68A /* BOEventPostAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1F226C3C46300EDD68A /* BOEventPostAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28726C3C52700EDD68A /* BOBaseAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1F426C3C46300EDD68A /* BOBaseAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE28826C3C52700EDD68A /* BOManifestAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE1F526C3C46300EDD68A /* BOManifestAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -88,9 +87,33 @@
 		2B6BE28F26C3C52800EDD68A /* BOEventsOperationExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21626C3C46400EDD68A /* BOEventsOperationExecutor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE29026C3C52800EDD68A /* BOEncryptionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21726C3C46400EDD68A /* BOEncryptionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2B6BE29126C3C52800EDD68A /* BOAUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE21926C3C46400EDD68A /* BOAUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6BE29226C3C52800EDD68A /* BlotoutAnalytics_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2B6BE4FE26C4066600EDD68A /* BlotoutFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7435E8D522E990A4008480B8 /* BlotoutFoundation.framework */; };
-		2B6BE4FF26C4066600EDD68A /* BlotoutFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7435E8D522E990A4008480B8 /* BlotoutFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2B6BE29226C3C52800EDD68A /* BlotoutAnalytics_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE58B26C4F4C200EDD68A /* BOFNetworkPromiseExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE56D26C4F4C200EDD68A /* BOFNetworkPromiseExecutor.m */; };
+		2B6BE58C26C4F4C200EDD68A /* BOFNetworkPromiseExecutor_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE56E26C4F4C200EDD68A /* BOFNetworkPromiseExecutor_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE58D26C4F4C200EDD68A /* BOFNetworkPromiseProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE56F26C4F4C200EDD68A /* BOFNetworkPromiseProtocols.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE58E26C4F4C200EDD68A /* BOFNetworkPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57026C4F4C200EDD68A /* BOFNetworkPromise.m */; };
+		2B6BE58F26C4F4C200EDD68A /* BOFNetworkPromise_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57126C4F4C200EDD68A /* BOFNetworkPromise_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59026C4F4C200EDD68A /* BOFNetworkPromiseExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57226C4F4C200EDD68A /* BOFNetworkPromiseExecutor.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59126C4F4C200EDD68A /* BOFNetworkPromise.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57326C4F4C200EDD68A /* BOFNetworkPromise.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59226C4F4C200EDD68A /* BOFConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57426C4F4C200EDD68A /* BOFConstants.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59326C4F4C200EDD68A /* BOFFileSystemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57626C4F4C200EDD68A /* BOFFileSystemManager.m */; };
+		2B6BE59426C4F4C200EDD68A /* BOFFileSystemManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57726C4F4C200EDD68A /* BOFFileSystemManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59526C4F4C200EDD68A /* BOReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57926C4F4C200EDD68A /* BOReachability.m */; };
+		2B6BE59626C4F4C200EDD68A /* BOFUserDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57A26C4F4C200EDD68A /* BOFUserDefaults.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59726C4F4C200EDD68A /* BOFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57B26C4F4C200EDD68A /* BOFUtilities.m */; };
+		2B6BE59826C4F4C200EDD68A /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57D26C4F4C200EDD68A /* NSString+Base64.m */; };
+		2B6BE59926C4F4C200EDD68A /* BOCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE57E26C4F4C200EDD68A /* BOCrypt.m */; };
+		2B6BE59A26C4F4C200EDD68A /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE57F26C4F4C200EDD68A /* NSData+Base64.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59B26C4F4C200EDD68A /* NSData+CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58026C4F4C200EDD68A /* NSData+CommonCrypto.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59C26C4F4C200EDD68A /* NSString+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58126C4F4C200EDD68A /* NSString+Base64.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59D26C4F4C200EDD68A /* BOCrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58226C4F4C200EDD68A /* BOCrypt.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE59E26C4F4C200EDD68A /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE58326C4F4C200EDD68A /* NSData+CommonCrypto.m */; };
+		2B6BE59F26C4F4C200EDD68A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE58426C4F4C200EDD68A /* NSData+Base64.m */; };
+		2B6BE5A026C4F4C200EDD68A /* BOFUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE58526C4F4C200EDD68A /* BOFUserDefaults.m */; };
+		2B6BE5A126C4F4C200EDD68A /* BOReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58626C4F4C200EDD68A /* BOReachability.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE5A226C4F4C200EDD68A /* BOFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58726C4F4C200EDD68A /* BOFUtilities.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		2B6BE5A326C4F4C200EDD68A /* BOFLogs.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B6BE58926C4F4C200EDD68A /* BOFLogs.m */; };
+		2B6BE5A426C4F4C200EDD68A /* BOFLogs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58A26C4F4C200EDD68A /* BOFLogs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E81641E3258DD07800B53A61 /* UIViewControllerExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */; };
 		E843AD41249E0791006C10CE /* BlotoutAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */; };
 		E8677D1F256B810B00CF62D2 /* BOSharedManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */; };
@@ -102,30 +125,6 @@
 		E8E4691E250C9A8F00F35951 /* BOFFileSystemManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8E4691D250C9A8F00F35951 /* BOFFileSystemManagerTests.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		2B6BE3D726C3E59600EDD68A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 2B6BE34C26C3DEEB00EDD68A;
-			remoteInfo = BlotoutFoundationTests;
-		};
-		2EBB3181261F29BF009615AF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 2B6BE34326C3DEEB00EDD68A;
-			remoteInfo = BlotoutFoundation;
-		};
-		7435E8D422E990A4008480B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7435E8AC22E98F5C008480B8;
-			remoteInfo = BlotoutFoundation;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		2B6BE50026C4066600EDD68A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -133,7 +132,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2B6BE4FF26C4066600EDD68A /* BlotoutFoundation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,12 +192,37 @@
 		2B6BE22326C3C46400EDD68A /* BOACaptureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOACaptureModel.h; sourceTree = "<group>"; };
 		2B6BE22426C3C46400EDD68A /* BOASDKManifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOASDKManifest.h; sourceTree = "<group>"; };
 		2B6BE22526C3C46400EDD68A /* BOAMapIDDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAMapIDDataModel.h; sourceTree = "<group>"; };
+		2B6BE56D26C4F4C200EDD68A /* BOFNetworkPromiseExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFNetworkPromiseExecutor.m; sourceTree = "<group>"; };
+		2B6BE56E26C4F4C200EDD68A /* BOFNetworkPromiseExecutor_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromiseExecutor_Private.h; sourceTree = "<group>"; };
+		2B6BE56F26C4F4C200EDD68A /* BOFNetworkPromiseProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromiseProtocols.h; sourceTree = "<group>"; };
+		2B6BE57026C4F4C200EDD68A /* BOFNetworkPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFNetworkPromise.m; sourceTree = "<group>"; };
+		2B6BE57126C4F4C200EDD68A /* BOFNetworkPromise_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromise_Private.h; sourceTree = "<group>"; };
+		2B6BE57226C4F4C200EDD68A /* BOFNetworkPromiseExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromiseExecutor.h; sourceTree = "<group>"; };
+		2B6BE57326C4F4C200EDD68A /* BOFNetworkPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFNetworkPromise.h; sourceTree = "<group>"; };
+		2B6BE57426C4F4C200EDD68A /* BOFConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFConstants.h; sourceTree = "<group>"; };
+		2B6BE57626C4F4C200EDD68A /* BOFFileSystemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFFileSystemManager.m; sourceTree = "<group>"; };
+		2B6BE57726C4F4C200EDD68A /* BOFFileSystemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFFileSystemManager.h; sourceTree = "<group>"; };
+		2B6BE57926C4F4C200EDD68A /* BOReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOReachability.m; sourceTree = "<group>"; };
+		2B6BE57A26C4F4C200EDD68A /* BOFUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFUserDefaults.h; sourceTree = "<group>"; };
+		2B6BE57B26C4F4C200EDD68A /* BOFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFUtilities.m; sourceTree = "<group>"; };
+		2B6BE57D26C4F4C200EDD68A /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		2B6BE57E26C4F4C200EDD68A /* BOCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOCrypt.m; sourceTree = "<group>"; };
+		2B6BE57F26C4F4C200EDD68A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		2B6BE58026C4F4C200EDD68A /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		2B6BE58126C4F4C200EDD68A /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		2B6BE58226C4F4C200EDD68A /* BOCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOCrypt.h; sourceTree = "<group>"; };
+		2B6BE58326C4F4C200EDD68A /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		2B6BE58426C4F4C200EDD68A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		2B6BE58526C4F4C200EDD68A /* BOFUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFUserDefaults.m; sourceTree = "<group>"; };
+		2B6BE58626C4F4C200EDD68A /* BOReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOReachability.h; sourceTree = "<group>"; };
+		2B6BE58726C4F4C200EDD68A /* BOFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFUtilities.h; sourceTree = "<group>"; };
+		2B6BE58926C4F4C200EDD68A /* BOFLogs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOFLogs.m; sourceTree = "<group>"; };
+		2B6BE58A26C4F4C200EDD68A /* BOFLogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOFLogs.h; sourceTree = "<group>"; };
 		2B71D6A025FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsConfiguration.h; sourceTree = "<group>"; };
 		2B71D6A125FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsConfiguration.m; sourceTree = "<group>"; };
 		741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics_Internal.h; sourceTree = "<group>"; };
 		7435E8C422E99062008480B8 /* BlotoutAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 		7435E8C522E99062008480B8 /* BlotoutAnalytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalytics.m; sourceTree = "<group>"; };
-		7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutFoundation.xcodeproj; path = ../BlotoutFoundation/BlotoutFoundation.xcodeproj; sourceTree = "<group>"; };
 		E81641E2258DD07800B53A61 /* UIViewControllerExtensionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIViewControllerExtensionsTests.m; sourceTree = "<group>"; };
 		E843AD3E249E0791006C10CE /* BlotoutAnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlotoutAnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsTests.m; sourceTree = "<group>"; };
@@ -218,7 +241,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B6BE4FE26C4066600EDD68A /* BlotoutFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,10 +367,82 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2B6BE56B26C4F4C200EDD68A /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE56C26C4F4C200EDD68A /* BOFNetwork */,
+				2B6BE57426C4F4C200EDD68A /* BOFConstants.h */,
+				2B6BE57526C4F4C200EDD68A /* BOFStorage */,
+				2B6BE57826C4F4C200EDD68A /* BOFUtilities */,
+				2B6BE58826C4F4C200EDD68A /* BOFLogs */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		2B6BE56C26C4F4C200EDD68A /* BOFNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE56D26C4F4C200EDD68A /* BOFNetworkPromiseExecutor.m */,
+				2B6BE56E26C4F4C200EDD68A /* BOFNetworkPromiseExecutor_Private.h */,
+				2B6BE56F26C4F4C200EDD68A /* BOFNetworkPromiseProtocols.h */,
+				2B6BE57026C4F4C200EDD68A /* BOFNetworkPromise.m */,
+				2B6BE57126C4F4C200EDD68A /* BOFNetworkPromise_Private.h */,
+				2B6BE57226C4F4C200EDD68A /* BOFNetworkPromiseExecutor.h */,
+				2B6BE57326C4F4C200EDD68A /* BOFNetworkPromise.h */,
+			);
+			path = BOFNetwork;
+			sourceTree = "<group>";
+		};
+		2B6BE57526C4F4C200EDD68A /* BOFStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE57626C4F4C200EDD68A /* BOFFileSystemManager.m */,
+				2B6BE57726C4F4C200EDD68A /* BOFFileSystemManager.h */,
+			);
+			path = BOFStorage;
+			sourceTree = "<group>";
+		};
+		2B6BE57826C4F4C200EDD68A /* BOFUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE57926C4F4C200EDD68A /* BOReachability.m */,
+				2B6BE57A26C4F4C200EDD68A /* BOFUserDefaults.h */,
+				2B6BE57B26C4F4C200EDD68A /* BOFUtilities.m */,
+				2B6BE57C26C4F4C200EDD68A /* AESEncryptionHelper */,
+				2B6BE58526C4F4C200EDD68A /* BOFUserDefaults.m */,
+				2B6BE58626C4F4C200EDD68A /* BOReachability.h */,
+				2B6BE58726C4F4C200EDD68A /* BOFUtilities.h */,
+			);
+			path = BOFUtilities;
+			sourceTree = "<group>";
+		};
+		2B6BE57C26C4F4C200EDD68A /* AESEncryptionHelper */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE57D26C4F4C200EDD68A /* NSString+Base64.m */,
+				2B6BE57E26C4F4C200EDD68A /* BOCrypt.m */,
+				2B6BE57F26C4F4C200EDD68A /* NSData+Base64.h */,
+				2B6BE58026C4F4C200EDD68A /* NSData+CommonCrypto.h */,
+				2B6BE58126C4F4C200EDD68A /* NSString+Base64.h */,
+				2B6BE58226C4F4C200EDD68A /* BOCrypt.h */,
+				2B6BE58326C4F4C200EDD68A /* NSData+CommonCrypto.m */,
+				2B6BE58426C4F4C200EDD68A /* NSData+Base64.m */,
+			);
+			path = AESEncryptionHelper;
+			sourceTree = "<group>";
+		};
+		2B6BE58826C4F4C200EDD68A /* BOFLogs */ = {
+			isa = PBXGroup;
+			children = (
+				2B6BE58926C4F4C200EDD68A /* BOFLogs.m */,
+				2B6BE58A26C4F4C200EDD68A /* BOFLogs.h */,
+			);
+			path = BOFLogs;
+			sourceTree = "<group>";
+		};
 		7435E8B822E99062008480B8 = {
 			isa = PBXGroup;
 			children = (
-				7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */,
 				7435E8C322E99062008480B8 /* BlotoutAnalytics */,
 				E843AD3F249E0791006C10CE /* BlotoutAnalyticsTests */,
 				7435E8C222E99062008480B8 /* Products */,
@@ -368,6 +462,7 @@
 		7435E8C322E99062008480B8 /* BlotoutAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				2B6BE56B26C4F4C200EDD68A /* Foundation */,
 				2B6BE1FF26C3C46300EDD68A /* Constants */,
 				2B6BE1F826C3C46300EDD68A /* Controllers */,
 				2B6BE20226C3C46300EDD68A /* Events */,
@@ -391,15 +486,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7435E8D122E990A4008480B8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				7435E8D522E990A4008480B8 /* BlotoutFoundation.framework */,
-				2B6BE3D826C3E59600EDD68A /* BlotoutFoundationTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E843AD3F249E0791006C10CE /* BlotoutAnalyticsTests */ = {
@@ -437,18 +523,34 @@
 				2B6BE27C26C3C52700EDD68A /* BOASystemEvents.h in Headers */,
 				2B6BE27D26C3C52700EDD68A /* BOADeveloperEvents.h in Headers */,
 				2B6BE27E26C3C52700EDD68A /* BOAEventsManager.h in Headers */,
-				2B6BE27F26C3C52700EDD68A /* UIViewController+Extensions.h in Headers */,
 				2B6BE28026C3C52700EDD68A /* BOSharedManager.h in Headers */,
 				2B6BE28126C3C52700EDD68A /* BOACaptureModel.h in Headers */,
 				2B6BE28226C3C52700EDD68A /* BOASDKManifest.h in Headers */,
 				2B6BE28326C3C52700EDD68A /* BOAMapIDDataModel.h in Headers */,
 				2B6BE28426C3C52700EDD68A /* BONetworkManager.h in Headers */,
-				2B6BE28526C3C52700EDD68A /* NSError+BOAdditions.h in Headers */,
 				2B6BE28626C3C52700EDD68A /* BOEventPostAPI.h in Headers */,
 				2B6BE28726C3C52700EDD68A /* BOBaseAPI.h in Headers */,
 				2B6BE28826C3C52700EDD68A /* BOManifestAPI.h in Headers */,
 				2B6BE28926C3C52700EDD68A /* BOAFileStorage.h in Headers */,
 				2B6BE28A26C3C52700EDD68A /* BOAUserDefaultsStorage.h in Headers */,
+				2B6BE59026C4F4C200EDD68A /* BOFNetworkPromiseExecutor.h in Headers */,
+				2B6BE5A426C4F4C200EDD68A /* BOFLogs.h in Headers */,
+				2B6BE58C26C4F4C200EDD68A /* BOFNetworkPromiseExecutor_Private.h in Headers */,
+				2B6BE58D26C4F4C200EDD68A /* BOFNetworkPromiseProtocols.h in Headers */,
+				2B6BE58F26C4F4C200EDD68A /* BOFNetworkPromise_Private.h in Headers */,
+				2B6BE59126C4F4C200EDD68A /* BOFNetworkPromise.h in Headers */,
+				2B6BE59226C4F4C200EDD68A /* BOFConstants.h in Headers */,
+				2B6BE27F26C3C52700EDD68A /* UIViewController+Extensions.h in Headers */,
+				2B6BE28526C3C52700EDD68A /* NSError+BOAdditions.h in Headers */,
+				2B6BE59626C4F4C200EDD68A /* BOFUserDefaults.h in Headers */,
+				2B6BE59426C4F4C200EDD68A /* BOFFileSystemManager.h in Headers */,
+				2B6BE59A26C4F4C200EDD68A /* NSData+Base64.h in Headers */,
+				2B6BE5A126C4F4C200EDD68A /* BOReachability.h in Headers */,
+				2B6BE5A226C4F4C200EDD68A /* BOFUtilities.h in Headers */,
+				2B6BE59B26C4F4C200EDD68A /* NSData+CommonCrypto.h in Headers */,
+				2B6BE59D26C4F4C200EDD68A /* BOCrypt.h in Headers */,
+				2B6BE59C26C4F4C200EDD68A /* NSString+Base64.h in Headers */,
+				2B6BE29226C3C52800EDD68A /* BlotoutAnalytics_Internal.h in Headers */,
 				2B6BE28B26C3C52700EDD68A /* BOAAESCrypto.h in Headers */,
 				2B6BE28C26C3C52700EDD68A /* BOAStorage.h in Headers */,
 				2B6BE28D26C3C52700EDD68A /* BOACrypto.h in Headers */,
@@ -456,7 +558,6 @@
 				2B6BE28F26C3C52800EDD68A /* BOEventsOperationExecutor.h in Headers */,
 				2B6BE29026C3C52800EDD68A /* BOEncryptionManager.h in Headers */,
 				2B6BE29126C3C52800EDD68A /* BOAUtilities.h in Headers */,
-				2B6BE29226C3C52800EDD68A /* BlotoutAnalytics_Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,12 +634,6 @@
 			mainGroup = 7435E8B822E99062008480B8;
 			productRefGroup = 7435E8C222E99062008480B8 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 7435E8D122E990A4008480B8 /* Products */;
-					ProjectRef = 7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				2B6BE15026C3A3A400EDD68A /* BlotoutAnalytics */,
@@ -548,23 +643,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		2B6BE3D826C3E59600EDD68A /* BlotoutFoundationTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = BlotoutFoundationTests.xctest;
-			remoteRef = 2B6BE3D726C3E59600EDD68A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7435E8D522E990A4008480B8 /* BlotoutFoundation.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = BlotoutFoundation.framework;
-			remoteRef = 7435E8D422E990A4008480B8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		2B6BE14F26C3A3A400EDD68A /* Resources */ = {
@@ -628,19 +706,30 @@
 				2B6BE26E26C3C4D800EDD68A /* BOEncryptionManager.m in Sources */,
 				2B6BE24F26C3C4CD00EDD68A /* BOANetworkConstants.m in Sources */,
 				2B6BE25026C3C4CD00EDD68A /* BOAStoreKitController.m in Sources */,
+				2B6BE58B26C4F4C200EDD68A /* BOFNetworkPromiseExecutor.m in Sources */,
+				2B6BE59326C4F4C200EDD68A /* BOFFileSystemManager.m in Sources */,
+				2B6BE58E26C4F4C200EDD68A /* BOFNetworkPromise.m in Sources */,
 				2B6BE25126C3C4CD00EDD68A /* BOASDKManifestController.m in Sources */,
+				2B6BE59926C4F4C200EDD68A /* BOCrypt.m in Sources */,
 				2B6BE25226C3C4CD00EDD68A /* BOADeviceAndAppFraudController.m in Sources */,
 				2B6BE25326C3C4CD00EDD68A /* BOASystemEvents.m in Sources */,
+				2B6BE5A026C4F4C200EDD68A /* BOFUserDefaults.m in Sources */,
 				2B6BE25426C3C4CD00EDD68A /* BOADeveloperEvents.m in Sources */,
 				2B6BE25526C3C4CD00EDD68A /* BOAEventsManager.m in Sources */,
 				2B6BE25626C3C4CD00EDD68A /* BOSharedManager.m in Sources */,
 				2B6BE25726C3C4CD00EDD68A /* UIViewController+Extensions.m in Sources */,
+				2B6BE5A326C4F4C200EDD68A /* BOFLogs.m in Sources */,
+				2B6BE59E26C4F4C200EDD68A /* NSData+CommonCrypto.m in Sources */,
+				2B6BE59826C4F4C200EDD68A /* NSString+Base64.m in Sources */,
 				2B6BE25826C3C4CD00EDD68A /* BOASDKManifest.m in Sources */,
 				2B6BE25926C3C4CD00EDD68A /* BOACaptureModel.m in Sources */,
 				2B6BE25A26C3C4CD00EDD68A /* BOManifestAPI.m in Sources */,
+				2B6BE59726C4F4C200EDD68A /* BOFUtilities.m in Sources */,
 				2B6BE25B26C3C4CD00EDD68A /* BOBaseAPI.m in Sources */,
+				2B6BE59F26C4F4C200EDD68A /* NSData+Base64.m in Sources */,
 				2B6BE25C26C3C4CD00EDD68A /* BOEventPostAPI.m in Sources */,
 				2B6BE25D26C3C4CD00EDD68A /* BONetworkManager.m in Sources */,
+				2B6BE59526C4F4C200EDD68A /* BOReachability.m in Sources */,
 				2B6BE25E26C3C4CD00EDD68A /* NSError+BOAdditions.m in Sources */,
 				2B6BE25F26C3C4CD00EDD68A /* BOAUserDefaultsStorage.m in Sources */,
 				2B6BE26026C3C4CD00EDD68A /* BOAFileStorage.m in Sources */,
@@ -672,14 +761,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2EBB3182261F29BF009615AF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = BlotoutFoundation;
-			targetProxy = 2EBB3181261F29BF009615AF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2B6BE16226C3A3A500EDD68A /* Debug */ = {
@@ -874,6 +955,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				INFOPLIST_FILE = BlotoutAnalyticsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -891,6 +973,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				INFOPLIST_FILE = BlotoutAnalyticsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (

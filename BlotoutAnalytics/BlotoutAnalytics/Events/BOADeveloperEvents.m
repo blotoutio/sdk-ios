@@ -6,13 +6,15 @@
 //
 
 #import "BOADeveloperEvents.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+
 #import "BOAUtilities.h"
 #import "BOANetworkConstants.h"
 #import "BOServerDataConverter.h"
 #import "BOSharedManager.h"
 #import "BOEncryptionManager.h"
 #import "BOASDKManifestController.h"
+#import "BOFLogs.h"
+#import "BOCrypt.h"
 
 @implementation BOADeveloperEvents
 

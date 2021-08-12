@@ -8,7 +8,8 @@
 
 #import "BOAAESCrypto.h"
 #import "BOANetworkConstants.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOCrypt.h"
+
 
 @implementation BOAAESCrypto
 

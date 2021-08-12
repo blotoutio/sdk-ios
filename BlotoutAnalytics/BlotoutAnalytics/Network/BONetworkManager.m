@@ -7,9 +7,12 @@
 //
 
 #import "BONetworkManager.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "NSError+BOAdditions.h"
 #import "BOANetworkConstants.h"
+#import "BOReachability.h"
+#import "BOFNetworkPromiseExecutor.h"
+#import "BOFNetworkPromise.h"
 
 @implementation BONetworkManager
 

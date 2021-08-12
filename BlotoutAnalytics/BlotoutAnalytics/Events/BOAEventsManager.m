@@ -6,10 +6,10 @@
 //
 
 #import "BOAEventsManager.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
 #import "BOEventsOperationExecutor.h"
 #import "BOADeveloperEvents.h"
 #import "BOEventPostAPI.h"
+#import "BOFLogs.h"
 #import "BOAUtilities.h"
 
 NSString *const BOAQueueKey = @"BOAQueue";
@@ -186,7 +186,7 @@ NSString *const kBOAQueueFilename = @"blotout.queue.plist";
               }];
       } failure:^(NSURLResponse * _Nonnull urlResponse, id  _Nonnull dataOrLocation, NSError * _Nonnull error) {
         self.batchRequest = NO;
-        NSLog(@"%@",[error description]);
+        BOFLogDebug(@"%@",[error description]);
       }];
     }];
   } @catch(NSException *exception) {

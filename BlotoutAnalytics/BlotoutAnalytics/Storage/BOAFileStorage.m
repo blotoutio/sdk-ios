@@ -6,7 +6,9 @@
 //
 
 #import "BOAFileStorage.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
+#import "BOFFileSystemManager.h"
+
 @interface BOAFileStorage ()
 
 @property (nonatomic, strong, nonnull) NSURL *folderURL;

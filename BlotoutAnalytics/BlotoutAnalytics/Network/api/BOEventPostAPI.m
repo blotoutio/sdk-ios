@@ -8,7 +8,7 @@
 #import "BOEventPostAPI.h"
 #import "BOAUtilities.h"
 #import "BlotoutAnalytics_Internal.h"
-#import <BlotoutFoundation/BlotoutFoundation.h>
+#import "BOFLogs.h"
 #import "BOANetworkConstants.h"
 #import "NSError+BOAdditions.h"
 
