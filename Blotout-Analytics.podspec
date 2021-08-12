@@ -9,9 +9,8 @@
 Pod::Spec.new do |s|
   s.name             = "Blotout-Analytics"
   s.module_name      = "BlotoutAnalytics"
-  s.version          = "0.9.0.1"
+  s.version          = "0.9.3"
   s.summary          = "Blotout Mobile Analytics SDK"
-
   s.description      = <<-DESC
                        Blotout’s SDK offers companies all of the analytics and remarketing tools they are accustomed to,
 while offering best-in-class privacy preservation for the company’s users. Blotout’s SDK is out of the
@@ -20,7 +19,7 @@ computing for Analytics, Messaging and Remarketing, all without using User Perso
 IDs or IP Addresses.
                        DESC
 
-  s.homepage         = "http://blotout.io/"
+  s.homepage         = "https://github.com/blotoutio/sdk-ios"
   s.license          =  {:file => 'LICENSE'}
   s.author           = { "Blotout" => "developers@blotout.io" }
   s.source           = { :git => "https://github.com/BlotoutAnalytics/BlotoutAnalytics.git", :tag => s.version.to_s }

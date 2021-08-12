@@ -14,11 +14,9 @@
 		74E302B5242BEE6D0092A81C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74E302B4242BEE6D0092A81C /* Assets.xcassets */; };
 		74E302B8242BEE6D0092A81C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74E302B6242BEE6D0092A81C /* LaunchScreen.storyboard */; };
 		74E302BB242BEE6D0092A81C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 74E302BA242BEE6D0092A81C /* main.m */; };
-		74E302E4242BEF290092A81C /* libBlotoutAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74E302E2242BEF290092A81C /* libBlotoutAnalytics.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B71D70725FCD6FE003D5186 /* BlotoutAnalyticsConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsConfiguration.h; sourceTree = "<group>"; };
 		74E302A5242BEE690092A81C /* SampleAppObjc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppObjc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74E302A8242BEE690092A81C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		74E302A9242BEE690092A81C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -31,8 +29,6 @@
 		74E302B7242BEE6D0092A81C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		74E302B9242BEE6D0092A81C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74E302BA242BEE6D0092A81C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		74E302E2242BEF290092A81C /* libBlotoutAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBlotoutAnalytics.a; sourceTree = "<group>"; };
-		74E302E3242BEF290092A81C /* BlotoutAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,7 +36,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74E302E4242BEF290092A81C /* libBlotoutAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,7 +45,6 @@
 		74E3029C242BEE690092A81C = {
 			isa = PBXGroup;
 			children = (
-				74E302E1242BEF290092A81C /* BlotoutSDK */,
 				74E302A7242BEE690092A81C /* SampleAppObjc */,
 				74E302A6242BEE690092A81C /* Products */,
 			);
@@ -80,16 +74,6 @@
 				74E302BA242BEE6D0092A81C /* main.m */,
 			);
 			path = SampleAppObjc;
-			sourceTree = "<group>";
-		};
-		74E302E1242BEF290092A81C /* BlotoutSDK */ = {
-			isa = PBXGroup;
-			children = (
-				2B71D70725FCD6FE003D5186 /* BlotoutAnalyticsConfiguration.h */,
-				74E302E2242BEF290092A81C /* libBlotoutAnalytics.a */,
-				74E302E3242BEF290092A81C /* BlotoutAnalytics.h */,
-			);
-			path = BlotoutSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
