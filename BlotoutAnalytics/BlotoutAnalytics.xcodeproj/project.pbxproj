@@ -145,8 +145,6 @@
 		2B4F8DB7250E1D9D00D6B877 /* BOAUtilitiesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAUtilitiesTests.m; sourceTree = "<group>"; };
 		2B6BE15126C3A3A400EDD68A /* BlotoutAnalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlotoutAnalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B6BE15426C3A3A400EDD68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2B6BE15E26C3A3A500EDD68A /* BlotoutAnalyticsSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsSDKTests.m; sourceTree = "<group>"; };
-		2B6BE16026C3A3A500EDD68A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B6BE1ED26C3C46300EDD68A /* BONetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BONetworkManager.h; sourceTree = "<group>"; };
 		2B6BE1EE26C3C46300EDD68A /* NSError+BOAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BOAdditions.h"; sourceTree = "<group>"; };
 		2B6BE1F026C3C46300EDD68A /* BOManifestAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOManifestAPI.m; sourceTree = "<group>"; };
@@ -234,15 +232,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B6BE15D26C3A3A500EDD68A /* BlotoutAnalyticsSDKTests */ = {
-			isa = PBXGroup;
-			children = (
-				2B6BE15E26C3A3A500EDD68A /* BlotoutAnalyticsSDKTests.m */,
-				2B6BE16026C3A3A500EDD68A /* Info.plist */,
-			);
-			path = BlotoutAnalyticsSDKTests;
-			sourceTree = "<group>";
-		};
 		2B6BE1EC26C3C46300EDD68A /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,7 +351,6 @@
 				7435E8D022E990A4008480B8 /* BlotoutFoundation.xcodeproj */,
 				7435E8C322E99062008480B8 /* BlotoutAnalytics */,
 				E843AD3F249E0791006C10CE /* BlotoutAnalyticsTests */,
-				2B6BE15D26C3A3A500EDD68A /* BlotoutAnalyticsSDKTests */,
 				7435E8C222E99062008480B8 /* Products */,
 				7435E8CD22E9907F008480B8 /* Frameworks */,
 			);
