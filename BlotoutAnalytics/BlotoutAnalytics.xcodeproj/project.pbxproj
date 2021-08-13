@@ -32,7 +32,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2B03F7F826C51511009782D0 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B03F7F726C51511009782D0 /* XCTest.framework */; };
 		2B4F8DB3250D10FA00D6B877 /* BOSDKAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8DB2250D10FA00D6B877 /* BOSDKAPITests.m */; };
 		2B4F8DB8250E1D9D00D6B877 /* BOAUtilitiesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B4F8DB7250E1D9D00D6B877 /* BOAUtilitiesTests.m */; };
 		2B5FA8BA26C54B4D00C75539 /* BlotoutAnalyticsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6BE15126C3A3A400EDD68A /* BlotoutAnalyticsSDK.framework */; };
@@ -262,7 +261,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B5FA8BA26C54B4D00C75539 /* BlotoutAnalyticsSDK.framework in Frameworks */,
-				2B03F7F826C51511009782D0 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

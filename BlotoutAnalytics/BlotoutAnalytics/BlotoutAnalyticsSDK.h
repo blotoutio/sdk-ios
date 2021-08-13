@@ -34,5 +34,12 @@ FOUNDATION_EXPORT const unsigned char BlotoutAnalyticsVersionString[];
 #import <BlotoutAnalyticsSDK/BOServerDataConverter.h>
 #import <BlotoutAnalyticsSDK/BOEncryptionManager.h>
 #import <BlotoutAnalyticsSDK/BONetworkManager.h>
+#import <BlotoutAnalyticsSDK/BOAFileStorage.h>
+#import <BlotoutAnalyticsSDK/BOAAESCrypto.h>
+#import <BlotoutAnalyticsSDK/BOADeviceAndAppFraudController.h>
+#import <BlotoutAnalyticsSDK/BOASystemEvents.h>
+#import <BlotoutAnalyticsSDK/BOAUserDefaultsStorage.h>
+#import <BlotoutAnalyticsSDK/BOEventPostAPI.h>
+#import <BlotoutAnalyticsSDK/BOManifestAPI.h>
 
 
