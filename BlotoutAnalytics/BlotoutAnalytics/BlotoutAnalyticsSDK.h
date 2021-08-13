@@ -17,29 +17,28 @@ FOUNDATION_EXPORT double BlotoutAnalyticsVersionNumber;
 FOUNDATION_EXPORT const unsigned char BlotoutAnalyticsVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <BlotoutAnalyticsSDK/PublicHeader.h>
-
-#import <BlotoutAnalyticsSDK/BlotoutAnalytics.h>
-#import <BlotoutAnalyticsSDK/BlotoutAnalyticsConfiguration.h>
-#import <BlotoutAnalyticsSDK/BOAMapIDDataModel.h>
-#import <BlotoutAnalyticsSDK/BOACrypto.h>
-#import <BlotoutAnalyticsSDK/BOASDKManifestController.h>
-#import <BlotoutAnalyticsSDK/BOEventsOperationExecutor.h>
-#import <BlotoutAnalyticsSDK/BOFFileSystemManager.h>
-#import <BlotoutAnalyticsSDK/BOAUtilities.h>
-#import <BlotoutAnalyticsSDK/BlotoutAnalytics_Internal.h>
-#import <BlotoutAnalyticsSDK/BOBaseAPI.h>
-#import <BlotoutAnalyticsSDK/BOANetworkConstants.h>
-#import <BlotoutAnalyticsSDK/BOSharedManager.h>
-#import <BlotoutAnalyticsSDK/BOFUserDefaults.h>
-#import <BlotoutAnalyticsSDK/BOServerDataConverter.h>
-#import <BlotoutAnalyticsSDK/BOEncryptionManager.h>
-#import <BlotoutAnalyticsSDK/BONetworkManager.h>
-#import <BlotoutAnalyticsSDK/BOAFileStorage.h>
-#import <BlotoutAnalyticsSDK/BOAAESCrypto.h>
-#import <BlotoutAnalyticsSDK/BOADeviceAndAppFraudController.h>
-#import <BlotoutAnalyticsSDK/BOASystemEvents.h>
-#import <BlotoutAnalyticsSDK/BOAUserDefaultsStorage.h>
-#import <BlotoutAnalyticsSDK/BOEventPostAPI.h>
-#import <BlotoutAnalyticsSDK/BOManifestAPI.h>
+#import "BlotoutAnalytics.h"
+#import "BlotoutAnalyticsConfiguration.h"
+#import "BOAMapIDDataModel.h"
+#import "BOACrypto.h"
+#import "BOASDKManifestController.h"
+#import "BOEventsOperationExecutor.h"
+#import "BOFFileSystemManager.h"
+#import "BOAUtilities.h"
+#import "BlotoutAnalytics_Internal.h"
+#import "BOBaseAPI.h"
+#import "BOANetworkConstants.h"
+#import "BOSharedManager.h"
+#import "BOFUserDefaults.h"
+#import "BOServerDataConverter.h"
+#import "BOEncryptionManager.h"
+#import "BONetworkManager.h"
+#import "BOAFileStorage.h"
+#import "BOAAESCrypto.h"
+#import "BOADeviceAndAppFraudController.h"
+#import "BOASystemEvents.h"
+#import "BOAUserDefaultsStorage.h"
+#import "BOEventPostAPI.h"
+#import "BOManifestAPI.h"
 
 
