@@ -26,4 +26,5 @@ IDs or IP Addresses.
 
   s.ios.deployment_target = '12.0'
   s.source_files = ['BlotoutAnalytics/**/*.{h,m}']
+  s.exclude_files = ['BlotoutAnalytics/BlotoutAnalyticsTests/*.{h,m}']
 end
