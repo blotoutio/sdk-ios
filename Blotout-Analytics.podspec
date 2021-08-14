@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "Blotout-Analytics"
   s.module_name      = "BlotoutAnalytics"
-  s.version          = "0.9.4"
+  s.version          = "0.9.5"
   s.summary          = "Blotout Mobile Analytics SDK"
   s.description      = <<-DESC
                        Blotout’s SDK offers companies all of the analytics and remarketing tools they are accustomed to,
