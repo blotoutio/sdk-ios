@@ -116,21 +116,21 @@ static void BOReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress;
 {
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+    BOReachability* returnValue = [[self alloc] init];;
 
-	BOReachability* returnValue = NULL;
-
-	if (reachability != NULL)
-	{
-		returnValue = [[self alloc] init];
-		if (returnValue != NULL)
-		{
-			returnValue->reachabilityRef = reachability;
-			returnValue->localWiFiRef = NO;
-		}
-	}
-	return returnValue;
+    if (returnValue != NULL)
+    {
+        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+        
+        if (reachability != NULL)
+        {
+            returnValue->reachabilityRef = reachability;
+            returnValue->localWiFiRef = NO;
+        }
+    }
+    return returnValue;
 }
+
 
 
 
