@@ -238,7 +238,7 @@
 		741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics_Internal.h; sourceTree = "<group>"; };
 		7435E8C422E99062008480B8 /* BlotoutAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 		7435E8C522E99062008480B8 /* BlotoutAnalytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalytics.m; sourceTree = "<group>"; };
-		E843AD3E249E0791006C10CE /* BlotoutAnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlotoutAnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E843AD3E249E0791006C10CE /* BlotoutAnalyticsSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlotoutAnalyticsSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsTests.m; sourceTree = "<group>"; };
 		E843AD42249E0791006C10CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOSharedManagerTests.m; sourceTree = "<group>"; };
@@ -469,7 +469,7 @@
 		7435E8C222E99062008480B8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E843AD3E249E0791006C10CE /* BlotoutAnalyticsTests.xctest */,
+				E843AD3E249E0791006C10CE /* BlotoutAnalyticsSDKTests.xctest */,
 				2B6BE15126C3A3A400EDD68A /* BlotoutAnalyticsSDK.framework */,
 			);
 			name = Products;
@@ -601,9 +601,9 @@
 			productReference = 2B6BE15126C3A3A400EDD68A /* BlotoutAnalyticsSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E843AD3D249E0791006C10CE /* BlotoutAnalyticsTests */ = {
+		E843AD3D249E0791006C10CE /* BlotoutAnalyticsSDKTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E843AD48249E0791006C10CE /* Build configuration list for PBXNativeTarget "BlotoutAnalyticsTests" */;
+			buildConfigurationList = E843AD48249E0791006C10CE /* Build configuration list for PBXNativeTarget "BlotoutAnalyticsSDKTests" */;
 			buildPhases = (
 				E843AD3A249E0791006C10CE /* Sources */,
 				E843AD3B249E0791006C10CE /* Frameworks */,
@@ -614,9 +614,9 @@
 			dependencies = (
 				2B5FA8BC26C54B5200C75539 /* PBXTargetDependency */,
 			);
-			name = BlotoutAnalyticsTests;
+			name = BlotoutAnalyticsSDKTests;
 			productName = BlotoutAnalyticsTests;
-			productReference = E843AD3E249E0791006C10CE /* BlotoutAnalyticsTests.xctest */;
+			productReference = E843AD3E249E0791006C10CE /* BlotoutAnalyticsSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -642,7 +642,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7435E8BC22E99062008480B8 /* Build configuration list for PBXProject "BlotoutAnalytics" */;
+			buildConfigurationList = 7435E8BC22E99062008480B8 /* Build configuration list for PBXProject "BlotoutAnalyticsSDK" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -656,7 +656,7 @@
 			projectRoot = "";
 			targets = (
 				2B6BE15026C3A3A400EDD68A /* BlotoutAnalyticsSDK */,
-				E843AD3D249E0791006C10CE /* BlotoutAnalyticsTests */,
+				E843AD3D249E0791006C10CE /* BlotoutAnalyticsSDKTests */,
 				E8D4E71724F28A6600BBB3EB /* UniversalLib */,
 				2EBB30EA261F0570009615AF /* OCLint */,
 			);
@@ -1057,7 +1057,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7435E8BC22E99062008480B8 /* Build configuration list for PBXProject "BlotoutAnalytics" */ = {
+		7435E8BC22E99062008480B8 /* Build configuration list for PBXProject "BlotoutAnalyticsSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7435E8C822E99062008480B8 /* Debug */,
@@ -1066,7 +1066,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E843AD48249E0791006C10CE /* Build configuration list for PBXNativeTarget "BlotoutAnalyticsTests" */ = {
+		E843AD48249E0791006C10CE /* Build configuration list for PBXNativeTarget "BlotoutAnalyticsSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E843AD46249E0791006C10CE /* Debug */,

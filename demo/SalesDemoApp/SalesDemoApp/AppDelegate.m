@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 #import <CommonCrypto/CommonDigest.h>
-#import <BlotoutAnalytics/BlotoutAnalyticsConfiguration.h>
+
 @interface AppDelegate ()
 
 @end

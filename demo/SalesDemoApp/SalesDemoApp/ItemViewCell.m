@@ -7,7 +7,8 @@
 //
 
 #import "ItemViewCell.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
+
 @implementation ItemViewCell
 
 - (void)awakeFromNib {

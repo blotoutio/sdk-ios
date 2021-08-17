@@ -9,7 +9,8 @@
  * The BlotoutAnalytics main class, the developer/customer interacts with the SDK through this class.
  */
 
-#import <Foundation/Foundation.h>
+
+@import Foundation;
 //! Project version number for BlotoutAnalyticsSDK.
 FOUNDATION_EXPORT double BlotoutAnalyticsVersionNumber;
 
