@@ -36,46 +36,57 @@ void loadAsUIViewControllerBOFoundationCat(void) {}
   });
 }
 
-+ (UIViewController *)getTopmostViewController {
-  UIViewController *root;
-  if ([BlotoutAnalytics sharedInstance].config.application != nil) {
-      root = [BlotoutAnalytics sharedInstance].config.application.delegate.window.rootViewController;
-  } else {
-      root = [UIApplication sharedApplication].keyWindow.rootViewController;
-  }
++ (UIViewController *)getRootViewControllerFromView:(UIView *)view {
   
-  return [self topmostViewController:root];
+  UIViewController *root = view.window.rootViewController;
+  return [self topViewController:root];
+  
 }
 
-+ (UIViewController *)topmostViewController:(UIViewController *)rootViewController {
-  UIViewController *presentedViewController = rootViewController.presentedViewController;
-  if (presentedViewController != nil) {
-    return [self topmostViewController:presentedViewController];
-  }
-  
-  if ([rootViewController isKindOfClass:[UINavigationController class]]) {
-    UIViewController *lastViewController = [[(UINavigationController *)rootViewController viewControllers] lastObject];
-    return [self topmostViewController:lastViewController];
-  }
-  
-  return rootViewController;
++ (UIViewController *)topViewController:(UIViewController *)rootViewController
+{
+    UIViewController *nextRootViewController = [self nextRootViewController:rootViewController];
+    if (nextRootViewController) {
+        return [self topViewController:nextRootViewController];
+    }
+
+    return rootViewController;
+}
+
++ (UIViewController *)nextRootViewController:(UIViewController *)rootViewController {
+    UIViewController *presentedViewController = rootViewController.presentedViewController;
+    if (presentedViewController != nil) {
+        return presentedViewController;
+    }
+    if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UIViewController *lastViewController = ((UINavigationController *)rootViewController).viewControllers.lastObject;
+        return lastViewController;
+    }
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        __auto_type *currentTabViewController = ((UITabBarController*)rootViewController).selectedViewController;
+        if (currentTabViewController != nil) {
+            return currentTabViewController;
+        }
+    }
+    return nil;
 }
 
 -(NSString*)getScreenName:(UIViewController *)viewController {
-  NSString *name = [viewController title];
-  if (!name || name.length == 0) {
-    name = [[[viewController class] description] stringByReplacingOccurrencesOfString:@"ViewController" withString:@""];
-    if (name.length == 0) {
-      name = @"Unknown";
+    NSString *name = [[[viewController class] description] stringByReplacingOccurrencesOfString:@"ViewController" withString:@""];
+    if (!name || name.length == 0) {
+        name = [viewController title];
+        if (name.length == 0) {
+            name = @"Unknown";
+        }
     }
-  }
-  
-  return name;
+    return name;
 }
 
 - (void)logged_viewWillDisappear:(BOOL)animated {
   @try {
-    UIViewController *top = [[self class] getTopmostViewController];
+    
+    UIViewController *top = [[self class] getRootViewControllerFromView:self.view];
+    
     if (!top) {
       return;
     }
@@ -101,7 +112,9 @@ void loadAsUIViewControllerBOFoundationCat(void) {}
 
 - (void)logged_viewDidAppear:(BOOL)animated {
   @try {
-    UIViewController *top = [[self class] getTopmostViewController];
+    
+    UIViewController *top = [[self class] getRootViewControllerFromView:self.view];
+    
     if (!top) {
       return;
     }
