@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 #import <CommonCrypto/CommonDigest.h>
-#import <BlotoutAnalytics/BlotoutAnalyticsConfiguration.h>
+
 @interface AppDelegate ()
 
 @end
@@ -91,6 +91,12 @@
     //        //[boaObj performSelector:@selector(CrashTest_InitializeAnalyticsEngine)];
     //    }];
     [boaObj capture:@"AppLaunched1" withInformation:launchOptions];
+    
+    BOAMapIDDataModel *model = [[BOAMapIDDataModel alloc] init];
+    model.externalID = @"abcd";
+    model.provider = @"xyz";
+    [boaObj mapID:model withInformation:nil];
+    
     return YES;
 }
 

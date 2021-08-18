@@ -10,7 +10,7 @@
 #import "eBayAPI.h"
 #import "ListItemViewController.h"
 #import "ListItemCartViewController.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 
 #define kFontName            @"Helvetica Neue"
 #define    kFontSize            16.0

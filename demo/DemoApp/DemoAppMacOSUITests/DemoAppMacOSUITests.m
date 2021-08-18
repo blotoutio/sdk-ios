@@ -6,7 +6,7 @@
 //  Copyright © 2019 Blotout. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 
 @interface DemoAppMacOSUITests : XCTestCase
 

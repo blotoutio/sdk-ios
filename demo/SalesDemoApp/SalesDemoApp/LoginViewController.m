@@ -8,9 +8,9 @@
 
 #import "LoginViewController.h"
 #import "CategoryViewController.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 #import <mach/mach.h>
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+
 
 static NSString *memInfoStr = @"";
 static NSString *memFreeInfoStr = @"";

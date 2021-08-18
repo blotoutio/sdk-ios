@@ -11,7 +11,7 @@
 #import "ItemViewCell.h"
 #import "MXScrollViewController.h"
 #import "ListItemCartViewController.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 
 #define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 

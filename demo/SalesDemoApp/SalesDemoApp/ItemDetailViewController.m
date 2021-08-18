@@ -8,7 +8,7 @@
 
 #import "ItemDetailViewController.h"
 #import "ListItemCartViewController.h"
-#import <BlotoutAnalytics/BlotoutAnalytics.h>
+@import BlotoutAnalyticsSDK;
 
 @interface ItemDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

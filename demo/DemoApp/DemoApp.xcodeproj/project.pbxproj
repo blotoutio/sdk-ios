@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2BAB515A25F8E7A20017E840 /* libBlotoutAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BAB50F925F8E5A80017E840 /* libBlotoutAnalytics.a */; };
+		2B6F3A3E26CC016D004C11A3 /* BlotoutAnalyticsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6F3A3D26CC016D004C11A3 /* BlotoutAnalyticsSDK.framework */; };
 		2BCA829822F4904B0036A9EC /* CrossfadeAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA828222F4904A0036A9EC /* CrossfadeAnimationController.m */; };
 		2BCA829922F4904B0036A9EC /* FourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA828422F4904A0036A9EC /* FourViewController.m */; };
 		2BCA829A22F4904B0036A9EC /* ModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BCA828622F4904A0036A9EC /* ModalViewController.m */; };
@@ -174,6 +174,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B6F3A3D26CC016D004C11A3 /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BAB50EF25F8E5A80017E840 /* BlotoutAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutAnalytics.xcodeproj; path = ../../BlotoutAnalytics/BlotoutAnalytics.xcodeproj; sourceTree = "<group>"; };
 		2BCA828222F4904A0036A9EC /* CrossfadeAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrossfadeAnimationController.m; sourceTree = "<group>"; };
 		2BCA828322F4904A0036A9EC /* SubLevelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubLevelViewController.h; sourceTree = "<group>"; };
@@ -267,7 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BAB515A25F8E7A20017E840 /* libBlotoutAnalytics.a in Frameworks */,
+				2B6F3A3E26CC016D004C11A3 /* BlotoutAnalyticsSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +453,7 @@
 		7417460A22E9A57100240D1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B6F3A3D26CC016D004C11A3 /* BlotoutAnalyticsSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
