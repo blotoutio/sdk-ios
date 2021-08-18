@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/ankuradhikari/Desktop/a2/Blotoutgithub/ios-sdk/BlotoutAnalyticsSDK.xcodeproj">
+      location = "group:BlotoutAnalyticsSDK.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:demo/SalesDemoApp/SalesDemoApp.xcodeproj">

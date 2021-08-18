@@ -223,7 +223,7 @@ static id sBOASharedInstance = nil;
         [mapIdInfo addEntriesFromDictionary:eventInfo];
       }
       
-      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_MAP_ID properties:eventInfo eventCode:[NSNumber numberWithInt:BO_DEV_EVENT_MAP_ID] screenName:nil withType:BO_CODIFIED];
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_MAP_ID properties:mapIdInfo eventCode:[NSNumber numberWithInt:BO_DEV_EVENT_MAP_ID] screenName:nil withType:BO_CODIFIED];
       [self.eventManager capture:model];
     }];
     

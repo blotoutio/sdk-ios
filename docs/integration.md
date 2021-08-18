@@ -10,18 +10,18 @@ Use [CocoaPods](http://www.cocoapods.org). Cocoapods is a dependency manager for
 1. To install CocoaPods, run `sudo gem install cocoapods` in your console.
 2. Change the directory on the terminal to the Xcode project file (.xcodeproj)'s location. `cd ~/BlotoutDemo`
 3. Run `touch Podfile` on the terminal to create the Podfile in that directory.
-4. Now open the pod file created in previous step and add `pod 'Blotout-Analytics'` to your *Podfile*.
+4. Now open the pod file created in previous step and add `use_frameworks!` `pod 'Blotout-Analytics'`  to your *Podfile*.
 5. Install the pod(s) by running `pod install`.
 6. Moving forward open the project using workspace file (.xcworkspace)
-7. Add `import Blotout_Analytics` in the .swift files where you want to use it.
+7. Add `import BlotoutAnalyticsSDK ` in the .swift files where you want to use it.
 
 ## Initialization
 
 ### Option 1 Objective-C:
 
 ```ios
-#import "BlotoutAnalytics.h"
-#import "BlotoutAnalyticsConfiguration.h"
+
+@import BlotoutAnalyticsSDK;
     
 -(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BlotoutAnalytics *boaObj = [BlotoutAnalytics sharedInstance];
@@ -37,6 +37,9 @@ Use [CocoaPods](http://www.cocoapods.org). Cocoapods is a dependency manager for
 
 ### Option 2 Swift:
 ```ios
+
+@import BlotoutAnalyticsSDK;
+
 func boSDKInit() throws -> Void {
     let boaSDK : BlotoutAnalytics
     boaSDK =  BlotoutAnalytics.sharedInstance()!

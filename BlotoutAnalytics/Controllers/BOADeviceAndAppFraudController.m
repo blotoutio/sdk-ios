@@ -313,7 +313,7 @@ static BOOL HardwareIs64BitArch() {
   return NO;
 }
 
-bool DeviceIs64BitSimulator() {
+static bool DeviceIs64BitSimulator() {
   @try {
     bool is64bitSimulator = false;
     int mib[6] = {0,0,0,0,0,0};
