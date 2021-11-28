@@ -100,7 +100,7 @@
             @"name" : product.localizedTitle ?: @"",
           }
       ]
-    } eventCode:@(BO_TRANSACTION_COMPLETED) screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
+    }  screenName:[BOSharedManager sharedInstance].currentScreenName withType:BO_SYSTEM];
     [[BlotoutAnalytics sharedInstance].eventManager capture:model];
   }];
 }

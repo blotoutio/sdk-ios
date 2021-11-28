@@ -10,11 +10,10 @@
 @implementation BOACaptureModel
 
 - (instancetype)initWithEvent:(NSString *)event
-                   properties:(NSDictionary *)properties eventCode:(NSNumber*)eventCode screenName:(NSString* _Nullable)screenName withType:(NSString*)type {
+                   properties:(NSDictionary *)properties screenName:(NSString* _Nullable)screenName withType:(NSString*)type {
   if (self = [super init]) {
     _event = event;
     _properties = properties != nil ? properties : @{};
-    _eventSubCode = eventCode;
     _screenName = screenName != nil ? screenName : @"";
     _type = type;
   }

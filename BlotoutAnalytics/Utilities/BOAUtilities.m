@@ -99,46 +99,6 @@
   return nil;
 }
 
-+(NSNumber*)codeForCustomCodifiedEvent:(NSString*)eventName {
-  @try {
-    //int devCustomEventLowerLimit = 21000;
-    //int devCustomEventUpperLimit = 22000;
-    //Below will make sure any length blank string is never treated as string and valid name
-    NSString *tempEventName = [eventName stringByReplacingOccurrencesOfString:@" " withString:@""];
-    if (!eventName || [tempEventName isEqualToString:@""]) {
-      return nil;
-    }
-    
-    BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-    NSMutableDictionary *allCustomEvents = [[analyticsRootUD objectForKey:BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS] mutableCopy];
-    if (!allCustomEvents) {
-      allCustomEvents = [NSMutableDictionary dictionary];
-    }
-    
-    BOOL isNameFound = [[allCustomEvents allKeys] containsObject:eventName];
-    if (isNameFound) {
-      return [allCustomEvents objectForKey:eventName];
-    }
-        
-    int eventNameIntSum  = [self getHashIntSum:eventName];
-    int eventNameIntSumModulo = eventNameIntSum % 8899; //as range is from 21100 - 29999
-    int eventSubCode = BO_DEV_EVENT_CUSTOM_KEY + eventNameIntSumModulo; //21100
-    NSNumber *eventSubCodeObj = [NSNumber numberWithInt:eventSubCode];
-    
-    while ([[allCustomEvents allValues] containsObject:eventSubCodeObj]) {
-      eventNameIntSum = eventNameIntSum + 1;
-      eventNameIntSumModulo = eventNameIntSum % 8899;
-      eventSubCode = BO_DEV_EVENT_CUSTOM_KEY + eventNameIntSumModulo; //21100
-      eventSubCodeObj = [NSNumber numberWithInt:eventSubCode];
-    }
-    [allCustomEvents setObject:eventSubCodeObj forKey:eventName];
-    [analyticsRootUD setObject:allCustomEvents forKey:BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS];
-    return eventSubCodeObj;
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-  }
-  return nil;
-}
 
 +(int)currentPlatformCode {
   switch ([UIDevice currentDevice].userInterfaceIdiom) {

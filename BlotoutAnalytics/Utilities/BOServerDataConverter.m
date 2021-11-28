@@ -41,21 +41,7 @@ static NSMutableDictionary *appInfo;
       NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
       NSString *prodName = [bundleInfo objectForKey:@"CFBundleName"];
       [appInfo setObject:prodName forKey:@"name"]; //Check this, coming as SalesDemoApp, which is app name
-      
-      [appInfo setObject:[NSNumber numberWithInt:[BOAUtilities currentPlatformCode]] forKey:@"platform"];
-      
-      NSString *osn = [BOAUtilities systemName] ? [BOAUtilities systemName] : @"-1";
-      [appInfo setObject:osn forKey:@"osName"];
-      
-      NSString *osv = [BOAUtilities systemVersion] ? [BOAUtilities systemVersion] : @"-1";
-      [appInfo setObject:osv forKey:@"osVersion"];
-      
-      NSString *dmft = @"Apple";
-      [appInfo setObject:dmft forKey:@"deviceMft"];
-      
-      NSString *dModel = [BOAUtilities deviceModel] ? [BOAUtilities deviceModel] : @"NA";
-      [appInfo setObject:dModel forKey:@"deviceModel"];
-      
+    
       int isProxied = [BOADeviceAndAppFraudController isConnectionProxied] ? 1 : 0;
       [appInfo setObject:[NSNumber numberWithBool:isProxied] forKey:@"vpnStatus"];
       
@@ -70,6 +56,11 @@ static NSMutableDictionary *appInfo;
       
       int timeoOffset = [BOAUtilities getCurrentTimezoneOffsetInMin];
       [appInfo setObject:[NSNumber numberWithInt:timeoOffset] forKey:@"timeZoneOffset"];
+      
+      //UIWebView Depriciated , need to handle it with WKWebView
+      UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+      NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+      [appInfo setObject:userAgent forKey:@"userAgent"];
       
       return appInfo;
   } @catch (NSException *exception) {
@@ -86,21 +77,15 @@ static NSMutableDictionary *appInfo;
       appInfoCurrentDict = [self recordAppInformation];
     }
   
-    NSNumber *timeStamp = [BOAUtilities getUserBirthTimeStamp];
-    NSMutableDictionary *metaInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
-      @"plf": [appInfoCurrentDict objectForKey:@"platform"],
-      @"appv": [appInfoCurrentDict objectForKey:@"version"],
+        NSMutableDictionary *metaInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
+
       @"jbrkn": [appInfoCurrentDict objectForKey:@"jbnStatus"],
       @"vpn": [appInfoCurrentDict objectForKey:@"vpnStatus"],
       @"dcomp": [appInfoCurrentDict objectForKey:@"dcompStatus"],
       @"acomp": [appInfoCurrentDict objectForKey:@"acompStatus"],
-      @"osn": [appInfoCurrentDict objectForKey:@"osName"],
-      @"osv": [appInfoCurrentDict objectForKey:@"osVersion"],
-      @"dmft": [appInfoCurrentDict objectForKey:@"deviceMft"],
-      @"dm": [appInfoCurrentDict objectForKey:@"deviceModel"],
       @"sdkv": [appInfoCurrentDict objectForKey:@"sdkVersion"],
       @"tz_offset": [appInfoCurrentDict objectForKey:@"timeZoneOffset"],
-      @"user_id_created": timeStamp,
+      @"user_agent": [appInfoCurrentDict objectForKey:@"userAgent"],
       @"referrer" : [BOSharedManager sharedInstance].referrer
     }];
     
