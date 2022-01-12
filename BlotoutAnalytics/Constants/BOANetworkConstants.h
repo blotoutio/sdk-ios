@@ -30,13 +30,10 @@ extern NSString *BO_EVENT_TRANSACTION_NAME ;
 extern NSString *BO_EVENT_ITEM_NAME;
 extern NSString *BO_EVENT_PERSONA_NAME;
 
-extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
 
-extern int const BO_EVENT_VISIBILITY_VISIBLE;
 extern NSString * const BO_VISIBILITY_VISIBLE;
 
-extern int const BO_EVENT_VISIBILITY_HIDDEN;
 extern NSString * const BO_VISIBILITY_HIDDEN;
 
 extern NSString * const BO_APP_VERSION;

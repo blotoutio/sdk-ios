@@ -33,13 +33,10 @@ NSString *BO_USER_ID = @"userid";
 NSString *BO_EVENT_MAP_ID = @"map_id";
 NSString *BO_EVENT_MAP_PROVIDER = @"map_provider";
 
-int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
 
-int const BO_EVENT_VISIBILITY_VISIBLE = 11131;
 NSString * const BO_VISIBILITY_VISIBLE= @"visibility_visible";
 
-int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
 NSString * const BO_VISIBILITY_HIDDEN= @"visibility_hidden";
 
 //transaction events

@@ -577,23 +577,22 @@ static id sBOASharedInstance = nil;
 }
 
 -(void)captureItem:(nonnull Item*)itemData withInformation:(nullable NSDictionary*)eventInfo {
-  @try {
-    if (!self.isEnabled) {
-      return;
+    @try {
+        if (!self.isEnabled) {
+            return;
+        }
+        [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+            NSMutableDictionary *itemInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:itemData.item_id, itemData.item_name,itemData.item_sku,itemData.item_category,itemData.item_price,itemData.item_currency,itemData.item_quantity, nil] forKeys:[NSArray arrayWithObjects:@"item_id", @"item_name",@"item_sku",@"item_category",@"item_price",@"item_currency",@"item_quantity",nil]];
+            if (eventInfo) {
+                [itemInfo addEntriesFromDictionary:eventInfo];
+            }
+            
+            BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_ITEM_NAME properties:itemInfo  screenName:nil withType:BO_CODIFIED];
+            [self.eventManager capture:model];
+        }];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
     }
-    
-    [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
-      NSMutableDictionary *itemInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:itemData.item_id, itemData.item_name,itemData.item_sku,itemData.item_category,itemData.item_price,itemData.item_currency,itemData.item_quantity,nil] forKeys:[NSArray arrayWithObjects:@"item_id", @"item_name",@"item_sku",@"item_category",@"item_price",@"item_currency",@"item_quantity",nil]];
-      if (eventInfo) {
-        [itemInfo addEntriesFromDictionary:eventInfo];
-      }
-      
-      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_ITEM_NAME properties:itemInfo  screenName:nil withType:BO_CODIFIED];
-      [self.eventManager capture:model];
-    }];
-  } @catch (NSException *exception) {
-    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
-  }
 }
 
 -(void)capturePersona:(nonnull Persona*)personaData withInformation:(nullable NSDictionary*)eventInfo {
@@ -603,7 +602,7 @@ static id sBOASharedInstance = nil;
     }
     
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
-      NSMutableDictionary *personaInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:personaData.persona_id, personaData.persona_firstname,personaData.persona_middlename,personaData.persona_lastname,personaData.persona_username,personaData.persona_dob,personaData.persona_email,personaData.persona_number,personaData.persona_address,personaData,personaData.persona_city,personaData.persona_state,personaData.persona_zip,personaData.persona_country,personaData.persona_gender,personaData.persona_age,nil] forKeys:[NSArray arrayWithObjects:@"persona_id", @"persona_firstname",@"persona_middlename",@"persona_lastname",@"persona_username",@"persona_dob",@"persona_email",@"persona_number",@"persona_address",@"persona_city",@"persona_state",@"persona_zip",@"persona_country",@"persona_gender",@"persona_age",nil]];
+      NSMutableDictionary *personaInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:personaData.persona_id, personaData.persona_firstname,personaData.persona_middlename,personaData.persona_lastname,personaData.persona_username,personaData.persona_dob,personaData.persona_email,personaData.persona_number,personaData.persona_address,personaData.persona_city,personaData.persona_state,personaData.persona_zip,personaData.persona_country,personaData.persona_gender,personaData.persona_age,nil] forKeys:[NSArray arrayWithObjects:@"persona_id", @"persona_firstname",@"persona_middlename",@"persona_lastname",@"persona_username",@"persona_dob",@"persona_email",@"persona_number",@"persona_address",@"persona_city",@"persona_state",@"persona_zip",@"persona_country",@"persona_gender",@"persona_age",nil]];
       if (eventInfo) {
         [personaInfo addEntriesFromDictionary:eventInfo];
       }

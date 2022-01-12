@@ -10,6 +10,17 @@
 
 @implementation Item
 
-
+-(instancetype)init
+{
+    self = [super init];
+    self.item_sku = @"";
+    self.item_name = @"";
+    self.item_price = [NSNumber numberWithInt:0];
+    self.item_category = @[];
+    self.item_currency = @"";
+    self.item_quantity = [NSNumber numberWithInt:0];
+    
+    return self;
+}
 
 @end
