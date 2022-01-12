@@ -12,19 +12,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Item : NSObject
 
-@property (nonatomic, strong, nonnull) NSString *item_id;
+@property (nonatomic, strong, nonnull) NSString *item_id;//Required Parameter
 
 @property (nonatomic, strong, nullable) NSString *item_name;
 
 @property (nonatomic, strong, nullable) NSString *item_sku;
 
-@property (nonatomic, strong, nullable) NSDictionary *item_category;
+@property (nonatomic, strong, nullable) NSArray *item_category;
 
-@property (nonatomic, assign) NSInteger *item_price;
+@property (nonatomic, assign) NSNumber *item_price;
 
 @property (nonatomic, strong, nullable) NSString *item_currency;
 
-@property (nonatomic, assign) NSInteger *item_quantity;
+@property (nonatomic, assign) NSNumber *item_quantity;
 
 @end
 

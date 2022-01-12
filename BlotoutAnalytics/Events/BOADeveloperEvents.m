@@ -35,18 +35,23 @@
 }
 
 +(NSDictionary*)prepareServerPayload:(NSArray*)events {
-  @try {
-    NSMutableArray *eventData = [NSMutableArray array];
-    NSDictionary *metaInfo = [BOServerDataConverter prepareMetaData];
-    
-    for (NSDictionary *event in events) {
-      [eventData addObject:[event valueForKey:BO_EVENTS]];
+    @try {
+        NSMutableArray *eventData = [NSMutableArray array];
+        NSDictionary *metaInfo = [BOServerDataConverter prepareMetaData];
+        
+        for (NSDictionary *event in events) {
+            [eventData addObject:[event valueForKey:BO_EVENTS]];
+        }
+        if (metaInfo != nil && eventData != nil){
+            return @{BO_META:metaInfo,BO_EVENTS:eventData};
+        }
+        else
+        {
+            return  @{};
+        }
+    } @catch(NSException *exception) {
+        BOFLogDebug(@"%@", exception);
     }
-      
-    return @{BO_META:metaInfo,BO_EVENTS:eventData};
-  } @catch(NSException *exception) {
-    BOFLogDebug(@"%@", exception);
-  }
 }
 
 +(NSDictionary*)createEventObject:(NSString*)eventName withType:(NSString*)type withScreenName:(NSString*)screenName  withEventInfo:(NSDictionary*)eventInfo {

@@ -34,13 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSString *persona_state;
 
-@property (nonatomic, assign, nullable) NSInteger *persona_zip;
+@property (nonatomic, assign, nullable) NSNumber *persona_zip;
 
 @property (nonatomic, strong, nullable) NSString *persona_country;
 
 @property (nonatomic, strong, nullable) NSString *persona_gender;
 
-@property (nonatomic, assign, nullable) NSInteger *persona_age;
+@property (nonatomic, assign, nullable) NSNumber *persona_age;
 
 @end
 

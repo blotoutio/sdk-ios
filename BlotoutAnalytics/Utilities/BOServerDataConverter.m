@@ -58,10 +58,13 @@ static NSMutableDictionary *appInfo;
       [appInfo setObject:[NSNumber numberWithInt:timeoOffset] forKey:@"timeZoneOffset"];
       
       //UIWebView Depriciated , need to handle it with WKWebView
+      dispatch_async(dispatch_get_main_queue(), ^{
       UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+     
       NSString* userAgent = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+          
       [appInfo setObject:userAgent forKey:@"userAgent"];
-      
+      });
       return appInfo;
   } @catch (NSException *exception) {
       BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

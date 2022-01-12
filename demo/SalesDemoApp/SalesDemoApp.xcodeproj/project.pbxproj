@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B6F3A2D26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B6F3A2C26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework */; };
 		2B9FAB612337279C002F8E96 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAB602337279C002F8E96 /* AppDelegate.m */; };
 		2B9FAB642337279C002F8E96 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAB632337279C002F8E96 /* CategoryViewController.m */; };
 		2B9FAB672337279C002F8E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B9FAB652337279C002F8E96 /* Main.storyboard */; };
@@ -38,6 +37,7 @@
 		2B9FAC54233A778C002F8E96 /* MXScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC4A233A778C002F8E96 /* MXScrollViewController.m */; };
 		2B9FAC57233A7B3C002F8E96 /* ParallexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC56233A7B3C002F8E96 /* ParallexViewController.m */; };
 		2B9FAC5A23449D45002F8E96 /* ListItemCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */; };
+		68E788B0278C52E9001227BB /* BlotoutAnalyticsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E788AF278C52E9001227BB /* BlotoutAnalyticsSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +139,11 @@
 		2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItemCartViewController.m; sourceTree = "<group>"; };
 		2B9FAC5923449D45002F8E96 /* ListItemCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItemCartViewController.h; sourceTree = "<group>"; };
 		2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutAnalytics.xcodeproj; path = ../../BlotoutAnalytics/BlotoutAnalytics.xcodeproj; sourceTree = "<group>"; };
+		51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesDemoApp.debug.xcconfig"; path = "Target Support Files/Pods-SalesDemoApp/Pods-SalesDemoApp.debug.xcconfig"; sourceTree = "<group>"; };
+		68E788AB278C5113001227BB /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68E788AF278C52E9001227BB /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8DEA39F957B117583F0D054 /* Pods_SalesDemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesDemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesDemoApp.release.xcconfig"; path = "Target Support Files/Pods-SalesDemoApp/Pods-SalesDemoApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B6F3A2D26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework in Frameworks */,
+				68E788B0278C52E9001227BB /* BlotoutAnalyticsSDK.framework in Frameworks */,
 				2B9FABE92338E26E002F8E96 /* ImageIO.framework in Frameworks */,
 				2B9FABC723373901002F8E96 /* libxml2.tbd in Frameworks */,
 			);
@@ -162,6 +167,7 @@
 				2B9FAB5E2337279C002F8E96 /* SalesDemoApp */,
 				2B9FAB5D2337279C002F8E96 /* Products */,
 				2B9FABC5233738FF002F8E96 /* Frameworks */,
+				7D7FAF092C168A9627768E05 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -239,9 +245,12 @@
 		2B9FABC5233738FF002F8E96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68E788AF278C52E9001227BB /* BlotoutAnalyticsSDK.framework */,
+				68E788AB278C5113001227BB /* BlotoutAnalyticsSDK.framework */,
 				2B6F3A2C26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework */,
 				2B9FABE82338E26E002F8E96 /* ImageIO.framework */,
 				2B9FABC623373901002F8E96 /* libxml2.tbd */,
+				C8DEA39F957B117583F0D054 /* Pods_SalesDemoApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -297,6 +306,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		7D7FAF092C168A9627768E05 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */,
+				F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -304,6 +322,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B9FAB722337279F002F8E96 /* Build configuration list for PBXNativeTarget "SalesDemoApp" */;
 			buildPhases = (
+				177023E0F9B1F2BC1874C36B /* [CP] Check Pods Manifest.lock */,
 				2B9FAB582337279C002F8E96 /* Sources */,
 				2B9FAB592337279C002F8E96 /* Frameworks */,
 				2B9FAB5A2337279C002F8E96 /* Resources */,
@@ -405,6 +424,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		177023E0F9B1F2BC1874C36B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SalesDemoApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B9FAB582337279C002F8E96 /* Sources */ = {
@@ -512,7 +556,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -566,7 +610,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -577,20 +621,24 @@
 		};
 		2B9FAB732337279F002F8E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4YS75C7357;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SalesDemoApp/Thirdparty",
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SalesDemoApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.blotout.saleDemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -600,6 +648,7 @@
 		};
 		2B9FAB742337279F002F8E96 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -610,6 +659,7 @@
 				);
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SalesDemoApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

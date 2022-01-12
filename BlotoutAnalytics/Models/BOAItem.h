@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSDictionary *item_category;
 
-@property (nonatomic, strong, nullable) int *item_price;
+@property (nonatomic, assign, nullable) int *item_price;
 
 @property (nonatomic, strong, nullable) NSString *item_currency;
 
-@property (nonatomic, strong, nullable) int *item_quantity;
+@property (nonatomic, assign, nullable) int *item_quantity;
 @end
 
 NS_ASSUME_NONNULL_END
