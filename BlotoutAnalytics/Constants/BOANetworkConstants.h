@@ -26,21 +26,20 @@ extern  NSString *BO_USER_ID;
 extern int const BO_DEV_EVENT_MAP_ID;
 extern  NSString *BO_EVENT_MAP_ID;
 extern  NSString *BO_EVENT_MAP_PROVIDER;
+extern NSString *BO_EVENT_TRANSACTION_NAME ;
+extern NSString *BO_EVENT_ITEM_NAME;
+extern NSString *BO_EVENT_PERSONA_NAME;
 
-extern int const BO_EVENT_SDK_START;
 extern NSString * const BO_SDK_START;
 
-extern int const BO_EVENT_VISIBILITY_VISIBLE;
 extern NSString * const BO_VISIBILITY_VISIBLE;
 
-extern int const BO_EVENT_VISIBILITY_HIDDEN;
 extern NSString * const BO_VISIBILITY_HIDDEN;
 
 extern NSString * const BO_APP_VERSION;
 extern NSString * const BO_EVENTS;
 extern NSString * const BO_EVENTS_TIME;
 extern NSString * const BO_MESSAGE_ID;
-extern NSString * const BO_EVENT_CATEGORY_SUBCODE;
 
 extern NSString * const BO_EVENT_NAME_MAPPING;
 extern NSString * const BO_SCREEN_NAME;
@@ -52,7 +51,6 @@ extern int const BOSDK_PATCH_VERSION;
 
 extern NSString * const BO_CRYPTO_IVX;
 extern NSString * const BOA_DEBUG;
-extern int const BO_DEV_EVENT_CUSTOM_KEY;
 extern int const BO_DEFAULT_EVENT_PUSH_TIME;
 extern NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH;
 extern NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH;

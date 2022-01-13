@@ -117,6 +117,14 @@
 		2B6BE5A426C4F4C200EDD68A /* BOFLogs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B6BE58A26C4F4C200EDD68A /* BOFLogs.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2B895A2026C81F48001919BE /* BOAMapIDDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B895A1F26C81F48001919BE /* BOAMapIDDataModel.m */; };
 		2BBAE51526C5418A003D5A80 /* BlotoutAnalyticsSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BBAE51426C5418A003D5A80 /* BlotoutAnalyticsSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E78893278C2EF8001227BB /* BOAItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E7888B278C2EF7001227BB /* BOAItem.m */; };
+		68E78894278C2EF8001227BB /* TransactionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E7888C278C2EF7001227BB /* TransactionData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E78895278C2EF8001227BB /* Item.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E7888D278C2EF7001227BB /* Item.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E78896278C2EF8001227BB /* Persona.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E7888E278C2EF8001227BB /* Persona.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E78897278C2EF8001227BB /* BOAItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 68E7888F278C2EF8001227BB /* BOAItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68E78898278C2EF8001227BB /* TransactionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E78890278C2EF8001227BB /* TransactionData.m */; };
+		68E78899278C2EF8001227BB /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E78891278C2EF8001227BB /* Item.m */; };
+		68E7889A278C2EF8001227BB /* Persona.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E78892278C2EF8001227BB /* Persona.m */; };
 		E843AD41249E0791006C10CE /* BlotoutAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E843AD40249E0791006C10CE /* BlotoutAnalyticsTests.m */; };
 		E8677D1F256B810B00CF62D2 /* BOSharedManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D1E256B810B00CF62D2 /* BOSharedManagerTests.m */; };
 		E8677D35256B91D500CF62D2 /* BOEncryptionManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8677D34256B91D500CF62D2 /* BOEncryptionManagerTests.m */; };
@@ -235,6 +243,14 @@
 		2B71D6A125FBB2F0003D5186 /* BlotoutAnalyticsConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalyticsConfiguration.m; sourceTree = "<group>"; };
 		2B895A1F26C81F48001919BE /* BOAMapIDDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BOAMapIDDataModel.m; sourceTree = "<group>"; };
 		2BBAE51426C5418A003D5A80 /* BlotoutAnalyticsSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalyticsSDK.h; sourceTree = "<group>"; };
+		68E7888B278C2EF7001227BB /* BOAItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOAItem.m; sourceTree = "<group>"; };
+		68E7888C278C2EF7001227BB /* TransactionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionData.h; sourceTree = "<group>"; };
+		68E7888D278C2EF7001227BB /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		68E7888E278C2EF8001227BB /* Persona.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Persona.h; sourceTree = "<group>"; };
+		68E7888F278C2EF8001227BB /* BOAItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOAItem.h; sourceTree = "<group>"; };
+		68E78890278C2EF8001227BB /* TransactionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionData.m; sourceTree = "<group>"; };
+		68E78891278C2EF8001227BB /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		68E78892278C2EF8001227BB /* Persona.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Persona.m; sourceTree = "<group>"; };
 		741AB35323F99BE800D5826F /* BlotoutAnalytics_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics_Internal.h; sourceTree = "<group>"; };
 		7435E8C422E99062008480B8 /* BlotoutAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 		7435E8C522E99062008480B8 /* BlotoutAnalytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BlotoutAnalytics.m; sourceTree = "<group>"; };
@@ -373,6 +389,14 @@
 		2B6BE22026C3C46400EDD68A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				68E7888F278C2EF8001227BB /* BOAItem.h */,
+				68E7888B278C2EF7001227BB /* BOAItem.m */,
+				68E7888D278C2EF7001227BB /* Item.h */,
+				68E78891278C2EF8001227BB /* Item.m */,
+				68E7888E278C2EF8001227BB /* Persona.h */,
+				68E78892278C2EF8001227BB /* Persona.m */,
+				68E7888C278C2EF7001227BB /* TransactionData.h */,
+				68E78890278C2EF8001227BB /* TransactionData.m */,
 				2B6BE22126C3C46400EDD68A /* BOASDKManifest.m */,
 				2B6BE22226C3C46400EDD68A /* BOACaptureModel.m */,
 				2B6BE22326C3C46400EDD68A /* BOACaptureModel.h */,
@@ -542,6 +566,7 @@
 				2B6BE27E26C3C52700EDD68A /* BOAEventsManager.h in Headers */,
 				2B6BE28026C3C52700EDD68A /* BOSharedManager.h in Headers */,
 				2B6BE28126C3C52700EDD68A /* BOACaptureModel.h in Headers */,
+				68E78897278C2EF8001227BB /* BOAItem.h in Headers */,
 				2B6BE28226C3C52700EDD68A /* BOASDKManifest.h in Headers */,
 				2B6BE28326C3C52700EDD68A /* BOAMapIDDataModel.h in Headers */,
 				2B6BE28426C3C52700EDD68A /* BONetworkManager.h in Headers */,
@@ -562,12 +587,15 @@
 				2B6BE59626C4F4C200EDD68A /* BOFUserDefaults.h in Headers */,
 				2B6BE59226C4F4C200EDD68A /* BOFConstants.h in Headers */,
 				2B6BE27F26C3C52700EDD68A /* UIViewController+Extensions.h in Headers */,
+				68E78895278C2EF8001227BB /* Item.h in Headers */,
 				2B6BE28526C3C52700EDD68A /* NSError+BOAdditions.h in Headers */,
 				2B6BE59A26C4F4C200EDD68A /* NSData+Base64.h in Headers */,
+				68E78894278C2EF8001227BB /* TransactionData.h in Headers */,
 				2B6BE5A126C4F4C200EDD68A /* BOReachability.h in Headers */,
 				2B6BE5A226C4F4C200EDD68A /* BOFUtilities.h in Headers */,
 				2B6BE59B26C4F4C200EDD68A /* NSData+CommonCrypto.h in Headers */,
 				2B6BE59D26C4F4C200EDD68A /* BOCrypt.h in Headers */,
+				68E78896278C2EF8001227BB /* Persona.h in Headers */,
 				2B6BE59C26C4F4C200EDD68A /* NSString+Base64.h in Headers */,
 				2B6BE28B26C3C52700EDD68A /* BOAAESCrypto.h in Headers */,
 				2B6BE28C26C3C52700EDD68A /* BOAStorage.h in Headers */,
@@ -722,6 +750,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E78899278C2EF8001227BB /* Item.m in Sources */,
 				2B6BE26E26C3C4D800EDD68A /* BOEncryptionManager.m in Sources */,
 				2B6BE24F26C3C4CD00EDD68A /* BOANetworkConstants.m in Sources */,
 				2B6BE25026C3C4CD00EDD68A /* BOAStoreKitController.m in Sources */,
@@ -733,14 +762,17 @@
 				2B6BE25226C3C4CD00EDD68A /* BOADeviceAndAppFraudController.m in Sources */,
 				2B895A2026C81F48001919BE /* BOAMapIDDataModel.m in Sources */,
 				2B6BE25326C3C4CD00EDD68A /* BOASystemEvents.m in Sources */,
+				68E7889A278C2EF8001227BB /* Persona.m in Sources */,
 				2B6BE5A026C4F4C200EDD68A /* BOFUserDefaults.m in Sources */,
 				2B6BE25426C3C4CD00EDD68A /* BOADeveloperEvents.m in Sources */,
 				2B6BE25526C3C4CD00EDD68A /* BOAEventsManager.m in Sources */,
+				68E78898278C2EF8001227BB /* TransactionData.m in Sources */,
 				2B6BE25626C3C4CD00EDD68A /* BOSharedManager.m in Sources */,
 				2B6BE25726C3C4CD00EDD68A /* UIViewController+Extensions.m in Sources */,
 				2B6BE5A326C4F4C200EDD68A /* BOFLogs.m in Sources */,
 				2B6BE59E26C4F4C200EDD68A /* NSData+CommonCrypto.m in Sources */,
 				2B6BE59826C4F4C200EDD68A /* NSString+Base64.m in Sources */,
+				68E78893278C2EF8001227BB /* BOAItem.m in Sources */,
 				2B6BE25826C3C4CD00EDD68A /* BOASDKManifest.m in Sources */,
 				2B6BE25926C3C4CD00EDD68A /* BOACaptureModel.m in Sources */,
 				2B6BE25A26C3C4CD00EDD68A /* BOManifestAPI.m in Sources */,

@@ -223,7 +223,7 @@ static id sBOASharedInstance = nil;
         [mapIdInfo addEntriesFromDictionary:eventInfo];
       }
       
-      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_MAP_ID properties:mapIdInfo eventCode:[NSNumber numberWithInt:BO_DEV_EVENT_MAP_ID] screenName:nil withType:BO_CODIFIED];
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_MAP_ID properties:mapIdInfo  screenName:nil withType:BO_CODIFIED];
       [self.eventManager capture:model];
     }];
     
@@ -252,7 +252,7 @@ static id sBOASharedInstance = nil;
       return;
     }
     
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo eventCode:eventCode screenName:nil withType:type];
+    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo  screenName:nil withType:type];
     [self.eventManager capture:model];
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -273,7 +273,7 @@ static id sBOASharedInstance = nil;
     }
     [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
       NSString *type = phiEvent ? BO_PHI : BO_PII;
-      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo eventCode:@(0) screenName:nil withType:type];
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:eventName properties:eventInfo  screenName:nil withType:type];
       [self.eventManager capturePersonal:model isPHI:phiEvent];
     }];
     
@@ -477,7 +477,7 @@ static id sBOASharedInstance = nil;
       } withType:BO_SYSTEM withEventCode:@(BO_APPLICATION_OPENED)];
     }
     
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_VISIBLE properties:nil eventCode:@(BO_EVENT_VISIBILITY_VISIBLE) screenName:nil withType:BO_SYSTEM];
+    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_VISIBLE properties:nil  screenName:nil withType:BO_SYSTEM];
     [self.eventManager capture:model];
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -490,7 +490,7 @@ static id sBOASharedInstance = nil;
       return;
     }
     
-    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil eventCode:@(BO_EVENT_VISIBILITY_HIDDEN) screenName:nil withType:BO_SYSTEM];
+    BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_VISIBILITY_HIDDEN properties:nil screenName:nil withType:BO_SYSTEM];
     [self.eventManager capture:model];
     
     BOASDKManifestController *sdkManifesCtrl = [BOASDKManifestController sharedInstance];
@@ -548,11 +548,70 @@ static id sBOASharedInstance = nil;
         }
       }
       
-      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"App Tracking" properties:@{@"status":statusString,@"idfa":idfaString} eventCode:@(BO_APP_TRACKING) screenName:nil withType:BO_SYSTEM];
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:@"App Tracking" properties:@{@"status":statusString,@"idfa":idfaString}  screenName:nil withType:BO_SYSTEM];
       [self.eventManager capture:model];
     }];
   } @catch(NSException *exception) {
     BOFLogDebug(@"%@", exception);
+  }
+}
+
+-(void)captureTransaction:(nonnull TransactionData*)transactionData withInformation:(nullable NSDictionary*)eventInfo {
+  @try {
+    if (!self.isEnabled) {
+      return;
+    }
+    
+    [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+      NSMutableDictionary *transactionInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:transactionData.transaction_id, transactionData.transaction_currency,transactionData.transaction_total,transactionData.transaction_discount,transactionData.transaction_shipping,transactionData.transaction_tax,nil] forKeys:[NSArray arrayWithObjects:@"transaction_id", @"transaction_currency",@"transaction_total",@"transaction_discount",@"transaction_shipping",@"transaction_tax",nil]];
+      if (eventInfo) {
+        [transactionInfo addEntriesFromDictionary:eventInfo];
+      }
+      
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_TRANSACTION_NAME properties:transactionInfo  screenName:nil withType:BO_CODIFIED];
+      [self.eventManager capture:model];
+    }];
+  } @catch (NSException *exception) {
+    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+  }
+}
+
+-(void)captureItem:(nonnull Item*)itemData withInformation:(nullable NSDictionary*)eventInfo {
+    @try {
+        if (!self.isEnabled) {
+            return;
+        }
+        [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+            NSMutableDictionary *itemInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:itemData.item_id, itemData.item_name,itemData.item_sku,itemData.item_category,itemData.item_price,itemData.item_currency,itemData.item_quantity, nil] forKeys:[NSArray arrayWithObjects:@"item_id", @"item_name",@"item_sku",@"item_category",@"item_price",@"item_currency",@"item_quantity",nil]];
+            if (eventInfo) {
+                [itemInfo addEntriesFromDictionary:eventInfo];
+            }
+            
+            BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_ITEM_NAME properties:itemInfo  screenName:nil withType:BO_CODIFIED];
+            [self.eventManager capture:model];
+        }];
+    } @catch (NSException *exception) {
+        BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+    }
+}
+
+-(void)capturePersona:(nonnull Persona*)personaData withInformation:(nullable NSDictionary*)eventInfo {
+  @try {
+    if (!self.isEnabled) {
+      return;
+    }
+    
+    [[BOEventsOperationExecutor sharedInstance] dispatchEventsInBackground:^{
+      NSMutableDictionary *personaInfo = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:personaData.persona_id, personaData.persona_firstname,personaData.persona_middlename,personaData.persona_lastname,personaData.persona_username,personaData.persona_dob,personaData.persona_email,personaData.persona_number,personaData.persona_address,personaData.persona_city,personaData.persona_state,personaData.persona_zip,personaData.persona_country,personaData.persona_gender,personaData.persona_age,nil] forKeys:[NSArray arrayWithObjects:@"persona_id", @"persona_firstname",@"persona_middlename",@"persona_lastname",@"persona_username",@"persona_dob",@"persona_email",@"persona_number",@"persona_address",@"persona_city",@"persona_state",@"persona_zip",@"persona_country",@"persona_gender",@"persona_age",nil]];
+      if (eventInfo) {
+        [personaInfo addEntriesFromDictionary:eventInfo];
+      }
+      
+      BOACaptureModel *model = [[BOACaptureModel alloc] initWithEvent:BO_EVENT_PERSONA_NAME properties:personaInfo  screenName:nil withType:BO_CODIFIED];
+      [self.eventManager capture:model];
+    }];
+  } @catch (NSException *exception) {
+    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
 }
 

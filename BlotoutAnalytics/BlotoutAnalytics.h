@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import "BlotoutAnalyticsConfiguration.h"
 #import "BOAMapIDDataModel.h"
+#import "Item.h"
+#import "Persona.h"
+#import "TransactionData.h"
 
 @interface BlotoutAnalytics : NSObject
 
@@ -49,6 +52,27 @@
  * @param eventInfo dictionary of events
  */
 -(void)mapID:(nonnull BOAMapIDDataModel*)mapIDData withInformation:(nullable NSDictionary*)eventInfo;
+
+/**
+ *
+ * @param transactionData with TransactionData type
+ * @param eventInfo dictionary of events
+ */
+-(void)captureTransaction:(nonnull TransactionData*)transactionData withInformation:(nullable NSDictionary*)eventInfo;
+
+/**
+ *
+ * @param item with Item type
+ * @param eventInfo dictionary of events
+ */
+-(void)captureItem:(nonnull Item*)item withInformation:(nullable NSDictionary*)eventInfo;
+
+/**
+ *
+ * @param persona with Persona type
+ * @param eventInfo dictionary of events
+ */
+-(void)capturePersona:(nonnull Persona*)persona withInformation:(nullable NSDictionary*)eventInfo;
 
 /**
  The getUserId method allows you to go get Blotout user id that is linked to all data that is sent to the server.

@@ -54,23 +54,6 @@
     XCTAssertNotNil(mId, @"Couldn't find date with in given time interval");
 }
 
--(void)testCodeForCustomCodifiedEvent {
-    NSNumber *eventSubCode = [BOAUtilities codeForCustomCodifiedEvent: @"awesome_event"];
-    XCTAssertNotNil(eventSubCode, @"Couldn't find code for custom codified event");
-    XCTAssertEqual(eventSubCode.intValue, 24008, @"name with underscore");
-    
-    BOFUserDefaults *analyticsRootUD = [BOFUserDefaults userDefaultsForProduct:BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY];
-    [analyticsRootUD removeObjectForKey: BO_ANALYTICS_ALL_DEV_CODIFIED_CUSTOM_EVENTS];
-    
-    eventSubCode = [BOAUtilities codeForCustomCodifiedEvent: @"TestInfo"];
-    XCTAssertNotNil(eventSubCode, @"Couldn't find code for custom codified event");
-    
-    NSNumber *eventSubCodeSpaces = [BOAUtilities codeForCustomCodifiedEvent: @"some awesome event"];
-    XCTAssertEqual(eventSubCodeSpaces.intValue, 24016, @"name has spaces");
-    
-    NSNumber *eventSubCodeAscii = [BOAUtilities codeForCustomCodifiedEvent: @"目_awesome_event"];
-    XCTAssertEqual(eventSubCodeAscii.intValue, 24049, @"name has asc11");
-}
 
 -(void)testCurrentPlatformCode {
     int platformCode = [BOAUtilities currentPlatformCode];

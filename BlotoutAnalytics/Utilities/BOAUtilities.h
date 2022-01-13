@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSInteger)get13DigitIntegerTimeStamp;
 
 +(NSString*)getMessageIDForEvent:(NSString*)eventName;
-+(NSNumber*)codeForCustomCodifiedEvent:(NSString*)eventName;
 
 +(int)currentPlatformCode;
 

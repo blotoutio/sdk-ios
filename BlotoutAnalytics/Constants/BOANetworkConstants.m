@@ -30,29 +30,32 @@ NSString *BO_PHI = @"phi";
 
 NSString *BO_USER_ID = @"userid";
 
-int const BO_DEV_EVENT_MAP_ID = 21001;
 NSString *BO_EVENT_MAP_ID = @"map_id";
 NSString *BO_EVENT_MAP_PROVIDER = @"map_provider";
 
-int const BO_EVENT_SDK_START = 11130;
 NSString * const BO_SDK_START= @"sdk_start";
 
-int const BO_EVENT_VISIBILITY_VISIBLE = 11131;
 NSString * const BO_VISIBILITY_VISIBLE= @"visibility_visible";
 
-int const BO_EVENT_VISIBILITY_HIDDEN = 11132;
 NSString * const BO_VISIBILITY_HIDDEN= @"visibility_hidden";
+
+//transaction events
+NSString *BO_EVENT_TRANSACTION_NAME = @"transaction";
+
+//item events
+NSString *BO_EVENT_ITEM_NAME = @"item";
+
+//Persona events
+NSString *BO_EVENT_PERSONA_NAME = @"persona";
 
 NSString * const BO_APP_VERSION= @"app_version";
 NSString * const BO_EVENTS= @"events";
 NSString * const BO_EVENTS_TIME= @"evt";
-NSString * const BO_EVENT_CATEGORY_SUBCODE= @"evcs";
 NSString * const BO_MESSAGE_ID= @"mid";
 NSString * const BO_EVENT_NAME_MAPPING= @"evn";
 NSString * const BO_SCREEN_NAME= @"scrn";
 NSString * const BO_CRYPTO_IVX = @"Q0BG17E2819IWZYQ";
 NSString * const BOA_DEBUG = @"BOA-DEBUG";
-int const BO_DEV_EVENT_CUSTOM_KEY= 21100;
 int const BO_DEFAULT_EVENT_PUSH_TIME = 3;
 NSString * const BO_SDK_REST_API_MANIFEST_PULL_PATH = @"v1/manifest/pull";
 NSString * const BO_SDK_REST_API_EVENTS_PUSH_PATH = @"v1/events/publish";

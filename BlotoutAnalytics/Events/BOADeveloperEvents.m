@@ -20,7 +20,7 @@
 
 +(NSDictionary*)captureEvent:(BOACaptureModel*)payload {
   @try {
-    return [BOADeveloperEvents createEventObject:payload.event withType:payload.type withScreenName:payload.screenName withEventSubcode:payload.eventSubCode withEventInfo:payload.properties];
+    return [BOADeveloperEvents createEventObject:payload.event withType:payload.type withScreenName:payload.screenName  withEventInfo:payload.properties];
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
@@ -35,38 +35,34 @@
 }
 
 +(NSDictionary*)prepareServerPayload:(NSArray*)events {
-  @try {
-    NSMutableArray *eventData = [NSMutableArray array];
-    NSDictionary *metaInfo = [BOServerDataConverter prepareMetaData];
-    
-    for (NSDictionary *event in events) {
-      [eventData addObject:[event valueForKey:BO_EVENTS]];
+    @try {
+        NSMutableArray *eventData = [NSMutableArray array];
+        NSDictionary *metaInfo = [BOServerDataConverter prepareMetaData];
+        
+        for (NSDictionary *event in events) {
+            [eventData addObject:[event valueForKey:BO_EVENTS]];
+        }
+        if (metaInfo != nil && eventData != nil){
+            return @{BO_META:metaInfo,BO_EVENTS:eventData};
+        }
+        else
+        {
+            return  @{};
+        }
+    } @catch(NSException *exception) {
+        BOFLogDebug(@"%@", exception);
     }
-      
-    return @{BO_META:metaInfo,BO_EVENTS:eventData};
-  } @catch(NSException *exception) {
-    BOFLogDebug(@"%@", exception);
-  }
 }
 
-+(NSDictionary*)createEventObject:(NSString*)eventName withType:(NSString*)type withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo {
++(NSDictionary*)createEventObject:(NSString*)eventName withType:(NSString*)type withScreenName:(NSString*)screenName  withEventInfo:(NSDictionary*)eventInfo {
   @try {
-    if (eventSubcode == nil || [eventSubcode integerValue] == 0) {
-      if (type == BO_SYSTEM) {
-        BOFLogDebug(@"System event %@ is missing system code!", eventName);
-        return nil;
-      }
-      
-      eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
-    }
-    
+   
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
     [properties addEntriesFromDictionary:eventInfo];
     NSString *screenName = (screenName != nil && screenName.length >0) ? screenName : [BOSharedManager sharedInstance].currentScreenName;
     NSMutableDictionary *event = [NSMutableDictionary dictionary];
     [event setValue:eventName forKey:BO_EVENT_NAME_MAPPING];
     [event setValue: [BOAUtilities get13DigitNumberObjTimeStamp] forKey:BO_EVENTS_TIME];
-    [event setValue:eventSubcode forKey:BO_EVENT_CATEGORY_SUBCODE];
     [event setValue:[BOAUtilities getMessageIDForEvent:eventName] forKey:BO_MESSAGE_ID];
     [event setValue:[BOAUtilities getDeviceId] forKey:BO_USER_ID];
     [event setValue:screenName forKey:BO_SCREEN_NAME];
@@ -111,9 +107,6 @@
 
 +(NSDictionary*)preparePersonalEvent:(NSString*)eventName withScreenName:(NSString*)screenName withEventSubcode:(NSNumber*)eventSubcode withEventInfo:(NSDictionary*)eventInfo isPHI:(BOOL)phiEvent {
   @try {
-    if (eventSubcode == nil) {
-      eventSubcode = [BOAUtilities codeForCustomCodifiedEvent:eventName];
-    }
     
     NSString *secretKey = [BOAUtilities getUUIDString];
     secretKey = [secretKey stringByReplacingOccurrencesOfString:@"-" withString:@""];
@@ -130,7 +123,7 @@
     }
     
     encryptedData = [self getEncryptedEvent:publicKey withSecretKey:secretKey withDictionary:eventInfo];
-    return [BOADeveloperEvents createEventObject:eventName withType:eventType withScreenName:screenName withEventSubcode:eventSubcode withEventInfo:encryptedData];
+    return [BOADeveloperEvents createEventObject:eventName withType:eventType withScreenName:screenName withEventInfo:encryptedData];
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
   }
