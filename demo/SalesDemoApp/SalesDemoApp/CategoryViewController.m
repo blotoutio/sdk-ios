@@ -76,30 +76,29 @@
     [[BlotoutAnalytics sharedInstance] capture:@"View Cart Clicked" withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
     
   // to test capture Item
- /*  Item * testItem = [[Item alloc] init];
+    Item * testItem = [[Item alloc] init];
     testItem.item_id = @"123";
-//    testItem.item_sku = @"A123";
-//    testItem.item_name = @"Test Item";
-//    testItem.item_price = [NSNumber numberWithInt:239];
-//    testItem.item_category = @[@"TestCategory"];
-//    testItem.item_currency = @"USD";
-//    testItem.item_quantity = [NSNumber numberWithInt:1];
+    testItem.item_sku = @"A123";
+    testItem.item_name = @"Test Item";
+    testItem.item_price = [NSNumber numberWithInt:239];
+    testItem.item_category = @[@"TestCategory"];
+    testItem.item_currency = @"USD";
+    testItem.item_quantity = [NSNumber numberWithInt:1];
     
     [[BlotoutAnalytics sharedInstance] captureItem:testItem withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
-   */
-    /* to test capture Transaction
+   
+    // to test capture Transaction
     TransactionData *testTransaction = [[TransactionData alloc]init];
     testTransaction.transaction_id = @"456";
-//    testTransaction.transaction_tax = [NSNumber numberWithInt:3.5];
-//    testTransaction.transaction_total = [NSNumber numberWithInt:654];
-//    testTransaction.transaction_currency = @"USD";
-//    testTransaction.transaction_discount = [NSNumber numberWithInt:1];
-//    testTransaction.transaction_shipping = [NSNumber numberWithInt:34];
+    testTransaction.transaction_tax = [NSNumber numberWithInt:3.5];
+    testTransaction.transaction_total = [NSNumber numberWithInt:654];
+    testTransaction.transaction_currency = @"USD";
+    testTransaction.transaction_discount = [NSNumber numberWithInt:1];
+    testTransaction.transaction_shipping = [NSNumber numberWithInt:34];
     
     [[BlotoutAnalytics sharedInstance] captureTransaction:testTransaction withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
     
-    */
-    /* to test capture Transaction
+    // to test capture Transaction
     Persona *testPerson = [[Persona alloc]init];
     testPerson.persona_id = @"54";
     testPerson.persona_age = [NSNumber numberWithInt:35];
@@ -119,7 +118,7 @@
     testPerson.persona_middlename = @"cftg";
 
     [[BlotoutAnalytics sharedInstance] capturePersona:testPerson withInformation:@{@"time":[NSDate date], @"VC Name":@"CategoryViewVC"}];
-    */
+    
     [self.navigationController pushViewController:cartVC animated:YES];
     
 }
