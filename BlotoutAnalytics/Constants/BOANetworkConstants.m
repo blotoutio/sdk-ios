@@ -75,6 +75,8 @@ NSString * const BO_SYSTEM = @"system";
 NSString * const BO_CODIFIED = @"codified";
 NSString * const BO_SCREEN = @"screen";
 NSString * const BO_TYPE = @"type";
+NSString * const BO_PATH = @"path";
+NSString * const BO_PAGE_TITLE = @"page_title";
 
 int const MANIFEST_PHI_PUBLIC_KEY = 5997;
 int const MANIFEST_PII_PUBLIC_KEY = 5998;

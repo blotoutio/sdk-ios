@@ -68,9 +68,12 @@
     [event setValue:screenName forKey:BO_SCREEN_NAME];
     [event setValue:[BOADeveloperEvents getScreenPayload] forKey:BO_SCREEN];
     [event setValue:type forKey:BO_TYPE];
+      if ([type isEqualToString:@"system"])
+      {
+         [properties setValue:screenName forKey:BO_PATH];
+      }
     [event setValue:[BOSharedManager sharedInstance].sessionId forKey:BO_SESSION_ID];
     [event setValue:properties forKey:@"additionalData"];
-    
     return @{BO_EVENTS:event};
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);

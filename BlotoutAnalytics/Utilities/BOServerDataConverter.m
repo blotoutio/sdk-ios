@@ -80,7 +80,8 @@ static NSMutableDictionary *appInfo;
       appInfoCurrentDict = [self recordAppInformation];
     }
   
-        NSMutableDictionary *metaInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
+      NSString *screenName = [BOSharedManager sharedInstance].currentScreenName;
+      NSMutableDictionary *metaInfo = [[NSMutableDictionary alloc] initWithDictionary:@{
 
       @"jbrkn": [appInfoCurrentDict objectForKey:@"jbnStatus"],
       @"vpn": [appInfoCurrentDict objectForKey:@"vpnStatus"],
@@ -89,9 +90,10 @@ static NSMutableDictionary *appInfo;
       @"sdkv": [appInfoCurrentDict objectForKey:@"sdkVersion"],
       @"tz_offset": [appInfoCurrentDict objectForKey:@"timeZoneOffset"],
       @"user_agent": [appInfoCurrentDict objectForKey:@"userAgent"],
-      @"referrer" : [BOSharedManager sharedInstance].referrer
+      @"referrer" : [BOSharedManager sharedInstance].referrer,
+      @"page_title" : screenName
     }];
-    
+
     return metaInfo;
   } @catch (NSException *exception) {
     BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
