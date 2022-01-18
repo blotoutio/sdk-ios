@@ -67,7 +67,8 @@ extern NSString * const BO_SYSTEM;
 extern NSString * const BO_CODIFIED;
 extern NSString * const BO_SCREEN;
 extern NSString * const BO_TYPE;
-
+extern NSString * const BO_PATH;
+extern NSString * const BO_PAGE_TITLE;
 // Manifest keys
 extern int const MANIFEST_PHI_PUBLIC_KEY;
 extern int const MANIFEST_PII_PUBLIC_KEY;
