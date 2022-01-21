@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "Blotout-Analytics"
   s.module_name      = "BlotoutAnalyticsSDK"
-  s.version          = "0.10.0"
+  s.version          = "0.10.1-alpha.0"
   s.summary          = "Blotout Mobile Analytics SDK"
   s.description      = <<-DESC
                        Blotout’s SDK offers companies all of the analytics and remarketing tools they are accustomed to,
@@ -27,4 +27,5 @@ IDs or IP Addresses.
   s.ios.deployment_target = '12.0'
   s.source_files = ['BlotoutAnalytics/**/*.{h,m}']
   s.exclude_files = ['BlotoutAnalytics/BlotoutAnalyticsTests/*.{h,m}']
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end
