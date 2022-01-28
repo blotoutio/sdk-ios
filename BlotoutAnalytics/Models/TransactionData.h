@@ -16,13 +16,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSString *transaction_currency;
 
-@property (nonatomic, assign,nullable)  NSNumber *transaction_total;
+@property (nonatomic, strong,nullable)  NSNumber *transaction_total;
 
-@property (nonatomic, assign,nullable)  NSNumber *transaction_discount;
+@property (nonatomic, strong,nullable)  NSNumber *transaction_discount;
 
-@property (nonatomic, assign,nullable)  NSNumber *transaction_shipping;
+@property (nonatomic, strong,nullable)  NSNumber *transaction_shipping;
 
-@property (nonatomic, assign, nullable) NSNumber *transaction_tax;
+@property (nonatomic, strong, nullable) NSNumber *transaction_tax;
 
 @end
 
