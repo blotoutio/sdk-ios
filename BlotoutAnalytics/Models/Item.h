@@ -20,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSArray *item_category;
 
-@property (nonatomic, assign) NSNumber *item_price;
+@property (nonatomic, strong) NSNumber *item_price;
 
 @property (nonatomic, strong, nullable) NSString *item_currency;
 
-@property (nonatomic, assign) NSNumber *item_quantity;
+@property (nonatomic, strong) NSNumber *item_quantity;
 
 @end
 
