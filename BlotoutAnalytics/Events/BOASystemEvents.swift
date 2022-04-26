@@ -7,26 +7,28 @@
 
 import Foundation
 import UIKit
-class BOASystemEvents {
+class BOASystemEvents:NSObject {
     
     class func captureAppLaunchingInfo(withConfiguration launchOptions: [AnyHashable : Any]?) {
         do{
             let analytics = BlotoutAnalytics.sharedInstance
-            let analyticsRootUD = BOFUserDefaults(for: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+            let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             
-            let previousBuildV1 = (analyticsRootUD[BO_BUILD_KEYV1] as? NSNumber)?.intValue ?? 0
+            
+            let previousBuildV1 = (analyticsRootUD.value(forKey: BO_BUILD_KEYV1) as? NSNumber)?.intValue ?? 0
             if previousBuildV1 != 0 {
-                analyticsRootUD[BO_BUILD_KEYV2] = NSNumber(value: previousBuildV1).stringValue
-                analyticsRootUD.removeValue(forKey: BO_BUILD_KEYV1)
+                
+                analyticsRootUD.setValue(NSNumber(value: previousBuildV1).stringValue, forKey: BO_BUILD_KEYV2)
+                analyticsRootUD.removeObject(forKey: BO_BUILD_KEYV1)
             }
-            let previousVersion = analyticsRootUD[BO_VERSION_KEY] as? String
-            let previousBuildV2 = analyticsRootUD[BO_BUILD_KEYV2] as? String
+            let previousVersion = analyticsRootUD.value(forKey:BO_VERSION_KEY) as? String
+            let previousBuildV2 = analyticsRootUD.value(forKey:BO_BUILD_KEYV2) as? String
             
             let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
             
-            if !previousBuildV2 && sdkManifesCtrl.isSystemEventEnabled(BO_APPLICATION_INSTALLED) {
+            if (previousBuildV2 == nil) && sdkManifesCtrl.isSystemEventEnabled(BO_APPLICATION_INSTALLED) {
                 analytics.capture(
                     "Application Installed",
                     withInformation: [
@@ -62,8 +64,9 @@ class BOASystemEvents {
                     withType: BO_SYSTEM,
                     withEventCode: NSNumber(value: BO_APPLICATION_OPENED))
             }
-            analyticsRootUD[BO_VERSION_KEY] = currentVersion
-            analyticsRootUD[BO_BUILD_KEYV2] = currentBuild
+            analyticsRootUD.setValue(currentVersion, forKey: BO_VERSION_KEY)
+            analyticsRootUD.setValue(currentBuild, forKey: BO_BUILD_KEYV2)
+
             
         } catch {
             BOFLogDebug(frmt: "%@", args:  error.localizedDescription)

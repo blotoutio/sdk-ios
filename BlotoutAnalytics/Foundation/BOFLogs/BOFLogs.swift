@@ -9,7 +9,7 @@ import Foundation
 
 private var sBOFLogsSharedInstance: Any? = nil
 
-class BOFLogs {
+class BOFLogs:NSObject {
     
     var isSDKLogEnabled = false
     //    class func sharedInstance() -> Self? {
@@ -21,7 +21,7 @@ class BOFLogs {
     //        return sBOFLogsSharedInstance as! Self
     //    }
     public static let sharedInstance = BOFLogs()
-    public init() {}
+    public override init() {}
 }
 
 func BOFLogDebug(frmt: String, args:CVarArg...) {

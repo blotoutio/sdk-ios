@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-protocol BOAApplicationProtocol: NSObjectProtocol {
+protocol BOAApplicationProtocol: UIApplication {
     var delegate: UIApplicationDelegate? { get set }
-    func boa_beginBackgroundTask(withName taskName: String?, expirationHandler handler: (() -> Void)? = nil) -> UIBackgroundTaskIdentifier
+    func boa_beginBackgroundTask(withName taskName: String?, expirationHandler handler: (() -> Void)?) -> UIBackgroundTaskIdentifier
     func boa_endBackgroundTask(_ identifier: UIBackgroundTaskIdentifier)
 }
 
@@ -67,11 +67,14 @@ class BlotoutAnalyticsConfiguration:NSObject {
         super.init()
             flushAt = 1
             flushInterval = 20
-            let applicationClass: AnyClass? = NSClassFromString("UIApplication")
+        let applicationClass: UIApplication? = UIApplication.shared
             if let applicationClass = applicationClass {
                 //#pragma clang diagnostic push
                 //#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                application = applicationClass.perform(NSSelectorFromString("sharedApplication"))
+                
+                let unmanagedObject: Unmanaged<AnyObject> = (applicationClass ).perform(NSSelectorFromString("sharedApplication"))
+                application = unmanagedObject.takeRetainedValue() as? BOAApplicationProtocol
+                //TODO: this needs testing
                 //applicationClass.perform(NSSelectorFromString("sharedApplication"))
                 //#pragma clang diagnostic pop
             }

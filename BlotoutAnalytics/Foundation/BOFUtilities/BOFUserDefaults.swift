@@ -9,75 +9,56 @@ import Foundation
 private var sBOFDefaultMap: [AnyHashable : Any]? = nil
 private var sBOFDefaultsSerialQueue: DispatchQueue? = nil
 
-class BOFUserDefaults {
+class BOFUserDefaults:NSObject {
     private var productKey: String?
     private var productContainer: [AnyHashable : Any]?
     
     
-    class func initialize() {
-           // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-           SwiftTryCatch.try({
-               sBOFDefaultMap = [AnyHashable : Any]()
-               sBOFDefaultsSerialQueue = DispatchQueue(label: BO_SDK_DEFAULT_QUEUE)
-           } catch { 
-               BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-           })
-       }
+//    override class func initialize() {
+//               sBOFDefaultMap = [AnyHashable : Any]()
+//               sBOFDefaultsSerialQueue = DispatchQueue(label: BO_SDK_DEFAULT_QUEUE)
+//       }
     
     init(product key: String?) {
-        do{
             super.init()
             productKey = key
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
-    }
+        
+        //TODO: moved here from initialize
+        sBOFDefaultMap = [AnyHashable : Any]()
+        sBOFDefaultsSerialQueue = DispatchQueue(label: BO_SDK_DEFAULT_QUEUE)
+        }
 
     class func userDefaults(forProduct product: String) -> Self {
-        do{
             var defaultsInstance: BOFUserDefaults? = nil
-            sBOFDefaultsSerialQueue.sync(execute: {
-                defaultsInstance = sBOFDefaultMap[product] as? BOFUserDefaults
+            sBOFDefaultsSerialQueue?.sync(execute: {
+                defaultsInstance = sBOFDefaultMap?[product] as? BOFUserDefaults
                 if defaultsInstance == nil {
                     defaultsInstance = BOFUserDefaults(product: product)
-                    sBOFDefaultMap[product] = defaultsInstance
+                    sBOFDefaultMap?[product] = defaultsInstance
                 }
             })
-            return defaultsInstance
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
-    }
+            return defaultsInstance as! Self
+        }
+    
     
     
     class func root(_ updateBlock: @escaping (_ root: [AnyHashable : Any]) -> Void) {
-        do{
-            var ud = UserDefaults.standard
+            let ud = UserDefaults.standard
             var rootImmutable = ud.dictionary(forKey: BO_SDK_ROOT_USER_DEFAULTS_KEY)
             if rootImmutable == nil {
                 rootImmutable = [:]
             }
-            var rootMutable = rootImmutable
-            updateBlock(rootMutable)
+            let rootMutable = rootImmutable
+            updateBlock(rootMutable ?? [:])
             ud.set(rootMutable, forKey: BO_SDK_ROOT_USER_DEFAULTS_KEY)
             ud.synchronize()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        
     }
     
-    
-    
-   
-    
-    
-    func updateDefault(forProduct updateBlock: @escaping (_ produtContainer: [AnyHashable : Any]) -> Bool) {
-        do{
+ func updateDefault(forProduct updateBlock: @escaping (_ produtContainer: [AnyHashable : Any]) -> Bool) {
             weak var weakSelf = self
             BOFUserDefaults.root({ root in
-                
+                var rootObj = root
                 //Get the product level defaults
                 //Eg:
                 // com.blotout.root.sdk
@@ -93,57 +74,51 @@ class BOFUserDefaults {
                 if productContainer == nil {
                     productContainer = [:]
                 }
-                let hasChanged = updateBlock(productContainer)
+                let hasChanged = updateBlock(productContainer ?? [:])
                 if hasChanged {
-                    root[weakSelf?.productKey] = productContainer
+                    rootObj[weakSelf?.productKey] = productContainer
                 }
             })
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+
     }
     
    
         
-        func setObject(_ obj: Any, forKey aKey: NSCopying) {
-            // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-            SwiftTryCatch.try({
+        func setObject(_ obj: Any?, forKey aKey: NSCopying) {
                 
                 if obj == nil {
                     return
                     //We have batch updates in progress
                 }
-                if let productContainer = productContainer {
-                    productContainer[aKey] = obj
+                if var productContainer = productContainer {
+                    productContainer[aKey as! AnyHashable] = obj
                 } else {
                     updateDefault(forProduct: { produtContainer in
-                        produtContainer[aKey] = obj
+                        var productContainer = produtContainer
+                        productContainer[aKey as! AnyHashable] = obj
                         return true
                     })
                 }
-            } catch { 
-                BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-            })
         }
     
     
     func removeObject(forKey aKey: Any) {
         do{
-            if let productContainer = productContainer {
+            if var productContainer = productContainer{
+                
                 productContainer.removeValue(forKey: aKey)
             } else {
-                updateDefault(forProduct: { produtContainer in
-                    produtContainer.removeValue(forKey: aKey)
+                updateDefault(forProduct: { productContainer in
+                    productContainer.removeValue(forKey: aKey)
                     return true
                 })
             }
         } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
     }
     
     func object(forKey key: NSLocale.Key) -> Any? {
-        do{
             var object: Any? = nil
 
             if let productContainer = productContainer {
@@ -154,11 +129,7 @@ class BOFUserDefaults {
                     return false
                 })
             }
-
             return object
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        }
     }
-}
+

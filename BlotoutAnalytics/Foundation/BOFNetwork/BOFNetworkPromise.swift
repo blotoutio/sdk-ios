@@ -13,381 +13,335 @@ let BOFNetworkPromiseTaskPriorityDefault: Float = 0.5
 let BOFNetworkPromiseTaskPriorityLow: Float = 0.0
 let BOFNetworkPromiseTaskPriorityHigh: Float = 1.0
 
+typealias BOFNetworkPromiseCompletionHandler = (URLResponse?, Any?, Error?) -> Void
 
 class BOFNetworkPromise:NSObject {
-    private var responseData: Data?
-    convenience init() {
-        return nil
+    
+    enum BOFNetworkPromiseTaskState : Int {
+        case running = 0
+        case suspended = 1
+        case canceling = 2
+        case completed = 3
     }
-            convenience init(urlRequest request: URLRequest?, completionHandler networkPromiseCompletionHandler: BOFNetworkPromiseCompletionHandler) {
-                // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-                SwiftTryCatch.try({
-                    if request == nil {
-                        return nil
-                    }
-
-                    super.init()
-                    urlRequest = request
-                    completionHandler = networkPromiseCompletionHandler
-                    customInitialization()
-                } catch { 
-                    BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-                })
-                return nil
-            }
-     
-            convenience init(resumeData resumedData: Data?, completionHandler networkPromiseCompletionHandler: BOFNetworkPromiseCompletionHandler) {
-                // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-                SwiftTryCatch.try({
-                    if resumedData == nil {
-                        return nil
-                    }
-
-                    super.init()
-                    resumeData = resumedData
-                    completionHandler = networkPromiseCompletionHandler
-                    customInitialization()
-                } catch { 
-                    BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-                })
-                return nil
-            }
-convenience init?(urlRequest request: URLRequest, responseHandler networkResponseHandler: BOFNetworkPromiseDeleagte) {
-                // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-                SwiftTryCatch.try({
-                    if request == nil {
-                        return nil
-                    }
-
-                    super.init()
-                    urlRequest = request
-                    delegateForHandler = networkResponseHandler
-                    urlRequest = request
-                    delegateForHandler = networkResponseHandler
-                    customInitialization()
-                } catch { 
-                    BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-                })
-                return nil
-            }
+    
+    
+    var delegateForHandler: BOFNetworkPromiseDeleagte?
+    var totalAttempts = 0
+    var urlRequest: URLRequest?
+    var resumeData: Data?
+    var completionHandler: BOFNetworkPromiseCompletionHandler?
+    var retryDelay: TimeInterval = 0.0
+    var anySessionTask: URLSessionTask?
+    
+    var downloadLocation: URL?
+    var relocationErr: Error?
+    
+    var delegate: BOFNetworkPromiseDeleagte?
+    var numberOfRetries = 0
+    var downloadAsFile = false //default download will try to download as NSData, like data task.
+    // var networkPromiseDescription: String?
+    //  private(set) var networkPromiseIdentifier = 0
+    // private(set) var originalRequest: URLRequest?
+    // private(set) var currentRequest: URLRequest?
+    
+    // private(set) var response: URLResponse?
+    private(set) var responseData: Data?
+   // private(set) var state: BOFNetworkPromiseTaskState?
+    private(set) var error: Error?
+    @available(macOS 10.10, iOS 8.0, *)
+   // var priority: Float = 0.0
+    
+    //    convenience init?() {
+    //        return nil
+    //    }
+    
+    //TODO: correct these init methods
+    init(urlRequest request: URLRequest?, completionHandler networkPromiseCompletionHandler: @escaping BOFNetworkPromiseCompletionHandler) {
+        if request == nil {
+            return nil
+        }
+        super.init()
+        urlRequest = request
+        completionHandler = networkPromiseCompletionHandler
+        customInitialization()
+        
+    }
+    
+    init?(resumeData resumedData: Data?, completionHandler networkPromiseCompletionHandler: @escaping BOFNetworkPromiseCompletionHandler) {
+        if resumedData == nil {
+            return nil
+        }
+        
+        super.init()
+        resumeData = resumedData
+        completionHandler = networkPromiseCompletionHandler
+        customInitialization()
+        
+    }
+    init(urlRequest request: URLRequest?, responseHandler networkResponseHandler: BOFNetworkPromiseDeleagte) {
+        
+        if request == nil {
+            return nil
+        }
+        
+        super.init()
+        urlRequest = request
+        delegateForHandler = networkResponseHandler
+        urlRequest = request
+        delegateForHandler = networkResponseHandler
+        customInitialization()
+        
+    }
     
     func customInitialization() {
-        do{
-            numberOfRetries = 0
-            totalAttempts = 0
-            retryDelay = 20.0
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        numberOfRetries = 0
+        totalAttempts = 0
+        retryDelay = 20.0
+        
     }
     
     func postNotificationForTaskCompletion() {
-        do{
-            NotificationCenter.default.post(name: BOFNetworkPromiseDidCompleteExecution, object: anySessionTask, userInfo: [
-                "Description": "NetworkPromise object completed execution using completion handler."
-            ])
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: BOFNetworkPromiseDidCompleteExecution), object: anySessionTask, userInfo: [
+            "Description": "NetworkPromise object completed execution using completion handler."
+        ])
+        
     }
     
     func postNotificationForNewTaskCreation() {
-        do{
-            NotificationCenter.default.post(
-                name: BOFNetworkPromiseCreatedNewTask,
-                object: anySessionTask,
-                userInfo: [
-                    "Description": "NetworkPromise locobject created new task using retry controls.",
-                    "BOFNetworkPromiseObject": self
-                ])
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        NotificationCenter.default.post(
+            name: NSNotification.Name(rawValue: BOFNetworkPromiseCreatedNewTask),
+            object: anySessionTask,
+            userInfo: [
+                "Description": "NetworkPromise locobject created new task using retry controls.",
+                "BOFNetworkPromiseObject": self
+            ])
+        
     }
     
-    func doNecessaryCallbackInvocation(onCompletion dataOrLocation: Any?, response: URLResponse?, error: Error?) {
-        do{
+    func doNecessaryCallbackInvocation(onCompletion dataOrLocation: Any, response: URLResponse, error: Error) {
+        if completionHandler != nil {
+            completionHandler!(response, dataOrLocation, error)
+        } else {
             
-            if completionHandler != nil {
-                completionHandler(response, dataOrLocation, error)
-            } else {
-                if delegate && delegate.responds(to: Selector("BOFNetworkPromise:didCompleteWithError:")) {
-                    delegate.bofNetworkPromise(self, didCompleteWithError: error)
-                }
-            }
-            if delegateForHandler && delegateForHandler.responds(to: Selector("BOFNetworkPromise:didCompleteWithError:")) {
-                delegateForHandler.bofNetworkPromise(self, didCompleteWithError: error)
-            }
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            delegate?.bofNetworkPromise?(self, didCompleteWithError: error)
+            
+        }
+        delegateForHandler?.bofNetworkPromise?(self, didCompleteWithError: error)
+        
     }
     
     
     func sessionTaskComplettionHandlerDownloaded(_ dataOrLocation: Any?, response: URLResponse?, error: Error?, session: URLSession?) {
-        do{
-            postNotificationForTaskCompletion()
-            DispatchQueue.main.async(execute: {
-                //shoould retry
-                let httpResponse = response as? HTTPURLResponse
-                
-                if (error != nil && (error as NSError).code >= 500) || (httpResponse.statusCode >= 500) {
-                    if totalAttempts < numberOfRetries {
-                        totalAttempts += 1
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(retryDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [self] in
-                            start(withSession: session)
-                            postNotificationForNewTaskCreation()
-                        })
-                    }
-                    else {
-                            doNecessaryCallbackInvocation(onCompletion: dataOrLocation, response: response, error: error)
-                        }
+        postNotificationForTaskCompletion()
+        DispatchQueue.main.async(execute: { [self] in
+            //shoould retry
+            let httpResponse = response as? HTTPURLResponse
+            
+            if (error != nil && (error! as NSError).code >= 500) || (httpResponse?.statusCode >= 500) {
+                if totalAttempts < numberOfRetries {
+                    self.totalAttempts += 1
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(retryDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { [self] in
+                        start(with: session)
+                        postNotificationForNewTaskCreation()
+                    })
                 }
                 else {
-                        doNecessaryCallbackInvocation(onCompletion: dataOrLocation, response: response, error: error)
-                    }
-
-            })
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
+                    doNecessaryCallbackInvocation(onCompletion: dataOrLocation, response: response, error: error as! Error)
+                }
+            }
+            else {
+                doNecessaryCallbackInvocation(onCompletion: dataOrLocation, response: response, error: error?.localizedDescription)
+            }
+            
         })
     }
     
     
     func getAsyncDownloadUrlSessionTask(_ session: URLSession?) -> URLSessionTask? {
-        do{
-            let anySessionTask: URLSessionTask? = nil
-            
-            if resumeData != nil {
-                if let resumeData = resumeData {
-                    anySessionTask = session.downloadTask(withResumeData: resumeData) { [self] location, response, error in
-                        sessionTaskComplettionHandlerDownloaded(location, response: response, error: error, session: session)
-                    }
-                }
-            }
-            else if urlRequest {
-                anySessionTask = session.downloadTask(with: urlRequest) { [self] location, response, error in
+        var anySessionTask: URLSessionTask? = nil
+        
+        if resumeData != nil {
+            if let resumeData = resumeData {
+                self.anySessionTask = session?.downloadTask(withResumeData: resumeData) { [self] location, response, error in
                     sessionTaskComplettionHandlerDownloaded(location, response: response, error: error, session: session)
                 }
             }
-            return anySessionTask
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        }
+        else if (urlRequest != nil) {
+            anySessionTask = session?.downloadTask(with: urlRequest!) { [self] location, response, error in
+                sessionTaskComplettionHandlerDownloaded(location, response: response, error: error, session: session)
+            }
+        }
+        return anySessionTask
     }
     
     func getAsyncUrlSessionTask(_ session: URLSession?) -> URLSessionTask? {
-        do{
-            let anySessionTask: URLSessionTask? = nil
-            if downloadAsFile || resumeData != nil {
-                anySessionTask = getAsyncDownloadUrlSessionTask(session)
-            } else if urlRequest {
-                anySessionTask = session.dataTask(with: urlRequest) { [self] data, response, error in
-                    sessionTaskComplettionHandlerDownloaded(data, response: response, error: error, session: session)
-                }
+        var anySessionTask: URLSessionTask? = nil
+        if downloadAsFile || resumeData != nil {
+            anySessionTask = getAsyncDownloadUrlSessionTask(session)
+        } else if (urlRequest != nil) {
+            anySessionTask = session?.dataTask(with: urlRequest!) { [self] data, response, error in
+                sessionTaskComplettionHandlerDownloaded(data, response: response, error: error, session: session)
             }
-            return anySessionTask
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        }
+        return anySessionTask
+        
     }
     
     func getSyncUrlSessionTask(_ session: URLSession?) -> URLSessionTask? {
-        do{
-            let anySessionTask: URLSessionTask? = nil
-            if downloadAsFile || resumeData != nil {
-                if resumeData != nil {
-                    if let resumeData = resumeData {
-                        anySessionTask = session.downloadTask(withResumeData: resumeData)
-                    }
-                } else if urlRequest {
-                    anySessionTask = session.downloadTask(with: urlRequest)
+        var anySessionTask: URLSessionTask? = nil
+        if downloadAsFile || resumeData != nil {
+            if resumeData != nil {
+                if let resumeData = resumeData {
+                    self.anySessionTask = session?.downloadTask(withResumeData: resumeData)
                 }
-            } else if urlRequest {
-                anySessionTask = session.dataTask(with: urlRequest)
+            } else if (urlRequest != nil) {
+                anySessionTask = session?.downloadTask(with: urlRequest!)
             }
-            return anySessionTask
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        } else if (urlRequest != nil) {
+            anySessionTask = session?.dataTask(with: urlRequest!)
+        }
+        return anySessionTask
+        
     }
     
     func start(with session: URLSession?) -> URLSessionTask? {
-        do{
-            if completionHandler != nil && session != nil {
-                anySessionTask = getSyncUrlSessionTask(session)
-            } else if let session = session {
-                anySessionTask = getSyncUrlSessionTask(session)
-            }
-            if (!session || !anySessionTask) && completionHandler != nil {
-                completionHandler(nil, nil, NSError(domain: kBOFNetworkPromiseDefaultErrorDomain, code: kBOFNetworkPromiseDefaultErrorCode, userInfo: kBOFNetworkPromiseDefaultErrorUserInfo))
-            }
-
-            anySessionTask.taskDescription = networkPromiseDescription
-            if NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0 {
-                anySessionTask.priority = priority
-            }
-            anySessionTask.resume()
-            return anySessionTask
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        if completionHandler != nil && session != nil {
+            anySessionTask = getSyncUrlSessionTask(session)
+        } else if let session = session {
+            anySessionTask = getSyncUrlSessionTask(session)
+        }
+        if ((session == nil) || (anySessionTask == nil)) && completionHandler != nil {
+            completionHandler!(nil, nil, NSError(domain: kBOFNetworkPromiseDefaultErrorDomain, code: kBOFNetworkPromiseDefaultErrorCode, userInfo: kBOFNetworkPromiseDefaultErrorUserInfo))
+        }
+        
+        anySessionTask?.taskDescription = networkPromiseDescription()
+        if NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0 {
+            anySessionTask?.priority = priority
+        }
+        anySessionTask?.resume()
+        return anySessionTask
+        
     }
     
     func networkPromiseIdentifier() -> Int {
-        do{
-            return anySessionTask.taskIdentifier
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return 0
+        
+        return anySessionTask?.taskIdentifier ?? 0
     }
     
     func setNetworkPromiseDescription(_ networkPromiseDescription: String?) {
-        do{
-            self.networkPromiseDescription = networkPromiseDescription
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        
+        self.networkPromiseDescription = networkPromiseDescription
     }
     func networkPromiseDescription() -> String? {
         do{
-            return anySessionTask.taskDescription ?? networkPromiseDescription
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            return anySessionTask?.taskDescription ?? networkPromiseDescription()
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
         return nil
     }
     
     var originalRequest: URLRequest {
-        do{
-            return anySessionTask.originalRequest
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        return anySessionTask?.originalRequest
     }
     
     var currentRequest: URLRequest {
-        do{
-            return anySessionTask.currentRequest
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
+        return anySessionTask?.currentRequest
+        
     }
     
     func response() -> URLResponse? {
         do{
-            return anySessionTask.response()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            return anySessionTask?.response
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
         return nil
     }
     
     func state() -> BOFNetworkPromiseTaskState {
         do{
             var currentState: BOFNetworkPromiseTaskState
-            if !anySessionTask {
-                currentState = BOFNetworkPromiseTaskStateSuspended
+            if (anySessionTask == nil) {
+                currentState = BOFNetworkPromiseTaskState.suspended
             }
             else
             {
-                switch anySessionTask.state {
-                case URLSessionTask.State.running:
-                    currentState = BOFNetworkPromiseTaskStateRunning
-                case URLSessionTask.State.suspended:
-                    currentState = BOFNetworkPromiseTaskStateSuspended
-                case URLSessionTask.State.canceling:
-                    currentState = BOFNetworkPromiseTaskStateCanceling
-                case URLSessionTask.State.completed:
-                    currentState = BOFNetworkPromiseTaskStateCompleted
+                switch anySessionTask?.state {
+                case .running:
+                    currentState = BOFNetworkPromiseTaskState.running
+                case .suspended:
+                    currentState = BOFNetworkPromiseTaskState.suspended
+                case .canceling:
+                    currentState = BOFNetworkPromiseTaskState.canceling
+                case .completed:
+                    currentState = BOFNetworkPromiseTaskState.completed
                 default:
                     break
                 }
             }
             return currentState
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return BOFNetworkPromiseTaskStateSuspended
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
+        return BOFNetworkPromiseTaskState.suspended
     }
-    func error() -> Error? {
-        do{
-            return anySessionTask.error()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
-        return nil
-    }
+    //    func error() -> Error? {
+    //        do{
+    //            return anySessionTask?.error
+    //        } catch {
+    //            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+    //        }
+    //        return nil
+    //    }
     
     func setPriority(_ priority: Float) {
-        do{
-            self.priority = priority
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        self.priority = priority
+        
     }
     
-    -(float)priority {
-      @try {
-        if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) {
-          return _anySessionTask.priority;
+    func priority()->Double {
+        do {
+            if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) {
+                return _anySessionTask.priority
+            }
+            return _priority  // should be same as _priority
+        } catch  {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
         }
-        return _priority;  // should be same as _priority
-      } @catch (NSException *exception) {
-        BOFLogDebug(@"%@:%@", BOF_DEBUG, exception);
-      }
-      return NSURLSessionTaskPriorityDefault;
+        return NSURLSessionTaskPriorityDefault
     }
     
     func cancel() {
-        do{
-            anySessionTask.cancel()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        anySessionTask?.cancel()
     }
     
     func suspend() {
-        do{
-            anySessionTask.suspend()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        anySessionTask?.suspend()
     }
     
     func resume() {
-        do{
-            anySessionTask.resume()
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        anySessionTask?.resume()
+        
     }
     
     func cancel(byProducingResumeData completionHandler: @escaping (Data?) -> Void) {
-        do{
-            if anySessionTask is URLSessionDownloadTask {
-                (anySessionTask as? URLSessionDownloadTask)?.cancel(byProducingResumeData: { resumeData in
-                    completionHandler(resumeData)
-                })
-            }
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        if anySessionTask is URLSessionDownloadTask {
+            (anySessionTask as? URLSessionDownloadTask)?.cancel(byProducingResumeData: { resumeData in
+                completionHandler(resumeData)
+            })
+        }
+        
     }
     
     func bofurlSession(_ session: URLSession?, downloadTask: URLSessionDownloadTask?, didFinishDownloadingTo location: URL?) {
         do{
-
-            if downloadLocation {
+            
+            //TODO:check code
+            if (downloadLocation != nil) {
                 var relocationError: Error? = nil
-                let success = BOFFileSystemManager.moveFile(fromLocation: location, toLocation: downloadLocation, relocationError: &relocationError)
+                let success = BOFFileSystemManager.moveFile(fromLocation: location, toLocation: downloadLocation, relocationError: relocationError)
                 relocationErr = relocationError
                 if success {
                     location = downloadLocation
@@ -395,55 +349,39 @@ convenience init?(urlRequest request: URLRequest, responseHandler networkRespons
             } else {
                 downloadLocation = location
             }
-            if delegate.responds(to: Selector("BOFNetworkPromise:didFinishDownloadingToURL:")) {
-                delegate.bofNetworkPromise(self, didFinishDownloadingToURL: location)
-            }
-            if delegateForHandler.responds(to: Selector("BOFNetworkPromise:didFinishDownloadingToURL:")) {
-                delegateForHandler.bofNetworkPromise(self, didFinishDownloadingTo: location)
-            }
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            
+            
+            delegate?.bofNetworkPromise?(self, didFinishDownloadingTo: location)
+            
+            delegateForHandler?.bofNetworkPromise?(self, didFinishDownloadingTo: location)
+            
+            
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
     }
     
     func bofurlSession(_ session: URLSession?, task: URLSessionTask?, didCompleteWithError error: Error?) {
         do{
             let dataOrLocation = responseData ?? downloadLocation
             sessionTaskComplettionHandlerDownloaded(dataOrLocation, response: task?.response, error: error, session: session)
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
     }
     
     func bofurlSession(_ session: URLSession?, downloadTask: URLSessionDownloadTask?, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        do{
-            
-            if delegate.responds(to: Selector("BOFNetworkPromise:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:")) {
-                delegate.bofNetworkPromise(self, didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-            }
-
-            if delegateForHandler.responds(to: Selector("BOFNetworkPromise:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:")) {
-                delegateForHandler.bofNetworkPromise(self, didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-            }
-            
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        
+        delegate?.bofNetworkPromise?(self, didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
+        
+        delegateForHandler?.bofNetworkPromise?(self, didWriteData: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite)
+        
     }
     
     func bofurlSession(_ session: URLSession?, downloadTask: URLSessionDownloadTask?, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        do{
-            
-            if delegate.responds(to: Selector("BOFNetworkPromise:didResumeAtOffset:expectedTotalBytes:")) {
-                delegate.bofNetworkPromise(self, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
-            }
-
-            if delegateForHandler.responds(to: Selector("BOFNetworkPromise:didResumeAtOffset:expectedTotalBytes:")) {
-                delegateForHandler.bofNetworkPromise(self, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
-            }
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        
+        delegate?.bofNetworkPromise?(self, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
+        delegateForHandler?.bofNetworkPromise?(self, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
     }
     
     func bofurlSession(
@@ -455,26 +393,29 @@ convenience init?(urlRequest request: URLRequest, responseHandler networkRespons
             if responseData == nil {
                 responseData = Data()
             }
-
+            
             responseData.append(data)
-
-            if delegate.responds(to: Selector("BOFNetworkPromise:didReceiveData:")) {
-                delegate.bofNetworkPromise(self, didReceiveData: data)
-            }
-
-            if delegateForHandler.responds(to: Selector("BOFNetworkPromise:didReceiveData:")) {
-                delegateForHandler.bofNetworkPromise(self, didReceiveData: data)
-            }
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+            
+            delegate?.bofNetworkPromise?(self, didReceiveData: data)
+            
+            //            if delegate.responds(to: Selector("BOFNetworkPromise:didReceiveData:")) {
+            //                delegate.bofNetworkPromise(self, didReceiveData: data)
+            //            }
+            
+            delegateForHandler?.bofNetworkPromise?(self, didReceive: data)
+            
+            //TODO: check similar conditions
+            //            if ((delegateForHandler?.responds(to: Selector("BOFNetworkPromise:didReceiveData:"))) != nil) {
+            //                delegateForHandler?.bofNetworkPromise(self, didReceive: data)
+            //            }
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+        }
     }
     
     deinit {
-        do{
-            delegate = nil
-        } catch { 
-            BOFLogDebug("%@:%@", BOF_DEBUG, exception)
-        })
+        
+        delegate = nil
+        
     }
 }

@@ -6,16 +6,16 @@
 //
 
 import Foundation
+import StoreKit
 
-
-class BOAStoreKitController {
+class BOAStoreKitController:NSObject {
     private var transactions: [AnyHashable : Any]?
     private var productRequests: [AnyHashable : Any]?
     private var config: BlotoutAnalyticsConfiguration?
     
     
     class func trackTransactions(for configuration: BlotoutAnalyticsConfiguration?) -> Self {
-           return BOAStoreKitController(configuration: configuration)
+        return BOAStoreKitController(configuration: configuration) as! Self
        }
     
     
@@ -41,8 +41,9 @@ class BOAStoreKitController {
             let request = SKProductsRequest(productIdentifiers: Set<AnyHashable>([transaction.payment.productIdentifier]))
             let lockQueue = DispatchQueue(label: "self")
             lockQueue.sync {
-                transactions.setObject(transaction, forKey: transaction.payment.productIdentifier)
-                productRequests.setObject(request, forKey: transaction.payment.productIdentifier)
+                //TODO: check types in models
+                transactions[transaction.payment.productIdentifier] = transaction
+                productRequests?[transaction.payment.productIdentifier] = request
             }
             request.delegate = self
             request.start()
@@ -53,45 +54,47 @@ class BOAStoreKitController {
         for product in response.products {
             let lockQueue = DispatchQueue(label: "self")
             lockQueue.sync {
-                let transaction = transactions[product.productIdentifier] as? SKPaymentTransaction
+                let transaction = transactions?[product.productIdentifier] as? SKPaymentTransaction
                 trackTransaction(transaction, for: product)
-                transactions.removeObject(forKey: product.productIdentifier)
-                productRequests.removeObject(forKey: product.productIdentifier)
+                transactions?.removeValue(forKey: product.productIdentifier)
+                productRequests?.removeValue(forKey: product.productIdentifier)
             }
         }
     }
     
-    func trackTransaction(_ transaction: SKPaymentTransaction?, for product: SKProduct?) {
-        let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+    func trackTransaction(_ transaction: SKPaymentTransaction, for product: SKProduct) {
+        let sdkManifesCtrl = BOASDKManifestController.sharedInstance
         if !sdkManifesCtrl.isSystemEventEnabled(BO_TRANSACTION_COMPLETED) {
             return
         }
 
-        if transaction?.transactionIdentifier == nil || BlotoutAnalytics.sharedInstance().eventManager == nil {
+        if transaction.transactionIdentifier == nil || BlotoutAnalytics.sharedInstance.eventManager == nil {
             return
         }
 
-        let currency = product?.priceLocale[NSLocale.Key.currencyCode] as? String
+        let currency = product?.priceLocale[NSLocale.Key.currencyCode]
 
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
 
+//TODO: need to set default empty values in productDict
+            let productDict = [
+                "sku" : transaction.transactionIdentifier,
+                "quantity" : transaction.payment.quantity,
+                "productId" : product.productIdentifier ,
+                "price" : product.price ,
+                "name" : product.localizedTitle ,
+            ] as [String : AnyHashable]
             let model = BOACaptureModel(
                 event: "Transaction Completed",
                 properties: [
                     "orderId": transaction.transactionIdentifier,
                     "affiliation": "App Store",
                     "currency": currency ?? "",
-                    "products" : [{
-                                "sku" : transaction.transactionIdentifier,
-                                "quantity" : @(transaction.payment.quantity),
-                                "productId" : product.productIdentifier ?: "",
-                                "price" : product.price ?: 0,
-                                "name" : product.localizedTitle ?: "",
-                              }]
+                    "products" : [productDict]
                 ],
-                screenName: BOSharedManager.sharedInstance().currentScreenName,
+                screenName: BOSharedManager.sharedInstance.currentScreenName,
                 withType: BO_SYSTEM)
-            BlotoutAnalytics.sharedInstance().eventManager.capture(model)
+            BlotoutAnalytics.sharedInstance.eventManager.capture(model)
         })
     }
 }

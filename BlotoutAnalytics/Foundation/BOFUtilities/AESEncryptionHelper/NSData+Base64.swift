@@ -11,17 +11,17 @@ func loadAsNSDataBase64FoundationCat() {
 
 extension Data {
     
-    class func base64Data(from string: String?) -> Data? {
+    static func base64Data(from string: String?) -> Data? {
         let ixtext: UInt
         let lentext: UInt
         let ch: UInt8
-        let inbuf = [UInt8](repeating: 0, count: 4)
-        let outbuf = [UInt8](repeating: 0, count: 3)
+        var inbuf = [UInt8](repeating: 0, count: 4)
+        var outbuf = [UInt8](repeating: 0, count: 3)
         let i: Int16
         let ixinbuf: Int16
         let flignore: Bool
-        let flendtext = false
-        let tempcstring: UnsafePointer<UInt8>? = nil
+        var flendtext = false
+        var tempcstring: UnsafePointer<UInt8>? = nil
         var theData: Data?
         
         if string == nil {
@@ -31,9 +31,9 @@ extension Data {
         
         tempcstring = UInt8(string.utf8CString)
         
-        lentext = string.length()
+        lentext = string?.count
         
-        theData = Data(capacity: lentext)
+        theData = Data(capacity: Int(lentext))
         
         ixinbuf = 0
         
@@ -43,7 +43,7 @@ extension Data {
             }
         }
         
-        ch = tempcstring[ixtext]
+        ch = tempcstring?[Int(ixtext)]
         ixtext += 1
         
         flignore = false
@@ -65,8 +65,8 @@ extension Data {
         }
         
         if !flignore {
-            let ctcharsinbuf: Int16 = 3
-            let flbreak = false
+            var ctcharsinbuf: Int16 = 3
+            var flbreak = false
             
             if flendtext {
                 if ixinbuf == 0 {
@@ -83,7 +83,7 @@ extension Data {
                 
                 flbreak = true
             }
-            inbuf[ixinbuf] = ch
+            inbuf[Int(ixinbuf)] = ch
             ixinbuf += 1
             
             if ixinbuf == 4 {
@@ -94,7 +94,7 @@ extension Data {
                 outbuf[2] = ((inbuf[2] & 0x03) << 6) | (inbuf[3] & 0x3f)
                 
                 for i in 0..<ctcharsinbuf {
-                    theData.append(0x0, length: 1)
+                    theData?.append(0x0, count: 1)
                 }
             }
             

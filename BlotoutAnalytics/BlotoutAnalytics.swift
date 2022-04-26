@@ -46,7 +46,7 @@ class BlotoutAnalytics:NSObject {
         BOFNetworkPromiseExecutor.sharedInstance.isSDKEnabled = isEnabled
         BOFNetworkPromiseExecutor.sharedInstanceForCampaign()?.isSDKEnabled = isEnabled
         BOFFileSystemManager.setIsSDKEnabled(isSDKEnabled: isEnabled)
-        //        } catch { 
+        //        } catch {
         //            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
         //        }
     }
@@ -114,7 +114,7 @@ class BlotoutAnalytics:NSObject {
         } catch{
             //TODO correct this completionhandler
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            completionHandler(false, Error.boError(forDict: error.userInfo))
+            completionHandler(false, BOErrorAdditions.boError(forDict: error.userInfo))
         }
     }
     
@@ -122,7 +122,7 @@ class BlotoutAnalytics:NSObject {
     func checkManifestAndInitAnalytics(withCompletionHandler completionHandler: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
         do{
             
-            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance()
+            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isManifestAvailable() {
                 sdkManifesCtrl.reloadManifestData()
             }
@@ -141,19 +141,19 @@ class BlotoutAnalytics:NSObject {
             
         }catch {
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            completionHandler(false, Error.boError(forDict: error.userInfo))
+            completionHandler(false, BOErrorAdditions.boError(forDict: error.userInfo))
         }
     }
     
     func fetchManifest(_ callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)? = nil) {
         do{
-            let sdkManifest = try BOASDKManifestController.sharedInstance()
+            let sdkManifest = try BOASDKManifestController.sharedInstance
             sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
                 callback?(isSuccess, error)
             })
         } catch {
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            callback?(false, Error.boError(forDict: error.userInfo))
+            callback?(false, BOErrorAdditions.boError(forDict: error.userInfo))
         }
     }
     
@@ -161,7 +161,7 @@ class BlotoutAnalytics:NSObject {
     
     func getCrypto(_ config: BlotoutAnalyticsConfiguration?) -> BOACrypto? {
         do{
-            if config?.crypto {
+            if ((config?.crypto) != nil) {
                 return config?.crypto
             }
             
@@ -185,12 +185,8 @@ class BlotoutAnalytics:NSObject {
     
     //TODO : looks like this is not used anymore
     func sdkVersion() -> String? {
-        do{
-            try return "\(BOSDK_MAJOR_VERSION).\(BOSDK_MINOR_VERSION).\(BOSDK_PATCH_VERSION)"
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
+            return  "\(BOSDK_MAJOR_VERSION).\(BOSDK_MINOR_VERSION).\(BOSDK_PATCH_VERSION)"
+        
     }
     
     func mapID(_ mapIDData: BOAMapIDDataModel, withInformation eventInfo: [AnyHashable : Any]?) {
@@ -215,42 +211,35 @@ class BlotoutAnalytics:NSObject {
     }
     
     func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?) {
-        do{
-            try BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
+
+             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 capture(eventName, withInformation: eventInfo, withType: BO_CODIFIED, withEventCode: NSNumber(value: 0))
             })
-        }catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?, withType type: String?, withEventCode eventCode: NSNumber?) {
-        do{
             if !isEnabled {
                 return
             }
-            let model = try BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
+            let model =  BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
             eventManager.capture(model)
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     //TODO: we might remove this completely
     func capturePersonal(_ eventName: String, withInformation eventInfo: [AnyHashable : Any], isPHI phiEvent: Bool) {
-        do{
+    
             if !isEnabled {
                 return
             }
-            try  BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
+              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 let type = phiEvent ? BO_PHI : BO_PII
                 let model = BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
                 eventManager.capturePersonal(model, isPHI: phiEvent)
             })
             
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func getUserId() -> String? {
@@ -258,9 +247,9 @@ class BlotoutAnalytics:NSObject {
     }
     
     func trackPushNotification(_ properties: [AnyHashable : Any]?, fromLaunch launch: Bool) {
-        do{
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
-
+        
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
+            
             if !isEnabled {
                 return
             }
@@ -270,31 +259,27 @@ class BlotoutAnalytics:NSObject {
                 capture("Push Notification Received", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_PUSH_NOTIFICATION_RECEIVED))
             }
             
-        }catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func receivedRemoteNotification(_ userInfo: [AnyHashable : Any]?) {
-        do{
+       
             if !isEnabled {
                 return
             }
-            try BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
+             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 trackPushNotification(userInfo, fromLaunch: false)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func failedToRegisterForRemoteNotificationsWithError(_ error: Error?) {
-        do{
+      
             if !isEnabled {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+                let sdkManifesCtrl = BOASDKManifestController.sharedInstance
                 if sdkManifesCtrl.isSystemEventEnabled(BO_REGISTER_FOR_REMOTE_NOTIFICATION) {
                     var properties: [AnyHashable : Any] = [:]
                     properties["deviceRegistered"] = NSNumber(value: 0)
@@ -302,48 +287,42 @@ class BlotoutAnalytics:NSObject {
                 }
             })
             
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func registeredForRemoteNotifications(withDeviceToken deviceToken: Data?) {
-        do{
             if !isEnabled {
                 return
             }
             
-           try BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
+             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
                 var properties: [AnyHashable : Any] = [:]
                 let buffer = UnsafePointer<UInt8>(UInt8(deviceToken.bytes()))
                 if buffer == nil {
                     return
                 }
                 
-               var token = String(repeating: "\0", count: deviceToken?.count ?? 0 * 2)
-               for i in 0..<deviceToken?.count ?? 0 {
+                var token = String(repeating: "\0", count: deviceToken?.count ?? 0 * 2)
+                 for i in 0..<(deviceToken?.count ?? 0) {
                     token += String(format: "%02lx", UInt(buffer[i]))
                 }
                 
                 properties["token"] = token
-               properties["deviceRegistered"] = NSNumber(value: 1)
-               // properties.setValue(token, forKey: "token")
+                properties["deviceRegistered"] = NSNumber(value: 1)
+                // properties.setValue(token, forKey: "token")
                 //properties.setValue(NSNumber(value: 1), forKey: "deviceRegistered")
                 
-                let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+                let sdkManifesCtrl = BOASDKManifestController.sharedInstance
                 if sdkManifesCtrl.isSystemEventEnabled(BO_REGISTER_FOR_REMOTE_NOTIFICATION) {
-                    capture("Remote Notification Register", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_REGISTER_FOR_REMOTE_NOTIFICATION))
+                    self.capture("Remote Notification Register", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_REGISTER_FOR_REMOTE_NOTIFICATION))
                     
                 }
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+       
     }
     
     func continueUserActivity(activity: NSUserActivity) {
-        do{
-            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance()
+            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance
             if !isEnabled || (activity.activityType != NSUserActivityTypeBrowsingWeb) || !sdkManifesCtrl.isSystemEventEnabled(BO_DEEP_LINK_OPENED) {
                 return
             }
@@ -356,15 +335,12 @@ class BlotoutAnalytics:NSObject {
                 refreshSessionAndReferrer(activity.webpageURL?.absoluteString)
                 capture("Deep Link Opened", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_DEEP_LINK_OPENED))
             })
-            
-        }catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+ 
     }
     
     func openURL(url: URL?, options: [AnyHashable : Any]?) {
         do{
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if !isEnabled || !sdkManifesCtrl.isSystemEventEnabled(BO_DEEP_LINK_OPENED) {
                 return
             }
@@ -450,7 +426,7 @@ class BlotoutAnalytics:NSObject {
             if !isEnabled {
                 return
             }
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isSystemEventEnabled(BO_APPLICATION_OPENED) {
                 capture(
                     "Application Opened",
@@ -477,7 +453,7 @@ class BlotoutAnalytics:NSObject {
             let model = try BOACaptureModel(event: BO_VISIBILITY_HIDDEN, properties: nil, screenName: nil, withType: BO_SYSTEM)
             eventManager.capture(model)
             
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isSystemEventEnabled(BO_APPLICATION_BACKGROUNDED) {
                 capture("Application Backgrounded", withInformation: nil, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_APPLICATION_BACKGROUNDED))
             }
@@ -496,7 +472,7 @@ class BlotoutAnalytics:NSObject {
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
                 
-                let sdkManifesCtrl = BOASDKManifestController.sharedInstance()
+                let sdkManifesCtrl = BOASDKManifestController.sharedInstance
                 if !sdkManifesCtrl.isSystemEventEnabled(BO_APP_TRACKING) {
                     return
                 }
@@ -524,7 +500,9 @@ class BlotoutAnalytics:NSObject {
                     // Fallback on earlier version
                     if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
                         statusString = "Authorized"
-                        idfaString = BOAUtilities.getIDFA() ?? ""
+                    idfaString =  ASIdentifierManager.shared().advertisingIdentifier.uuidString
+
+                        //BOAUtilities.getIDFA() ?? ""
                     } else {
                         statusString = "Denied"
                     }
@@ -608,4 +586,4 @@ class BlotoutAnalytics:NSObject {
 }
                                                                       
                                                                       
-                                                                      }
+                                                                      

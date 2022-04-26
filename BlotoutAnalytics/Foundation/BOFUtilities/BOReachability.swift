@@ -46,11 +46,22 @@
  */
 
 import Foundation
+import SystemConfiguration
+
 var kBOReachabilityChangedNotification = "kNetworkBOReachabilityChangedNotification"
 var BOWebServiceInternetConnectionAvailableNotification = "BOWebServiceInternetConnectionAvailableNotification"
 
-class BOReachability {
-    private func notifyInternetAvailability() {
+
+class BOReachability:NSObject {
+    
+    
+    var localWiFiRef = false
+    var reachabilityRef: SCNetworkReachability?
+    
+    enum BONetworkStatus : Int {
+        case boNotReachable = 0
+        case boReachableViaWiFi
+        case boReachableViaWWAN
     }
     
     let kShouldPrintReachabilityFlags = 0
@@ -73,20 +84,17 @@ class BOReachability {
 #endif
     }
     
-    private func BOReachabilityCallback(_ target: SCNetworkReachability?, _ flags: SCNetworkReachabilityFlags, _ info: UnsafeMutableRawPointer?) {
+    private func BOReachabilityCallback(_ target: SCNetworkReachability, _ flags: SCNetworkReachabilityFlags, _ info: Void) {
         //#pragma unused (target, flags)
         assert(info != nil, "info was NULL in BOReachabilityCallback")
         assert(((info as? NSObject) is BOReachability), "info was wrong class in BOReachabilityCallback")
-        let noteObject = info as? BOReachability
+        let noteObject = info as! BOReachability
         // Post a notification to notify the client that the network reachability changed.
         NotificationCenter.default.post(name: Notification.Name(kBOReachabilityChangedNotification), object: noteObject)
-        noteObject?.notifyInternetAvailability()
+        noteObject.notifyInternetAvailability()
     }
     
-    class BOReachability {
-        private var localWiFiRef = false
-        private var reachabilityRef: SCNetworkReachability?
-    }
+    
     
     
     class func reachability(withAddress hostAddress: sockaddr_in?) -> Self {
@@ -103,39 +111,38 @@ class BOReachability {
                 returnValue.localWiFiRef = false
             }
         }
-        return returnValue
+        return returnValue as! Self
     }
     
     
     //TODO: need to add code here
     //TODO: maybe doesnt need to be private
-   static private var sharedInstance: BOReachability = BOReachability()
-//    +reachabilityForInternetConnection as? Self!
-//    do {
-//
-//        // `dispatch_once()` call was converted to a static variable initializer
-//
-//
-//        return sharedInstance
-//    }
-
+    static private var sharedInstance: BOReachability = BOReachability()
+    //    +reachabilityForInternetConnection as? Self!
+    //    do {
+    //
+    //        // `dispatch_once()` call was converted to a static variable initializer
+    //
+    //
+    //        return sharedInstance
+    //    }
     
     class func reachabilityForLocalWiFi() -> Self {
         var localWifiAddress: sockaddr_in
         bzero(&localWifiAddress, MemoryLayout.size(ofValue: localWifiAddress))
-        localWifiAddress.sin_len = MemoryLayout.size(ofValue: localWifiAddress)
-        localWifiAddress.sin_family = AF_INET
+        localWifiAddress.sin_len = __uint8_t(MemoryLayout.size(ofValue: localWifiAddress))
+        localWifiAddress.sin_family = sa_family_t(AF_INET)
         localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM)
-
-           let returnValue = self.reachability(withAddress: &localWifiAddress)
-           if let returnValue = returnValue {
-               returnValue?.localWiFiRef = true
-           }
-
-           return returnValue
-       }
+        
+        let returnValue:BOReachability = self.reachability(withAddress: localWifiAddress)
+        if returnValue != nil {
+            returnValue.localWiFiRef = true
+        }
+        
+        return returnValue as! Self
+    }
     
-    init() {
+    override init() {
         super.init()
     }
     
@@ -143,47 +150,47 @@ class BOReachability {
     func startNotifier() -> Bool {
         var returnValue = false
         var context = SCNetworkReachabilityContext(version: CFIndex(0), info: self, retain: nil, release: nil, copyDescription: nil)
-
+        
         if reachabilityRef == nil {
             return returnValue
         }
-
+        
         if SCNetworkReachabilitySetCallback(reachabilityRef, BOReachabilityCallback, &context) {
-            if SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode) {
+            if SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef!, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue) {
                 returnValue = true
             }
         }
-
+        
         return returnValue
     }
     
     func stopNotifier() {
         if let reachabilityRef = reachabilityRef {
-            SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode)
+            SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode!.rawValue)
         }
     }
     
     deinit {
         stopNotifier()
-        if let reachabilityRef = reachabilityRef {
-        }
+//        if let reachabilityRef = reachabilityRef {
+//        }
     }
     
     func notifyInternetAvailability() {
         let status = currentReachabilityStatus()
-        if status != BONotReachable {
+        if status != BONetworkStatus.boNotReachable {
             NotificationCenter.default.post(name: Notification.Name(BOWebServiceInternetConnectionAvailableNotification), object: self)
         }
     }
     
-    func localWiFiStatus(for flags: SCNetworkReachabilityFlags) -> BONetworkStatus {
+    func localWiFiStatusForFlags(flags: SCNetworkReachabilityFlags) -> BONetworkStatus {
         PrintReachabilityFlags(flags, "localWiFiStatusForFlags")
-        var returnValue = Bool(BONotReachable)
-
+        var returnValue:BONetworkStatus = BONetworkStatus.boNotReachable
+        
         if (flags.rawValue & SCNetworkReachabilityFlags.reachable.rawValue) != 0 && (flags.rawValue & SCNetworkReachabilityFlags.isDirect.rawValue) != 0 {
-            returnValue = Bool(BOReachableViaWiFi)
+            returnValue = BONetworkStatus.boReachableViaWiFi
         }
-
+        
         return returnValue
     }
     
@@ -192,48 +199,49 @@ class BOReachability {
         PrintReachabilityFlags(flags, "networkStatusForFlags")
         if (flags.rawValue & SCNetworkReachabilityFlags.reachable.rawValue) == 0 {
             // The target host is not reachable.
-            return BONotReachable
+            return BONetworkStatus.boNotReachable
         }
-
-        let returnValue = Bool(BONotReachable)
-        if (flags & SCNetworkReachabilityFlags.connectionRequired.rawValue) == 0 {
+        
+        var returnValue:BONetworkStatus = BONetworkStatus.boNotReachable
+        if (flags.rawValue & SCNetworkReachabilityFlags.connectionRequired.rawValue) == 0 {
             /*
-                     If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
-                     */
-            returnValue = BOReachableViaWiFi
+             If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
+             */
+            returnValue = BONetworkStatus.boReachableViaWiFi
         }
-        if ((flags & SCNetworkReachabilityFlags.connectionOnDemand.rawValue) != 0) || (flags & SCNetworkReachabilityFlags.connectionOnTraffic.rawValue) != 0 {
-            if (flags & SCNetworkReachabilityFlags.interventionRequired.rawValue) == 0 {
-
-                returnValue = BOReachableViaWiFi
+        if ((flags.rawValue & SCNetworkReachabilityFlags.connectionOnDemand.rawValue) != 0) || (flags.rawValue & SCNetworkReachabilityFlags.connectionOnTraffic.rawValue) != 0 {
+            if (flags.rawValue & SCNetworkReachabilityFlags.interventionRequired.rawValue) == 0 {
+                
+                returnValue = BONetworkStatus.boReachableViaWiFi
             }
         }
-        if (flags & SCNetworkReachabilityFlags.isWWAN.rawValue) == SCNetworkReachabilityFlags.isWWAN.rawValue {
+        if (flags.rawValue & SCNetworkReachabilityFlags.isWWAN.rawValue) == SCNetworkReachabilityFlags.isWWAN.rawValue {
             /*
-                     ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
-                     */
-            returnValue = BOReachableViaWWAN != nil ? true : false
+             ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
+             */
+            returnValue = BONetworkStatus.boReachableViaWWAN
         }
+        //TODO: test this upodated from bool to networkstatus here
         return returnValue
     }
     
     func currentReachabilityStatus() -> BONetworkStatus {
         assert(reachabilityRef != nil, "currentNetworkStatus called with NULL reachabilityRef")
-        var returnValue = BONotReachable as? BONetworkStatus
+        var returnValue = BONetworkStatus.boNotReachable
         var flags: SCNetworkReachabilityFlags
-
-        if SCNetworkReachabilityGetFlags(reachabilityRef, &flags) {
+        
+        if SCNetworkReachabilityGetFlags(reachabilityRef!, &flags) {
             if localWiFiRef {
-                returnValue = localWiFiStatus(for: flags)
+                returnValue = localWiFiStatusForFlags(flags: flags)
             } else {
                 returnValue = networkStatus(for: flags)
             }
         }
-
-        return returnValue!
+        
+        return returnValue
     }
     
     func isDeviceOnline() -> Bool {
-        return currentReachabilityStatus() != BONotReachable
+        return currentReachabilityStatus() != BONetworkStatus.boNotReachable
     }
 }

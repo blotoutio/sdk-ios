@@ -38,7 +38,7 @@ class BOASDKManifestController:NSObject {
                 }
                 if (sdkManifestModel == nil) {
                     var manifestReadError: Error? = nil
-                    let sdkManifestM = BOASDKManifest.fromJSON(latestSDKManifestJSONString(), encoding: String.Encoding.utf8, error: &manifestReadError)
+                    let sdkManifestM = BOASDKManifest.fromJSON(json: latestSDKManifestJSONString(), encoding: String.Encoding.utf8, error: &manifestReadError)
                 }
                 callback(isSuccess,error)
             })} catch {
@@ -46,26 +46,22 @@ class BOASDKManifestController:NSObject {
                 
                 if let errorString = (error as? NSError)?.userInfo
                 {
-                    callback(false, Error.boError(forDict: errorString))
+                    callback(false, BOErrorAdditions.boError(forDict: errorString))
                 }
                 else
                 {
-                    callback(false, Error.boError(forDict: ""))
+                    callback(false, BOErrorAdditions.boError(forDict: ""))
                 }
             }
         }
     
     
     func latestSDKManifestPath() -> String? {
-        do{
-            let fileName = "sdkManifest"
-            let sdkManifestDir = BOFFileSystemManager.getSDKManifestDirectoryPath()
-            let sdkManifestFilePath = "\(sdkManifestDir)/\(fileName).txt"
-            return sdkManifestFilePath
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
+        
+        let fileName = "sdkManifest"
+        let sdkManifestDir = BOFFileSystemManager.getSDKManifestDirectoryPath()
+        let sdkManifestFilePath = "\(sdkManifestDir ?? "")/\(fileName).txt"
+        return sdkManifestFilePath
     }
     
     func latestSDKManifestJSONString() -> String? {
@@ -80,16 +76,16 @@ class BOASDKManifestController:NSObject {
         return nil
     }
     
-    func sdkManifestPath(afterWriting sdkManifest: String?) -> String? {
+    func sdkManifestPath(afterWriting sdkManifest: String) -> String? {
        do{
             if sdkManifest == nil || (sdkManifest == "") || (sdkManifest == "{}") || (sdkManifest == "{ }") {
                 return nil
             }
             
             let sdkManifestFilePath = latestSDKManifestPath()
-            if BOFFileSystemManager.isFileExist(atPath: sdkManifestFilePath) {
+           if BOFFileSystemManager.isFileExist(atPath: sdkManifestFilePath ?? "") {
                 var removeError: Error? = nil
-                BOFFileSystemManager.removeFile(fromLocationPath: sdkManifestFilePath, removalError: &removeError)
+               BOFFileSystemManager.removeFile(fromLocationPath: sdkManifestFilePath ?? "", removalError: removeError)
             }
             var error: Error?
             //else file write operation and prapare new object
@@ -102,20 +98,20 @@ class BOASDKManifestController:NSObject {
         return nil
     }
     
-    func fetchAndPrepareSDKModel(with callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)? = nil) {
+    func fetchAndPrepareSDKModel(with callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
         do{
             let api = BOManifestAPI()
             
             api.getManifestDataModel({ [self] responseObject, data in
-                if !responseObject {
+                if (responseObject == nil) {
                     isSyncedNow = false
                     callback(false, nil)
                     return
                 }
                 let sdkManifestM = responseObject as? BOASDKManifest
                 sdkManifestModel = sdkManifestM
-                let manifestJSONStr = String(data: data, encoding: .utf8)
-                sdkManifestPath(afterWriting: manifestJSONStr)
+                let manifestJSONStr = String(data: data as! Data, encoding: .utf8)
+                sdkManifestPath(afterWriting: manifestJSONStr ?? "")
                 isSyncedNow = true
                 callback(true, nil)
             }, failure: { [self] error in
@@ -123,30 +119,25 @@ class BOASDKManifestController:NSObject {
                 callback(false, error)
             })} catch {
                 BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-                callback(false, Error.boError(forDict: exception.userInfo))
+                callback(false, BOErrorAdditions.boError(forDict: exception.userInfo))
             }
             
         }
     
     func getManifestVariable(_ manifest: BOASDKManifest, forID ID: Int) -> BOASDKVariable? {
-      do{
             var oneVar: BOASDKVariable? = nil
             if let variables = manifest.variables {
                 for oneVariableDict in variables {
                     guard let oneVariableDict = oneVariableDict as? BOASDKVariable else {
                         continue
                     }
-                    if oneVariableDict != nil && oneVariableDict.variableID.intValue == ID {
+                    if oneVariableDict != nil && oneVariableDict.variableID?.intValue == ID {
                         oneVar = oneVariableDict
                         break
                     }
                 }
             }
             return oneVar
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
     }
     
     func reloadManifestData() {
@@ -157,24 +148,24 @@ class BOASDKManifestController:NSObject {
             }
             if sdkManifestModel == nil && manifestStr != nil && (manifestStr != "") {
                 var manifestReadError: Error? = nil
-                let sdkManifestM = BOASDKManifest.fromJSON(manifestStr, encoding: String.Encoding.utf8, error: &manifestReadError)
+                let sdkManifestM = BOASDKManifest.fromJSON(json: manifestStr, encoding: String.Encoding.utf8, error: &manifestReadError)
                 sdkManifestModel = sdkManifestM
             }
 
             if sdkManifestModel == nil {
                 return
             }
-            let systemEvents = getManifestVariable(sdkManifestModel, forID: MANIFEST_SYSTEM_EVENTS)
+            let systemEvents = getManifestVariable(sdkManifestModel!, forID: MANIFEST_SYSTEM_EVENTS)
             if let systemEvents = systemEvents {
-                enabledSystemEvents = systemEvents.value.components(separatedBy: ",")
+                enabledSystemEvents = systemEvents.value?.components(separatedBy: ",")
             }
 
-            let piiKey = getManifestVariable(sdkManifestModel, forID: MANIFEST_PII_PUBLIC_KEY)
+            let piiKey = getManifestVariable(sdkManifestModel!, forID: MANIFEST_PII_PUBLIC_KEY)
             if let piiKey = piiKey {
                 piiPublicKey = piiKey.value
             }
             
-            let phiKey = getManifestVariable(sdkManifestModel, forID: MANIFEST_PHI_PUBLIC_KEY)
+            let phiKey = getManifestVariable(sdkManifestModel!, forID: MANIFEST_PHI_PUBLIC_KEY)
             if let phiKey = phiKey {
                 phiPublickey = phiKey.value
             }
@@ -185,24 +176,19 @@ class BOASDKManifestController:NSObject {
     }
     
     func isManifestAvailable() -> Bool {
-       do{
+
             let manifestStr = latestSDKManifestJSONString()
             if manifestStr != nil && (manifestStr != "") {
                 return true
             }
             return false
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
     }
     
     func isSystemEventEnabled(_ eventCode: Int) -> Bool {
         if enabledSystemEvents == nil {
             return false
         }
-
-        return enabledSystemEvents.contains(NSNumber(value: eventCode).stringValue)
+        return ((enabledSystemEvents?.contains(NSNumber(value: eventCode).stringValue)) != nil)
     }
     
 }

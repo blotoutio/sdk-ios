@@ -6,14 +6,13 @@
 //
 
 import Foundation
-
+import UIKit
 #if !BOFConstants_h
 //#define BOFConstants_h
 
 let kBOFFoundationProductKeyForUserDefaults = "BOFFoundationDefaults"
 let kBOSDKLaunchTestDirectoryName = "BOSDKLaunchTestDir"
 let kBOSDKRootDirectoryName = "BOSDKRootDir"
-let kBOSDKVolatileRootDirectoryName = "BOVolatileRootDirectory"
 let kBOSDKVolatileRootDirectoryName = "BOVolatileRootDirectory"
 let kBOSDKNonVolatileRootDirectoryName = "BONonVolatileRootDirectory"
 let kBOSDKNonVolatileRootDirectoryName_Stage = "BONonVolatileRootDirectory_Stage"

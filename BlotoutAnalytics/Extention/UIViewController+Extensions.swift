@@ -36,6 +36,8 @@ extension UIViewController {
         }
     }
     
+
+    
     class func getRootViewController(from view: UIView?) -> UIViewController? {
 
         let root = view?.window?.rootViewController
@@ -76,8 +78,8 @@ extension UIViewController {
     
     func getScreenName(_ viewController: UIViewController) -> String? {
         var name = type(of: viewController).description().replacingOccurrences(of: "ViewController", with: "")
-        if name == nil || name.count == 0 {
-            name = viewController?.title ?? ""
+        if name.count == 0 {
+            name = viewController.title ?? ""
             if name.count == 0 {
                 name = "Unknown"
             }
@@ -86,7 +88,6 @@ extension UIViewController {
     }
     
     func logged_viewWillDisappear(_ animated: Bool) {
-        do{
 
             let top = UIViewController.getRootViewController(from: view)
 
@@ -100,19 +101,16 @@ extension UIViewController {
                 return
             }
 
-            let screen = getScreenName(top)
+            let screen = getScreenName(top!)
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
                 let model = BOACaptureModel(event: BO_VISIBILITY_HIDDEN, properties: nil, screenName: screen, withType: BO_SYSTEM)
                 BlotoutAnalytics.sharedInstance.eventManager.capture(model)
             })
 
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+       
     }
     
     func logged_viewDidAppear(_ animated: Bool) {
-        do{
             
             let top = UIViewController.getRootViewController(from: view)
 
@@ -132,15 +130,13 @@ extension UIViewController {
                 return
             }
 
-            let screenName = getScreenName(top)
+            let screenName = getScreenName(top!)
             BOSharedManager.sharedInstance.currentScreenName = screenName
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
                 let model = BOACaptureModel(event: BO_SDK_START, properties: nil, screenName: screenName, withType: BO_SYSTEM)
                 BlotoutAnalytics.sharedInstance.eventManager.capture(model)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
 }
