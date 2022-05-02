@@ -42,7 +42,10 @@ class BOAStoreKitController:NSObject, SKProductsRequestDelegate {
             let lockQueue = DispatchQueue(label: "self")
             lockQueue.sync {
                 //TODO: check types in models
-                transactions?[transaction.payment.productIdentifier] = transaction
+                
+                let transactionKey:String = transaction.payment.productIdentifier
+                self.transactions?[transactionKey] = transaction
+               // transactions[transaction.payment.productIdentifier] = transactionObj
                 productRequests?[transaction.payment.productIdentifier] = request
             }
             request.delegate = self
@@ -75,10 +78,7 @@ class BOAStoreKitController:NSObject, SKProductsRequestDelegate {
             return
         }
         
-        let locale = Locale.current
-        let currencyCode = locale.currencyCode!
-
-        let currency = product?.priceLocale[currencyCode]
+        let currency = product.priceLocale.currencyCode
 
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
 

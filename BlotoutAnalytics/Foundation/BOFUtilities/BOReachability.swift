@@ -103,8 +103,8 @@ class BOReachability:NSObject {
         var zeroAddress = hostAddress
        // var defaultRouteReachability: SCNetworkReachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, &zeroAddress)
 
-        
-        var addr: sockaddr = zeroAddress
+    //TODO: find a fix for this
+   /*     var addr: sockaddr = zeroAddress
         let addr_in = withUnsafePointer(to: &addr) {
             $0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) {
                 $0.pointee
@@ -115,6 +115,7 @@ class BOReachability:NSObject {
             reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer <zeroAddress>)
             //SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer<address>)
        // }
+       */
         
         var returnValue: BOReachability? = nil
         if let reachability = reachability {
@@ -174,12 +175,14 @@ class BOReachability:NSObject {
             return returnValue
         }
         
-        
-        if SCNetworkReachabilitySetCallback(reachabilityRef!, BOReachability.BOReachabilityCallback, &context) {
+      //TODO: find a fix for this
+     /*   if SCNetworkReachabilitySetCallback(reachabilityRef!, BOReachability.BOReachabilityCallback, &context) {
             if SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef!, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue) {
                 returnValue = true
             }
         }
+        
+        */
         
         return returnValue
     }
@@ -248,7 +251,7 @@ class BOReachability:NSObject {
     func currentReachabilityStatus() -> BONetworkStatus {
         assert(reachabilityRef != nil, "currentNetworkStatus called with NULL reachabilityRef")
         var returnValue = BONetworkStatus.boNotReachable
-        var flags: SCNetworkReachabilityFlags
+        var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags()
         
         if SCNetworkReachabilityGetFlags(reachabilityRef!, &flags) {
             if localWiFiRef {

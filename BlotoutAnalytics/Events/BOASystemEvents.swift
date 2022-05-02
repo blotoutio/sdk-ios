@@ -20,7 +20,7 @@ class BOASystemEvents:NSObject {
             if previousBuildV1 != 0 {
                 
                 analyticsRootUD.setValue(NSNumber(value: previousBuildV1).stringValue, forKey: BO_BUILD_KEYV2)
-                analyticsRootUD.removeObject(forKey: BO_BUILD_KEYV1)
+                analyticsRootUD.removeObjectForKey(aKey: BO_BUILD_KEYV1)
             }
             let previousVersion = analyticsRootUD.value(forKey:BO_VERSION_KEY) as? String
             let previousBuildV2 = analyticsRootUD.value(forKey:BO_BUILD_KEYV2) as? String

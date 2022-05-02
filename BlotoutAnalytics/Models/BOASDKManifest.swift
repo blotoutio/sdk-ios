@@ -51,14 +51,14 @@ func BOASDKManifestFromData(data: Data?, error: Error?) -> BOASDKManifest? {
         if error == nil {
             return BOASDKManifest.fromJSONDictionary(dict: json as? [AnyHashable : Any])
         }
-
+    return nil
 }
 
 func BOASDKManifestFromJSON(json: String?, encoding: String.Encoding, error: Error?) -> BOASDKManifest? {
     return BOASDKManifestFromData(data: json?.data(using: encoding), error: error)
 }
 
-func BOASDKManifestToData(_ manifest: BOASDKManifest?, _ error: NSErrorPointer) -> Data? {
+func BOASDKManifestToData(_ manifest: BOASDKManifest?, _ error: Error) -> Data? {
     var error = error
         let json = manifest?.jsonDictionary()
         var data: Data? = nil
@@ -71,12 +71,14 @@ func BOASDKManifestToData(_ manifest: BOASDKManifest?, _ error: NSErrorPointer) 
         if error == nil {
             return data
         }
+    return nil
 }
-func BOASDKManifestToJSON(_ manifest: BOASDKManifest?, _ encoding: String.Encoding, _ error: NSErrorPointer) -> String? {
+func BOASDKManifestToJSON(_ manifest: BOASDKManifest?, _ encoding: String.Encoding, _ error: Error) -> String? {
         let data =  BOASDKManifestToData(manifest, error)
         if let data = data {
             return String(data: data, encoding: encoding)
         }
+    return nil
     }
 
 
@@ -130,6 +132,8 @@ class BOASDKManifest:NSObject {
     //need to rewrite this
     
      init(WithJSONDictionary dict: [AnyHashable : Any]?) {
+         super.init()
+         //TODO: fix this method
       //  if self == super.init(){
             if let dict = dict as? [String : Any] {
                 setValuesForKeys(dict)
@@ -142,11 +146,11 @@ class BOASDKManifest:NSObject {
     func jsonDictionary() -> [AnyHashable : Any]? {
         do{
             var dict: [String : Any]? = nil
-           
+            let allValues = BOASDKManifest.properties.values
             
-            let allValues =   BOASDKManifest.properties.values {//BOASDKManifest.properties()?.values as? [String] {
-                dict = dictionaryWithValues(forKeys: allValues)
-            }
+//            let allValues =   BOASDKManifest.properties.values {//BOASDKManifest.properties()?.values as? [String] {
+//                dict = dictionaryWithValues(forKeys: allValues)
+//            }
             
             // Map values that need translation
         /*    for (k, v) in [
@@ -187,21 +191,26 @@ class BOASDKVariable: NSObject {
     var variableDataType: NSNumber?
     
     
-    static var propertiesVar: [String : String]?
+    static var properties: [String : String]?
 
-    static var properties:[String : String] {
-
-        if propertiesVar?.keys.count ?? 0 > 0
+//    static var properties:[String : String] {
+//
+//
+//    }
+    
+    func getProperties() -> [String:String]
+    {
+        if BOASDKVariable.properties?.keys.count ?? 0 > 0
         {
-            return propertiesVar!
+            return BOASDKVariable.properties ?? [:]
         }
         else
         {
-             propertiesVar = [
+            BOASDKVariable.properties = [
                 "variableId": "variableID",
                 "value": "value",
                 "variableDataType": "variableDataType"]
-            return propertiesVar!
+            return BOASDKVariable.properties ?? [:]
         }
     }
     
@@ -226,7 +235,7 @@ class BOASDKVariable: NSObject {
     
     override func setValue(_ value: Any?, forKey key: String) {
 
-            let resolved = BOASDKVariable.properties[key]
+        let resolved = BOASDKVariable.properties?[key]
             if resolved != nil {
                 super.setValue(resolved, forKey: key)
               //resolved  super[resolved] = value
@@ -235,21 +244,45 @@ class BOASDKVariable: NSObject {
     
     func jsonDictionary() -> [AnyHashable : Any]? {
         var dict: [String : Any]? = nil
-        if let allValues = BOASDKVariable.properties.values as? [String] {
+        if let allValues = BOASDKVariable.properties?.values as? [String] {
             dict = dictionaryWithValues(forKeys: allValues)
         }
         // Rewrite property names that differ in JSON
-        for jsonName in BOASDKVariable.properties {
+        //TODO: fix this below condition
+        
+      /*  for jsonName in BOASDKVariable.properties {
             
             
-            let propertyName = BOASDKVariable.properties[jsonName]
+            let propertyName = BOASDKVariable.properties?[jsonName]
            
             if jsonName != propertyName {
                 dict?[jsonName] = dict?[propertyName]
                 dict?.removeValue(forKey: propertyName)
             }
         }
+        
+        */
         return dict
 
     }
 }
+//
+//- (NSDictionary *)JSONDictionary {
+//  @try {
+//    id dict = [[self dictionaryWithValuesForKeys:BOASDKVariable.properties.allValues] mutableCopy];
+//
+//    // Rewrite property names that differ in JSON
+//    for (id jsonName in BOASDKVariable.properties) {
+//      id propertyName = BOASDKVariable.properties[jsonName];
+//      if (![jsonName isEqualToString:propertyName]) {
+//        dict[jsonName] = dict[propertyName];
+//        [dict removeObjectForKey:propertyName];
+//      }
+//    }
+//
+//    return dict;
+//  } @catch (NSException *exception) {
+//    BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
+//  }
+//  return nil;
+//}

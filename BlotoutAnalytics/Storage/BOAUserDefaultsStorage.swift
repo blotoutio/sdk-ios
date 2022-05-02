@@ -77,6 +77,7 @@ class BOAUserDefaultsStorage:NSObject {
 
         return crypto?.decrypt(data!)
          */
+        return nil
     }
     
     func dictionary(forKey key: String) -> [String : Any]? {

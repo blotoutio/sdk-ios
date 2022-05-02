@@ -47,7 +47,6 @@ class BOEventPostAPI:BOBaseAPI {
                 do {
                     
                     if let data = data as? Data {
-                        //try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
                         dict1 = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
                     }
                 }catch {
@@ -56,42 +55,6 @@ class BOEventPostAPI:BOBaseAPI {
                 BOFLogDebug(frmt: "%@", args: dict1!)
                 failure(dataResponse, data, error)
             }
-
-            
-            
-            
-            
-        /*    BONetworkManager.asyncRequest(urlRequest as URLRequest?, success: { data, dataResponse in
-                if data == nil {
-                    success(dataResponse)
-                    return
-                }
-                var dict: [AnyHashable : Any]? = nil
-                   do {
-                       if let data = data as? Data {
-                           dict = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
-                       }
-                   } catch {
-                   }
-                   success(dict)
-               }, failure: { data, dataResponse, error in
-                   var dict1: [AnyHashable : Any]? = nil
-                   do {
-                       if let data = data as? Data {
-                           dict1 = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
-                       }
-                   }
-                   BOFLogDebug("%@", dict1)
-                   failure(dataResponse, data, error)
-               })
-            //tODO: check condition here
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-            let error = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorParsingError.rawValue, withMessage: nil)
-            failure(nil, nil, error!)
-        }
-        
-        */
     }
 }
 }

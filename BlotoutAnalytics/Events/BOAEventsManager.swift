@@ -29,6 +29,8 @@ class BOAEventsManager:NSObject {
     //TODO: check the method flow
     init(configuration: BlotoutAnalyticsConfiguration, storage: BOAStorage){
       
+        super.init()
+        //TODO: check this
         self.configuration = configuration
         self.storage = storage
         flushTimer = Timer(
@@ -111,7 +113,7 @@ class BOAEventsManager:NSObject {
         do{
             payload = BOAUtilities.traverseJSON(payload) as? [AnyHashable : Any]
             if let payload = payload {
-                queue.insert(contentsOf: payload, at: 0)
+           //TODO: fix this     queue.insert(contentsOf: payload, at: 0)
                 
                // queue.append(payload)
             }

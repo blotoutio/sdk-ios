@@ -253,6 +253,7 @@ class BOAUtilities:NSObject {
         
     }
     
+    //TODO:check not being used
     class func getUserBirthTimeStamp() -> NSNumber? {
         
         var timeStamp = NSNumber(value: 0)

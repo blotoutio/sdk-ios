@@ -13,7 +13,9 @@ func loadAsUIViewControllerBOFoundationCat() {
 extension UIViewController {
     //TODO:check what open does
     //TODO: all classes check how to correctly try catch
-    open override class func load() {
+  
+    //TODO: need to find alternate to this
+    /*open override class func load() {
         // TODO: [Swiftify] ensure that the code below is executed only once (`dispatch_once()` is deprecated)
         do {
             let viewDidAppearSelector = #selector(viewDidAppear(_:))
@@ -35,7 +37,7 @@ extension UIViewController {
             }
         }
     }
-    
+    */
 
     
     class func getRootViewController(from view: UIView?) -> UIViewController? {

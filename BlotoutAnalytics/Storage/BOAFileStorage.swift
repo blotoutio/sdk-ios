@@ -9,7 +9,7 @@ import Foundation
 
 class BOAFileStorage:NSObject, BOAStorage {
     
-    var crypto: BOACrypto?
+  //  var crypto: BOACrypto?
 
     
     var folderURL: URL!
@@ -21,8 +21,10 @@ class BOAFileStorage:NSObject, BOAStorage {
     init(folder folderURL: URL, crypto: BOACrypto?) {
         super.init()
             self.folderURL = folderURL
-            self.crypto = crypto
-        createDirectory(atURLIfNeeded: folderURL)
+           // self.crypto = crypto
+        
+        //won't need crypto further self.crypto = nil
+        createDirectoryAtURLIfNeeded(url: folderURL)
     }
     
     func removeKey(_ key: String) {
@@ -44,12 +46,12 @@ class BOAFileStorage:NSObject, BOAStorage {
             BOFLogDebug(frmt: "ERROR: Unable to reset file storage. Path cannot be removed - %@", args: folderURL.path)
         }
 
-        createDirectory(atURLIfNeeded: folderURL)
+        createDirectoryAtURLIfNeeded(url: folderURL)
     }
     
-    func set(_ data: Data, forKey key: String) {
-        let url = self.url(forKey: key)
-        if (crypto != nil) {
+    func setData(data: Data, forKey key: String) {
+        var url = self.url(forKey: key)
+     /*   if (crypto != nil) {
            
             /* Deprecating this
              let encryptedData = crypto?.encrypt(data)
@@ -57,10 +59,10 @@ class BOAFileStorage:NSObject, BOAStorage {
                 NSData(data: encryptedData).write(to: url, atomically: true)
             }
             */
-        } else {
+        } else {*/
             if data != nil && url != nil {
                 NSData(data: data).write(to: url!, atomically: true)
-            }
+           // }
         }
 
         var error: Error? = nil
@@ -78,12 +80,13 @@ class BOAFileStorage:NSObject, BOAStorage {
 
             } catch { print("failed to set resource value") }
         }
-        
-//        do {
-//            try url?.setResourceValue(NSNumber(value: true), forKey: .isExcludedFromBackupKey)
-//        } catch {
-//            BOFLogDebug(frmt: "Error excluding %@ from backup %@", args: url?.lastPathComponent as! CVarArg, error.localizedDescription)
-//        }
+        do {
+            var resourceValues = URLResourceValues()
+                   resourceValues.isExcludedFromBackup = true
+            try url?.setResourceValues(resourceValues)
+        } catch {
+            BOFLogDebug(frmt: "Error excluding %@ from backup %@", args: url?.lastPathComponent as! CVarArg, error.localizedDescription)
+        }
 
         //TODO: check this condition
     }
@@ -104,10 +107,10 @@ class BOAFileStorage:NSObject, BOAStorage {
             return nil
         }
         
-        if (crypto != nil && data != nil) {
+       /* if (crypto != nil && data != nil) {
           //Deprecating this  return crypto!.decrypt(data!)
         }
-        
+        */
         return data
     }
     
@@ -147,13 +150,13 @@ class BOAFileStorage:NSObject, BOAStorage {
     }
 
     func setPlist(_ plist: Any, forKey key: String?) {
-        let data = self.data(fromPlist: plist)
+        let data = self.dataFromPlist(plist: plist)
         if let data = data {
-            set(data, forKey: key ?? "")
+            setData(data: data, forKey: key ?? "")
         }
     }
     
-    func data(fromPlist plist: Any) -> Data? {
+    func dataFromPlist(plist: Any) -> Data? {
         var error: Error? = nil
         var data: Data? = nil
         do {
@@ -193,7 +196,7 @@ class BOAFileStorage:NSObject, BOAStorage {
         return plist
     }
     
-    func createDirectory(atURLIfNeeded url: URL) {
+    func createDirectoryAtURLIfNeeded( url: URL) {
         if FileManager.default.fileExists(
             atPath: url.path ,
             isDirectory: nil) {
@@ -201,7 +204,6 @@ class BOAFileStorage:NSObject, BOAStorage {
         }
 
         let error: Error? = nil
-//TODO: refer this to further try catch in swift
         do {
             try FileManager.default.createDirectory(
                 atPath: url.path,

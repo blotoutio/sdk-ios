@@ -59,7 +59,7 @@ class BlotoutAnalytics:NSObject {
     }
     
     //TODO: fix name properly
-    func initandCompletionHandler(configuration: BlotoutAnalyticsConfiguration, andCompletionHandler completionHandler: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
+    func initandCompletionHandler(configuration: BlotoutAnalyticsConfiguration, andCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
 
             if !validateData(configuration) {
                 let initError = NSError(domain: "io.blotout.analytics", code: 100002, userInfo: [
@@ -106,7 +106,7 @@ class BlotoutAnalytics:NSObject {
     }
     
     
-    func checkManifestAndInitAnalytics(withCompletionHandler completionHandler: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
+    func checkManifestAndInitAnalytics(withCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
 
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isManifestAvailable() {
@@ -205,7 +205,10 @@ class BlotoutAnalytics:NSObject {
         
     }
     
+    
+    
     //TODO: we might remove this completely
+    @available(*, deprecated, message: "Capture Personal will not be supported in the future")
     func capturePersonal(_ eventName: String, withInformation eventInfo: [AnyHashable : Any], isPHI phiEvent: Bool) {
 
         return
