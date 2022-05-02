@@ -8,17 +8,14 @@
 import Foundation
 
 class BOAFileStorage:NSObject, BOAStorage {
-    
-  //  var crypto: BOACrypto?
 
-    
     var folderURL: URL!
     
     convenience override init() {
-        self.init(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""), crypto: nil)
+        self.init(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""))
     }
     
-    init(folder folderURL: URL, crypto: BOACrypto?) {
+    init(folder folderURL: URL) {
         super.init()
             self.folderURL = folderURL
            // self.crypto = crypto

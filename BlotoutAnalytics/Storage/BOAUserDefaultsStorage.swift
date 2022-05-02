@@ -9,15 +9,14 @@ import Foundation
 
 class BOAUserDefaultsStorage:NSObject {
     
-    var crypto: BOACrypto?
     private(set) var defaults: UserDefaults
     private(set) var namespacePrefix: String?
     
-    init(defaults: UserDefaults, namespacePrefix: String, crypto: BOACrypto) {
+    init(defaults: UserDefaults, namespacePrefix: String) {
        
             self.defaults = defaults
             self.namespacePrefix = namespacePrefix
-            self.crypto = crypto
+          //  self.crypto = crypto
         super.init()
     }
     
@@ -49,10 +48,10 @@ class BOAUserDefaultsStorage:NSObject {
     func set(_ data: Data, forKey key: String) {
         var key = key
         key = namespacedKey(key) ?? ""
-        if (crypto == nil) {
-            defaults.set(data, forKey: key)
-            return
-        }
+//        if (crypto == nil) {
+//            defaults.set(data, forKey: key)
+//            return
+//        }
 
     /* removing encryption
      let encryptedData = crypto?.encrypt(data)
@@ -62,11 +61,11 @@ class BOAUserDefaultsStorage:NSObject {
     func data(forKey key: String) -> Data? {
         var key = key
         key = namespacedKey(key) ?? ""
-        if (crypto == nil) {
+    //    if (crypto == nil) {
             
             return defaults.value(forKey: key) as? Data
            // return defaults[key] as? Data
-        }
+     //   }
         /* removing encryption
         let data = defaults.value(forKey: key) as? Data
        // let data = defaults[key] as? Data
@@ -82,65 +81,65 @@ class BOAUserDefaultsStorage:NSObject {
     
     func dictionary(forKey key: String) -> [String : Any]? {
         var key = key
-        if (crypto == nil) {
+      //  if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             return defaults.dictionary(forKey: key)
-        }
-
-        return plist(forKey: key) as? [String : Any]
+//        }
+//
+//        return plist(forKey: key) as? [String : Any]
     }
     
     func set(_ dictionary: [String : Any], forKey key: String) {
         var key = key
-        if (crypto == nil) {
+       // if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             defaults.set(dictionary, forKey: key)
             return
-        }
-
-        setPlist(dictionary, forKey: key)
+//        }
+//
+//        setPlist(dictionary, forKey: key)
     }
     
     func array(forKey key: String) -> [Any]? {
         var key = key
-        if (crypto == nil) {
+      //  if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             return defaults.array(forKey: key)
-        }
-
-        return plist(forKey: key) as? [Any]
+//        }
+//
+//        return plist(forKey: key) as? [Any]
     }
     
     func set(_ array: [Any], forKey key: String) {
         var key = key
-        if (crypto == nil) {
+       // if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             defaults.set(array, forKey: key)
             return
-        }
-
-        setPlist(array, forKey: key)
+//        }
+//
+//        setPlist(array, forKey: key)
     }
     
     func string(forKey key: String) -> String? {
         var key = key
-        if (crypto == nil) {
+      //  if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             return defaults.string(forKey: key)
-        }
-
-        return plist(forKey: key) as? String
+//        }
+//
+//        return plist(forKey: key) as? String
     }
     
     func set(_ string: String, forKey key: String) {
         var key = key
-        if (crypto == nil) {
+       // if (crypto == nil) {
             key = namespacedKey(key) ?? ""
             defaults.set(string, forKey: key)
             return
-        }
-
-        setPlist(string, forKey: key)
+//        }
+//
+//        setPlist(string, forKey: key)
     }
     
     func plist(forKey key: String) -> Any? {

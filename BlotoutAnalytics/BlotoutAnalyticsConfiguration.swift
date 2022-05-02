@@ -47,7 +47,7 @@ class BlotoutAnalyticsConfiguration:NSObject {
     /// 30 seconds by default.
     var flushInterval: TimeInterval = 0.0
     /// Set a your own implementation for encrption/decryption local data.
-    var crypto: BOACrypto?
+   // var crypto: BOACrypto?
     /// Dictionary indicating the options the app was launched with.
     var launchOptions: [AnyHashable : Any]?
     /// Leave this nil for iOS extensions, otherwise set to UIApplication.sharedApplication.

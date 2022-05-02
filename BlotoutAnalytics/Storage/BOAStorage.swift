@@ -7,12 +7,7 @@
 
 import Foundation
 
-
-//won't need crypto further var crypto: BOACrypto?
-
-
 protocol BOAStorage: NSObjectProtocol {
-    //won't need crypto further  var crypto: BOACrypto? { get set }
     func removeKey(_ key: String)
     func resetAll()
     func setData(data: Data, forKey key: String)

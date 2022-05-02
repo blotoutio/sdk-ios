@@ -74,7 +74,7 @@ class BlotoutAnalytics:NSObject {
 #else
             
             //TODO: have updated method name here, need to check
-            let storage = BOAFileStorage(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""), crypto: nil)
+            let storage = BOAFileStorage(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""))
 #endif
             
             eventManager = BOAEventsManager(configuration: configuration, storage: storage)
@@ -133,22 +133,7 @@ class BlotoutAnalytics:NSObject {
                 callback?(isSuccess, error)
             })
     }
-    
-    
-  /*TODO: remove crypto
-    func getCrypto(_ config: BlotoutAnalyticsConfiguration?) -> BOACrypto? {
-        do{
-            if ((config?.crypto) != nil) {
-                return config?.crypto
-            }
-            
-            let crypto = try BOAAESCrypto(password: BOAUtilities.getDeviceId(), iv: BO_CRYPTO_IVX)
-            return crypto
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-    }
-    */
+
     
     func validateData(_ configuration: BlotoutAnalyticsConfiguration?) -> Bool {
         //Confirm and perform 15 character length check if needed
