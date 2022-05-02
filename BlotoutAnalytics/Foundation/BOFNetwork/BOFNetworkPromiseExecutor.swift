@@ -31,7 +31,7 @@ class BOFNetworkPromiseExecutor:NSObject, URLSessionDelegate {
     var taskPromiseObjectMap : NSMutableDictionary?
     static let sharedInstance = BOFNetworkPromiseExecutor()
     //TODO: need to confirm this
-    lazy var sharedInstanceForCampaign = BOFNetworkPromiseExecutor(backgroundIdentifier: kNSURLNetworkConfigurationIdentifierForCampaign)
+    static var sharedInstanceForCampaign = BOFNetworkPromiseExecutor(backgroundIdentifier: "BOFNetworkUrlSessionConfigurationIdentifierForCampaign")
     
     //    class func sharedInstance() -> Self {
     //        // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch

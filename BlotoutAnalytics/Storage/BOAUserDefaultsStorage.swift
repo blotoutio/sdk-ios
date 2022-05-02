@@ -14,10 +14,11 @@ class BOAUserDefaultsStorage:NSObject {
     private(set) var namespacePrefix: String?
     
     init(defaults: UserDefaults, namespacePrefix: String, crypto: BOACrypto) {
-        super.init()
+       
             self.defaults = defaults
             self.namespacePrefix = namespacePrefix
             self.crypto = crypto
+        super.init()
     }
     
     func removeKey(_ key: String) {
@@ -53,8 +54,9 @@ class BOAUserDefaultsStorage:NSObject {
             return
         }
 
-        let encryptedData = crypto?.encrypt(data)
-        defaults.set(encryptedData, forKey: key)
+    /* removing encryption
+     let encryptedData = crypto?.encrypt(data)
+        defaults.set(encryptedData, forKey: key)*/
     }
     
     func data(forKey key: String) -> Data? {
@@ -65,7 +67,7 @@ class BOAUserDefaultsStorage:NSObject {
             return defaults.value(forKey: key) as? Data
            // return defaults[key] as? Data
         }
-
+        /* removing encryption
         let data = defaults.value(forKey: key) as? Data
        // let data = defaults[key] as? Data
         if data == nil {
@@ -74,6 +76,7 @@ class BOAUserDefaultsStorage:NSObject {
         }
 
         return crypto?.decrypt(data!)
+         */
     }
     
     func dictionary(forKey key: String) -> [String : Any]? {

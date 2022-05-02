@@ -84,7 +84,7 @@ class BOReachability:NSObject {
 #endif
     }
     
-    private func BOReachabilityCallback(_ target: SCNetworkReachability, _ flags: SCNetworkReachabilityFlags, _ info: Void) {
+    static func BOReachabilityCallback(target: SCNetworkReachability, flags: SCNetworkReachabilityFlags,info: Void) {
         //#pragma unused (target, flags)
         assert(info != nil, "info was NULL in BOReachabilityCallback")
         assert(((info as? NSObject) is BOReachability), "info was wrong class in BOReachabilityCallback")
@@ -97,15 +97,28 @@ class BOReachability:NSObject {
     
     
     
-    class func reachability(withAddress hostAddress: sockaddr_in?) -> Self {
+    class func reachability(withAddress hostAddress: sockaddr_in) -> Self {
         var reachability: SCNetworkReachability? = nil
-        if let address = hostAddress as? sockaddr {
-            reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, address)
+        
+        var zeroAddress = hostAddress
+       // var defaultRouteReachability: SCNetworkReachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, &zeroAddress)
+
+        
+        var addr: sockaddr = zeroAddress
+        let addr_in = withUnsafePointer(to: &addr) {
+            $0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) {
+                $0.pointee
+            }
         }
+        
+       // if let address = hostAddress as? sockaddr {
+            reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer <zeroAddress>)
+            //SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, UnsafePointer<address>)
+       // }
         
         var returnValue: BOReachability? = nil
         if let reachability = reachability {
-            returnValue = self.init()
+        //todo check this    returnValue = self.init()
             if let returnValue = returnValue {
                 returnValue.reachabilityRef = reachability
                 returnValue.localWiFiRef = false
@@ -127,6 +140,7 @@ class BOReachability:NSObject {
     //        return sharedInstance
     //    }
     
+    /* not being used
     class func reachabilityForLocalWiFi() -> Self {
         var localWifiAddress: sockaddr_in
         bzero(&localWifiAddress, MemoryLayout.size(ofValue: localWifiAddress))
@@ -141,7 +155,7 @@ class BOReachability:NSObject {
         
         return returnValue as! Self
     }
-    
+    */
     override init() {
         super.init()
     }
@@ -149,13 +163,19 @@ class BOReachability:NSObject {
     
     func startNotifier() -> Bool {
         var returnValue = false
-        var context = SCNetworkReachabilityContext(version: CFIndex(0), info: self, retain: nil, release: nil, copyDescription: nil)
+      //  var context = SCNetworkReachabilityContext(version: CFIndex(0), info: (__bridge void *)(self), retain: nil, release: nil, copyDescription: nil)
+        
+        var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
+
+      //  SCNetworkReachabilityContext() context = {0, (__bridge void *)(self), NULL, NULL, NULL};
+
         
         if reachabilityRef == nil {
             return returnValue
         }
         
-        if SCNetworkReachabilitySetCallback(reachabilityRef, BOReachabilityCallback, &context) {
+        
+        if SCNetworkReachabilitySetCallback(reachabilityRef!, BOReachability.BOReachabilityCallback, &context) {
             if SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef!, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue) {
                 returnValue = true
             }

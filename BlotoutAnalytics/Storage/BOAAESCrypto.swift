@@ -7,7 +7,9 @@
 
 import Foundation
 class BOAAESCrypto:NSObject {
-    
+}
+
+/*
     
     private(set) var password = ""
     private(set) var iv = ""
@@ -35,3 +37,4 @@ class BOAAESCrypto:NSObject {
         }
     }
 }
+*/

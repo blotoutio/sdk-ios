@@ -6,7 +6,8 @@
 //
 
 import Foundation
-
+import UIKit
+import MachO
 
 class BOADeviceAndAppFraudController:NSObject {
     
@@ -48,6 +49,7 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
 //        return sBOAsdkFraudCheckSharedInstance
 //    }
     
+    /* not being used
     class func getCurrentBinaryInfo() -> [AnyHashable : Any]? {
        do{
             var dictionary: [AnyHashable : Any] = [:]
@@ -75,41 +77,35 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
         }
         return nil
     }
+     */
     
     class func isDylibInjectedToProcess(withName dylib_name: String?) -> Bool {
-        do{
-            let max = dyld_image_count()
+
+            let max = _dyld_image_count()
             for i in 0..<max {
-                let name = dyld_get_image_name(i)
+                let name = _dyld_get_image_name(i)
                 if let name = name {
                     let namens = String(utf8String: name)
-                    let compare = dylib_name
+                    let compare = dylib_name ?? ""
                     if namens?.contains(compare) ?? false {
                         return true
                     }
                 }
             }
             return false
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
     }
     
     class func isConnectionProxied() -> Bool {
-       do{
-            if (self.proxy_host() != "") && (self.proxy_port() != "") {
+           /* if (self.proxy_host() != "") && (self.proxy_port() != "") {
                 return true
             } else {
                 return false
-            }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        
-        return false
+            }*/
+      return VpnChecker.isVpnActive()
+        //Updated to swift
     }
     
+    /* not needed anymore , since updated the code*
     class func proxy_host() -> String? {
        do{
             let dicRef = CFNetworkCopySystemProxySettings() as? CFDictionary
@@ -150,75 +146,78 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
         }
         return nil
     }
-    
+    */
     class func isDeviceJailbroken() -> Bool {
-            
-            if FileManager.default.fileExists(atPath: "/Applications/Cydia.app") {
-                return true
-            } else if FileManager.default.fileExists(atPath: "/Library/MobileSubstrate/MobileSubstrate.dylib") {
-                return true
-            } else if FileManager.default.fileExists(atPath: "/bin/bash") {
-                return true
-            } else if FileManager.default.fileExists(atPath: "/usr/sbin/sshd") {
-                return true
-            }
-            else if FileManager.default.fileExists(atPath: "/etc/apt") {
-                return true
-            } else if FileManager.default.fileExists(atPath: "/private/var/lib/apt/") {
-                return true
-            } else if !FileManager.default.fileExists(atPath: "/Applications/AppStore.app") {
-                //if PSProtector activated -- Tested on iOS 11.0.1
-                return true
-            } else if !FileManager.default.fileExists(atPath: "/Applications/MobileSafari.app") {
-                return true
-            }
-            
-            var f = fopen("/bin/bash", "r")
-            if let f = f {
-                fclose(f)
-                return true
-            }
-            fclose(f)
-            f = fopen("/Applications/Cydia.app", "r")
-            if let f = f {
-                fclose(f)
-                return true
-            }
-            fclose(f)
-            f = fopen("/Library/MobileSubstrate/MobileSubstrate.dylib", "r")
-            if let f = f {
-                fclose(f)
-                return true
-            }
-            fclose(f)
-            f = fopen("/usr/sbin/sshd", "r")
-            if let f = f {
-                fclose(f)
-                return true
-            }
-            fclose(f)
-            f = fopen("/etc/apt", "r")
-            if let f = f {
-                fclose(f)
-                return true
-            }
-            fclose(f)
-            let error: Error?
-            let stringToBeWritten = "if this string is saved, then device is jailbroken"
-            do {
-                try stringToBeWritten.write(toFile: "/private/test", atomically: true, encoding: .utf8)
-            } catch {
-            }
-            do {
-                try FileManager.default.removeItem(atPath: "/private/test")
-            } catch {
-            }
-            if error == nil {
-                return true
-            }
         
+        if FileManager.default.fileExists(atPath: "/Applications/Cydia.app") {
+            return true
+        } else if FileManager.default.fileExists(atPath: "/Library/MobileSubstrate/MobileSubstrate.dylib") {
+            return true
+        } else if FileManager.default.fileExists(atPath: "/bin/bash") {
+            return true
+        } else if FileManager.default.fileExists(atPath: "/usr/sbin/sshd") {
+            return true
+        }
+        else if FileManager.default.fileExists(atPath: "/etc/apt") {
+            return true
+        } else if FileManager.default.fileExists(atPath: "/private/var/lib/apt/") {
+            return true
+        } else if !FileManager.default.fileExists(atPath: "/Applications/AppStore.app") {
+            //if PSProtector activated -- Tested on iOS 11.0.1
+            return true
+        } else if !FileManager.default.fileExists(atPath: "/Applications/MobileSafari.app") {
+            return true
+        }
+        
+        var f = fopen("/bin/bash", "r")
+        if let f = f {
+            fclose(f)
+            return true
+        }
+        fclose(f)
+        f = fopen("/Applications/Cydia.app", "r")
+        if let f = f {
+            fclose(f)
+            return true
+        }
+        fclose(f)
+        f = fopen("/Library/MobileSubstrate/MobileSubstrate.dylib", "r")
+        if let f = f {
+            fclose(f)
+            return true
+        }
+        fclose(f)
+        f = fopen("/usr/sbin/sshd", "r")
+        if let f = f {
+            fclose(f)
+            return true
+        }
+        fclose(f)
+        f = fopen("/etc/apt", "r")
+        if let f = f {
+            fclose(f)
+            return true
+        }
+        fclose(f)
+        let error: Error?
+        let stringToBeWritten = "if this string is saved, then device is jailbroken"
+        var jailBroken = false
+        do {
+            jailBroken = true
+            try stringToBeWritten.write(toFile: "/private/test", atomically: true, encoding: .utf8)
+        } catch {
+            jailBroken = false
+            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription);
+        }
+        do {
+            try FileManager.default.removeItem(atPath: "/private/test")
+        } catch {
+            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription);
+        }
+       
+        return jailBroken
     }
-    
+    /* not being used
     class func ttyWayIsDebuggerConnected() -> Bool {
        do{
             let fd = STDERR_FILENO
@@ -247,6 +246,7 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
         return false
     }
     
+    
     class func isDebuggerConnected() -> Bool {
         do{
             var mib = [Int](repeating: 0, count: 4)
@@ -265,12 +265,14 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
         }
         return false
     }
+     */
+   
     
-    func main(_ argc: Int, _ argv: [Int8]?) -> Int {
+    /*func main(_ argc: Int, _ argv: [Int8]?) -> Int {
     }
+    maybe not being used */
     
-    
-    
+    /* not being used
     private func HardwareIs64BitArch() -> Bool {
         var sHardwareChecked = false
         var sIs64bitHardware = false
@@ -297,8 +299,8 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
             return sIs64bitHardware
        
     }
-    
-    
+    */
+    /* not being used
     private func DeviceIs64BitSimulator() -> Bool {
         do{
             
@@ -349,5 +351,28 @@ private var sBOAsdkFraudCheckSharedInstance: Any? = nil
         }
         return false
     }
+     */
 }
 
+struct VpnChecker {
+
+    private static let vpnProtocolsKeysIdentifiers = [
+        "tap", "tun", "ppp", "ipsec", "utun"
+    ]
+
+    static func isVpnActive() -> Bool {
+        guard let cfDict = CFNetworkCopySystemProxySettings() else { return false }
+        let nsDict = cfDict.takeRetainedValue() as NSDictionary
+        guard let keys = nsDict["__SCOPED__"] as? NSDictionary,
+            let allKeys = keys.allKeys as? [String] else { return false }
+
+        // Checking for tunneling protocols in the keys
+        for key in allKeys {
+            for protocolId in vpnProtocolsKeysIdentifiers
+                where key.starts(with: protocolId) {
+                return true
+            }
+        }
+        return false
+    }
+}

@@ -8,7 +8,7 @@
 import Foundation
 
 
-class BOEventPostAPI:NSObject {
+class BOEventPostAPI:BOBaseAPI {
     func postEventDataModel(_ eventData: Data?, withAPICode urlEndPoint: BOUrlEndPoint, success: @escaping (_ responseObject: Any?) -> Void, failure: @escaping (_ urlResponse: URLResponse?, _ dataOrLocation: Any?, _ error: Error?) -> Void) {
         do{
             
@@ -18,18 +18,50 @@ class BOEventPostAPI:NSObject {
                 urlRequest = NSMutableURLRequest(url: url)
             }
             urlRequest?.httpMethod = EPAPostAPI
-            urlRequest?.allHTTPHeaderFields = prepareRequestHeaders()
+            urlRequest?.allHTTPHeaderFields = prepareRequestHeaders() as! [String : String]
             
             
-            if let eventData = eventData {
+            if eventData != nil {
                 urlRequest?.httpBody = eventData
+                BOFLogDebug(frmt: "DebugAPI_payload Event Data in Body %@", args: String(data: eventData!, encoding: .utf8) as! CVarArg)
             }
 
-            BOFLogDebug(frmt: "DebugAPI_payload Event Data in Body %@", args: String(data: eventData, encoding: .utf8))
+            
+            BONetworkManager.asyncRequest(urlRequest as URLRequest?) {  data, dataResponse in
+                
+                if data == nil {
+                    success(dataResponse)
+                    return
+                }
+                var dict: [AnyHashable : Any]? = nil
+                   do {
+                       if let data = data as? Data {
+                           dict = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
+                       }
+                   } catch {
+                       BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription as! CVarArg)
+                   }
+                   success(dict)
+            } failure: { data, dataResponse, error in
+                var dict1: [AnyHashable : Any]? = nil
+                do {
+                    
+                    if let data = data as? Data {
+                        //try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                        dict1 = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
+                    }
+                }catch {
+                    BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription as! CVarArg)
+                }
+                BOFLogDebug(frmt: "%@", args: dict1!)
+                failure(dataResponse, data, error)
+            }
+
             
             
             
-            BONetworkManager.asyncRequest(urlRequest as URLRequest?, success: { data, dataResponse in
+            
+        /*    BONetworkManager.asyncRequest(urlRequest as URLRequest?, success: { data, dataResponse in
                 if data == nil {
                     success(dataResponse)
                     return
@@ -55,8 +87,11 @@ class BOEventPostAPI:NSObject {
             //tODO: check condition here
         } catch {
             BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-            let error = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorParsingError, withMessage: nil)
+            let error = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorParsingError.rawValue, withMessage: nil)
             failure(nil, nil, error!)
         }
+        
+        */
     }
+}
 }

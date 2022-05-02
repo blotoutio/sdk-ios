@@ -22,7 +22,7 @@ class BOAUtilities:NSObject {
                 options: JSONSerialization.WritingOptions(rawValue: (prettyPrint ? JSONSerialization.WritingOptions.prettyPrinted.rawValue : 0))): nil
             if jsonData == nil
             {
-                BOFLogDebug(frmt: "%s: error: %@", args: #function, error?.localizedDescription )
+                BOFLogDebug(frmt: "%s: error: %@", args: #function, error?.localizedDescription as! CVarArg )
                 return nil
             }
             
@@ -36,45 +36,36 @@ class BOAUtilities:NSObject {
     }
     
     class func getCurrentTimezoneOffsetInMin() -> Int {
-        do{
+
             let timeZone = NSTimeZone.local as NSTimeZone
             let seconds = timeZone.secondsFromGMT
             let offset = seconds / 60
             return offset
-        }catch {
-            BOFLogDebug(frmt: "%@", args: error.localizedDescription)
-        }
-        return 0
+        
     }
     
-    class func get13DigitNumberObjTimeStamp() -> NSNumber? {
-        do{
+    class func get13DigitNumberObjTimeStamp() -> NSNumber {
+
             let timeStamp = Int(Date().timeIntervalSince1970 * 1000)
             let timeStampObj = NSNumber(value: timeStamp)
             return timeStampObj
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
-        return nil
     }
     
     class func get13DigitIntegerTimeStamp() -> Int {
-        do{
+
             let timeStamp = Int(Date().timeIntervalSince1970 * 1000)
             return timeStamp
-        } catch{
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
-        return 0
+        
     }
     
-    class func getHashIntSum(_ input: String?) -> Int {
+  /* NOT being used
+   class func getHashIntSum(_ input: String?) -> Int {
         var input = input
         do{
             input = input?.lowercased()
             let encoded = BOFUtilities.getSHA1(input)
             var sum = 0
-            for index in 0..<encoded.count {
+            for index in 0..<encoded?.count ?? 0 {
                 sum += Int(encoded[encoded.index(encoded.startIndex, offsetBy: UInt(index))])
             }
             return sum
@@ -83,16 +74,13 @@ class BOAUtilities:NSObject {
         }
         return 0
     }
-    
+    */
     class func getMessageID(forEvent eventName: String?) -> String? {
-        do{
+
             let eventNameData = eventName?.data(using: .utf8)
             
-            return String(format: "%@-%@-%ld", eventNameData?.base64EncodedString(options: []) ?? "", self.getUUIDString(), Int(self.get13DigitIntegerTimeStamp()))
-        } catch: {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
-        return nil
+        return String(format: "%@-%@-%ld", eventNameData?.base64EncodedString(options: []) ?? "", self.getUUIDString() as CVarArg, Int(self.get13DigitIntegerTimeStamp()))
+
     }
     
     class func currentPlatformCode() -> Int {
@@ -118,81 +106,67 @@ class BOAUtilities:NSObject {
         // Epoc 13 Digit time at the end = Input for SHA 512 or UUID function in case it takes
         
         var deviceId = ""
-        
-        do{
             let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-            
-            let deviceUUID = analyticsRootUD[BO_ANALYTICS_USER_UNIQUE_KEY] as? String
+            let deviceUUID = analyticsRootUD.object(forKey: NSLocale.Key(rawValue: BO_ANALYTICS_USER_UNIQUE_KEY)) as? String
             if deviceUUID != nil && (deviceUUID?.count ?? 0) > 0 {
-                deviceId = deviceUUID
+                deviceId = deviceUUID!
             } else {
                 
                 var stringBuilder = ""
                 stringBuilder += String(format: "%ldl", Int(BOAUtilities.get13DigitIntegerTimeStamp()))
                 
                 stringBuilder += BOAUtilities.getUUIDString()
-                stringBuilder += BOAUtilities.generateRandomNumber(10)
-                stringBuilder += BOAUtilities.generateRandomNumber(10)
+                stringBuilder += BOAUtilities.generateRandomNumber(length: 10)
+                stringBuilder += BOAUtilities.generateRandomNumber(length: 10)
                 stringBuilder += String(format: "%ldl", Int(BOAUtilities.get13DigitIntegerTimeStamp()))
                 
-                let guidString = BOAUtilities.convertTo64CharUUID(BOFUtilities.getSHA256(stringBuilder))
-                deviceId = guidString ?? BOAUtilities.getUUIDString(from: stringBuilder)
+           //todo: discuss if we will encrypt this still     let guidString = BOAUtilities.convertTo64CharUUID(BOFUtilities.getSHA256(stringBuilder))
+              //  deviceId = guidString ?? BOAUtilities.getUUIDString(from: stringBuilder)
                 deviceId = deviceId ?? BOAUtilities.getUUIDString()
-                analyticsRootUD[BO_ANALYTICS_USER_UNIQUE_KEY] = deviceId
+                
+                analyticsRootUD.setObject(deviceId, forKey: BO_ANALYTICS_USER_UNIQUE_KEY as NSCopying)
+               // analyticsRootUD[BO_ANALYTICS_USER_UNIQUE_KEY] = deviceId
                 UserDefaults.standard.synchronize()
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
         
         return deviceId
     }
     
     class func convertTo64CharUUID(_ stringToConvert: String?) -> String? {
-        do{
+
             if stringToConvert == nil || (stringToConvert?.count ?? 0) == 0 {
                 return stringToConvert
             }
             
             let str = stringToConvert
             let lengths = [NSNumber(value: 16), NSNumber(value: 8), NSNumber(value: 8), NSNumber(value: 8), NSNumber(value: 24)]
-            var parts: [AnyHashable] = []
-            let startRange = 0
+            var parts:[AnyHashable] = []
+            var startRange = 0
             for i in 0..<lengths.count {
-                let range = NSRange(location: startRange, length: (lengths[i] as? NSNumber)?.intValue)
-                let stringOfRange = str?.substring(with: range)
+                let range = NSRange(location: startRange, length: (lengths[i]).intValue )
+                let stringOfRange = (str! as NSString).substring(with: range)
                 parts.append(stringOfRange)
-                startRange += (lengths[i] as? NSNumber)?.intValue
+                startRange += (lengths[i]).intValue
             }
-            let uuid64Char = parts.joined(separator: "-")
+            let uuid64Char = (parts as! Array).joined(separator:"-")
             return uuid64Char
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
-        return stringToConvert
+
     }
     
     static let generateRandomNumberLetters = "0123456789"
     
-    class func generateRandomNumber(_ length: Int) -> String? {
-        do{
-            var randomString = String(repeating: "\0", count: length)
-            for i in 0..<length {
-                randomString += "\(generateRandomNumberLetters[generateRandomNumberLetters.index(generateRandomNumberLetters.startIndex, offsetBy: UInt(Int(arc4random()) % generateRandomNumberLetters.count))])"
-            }
-            
-            return randomString
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
+    class func generateRandomNumber(length:Int)-> String{
+        var number = String()
+        for _ in 1...length {
+            number += "\(Int.random(in: 0...9))"
         }
-        return ""
+        return number
     }
-    class func getUUIDString() -> String? {
+    
+    class func getUUIDString() -> String {
         let uuid = UUID()
         let uuidStr = uuid.uuidString
         return uuidStr
-        
     }
     
     class func getUUIDString(from uuidStr: String?) -> String? {
@@ -215,7 +189,7 @@ class BOAUtilities:NSObject {
     }
     
     class func topViewController(_ rootViewController: UIViewController?) -> UIViewController? {
-        do{
+        
             if !(rootViewController is UINavigationController) && !(rootViewController is UITabBarController) && rootViewController?.presentedViewController == nil {
                 return rootViewController
             }
@@ -233,15 +207,11 @@ class BOAUtilities:NSObject {
             if rootViewController?.presentedViewController != nil {
                 return topViewController(rootViewController?.presentedViewController)
             }
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
         return rootViewController
     }
     
     @objc class func systemName() -> String? {
-        do{
+
             // Get the current system name
             if UIDevice.current.responds(to: #selector(getter: UIDevice.systemName)) {
                 // Make a string for the system name
@@ -249,14 +219,12 @@ class BOAUtilities:NSObject {
                 // Set the output to the system name
                 return systemName
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
+
         return "Unknown"
     }
     
     @objc class func systemVersion() -> String? {
-        do{
+
             // Get the current system version
             if UIDevice.current.responds(to: #selector(getter: UIDevice.systemVersion)) {
                 // Make a string for the system version
@@ -270,48 +238,39 @@ class BOAUtilities:NSObject {
                 let systemVersion = ProcessInfo.processInfo.operatingSystemVersionString
                 return systemVersion
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
+
         return "Unknown"
     }
     
+    //TODO:check not being used
     class func deviceModel() -> String? {
-        do{
-            // Get the device model
-            if UIDevice.current.responds(to: Selector("model")) {
-                // Make a string for the device model
-                let deviceModel = UIDevice.current.model
-                // Set the output to the device model
-                return deviceModel
-            }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
-        return "Unknown"
+        
+        // Get the device model
+        // Make a string for the device model
+        let deviceModel = UIDevice.current.model
+        // Set the output to the device model
+        return deviceModel
+        
     }
     
     class func getUserBirthTimeStamp() -> NSNumber? {
+        
         var timeStamp = NSNumber(value: 0)
-        do{
-            let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-            
-            timeStamp = analyticsRootUD.value(forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY) as! NSNumber
-            //timeStamp = analyticsRootUD[BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY]
-            if timeStamp.intValue == 0 {
-                timeStamp = BOAUtilities.get13DigitNumberObjTimeStamp()
-                self.userBirthTimeStamp = timeStamp
-            }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
+        let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
+        
+        timeStamp = analyticsRootUD.value(forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY) as! NSNumber
+        //timeStamp = analyticsRootUD[BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY]
+        if timeStamp.intValue == 0 {
+            timeStamp = BOAUtilities.get13DigitNumberObjTimeStamp()
+            setUserBirthTimeStamp(timeStamp)
         }
         return timeStamp
     }
     
     class func setUserBirthTimeStamp(_ timeStamp: NSNumber?) {
         
-        var analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-        analyticsRootUD.setObject(timeStamp, forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY)
+        let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
+        analyticsRootUD.setObject(timeStamp, forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY as NSCopying)
         // analyticsRootUD[BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY] = timeStamp
     }
     
@@ -390,7 +349,7 @@ class BOAUtilities:NSObject {
         return self.traverseJSON(dict) as? [AnyHashable : Any]
     }
     
-    class func traverseJSON(_ obj: Any?) -> Any? {
+    class func traverseJSON(_ obj: Any) -> Any? {
         // Hotfix: Storage format should support NSNull instead
         if obj is NSNull {
             return "<null>"
@@ -404,38 +363,40 @@ class BOAUtilities:NSObject {
         
         if obj is [AnyHashable] {
             var array: [AnyHashable] = []
-            for i in obj{
+            for i in obj as! [AnyHashable]{
                 // Hotfix: Storage format should support NSNull instead
                 if i is NSNull {
                     continue
                 }
-                
-                array.append(traverseJSON(i))
+                let newObjs = traverseJSON(i)
+                array.insert(contentsOf: newObjs as! [AnyHashable], at: 0)
+                //No exact matches in call to instance method 'append'
+              //  (array as! [AnyHashable] ).insert(contentsOf: traverseJSON(i), at: 0)
             }
             return array
         }
         
-        
+        //TODO: this condition was different re check this
         if obj is [AnyHashable : Any] {
             var dict: [AnyHashable : Any] = [:]
-            for key in obj {
+            for key in (obj as! [AnyHashable : Any]).keys{
                 // Hotfix for issue where SEGFileStorage uses plist which does NOT support NSNull
                 // So when `[NSNull null]` gets passed in as track property values the queue serialization fails
-                if obj[key] is NSNull {
+                if (obj as! [AnyHashable : Any])[key] is NSNull {
                     continue
                 }
                 
                 if !(key is NSString) {
                     BOFLogDebug(
-                                    """
+                        frmt: """
                                     warning: dictionary keys should be strings. got: %@. coercing \
                                     to: %@
                                     """,
-                                    type(of: key),
-                                    key.description())
+                        args: type(of: key) as! CVarArg,
+                        key.description)
                 }
-                
-                dict[key.description] = traverseJSON(obj[key])
+                let newObjs = traverseJSON((obj as! [AnyHashable : Any])[key])
+                dict[key.description] = newObjs
             }
             return dict
         }
@@ -456,9 +417,9 @@ class BOAUtilities:NSObject {
                     warning: dictionary values should be valid json types. got: %@. \
                     coercing to: %@
                     """,
-            args: type(of: obj),
-            obj.description())
-        return obj.description()
+            args: type(of: obj) as! CVarArg,
+            "")
+        return ""
         
         
     }

@@ -29,7 +29,7 @@ class BOManifestAPI:BOBaseAPI {
                     
                     var sdkManifestM: BOASDKManifest? = nil
                     do {
-                        sdkManifestM = try BOASDKManifest.fromData(data: blockData as? Data, error: Error)
+                        sdkManifestM = try BOASDKManifest.fromData(data: blockData as? Data, error: nil)
                     } catch let manifestReadError {
                     }
                     if manifestReadError == nil {

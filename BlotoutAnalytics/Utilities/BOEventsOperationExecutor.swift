@@ -22,17 +22,18 @@ class BOEventsOperationExecutor:NSObject {
     private var executorInitializationSerialQueue: DispatchQueue
     private var executorBackgroundTaskQueue: DispatchQueue
     private var executorSessionDataSerialQueue: DispatchQueue
-    private var executorBackgroundTaskID: UIBackgroundTaskIdentifier
+   // private var executorBackgroundTaskID: UIBackgroundTaskIdentifier
 
     static let sharedInstance = BOEventsOperationExecutor()
     
     override init() {
-        super.init()
+       
         executorSerialQueue = DispatchQueue(label: BO_ANALYTICS_SDK_SERIAL_QUEUE_KEY)
         executorBackgroundTaskQueue = DispatchQueue(label:BO_ANALYTICS_SDK_BACKGROUND_QUEUE_KEY)
         executorDeviceSerialQueue = DispatchQueue(label: BO_ANALYTICS_SDK_DEVICE_OPERATION_QUEUE_KEY, attributes: .concurrent)
         executorInitializationSerialQueue = DispatchQueue(label:BO_ANALYTICS_SDK_INITIALIZATION_OPERATION_QUEUE_KEY, attributes: .concurrent)
         executorSessionDataSerialQueue = DispatchQueue(label:BO_ANALYTICS_SDK_SESSION_OPERATION_QUEUE_KEY, attributes: .concurrent)
+        super.init()
        }
     
     
@@ -47,18 +48,17 @@ class BOEventsOperationExecutor:NSObject {
 //        return dispatch_get_specific(queue) != nil
 //    }
     
-    func bo_dispatch_specific(queue: DispatchQueue, block: () -> (),  waitForCompletion: Bool) {
+    func bo_dispatch_specific(queue: DispatchQueue, block:@escaping () -> (),  waitForCompletion: Bool) {
         let autoreleasing_block = {
             autoreleasepool {
                 block()
             }
         }
-
         
-        if ((dispatch_get_specific(queue)) != nil) {
-            autoreleasing_block()
-            return
-        }
+//        if (dispatch_get_specific(queue)) != nil {
+//            autoreleasing_block()
+//            return
+//        }
 
         if waitForCompletion {
             queue.sync(execute: autoreleasing_block)
@@ -68,7 +68,7 @@ class BOEventsOperationExecutor:NSObject {
         queue.async(execute: autoreleasing_block)
     }
     
-    func bo_dispatch_specific_after_time(_ queue: DispatchQueue, _ block: () -> (), _ afterTime: Double) {
+    func bo_dispatch_specific_after_time(_ queue: DispatchQueue, _ block:@escaping () -> (), _ afterTime: Double) {
         let autoreleasing_block = {
             autoreleasepool {
                 block()
@@ -78,31 +78,31 @@ class BOEventsOperationExecutor:NSObject {
         queue.asyncAfter(deadline: DispatchTime.now() + Double(Int64(afterTime * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: autoreleasing_block)
     }
     
-    func bo_dispatch_specific_async(_ queue: DispatchQueue, _ block: () -> ()) {
+    func bo_dispatch_specific_async(queue: DispatchQueue, block:@escaping () -> ()) {
         bo_dispatch_specific(queue: queue, block: block, waitForCompletion: false)
     }
 
-    func bo_dispatch_specific_sync(_ queue: DispatchQueue, _ block: () -> ()) {
+    func bo_dispatch_specific_sync(queue: DispatchQueue,  block:@escaping () -> ()) {
         bo_dispatch_specific(queue: queue, block: block, waitForCompletion: true)
     }
     func dispatchBackgroundTask(_ block: @escaping () -> Void) {
-        bo_dispatch_specific_async(executorBackgroundTaskQueue, block)
+        bo_dispatch_specific_async(queue: executorBackgroundTaskQueue, block: block)
     }
 
     func dispatchEvents(inBackground block: @escaping () -> Void) {
-        bo_dispatch_specific_async(executorSerialQueue, block)
+        bo_dispatch_specific_async(queue: executorSerialQueue, block: block)
     }
     
     func dispatchDeviceOperation(inBackground block: @escaping () -> Void) {
-        bo_dispatch_specific_async(executorDeviceSerialQueue, block)
+        bo_dispatch_specific_async(queue: executorDeviceSerialQueue, block: block)
     }
 
     func dispatch(inBackgroundAndWait block: @escaping () -> Void) {
-        bo_dispatch_specific_sync(executorSerialQueue, block)
+        bo_dispatch_specific_sync(queue: executorSerialQueue, block: block)
     }
 
     func dispatchInitialization(inBackground block: @escaping () -> Void) {
-        bo_dispatch_specific_async(executorInitializationSerialQueue, block)
+        bo_dispatch_specific_async(queue: executorInitializationSerialQueue, block: block)
     }
     
     func dispatchInitialization(inBackground block: @escaping () -> Void, afterDelay delayInterval: Double) {

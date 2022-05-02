@@ -15,7 +15,7 @@ protocol BOAStorage: NSObjectProtocol {
     var crypto: BOACrypto? { get set }
     func removeKey(_ key: String)
     func resetAll()
-    func set(_ data: Data?, forKey key: String)
+    func set(_ data: Data, forKey key: String)
     func data(forKey key: String) -> Data?
     func set(_ dictionary: [String : Any]?, forKey key: String)
     func dictionary(forKey key: String) -> [String : Any]?

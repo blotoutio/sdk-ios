@@ -43,7 +43,7 @@ class BONetworkManager:NSObject{
             //
             //                }
             
-            BOFNetworkPromiseExecutor.sharedInstance.execute(netpromise)
+            BOFNetworkPromiseExecutor.sharedInstance.execute(netpromise!)
             
         }
 }

@@ -24,8 +24,8 @@ let BO_META = "meta"
 let BO_KEY = "key"
 let BO_DATA = "data"
 let BO_IV = "iv"
-let BO_PII = "pii"
-let BO_PHI = "phi"
+//let BO_PII = "pii"
+//let BO_PHI = "phi"
 
 let BO_USER_ID = "userid"
 

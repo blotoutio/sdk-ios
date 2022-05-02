@@ -45,10 +45,6 @@
 		680A013A280D684600AB0DBC /* BOFUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0137280D684600AB0DBC /* BOFUserDefaults.swift */; };
 		680A013B280D684600AB0DBC /* BOFUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0138280D684600AB0DBC /* BOFUtilities.swift */; };
 		680A013C280D684600AB0DBC /* BOReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0139280D684600AB0DBC /* BOReachability.swift */; };
-		680A0141280D686C00AB0DBC /* BOCrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A013D280D686C00AB0DBC /* BOCrypt.swift */; };
-		680A0142280D686C00AB0DBC /* NSData+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A013E280D686C00AB0DBC /* NSData+Base64.swift */; };
-		680A0143280D686C00AB0DBC /* NSData+CommonCrypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A013F280D686C00AB0DBC /* NSData+CommonCrypto.swift */; };
-		680A0144280D686C00AB0DBC /* NSString+Base64.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0140280D686C00AB0DBC /* NSString+Base64.swift */; };
 		680A0148280D6ECD00AB0DBC /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0147280D6ECD00AB0DBC /* UIViewController+Extensions.swift */; };
 		680A014A280D715D00AB0DBC /* BOServerDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */; };
 		680A014C280D7A0600AB0DBC /* NSError+BOAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */; };
@@ -94,10 +90,6 @@
 		680A0137280D684600AB0DBC /* BOFUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFUserDefaults.swift; sourceTree = "<group>"; };
 		680A0138280D684600AB0DBC /* BOFUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFUtilities.swift; sourceTree = "<group>"; };
 		680A0139280D684600AB0DBC /* BOReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOReachability.swift; sourceTree = "<group>"; };
-		680A013D280D686C00AB0DBC /* BOCrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOCrypt.swift; sourceTree = "<group>"; };
-		680A013E280D686C00AB0DBC /* NSData+Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+Base64.swift"; sourceTree = "<group>"; };
-		680A013F280D686C00AB0DBC /* NSData+CommonCrypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+CommonCrypto.swift"; sourceTree = "<group>"; };
-		680A0140280D686C00AB0DBC /* NSString+Base64.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Base64.swift"; sourceTree = "<group>"; };
 		680A0147280D6ECD00AB0DBC /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOServerDataConverter.swift; sourceTree = "<group>"; };
 		680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+BOAdditions.swift"; sourceTree = "<group>"; };
@@ -264,20 +256,8 @@
 				680A0137280D684600AB0DBC /* BOFUserDefaults.swift */,
 				680A0138280D684600AB0DBC /* BOFUtilities.swift */,
 				680A0139280D684600AB0DBC /* BOReachability.swift */,
-				680A0136280D682400AB0DBC /* AESEncryptionHelper */,
 			);
 			path = BOFUtilities;
-			sourceTree = "<group>";
-		};
-		680A0136280D682400AB0DBC /* AESEncryptionHelper */ = {
-			isa = PBXGroup;
-			children = (
-				680A013D280D686C00AB0DBC /* BOCrypt.swift */,
-				680A013E280D686C00AB0DBC /* NSData+Base64.swift */,
-				680A013F280D686C00AB0DBC /* NSData+CommonCrypto.swift */,
-				680A0140280D686C00AB0DBC /* NSString+Base64.swift */,
-			);
-			path = AESEncryptionHelper;
 			sourceTree = "<group>";
 		};
 		680A0145280D69B500AB0DBC /* Network */ = {
@@ -387,7 +367,6 @@
 				680A014C280D7A0600AB0DBC /* NSError+BOAdditions.swift in Sources */,
 				680A0103280AD41E00AB0DBC /* BOAEventsManager.swift in Sources */,
 				680A013C280D684600AB0DBC /* BOReachability.swift in Sources */,
-				680A0143280D686C00AB0DBC /* NSData+CommonCrypto.swift in Sources */,
 				68055124280EDF8B00F37FA4 /* BOAAESCrypto.swift in Sources */,
 				68055128280EE04C00F37FA4 /* BOACrypto.swift in Sources */,
 				6805511C280ED84000F37FA4 /* BOBaseAPI.swift in Sources */,
@@ -407,10 +386,8 @@
 				6805511A280ED74C00F37FA4 /* BOManifestAPI.swift in Sources */,
 				680A010B280ADD2200AB0DBC /* BOANetworkConstants.swift in Sources */,
 				680A0130280D49EA00AB0DBC /* BOASystemEvents.swift in Sources */,
-				680A0141280D686C00AB0DBC /* BOCrypt.swift in Sources */,
 				680A0125280AE39300AB0DBC /* Item.swift in Sources */,
 				680A00FD2809807700AB0DBC /* BlotoutAnalyticsConfiguration.swift in Sources */,
-				680A0142280D686C00AB0DBC /* NSData+Base64.swift in Sources */,
 				6805511E280ED8DB00F37FA4 /* BOEventPostAPI.swift in Sources */,
 				680A0148280D6ECD00AB0DBC /* UIViewController+Extensions.swift in Sources */,
 				68055122280EDE6100F37FA4 /* BOAUserDefaultsStorage.swift in Sources */,
@@ -422,7 +399,6 @@
 				680A012F280D49EA00AB0DBC /* BOADeveloperEvents.swift in Sources */,
 				68055117280ED66E00F37FA4 /* BONetworkManager.swift in Sources */,
 				680A0126280AE39300AB0DBC /* BOAMapIDDataModel.swift in Sources */,
-				680A0144280D686C00AB0DBC /* NSString+Base64.swift in Sources */,
 				680A0114280AE21600AB0DBC /* BOASDKManifestController.swift in Sources */,
 				680A0113280AE21600AB0DBC /* BOADeviceAndAppFraudController.swift in Sources */,
 				680A0124280AE39300AB0DBC /* BOASDKManifest.swift in Sources */,

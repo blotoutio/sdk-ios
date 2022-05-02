@@ -7,16 +7,18 @@
 
 import Foundation
 
+public enum BOUrlEndPoint : Int {
+     case eventPublish = 0
+     case manifestPull
+ }
+
 class BOBaseAPI:NSObject {
     
     let EPAPostAPI = "POST"
     let EPAGetAPI = "GET"
     let EPAContentApplicationJson = "application/json"
     
-   public enum BOUrlEndPoint : Int {
-        case eventPublish = 0
-        case manifestPull
-    }
+
     
     func getJsonData(_ data: Data?) -> [AnyHashable : Any]? {
         var dict: [AnyHashable : Any]? = nil

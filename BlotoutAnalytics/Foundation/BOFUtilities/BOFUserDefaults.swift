@@ -104,8 +104,7 @@ class BOFUserDefaults:NSObject {
     
     func removeObject(forKey aKey: Any) {
         do{
-            if var productContainer = productContainer{
-                
+            if var productContainer: [AnyHashable : Any] = productContainer{
                 productContainer.removeValue(forKey: aKey)
             } else {
                 updateDefault(forProduct: { productContainer in

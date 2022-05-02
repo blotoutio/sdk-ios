@@ -8,7 +8,7 @@
 import Foundation
 import StoreKit
 
-class BOAStoreKitController:NSObject {
+class BOAStoreKitController:NSObject, SKProductsRequestDelegate {
     private var transactions: [AnyHashable : Any]?
     private var productRequests: [AnyHashable : Any]?
     private var config: BlotoutAnalyticsConfiguration?
@@ -25,7 +25,7 @@ class BOAStoreKitController:NSObject {
             productRequests = [AnyHashable : Any](minimumCapacity: 1)
             transactions = [AnyHashable : Any](minimumCapacity: 1)
 
-            SKPaymentQueue.default().addTransactionObserver(self)
+        SKPaymentQueue.default().add(self as! SKPaymentTransactionObserver)
     }
     
 //    deinit {
@@ -38,11 +38,11 @@ class BOAStoreKitController:NSObject {
                 continue
             }
 
-            let request = SKProductsRequest(productIdentifiers: Set<AnyHashable>([transaction.payment.productIdentifier]))
+            let request = SKProductsRequest(productIdentifiers: Set<String>([transaction.payment.productIdentifier]))
             let lockQueue = DispatchQueue(label: "self")
             lockQueue.sync {
                 //TODO: check types in models
-                transactions[transaction.payment.productIdentifier] = transaction
+                transactions?[transaction.payment.productIdentifier] = transaction
                 productRequests?[transaction.payment.productIdentifier] = request
             }
             request.delegate = self
@@ -54,10 +54,13 @@ class BOAStoreKitController:NSObject {
         for product in response.products {
             let lockQueue = DispatchQueue(label: "self")
             lockQueue.sync {
-                let transaction = transactions?[product.productIdentifier] as? SKPaymentTransaction
-                trackTransaction(transaction, for: product)
+                if let transaction = transactions?[product.productIdentifier] as? SKPaymentTransaction
+                {
+                    trackTransaction(transaction, for: product)
                 transactions?.removeValue(forKey: product.productIdentifier)
                 productRequests?.removeValue(forKey: product.productIdentifier)
+                }
+                //TODO: test this condition
             }
         }
     }
@@ -71,8 +74,11 @@ class BOAStoreKitController:NSObject {
         if transaction.transactionIdentifier == nil || BlotoutAnalytics.sharedInstance.eventManager == nil {
             return
         }
+        
+        let locale = Locale.current
+        let currencyCode = locale.currencyCode!
 
-        let currency = product?.priceLocale[NSLocale.Key.currencyCode]
+        let currency = product?.priceLocale[currencyCode]
 
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
 

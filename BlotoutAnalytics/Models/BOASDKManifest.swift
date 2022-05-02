@@ -10,18 +10,20 @@ import Foundation
 
 
 private func map(_ collection: Any?, _ f: Any?) -> Any? {
-    do{
+  /*  do{
         var result: Any? = nil
         if collection is [AnyHashable] {
-            result = [AnyHashable](repeating: 0, count: (collection as AnyHashable).count ?? 0)
-            for x in collection! {
-                result.append(f(x))
+            result = [] as [AnyHashable]
+            //[AnyHashable](repeating: 0, count: (collection as AnyHashable).count ?? 0)
+            for x in collection as! [AnyHashable] {
+               // (result as! [AnyHashable]).insert(contentsOf: f(x), at: 0)
+                (result as! [AnyHashable]).append(f(x))
             }
             
         }
         else if collection is [AnyHashable : Any] {
-            result = [AnyHashable : Any](minimumCapacity: collection.count())
-            for key in collection? {
+            result = [AnyHashable : Any](minimumCapacity: (collection as? [AnyHashable : Any])?.count ?? 0)
+            for key in collection as! [AnyHashable : Any]{
                 result[key] = f(collection[key])
             }
         }
@@ -29,14 +31,15 @@ private func map(_ collection: Any?, _ f: Any?) -> Any? {
     }
     catch {
         BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-    }
+    }*/
+    //need to rewrite this
     return nil
 }
 
 
-func BOASDKManifestFromData(_ data: Data?, _ error: NSErrorPointer) -> BOASDKManifest? {
+func BOASDKManifestFromData(data: Data?, error: Error?) -> BOASDKManifest? {
     var error = error
-    do{
+
         var json: Any? = nil
         do {
             if let data = data {
@@ -48,17 +51,11 @@ func BOASDKManifestFromData(_ data: Data?, _ error: NSErrorPointer) -> BOASDKMan
         if error == nil {
             return BOASDKManifest.fromJSONDictionary(dict: json as? [AnyHashable : Any])
         }
-    } catch {
-        //TODO: fix this
-        error = NSError(domain: "JSONSerialization", code: -1, userInfo: [
-            "exception": exception
-        ])
-    }
-    return nil
+
 }
 
-func BOASDKManifestFromJSON(_ json: String?, _ encoding: String.Encoding, _ error: NSErrorPointer) -> BOASDKManifest? {
-    return BOASDKManifestFromData(json?.data(using: encoding), error)
+func BOASDKManifestFromJSON(json: String?, encoding: String.Encoding, error: Error?) -> BOASDKManifest? {
+    return BOASDKManifestFromData(data: json?.data(using: encoding), error: error)
 }
 
 func BOASDKManifestToData(_ manifest: BOASDKManifest?, _ error: NSErrorPointer) -> Data? {
@@ -86,66 +83,76 @@ func BOASDKManifestToJSON(_ manifest: BOASDKManifest?, _ encoding: String.Encodi
 class BOASDKManifest:NSObject {
     
     var variables: [BOASDKVariable]?
-    class func properties() -> [String : String]? {
-        do{
-            return propertiesVar = propertiesVar ?? [
+    
+    static var propertiesVar: [String : String]?
+
+    static var properties:[String : String] {
+
+        if propertiesVar?.keys.count ?? 0 > 0
+        {
+            return propertiesVar!
+        }
+        else
+        {
+             propertiesVar = [
                 "variables": "variables"
             ]
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+            return propertiesVar!
         }
-        return nil
+    }
+    //TODO:check this code
+    
+    class func fromData(data: Data?,error:Error?) throws -> Self? {
+
+            return BOASDKManifestFromData(data: data, error: error) as! Self
     }
     
-    class func fromData(data: Data?,error:Error) throws -> Self? {
-        do{
-            return BOASDKManifestFromData(data, error) as! Self
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
+    class func fromJSON(json: String?, encoding: String.Encoding, error:Error?) throws -> Self? {
+
+            return BOASDKManifestFromJSON(json: json, encoding: encoding, error: error) as? Self
     }
     
-    class func fromJSON(json: String?, encoding: String.Encoding, error:Error) throws -> Self? {
-        do{
-            return BOASDKManifestFromJSON(json, encoding, error) as! Self
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
-    }
-    
-    class func fromJSONDictionary(dict: [AnyHashable : Any]?) -> Self {
-        do{
-            if let dict = dict {
-                return BOASDKManifest(jsonDictionary: dict) as! Self
+    class func fromJSONDictionary(dict: [AnyHashable : Any]?) -> Self? {
+
+            if dict != nil  {
+                let manifest = BOASDKManifest(WithJSONDictionary: dict)
+                return manifest as? Self
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
         return nil
     }
     
-    func initWithJSONDictionary( dict: [AnyHashable : Any]?) {
-        if self == super.init(){
+    // Shorthand for simple blocks
+  /*  func λ(_ decl: Any, _ expr: Any) -> (decl) -> () {
+        {
+            return expr
+        }
+    }*/
+    //need to rewrite this
+    
+     init(WithJSONDictionary dict: [AnyHashable : Any]?) {
+      //  if self == super.init(){
             if let dict = dict as? [String : Any] {
                 setValuesForKeys(dict)
             }
-            variables = map(variables, λ(id, x[BOASDKVariablefromJSONDictionary:x]))
-        }
+        //need to rewrite this    variables = map(variables, λ(id, x[BOASDKVariablefromJSONDictionary:x]))
+       // }
     }
+    
+    
     func jsonDictionary() -> [AnyHashable : Any]? {
         do{
             var dict: [String : Any]? = nil
-            if let allValues = BOASDKManifest.properties()?.values as? [String] {
+           
+            
+            let allValues =   BOASDKManifest.properties.values {//BOASDKManifest.properties()?.values as? [String] {
                 dict = dictionaryWithValues(forKeys: allValues)
             }
             
             // Map values that need translation
-            for (k, v) in [
-                "variables": NSNullify(map(variables, λ(id, x[xJSONDictionary])))
+        /*    for (k, v) in [
+              //need to rewrite this  "variables": NSNullify(map(variables, λ(id, x[JSONDictionary])))
             ] { dict?[k] = v }
-            
+            */
             return dict
         } catch {
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
@@ -218,14 +225,12 @@ class BOASDKVariable: NSObject {
     }
     
     override func setValue(_ value: Any?, forKey key: String) {
-        do{
+
             let resolved = BOASDKVariable.properties[key]
             if resolved != nil {
-                super[resolved] = value
+                super.setValue(resolved, forKey: key)
+              //resolved  super[resolved] = value
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-        }
     }
     
     func jsonDictionary() -> [AnyHashable : Any]? {
@@ -235,7 +240,10 @@ class BOASDKVariable: NSObject {
         }
         // Rewrite property names that differ in JSON
         for jsonName in BOASDKVariable.properties {
+            
+            
             let propertyName = BOASDKVariable.properties[jsonName]
+           
             if jsonName != propertyName {
                 dict?[jsonName] = dict?[propertyName]
                 dict?.removeValue(forKey: propertyName)

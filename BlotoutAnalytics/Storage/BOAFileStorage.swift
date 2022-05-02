@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BOAFileStorage:NSObject {
+class BOAFileStorage:NSObject, BOAStorage {
     
     var crypto: BOACrypto?
 
@@ -18,7 +18,7 @@ class BOAFileStorage:NSObject {
         self.init(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""), crypto: nil)
     }
     
-    init(folder folderURL: URL, crypto: BOACrypto) {
+    init(folder folderURL: URL, crypto: BOACrypto?) {
         super.init()
             self.folderURL = folderURL
             self.crypto = crypto
@@ -50,13 +50,16 @@ class BOAFileStorage:NSObject {
     func set(_ data: Data, forKey key: String) {
         let url = self.url(forKey: key)
         if (crypto != nil) {
-            let encryptedData = crypto?.encrypt(data)
+           
+            /* Deprecating this
+             let encryptedData = crypto?.encrypt(data)
             if let encryptedData = encryptedData, let url = url {
                 NSData(data: encryptedData).write(to: url, atomically: true)
             }
+            */
         } else {
-            if let data = data, let url = url {
-                NSData(data: data).write(to: url, atomically: true)
+            if data != nil && url != nil {
+                NSData(data: data).write(to: url!, atomically: true)
             }
         }
 
@@ -102,7 +105,7 @@ class BOAFileStorage:NSObject {
         }
         
         if (crypto != nil && data != nil) {
-            return crypto!.decrypt(data!)
+          //Deprecating this  return crypto!.decrypt(data!)
         }
         
         return data
@@ -167,6 +170,7 @@ class BOAFileStorage:NSObject {
             
         } catch {
             BOFLogDebug(frmt: "Unable to serialize data from plist object", args: error.localizedDescription as! CVarArg, plist as! CVarArg)
+            return nil
         }
         //TODO: check condition
     }

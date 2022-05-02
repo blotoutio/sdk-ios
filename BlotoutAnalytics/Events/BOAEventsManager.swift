@@ -12,17 +12,23 @@ let BOAQueueKey = "BOAQueue"
 let kBOAQueueFilename = "blotout.queue.plist"
 
 class BOAEventsManager:NSObject {
-    private var queue: [AnyHashable]?
+    private var queue: [AnyHashable] = []
     private var storage: BOAStorage?
-    private var configuration: BlotoutAnalyticsConfiguration
-    private var flushTimer: Timer
-    private var referrer: [AnyHashable : Any]?
-    private var flushTaskID: UIBackgroundTaskIdentifier!
+    private var configuration: BlotoutAnalyticsConfiguration?
+    private var flushTimer: Timer?
+    private var referrer: [AnyHashable : Any] = [:]
+    private var flushTaskID: UIBackgroundTaskIdentifier?
     private var batchRequest = false
     
     
-    init(configuration: BlotoutAnalyticsConfiguration, storage: BOAStorage) {
-        super.init()
+//    required init?(coder aDecoder: NSCoder) {
+//
+//        super.init(coder: aDecoder)
+//    }
+    
+    //TODO: check the method flow
+    init(configuration: BlotoutAnalyticsConfiguration, storage: BOAStorage){
+      
         self.configuration = configuration
         self.storage = storage
         flushTimer = Timer(
@@ -32,29 +38,26 @@ class BOAEventsManager:NSObject {
             userInfo: nil,
             repeats: true)
         
-        RunLoop.main.add(flushTimer, forMode: .default)
-        
-        return self
+        RunLoop.main.add(flushTimer!, forMode: .default)
+      // }
+      
     }
     
     func beginBackgroundTask() {
-        do{
-            endBackgroundTask()
-            
-            BOEventsOperationExecutor.sharedInstance.dispatchBackgroundTask({ [self] in
-                weak var application = configuration.application
+        endBackgroundTask()
+
+        BOEventsOperationExecutor.sharedInstance.dispatchBackgroundTask({ [self] in
+                let application = configuration!.application
                 if application == nil {
                     return
                 }
-                flushTaskID = application?.boa_beginBackgroundTask(
+
+                flushTaskID = application!.boa_beginBackgroundTask(
                     withName: "BlotoutAnalytics_Background_Task",
                     expirationHandler: { [self] in
                         endBackgroundTask()
                     })
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
     }
     
     
@@ -65,9 +68,9 @@ class BOAEventsManager:NSObject {
                     return
                 }
                 
-                weak var application = configuration.application
+                weak var application = configuration!.application
                 if let application = application {
-                    application.boa_endBackgroundTask(flushTaskID)
+                    application.boa_endBackgroundTask(flushTaskID!)
                 }
                 
                 flushTaskID = UIBackgroundTaskIdentifier.invalid
@@ -86,16 +89,15 @@ class BOAEventsManager:NSObject {
        
     }
     
-    func capturePersonal(_ payload: BOACaptureModel?, isPHI phiEvent: Bool) {
-        
-            let personalEvent = BOADeveloperEvents.capturePersonalEvent(payload, isPHI: phiEvent)
-            if personalEvent == nil {
-                return
-            }
-            
-            enqueueEvent("capturePersonal", dictionary: personalEvent)
-       
-    }
+//    func capturePersonal(_ payload: BOACaptureModel?, isPHI phiEvent: Bool) {
+//
+//            let personalEvent = BOADeveloperEvents.capturePersonalEvent(payload, isPHI: phiEvent)
+//            if personalEvent == nil {
+//                return
+//            }
+//
+//            enqueueEvent("capturePersonal", dictionary: personalEvent)
+//    }
     
     
     func enqueueEvent(_ action: String?, dictionary payload: [AnyHashable : Any]?) {
@@ -107,9 +109,9 @@ class BOAEventsManager:NSObject {
     func queuePayload(_ payload: [AnyHashable : Any]?) {
         var payload = payload
         do{
-            payload = BOAUtilities.traverseJSON(payload) as! [AnyHashable : Any]
+            payload = BOAUtilities.traverseJSON(payload) as? [AnyHashable : Any]
             if let payload = payload {
-                queue?.insert(contentsOf: payload, at: 0)
+                queue.insert(contentsOf: payload, at: 0)
                 
                // queue.append(payload)
             }
@@ -125,9 +127,9 @@ class BOAEventsManager:NSObject {
     }
     
     func flush(withMaxSize maxBatchSize: Int) {
-        do{
+
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                if queue?.count == 0 {
+                if queue.count == 0 {
                     BOFLogDebug(frmt: "%@ No queued API calls to flush.", args: self)
                     endBackgroundTask()
                     return
@@ -138,23 +140,18 @@ class BOAEventsManager:NSObject {
                 }
                 
                 let batch = queue as? [AnyHashable]
-                sendData(batch)
-            } catch {
-                BOFLogDebug(frmt: "%@", args:  error.localizedDescription)
+                sendData(batch ?? [])
             })
-        }
     }
     
+    
     func flushQueueByLength() {
-        do{
+
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                if !batchRequest && queue.count() >= configuration.flushAt {
+                if !batchRequest && queue.count >= configuration!.flushAt {
                     flush()
                 }
             })
-        } catch {
-            BOFLogDebug(frmt: "%@", args:  error.localizedDescription)
-        }
     }
     
     
@@ -166,7 +163,7 @@ class BOAEventsManager:NSObject {
                 var error: Error? = nil
                 var data: Data? = nil
                 
-                post.postEventDataModel(data, withAPICode: BOUrlEndPointEventPublish, success: { [self] responseObject in
+                post.postEventDataModel(data, withAPICode: BOUrlEndPoint.eventPublish, success: { [self] responseObject in
                     BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                         queue = queue.filter({ !batch.contains($0) })
                         persistQueue()
@@ -175,7 +172,7 @@ class BOAEventsManager:NSObject {
                     })
                 }, failure: { [self] urlResponse, dataOrLocation, error in
                     batchRequest = false
-                    BOFLogDebug("%@", error.description())
+                    BOFLogDebug(frmt: "%@", args: error?.localizedDescription as! CVarArg)
                 })
             })
 
@@ -190,7 +187,7 @@ class BOAEventsManager:NSObject {
     
     func applicationWillTerminate() {
             BOEventsOperationExecutor.sharedInstance.dispatch(inBackgroundAndWait: { [self] in
-                if queue?.count ?? 0 > 0 {
+                if queue.count ?? 0 > 0 {
                     persistQueue()
                 }
             })
@@ -203,7 +200,7 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])
 #else
-            self.queue = (storage?.array(forKey: kBOAQueueFilename) as? [AnyHashable] ?? [])
+            self.queue = (storage!.array(forKey: kBOAQueueFilename) as? [AnyHashable] ?? [])
 #endif
         }
         return queue
@@ -213,7 +210,7 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
         storage.set(queue, forKey: BOAQueueKey)
 #else
-        storage?.set(queue, forKey: kBOAQueueFilename)
+        storage!.set(queue, forKey: kBOAQueueFilename)
 #endif
     }
     

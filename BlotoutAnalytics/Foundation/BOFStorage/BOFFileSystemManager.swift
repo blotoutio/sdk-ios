@@ -9,8 +9,8 @@ import Foundation
 
 class BOFFileSystemManager:NSObject {
     
-    var sIsDataWriteEnabled = true
-    var sIsSDKEnabled = true
+    static var sIsDataWriteEnabled = true
+    static var sIsSDKEnabled = true
     
     class func addSkipBackupAttribute(toFilePath filePath: String) -> Bool {
             if filePath.count <= 0 {
@@ -47,14 +47,15 @@ class BOFFileSystemManager:NSObject {
            // return [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
             return  addSkipBackupAttributeToItem(at: URL(fileURLWithPath: path))
         }
+        return false
     }
     
-     func setIsDataWriteEnabled(_ isDataWriteEnabled: Bool) {
+   class  func setIsDataWriteEnabled(_ isDataWriteEnabled: Bool) {
         sIsDataWriteEnabled = isDataWriteEnabled
     }
     
-     func setIsSDKEnabled(isSDKEnabled: Bool) {
-        sIsSDKEnabled = isSDKEnabled
+   class  func setIsSDKEnabled(isSDKEnabled: Bool) {
+         sIsSDKEnabled = isSDKEnabled
     }
     
     class func removeFile(fromLocationPath fileLocationPath: String, removalError:Error?) ->Bool {
@@ -102,76 +103,75 @@ class BOFFileSystemManager:NSObject {
     }
     
     class func moveFile(fromLocation fileLocation: URL, toLocation newLocation: URL,relocationError:Error) -> Bool {
+        
+        let fileManager = FileManager.default
+        var success = false
+        var isDir:ObjCBool = false
+        var isNewDir:ObjCBool = false
+        var relocError = relocationError
+        var moveError: Error? = nil
+        
+        var filePath = fileLocation.path
+        var newFilePath = newLocation.path
+        
+        var existAndDic = fileManager.fileExists(atPath: filePath, isDirectory: &isDir) && isDir.boolValue
+        var newExistAndDic = fileManager.fileExists(atPath: newFilePath, isDirectory: &isNewDir) && isNewDir.boolValue
+        
+        if !existAndDic && newExistAndDic {
+            let fileName = fileLocation.lastPathComponent
+            newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName).path
+            do {
+                success = true
+                try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
+            }
+            catch
+            {
+                success = false
+            }
+            //TODO: check logic again
+        } else {
+            do {
+                success = true
+                try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
+            } catch let moveError {
+                success = false
+            }
+        }
+        relocError = moveError as! Error
+        
+        return success
+        
+    }
+    
+    class func moveFile(fromLocationPath fileLocation: URL, toLocationPath newLocation: URL,relocationError:Error) -> Bool {
         do{
             let fileManager = FileManager.default
             var success = false
-            var isDir = false
-            var isNewDir = false
-            var relocError = relocationError
-            var moveError: Error? = nil
+            var isDir:ObjCBool = false
+            var isNewDir:ObjCBool = false
             
+            var moveError: Error? = nil
             var filePath = fileLocation.path
             var newFilePath = newLocation.path
             
-            var existAndDic = fileManager.fileExists(atPath: filePath, isDirectory: &isDir) && isDir
-            var newExistAndDic = fileManager.fileExists(atPath: newFilePath, isDirectory: &isNewDir) && isNewDir
+            var existAndDic = fileManager.fileExists(atPath: filePath, isDirectory: &isDir) && isDir.boolValue
+            var newExistAndDic = fileManager.fileExists(atPath: newFilePath, isDirectory: &isNewDir) && isNewDir.boolValue
             
             if !existAndDic && newExistAndDic {
                 let fileName = fileLocation.lastPathComponent
-                newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName).path
+                newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName ?? "").path
                 do {
                     success = true
-                   try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
-                }
-                catch
-                {
+                    try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
+                    
+                   // moveItem(atPath: fileLocation, toPath: newFilePath)
+                } catch let moveError {
                     success = false
                 }
-                //TODO: check logic again
             } else {
                 do {
                     success = true
                     try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
-                } catch let moveError {
-                    success = false
-                }
-            }
-            relocError = moveError as! Error
-            
-            return success
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
-    }
-    
-    class func moveFile(fromLocationPath fileLocation: String, toLocationPath newLocation: String,relocationError:Error) -> Bool {
-        do{
-            let fileManager = FileManager.default
-            var success = false
-            var isDir = false
-            var isNewDir = false
-            
-            var moveError: Error? = nil
-            var filePath = fileLocation
-            var newFilePath = newLocation
-            
-            var existAndDic = fileManager.fileExists(atPath: filePath, isDirectory: &isDir) && isDir
-            var newExistAndDic = fileManager.fileExists(atPath: newFilePath, isDirectory: &isNewDir) && isNewDir
-            
-            if !existAndDic && newExistAndDic {
-                let fileName = fileLocation.lastPathComponent
-                newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName).path
-                do {
-                    success = true
-                    try fileManager.moveItem(atPath: fileLocation, toPath: newFilePath)
-                } catch let moveError {
-                    success = false
-                }
-            } else {
-                do {
-                    success = true
-                    try fileManager.moveItem(atPath: fileLocation, toPath: newLocation)
                 } catch let moveError {
                     success = false
                 }
@@ -195,34 +195,28 @@ class BOFFileSystemManager:NSObject {
     }
     
     class func isWritableDirectory(atPath path: String) -> Bool {
-        do{
-            var isDir = false
-            if FileManager.default.fileExists(atPath: path ?? "", isDirectory: UnsafeMutablePointer<ObjCBool>(mutating: &isDir)) && isDir {
-                isDir = FileManager.default.isWritableFile(atPath: path )
+
+            var isDir:ObjCBool = false
+            var isWritable:Bool = false
+            if FileManager.default.fileExists(atPath: path , isDirectory: &isDir) && isDir.boolValue {
+                isWritable = FileManager.default.isWritableFile(atPath: path )
             }
-            return isDir
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
+            return isWritable
     }
     
     class func isWritableFile(atPath path: String) -> Bool {
-        do{
+
             var isWritableFile = false
-            var isDir = false
+            var isDir:ObjCBool = false
             
-            if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && !isDir {
+            if FileManager.default.fileExists(atPath: path, isDirectory: &isDir) && !isDir.boolValue {
                 isWritableFile = FileManager.default.isWritableFile(atPath: path )
-            } else if !isDir {
+            } else if !isDir.boolValue {
                 isWritableFile = FileManager.default.createFile(atPath: path , contents: nil, attributes: nil)
             }
             
             return isWritableFile
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
+        
     }
     
     class func checkAndReturnWritableFilePath(_ givenPath: Any) -> String? {
@@ -235,18 +229,30 @@ class BOFFileSystemManager:NSObject {
             }
             
             if (filePath == nil) {
-                throw NSException(name: NSExceptionName("BOFFilePathException"), reason: "Path must be String or URL", userInfo: [
-                    "Description": "Path provided is not appropiate, must be either String or URL"
-                ])
+                
+                //TODO: find what should be code
+                
+                throw NSError(domain: "BOFFilePathException", code: 42, userInfo: [
+                    "Description": "Path provided is not appropiate, must be either String or URL"] )
+
+                
+//                throw NSException(name: NSExceptionName("BOFFilePathException"), reason: "Path must be String or URL", userInfo: [
+//                    "Description": "Path provided is not appropiate, must be either String or URL"
+//                ])
             }
             
             var writableFilePath = filePath
             if isWritableDirectory(atPath: filePath ?? "") {
                 writableFilePath = URL(fileURLWithPath: filePath!).appendingPathComponent(String(format: "BOFFile%ui", arc4random())).path
             } else if !isWritableFile(atPath: filePath!) {
-                throw NSException(name: NSExceptionName("BOFFileWritingException"), reason: "Directory is not writable", userInfo: [
+                
+                throw NSError(domain: "BOFFileWritingException", code: 42, userInfo: [
                     "Description": "Directory or file path is not writable, use with writable file path"
-                ])
+                ] )
+                
+//                throw NSException(name: NSExceptionName("BOFFileWritingException"), reason: "Directory is not writable", userInfo: [
+//                    "Description": "Directory or file path is not writable, use with writable file path"
+//                ])
             }
             
             return writableFilePath
@@ -257,11 +263,10 @@ class BOFFileSystemManager:NSObject {
     }
     
     
-     func path(afterWriting contentString: String, toFilePath filePath: String, appendIfExist shouldAppend: Bool,writingError:Error) throws -> String? {
-        do{
+    class func pathAfterWriting(contentString: String, toFilePath filePath: String, appendIfExist shouldAppend: Bool,writingError:Error) throws -> String? {
             
             if sIsDataWriteEnabled && sIsSDKEnabled {
-                var writableFilePath = BOFFileSystemManager.checkAndReturnWritableFilePath(filePath)
+                var writableFilePath = BOFFileSystemManager.checkAndReturnWritableFilePath(filePath) ?? ""
                 var completeString = contentString
                 let writeError: Error? = nil
                 
@@ -284,7 +289,7 @@ class BOFFileSystemManager:NSObject {
                         try completeString.write(toFile: writableFilePath ?? "", atomically: true, encoding: .utf8)
                         success = true
                     } catch let writeError {
-                        writableFilePath = nil
+                        writableFilePath = ""
                     }
                 }
                 if let writeError = writeError {
@@ -300,11 +305,7 @@ class BOFFileSystemManager:NSObject {
                 //TODO: why is this being set
                 return nil
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            
-        }
-        return nil
+        
     }
     
     /// method to get path after writing string to file path
@@ -313,8 +314,8 @@ class BOFFileSystemManager:NSObject {
     ///   - filePath: as NSString
     ///   - error: as NSError
     /// - Returns: writableFilePath as NSString
-     func path(afterWriting contentString: String, toFilePath filePath: String) throws -> String? {
-        do{
+    class func pathAfterWriting( contentString: String, toFilePath filePath: String) throws -> String? {
+
             if sIsDataWriteEnabled && sIsSDKEnabled {
                 var writableFilePath = BOFFileSystemManager.checkAndReturnWritableFilePath(filePath)
                 var writeError: Error? = nil
@@ -322,7 +323,7 @@ class BOFFileSystemManager:NSObject {
                 //write without encryption
                 do {
                     success = true
-                    try contentString.write(toFile: writableFilePath, atomically: true, encoding: .utf8)
+                    try contentString.write(toFile: writableFilePath ?? "", atomically: true, encoding: .utf8)
                 } catch let writeError {
                     success = false
                     writableFilePath = ""
@@ -341,10 +342,7 @@ class BOFFileSystemManager:NSObject {
               //  error = writeError
                 return nil
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
+       
     }
     
     
@@ -354,36 +352,40 @@ class BOFFileSystemManager:NSObject {
     ///   - fileUrl: as NSURL
     ///   - error: as NSError
     /// - Returns: fileUrlPath as NSURL
-     func path(afterWriting contentString: String, toFileUrl fileUrl: URL) throws -> URL? {
-        do{
-            if sIsDataWriteEnabled && sIsSDKEnabled {
-                var fileUrlPath = URL(fileURLWithPath: BOFFileSystemManager.checkAndReturnWritableFilePath(fileUrl) ?? "")
-                var writeError: Error? = nil
-                var success = false
-                do {
-                    fileUrlPath != nil ? try contentString.write(to: fileUrlPath, atomically: true, encoding: .utf8) : false
+   class func pathAfterWriting( contentString: String, toFileUrl fileUrl: URL) throws -> URL? {
+        
+        if sIsDataWriteEnabled && sIsSDKEnabled {
+            var fileUrlPath = URL(fileURLWithPath: BOFFileSystemManager.checkAndReturnWritableFilePath(fileUrl) ?? "")
+            var writeError: Error? = nil
+            var success = false
+            
+            if fileUrlPath.absoluteString.count > 0
+            {
+                do
+                {
                     success = true
-                } catch let writeError {
-                    fileUrlPath = nil
+                    try contentString.write(to: fileUrlPath, atomically: true, encoding: .utf8)
+                }catch
+                {
+                    success = false
                 }
-                if let writeError = writeError {
-                    //TODO: why is this being set
-                   // error = writeError
-                }
-                return fileUrlPath
-            } else {
-                let writeError = NSError(domain: "io.blotout.FileSystem", code: 90001, userInfo: [
-                    "info": "data write for blotout SDK not allowed"
-                ])
-                
-                //TODO: why is this being set
-               // error = writeError
-                return nil
             }
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+            
+            if let writeError = writeError {
+                //TODO: why is this being set
+                // error = writeError
+            }
+            return fileUrlPath
+        } else {
+            let writeError = NSError(domain: "io.blotout.FileSystem", code: 90001, userInfo: [
+                "info": "data write for blotout SDK not allowed"
+            ])
+            
+            //TODO: why is this being set
+            // error = writeError
+            return nil
         }
-        return nil
+        
     }
     
     /// method to get content of file at path
@@ -428,7 +430,7 @@ class BOFFileSystemManager:NSObject {
                 // This method is only available in OS X v10.7 and iOS 5.0 or later.
                 var theError: Error? = nil
                 do {
-                    try fm.createDirectory(at: dirPath, withIntermediateDirectories: true, attributes: nil)
+                    try fm.createDirectory(at: dirPath!, withIntermediateDirectories: true, attributes: nil)
                 } catch let theError {
                     // Handle the error.
                     return nil
@@ -436,6 +438,7 @@ class BOFFileSystemManager:NSObject {
                 
                 return dirPath?.path
             }
+        return ""
     }
     
     

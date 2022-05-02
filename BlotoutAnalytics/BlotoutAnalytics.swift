@@ -40,15 +40,12 @@ class BlotoutAnalytics:NSObject {
      */
     
     func setIsEnabled(_ isEnabled: Bool) {
-        //  do{
-        //try
+
         self.isEnabled = isEnabled
         BOFNetworkPromiseExecutor.sharedInstance.isSDKEnabled = isEnabled
-        BOFNetworkPromiseExecutor.sharedInstanceForCampaign()?.isSDKEnabled = isEnabled
+        BOFNetworkPromiseExecutor.sharedInstanceForCampaign?.isSDKEnabled = isEnabled
         BOFFileSystemManager.setIsSDKEnabled(isSDKEnabled: isEnabled)
-        //        } catch {
-        //            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        //        }
+
     }
     
     func setEnable(_ enable: Bool) {
@@ -56,19 +53,14 @@ class BlotoutAnalytics:NSObject {
     }
     
     func setEnableSDKLog(_ enableSDKLog: Bool) {
-        // TODO: import SwiftTryCatch from https://github.com/ypopovych/SwiftTryCatch
-        // do{
-        self.enableSDKLog = try enableSDKLog
+
+        self.enableSDKLog =  enableSDKLog
         BOFLogs.sharedInstance.isSDKLogEnabled = enableSDKLog
-        //        }, catch {
-        //                       BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        
-        //        }
     }
     
     //TODO: fix name properly
     func initandCompletionHandler(configuration: BlotoutAnalyticsConfiguration, andCompletionHandler completionHandler: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
-        do{
+
             if !validateData(configuration) {
                 let initError = NSError(domain: "io.blotout.analytics", code: 100002, userInfo: [
                     "userInfo": "Token and EndPoint Url can't be empty !"
@@ -82,22 +74,23 @@ class BlotoutAnalytics:NSObject {
 #else
             
             //TODO: have updated method name here, need to check
-            let storage = BOAFileStorage(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory()), crypto: getCrypto(configuration))
+            let storage = BOAFileStorage(folder: URL(fileURLWithPath: BOFFileSystemManager.getBOSDKRootDirectory() ?? ""), crypto: nil)
 #endif
             
-            eventManager = try BOAEventsManager(configuration: configuration, storage: storage)
+            eventManager = BOAEventsManager(configuration: configuration, storage: storage)
             token = configuration.token
             endPointUrl = configuration.endPointUrl
             registerApplicationStates()
             
 #if !TARGET_OS_TV
-            //[UIApplication.LaunchOptionsKey.remoteNotification]
+            
             if configuration.launchOptions != nil {
-                let remoteNotification = [configuration.launchOptions:UIApplication.LaunchOptionsKey.remoteNotification]
+                let remoteNotification = configuration.launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable : Any]
                 if let remoteNotification = remoteNotification {
                     trackPushNotification(remoteNotification, fromLaunch: true)
                 }
             }
+
             
             storeKitController = BOAStoreKitController.trackTransactions(for: configuration)
 #endif
@@ -110,19 +103,12 @@ class BlotoutAnalytics:NSObject {
             
             //check for app tracking and fetch IDFA
             checkAppTrackingStatus()
-            
-        } catch{
-            //TODO correct this completionhandler
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            completionHandler(false, BOErrorAdditions.boError(forDict: error.userInfo))
-        }
     }
     
     
     func checkManifestAndInitAnalytics(withCompletionHandler completionHandler: ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
-        do{
-            
-            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance
+
+            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isManifestAvailable() {
                 sdkManifesCtrl.reloadManifestData()
             }
@@ -138,27 +124,18 @@ class BlotoutAnalytics:NSObject {
                 }
                 completionHandler(isSuccess, error)
             })
-            
-        }catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            completionHandler(false, BOErrorAdditions.boError(forDict: error.userInfo))
-        }
     }
     
     func fetchManifest(_ callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)? = nil) {
-        do{
+
             let sdkManifest = try BOASDKManifestController.sharedInstance
             sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
                 callback?(isSuccess, error)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-            callback?(false, BOErrorAdditions.boError(forDict: error.userInfo))
-        }
     }
     
     
-    
+  /*TODO: remove crypto
     func getCrypto(_ config: BlotoutAnalyticsConfiguration?) -> BOACrypto? {
         do{
             if ((config?.crypto) != nil) {
@@ -171,6 +148,7 @@ class BlotoutAnalytics:NSObject {
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
         }
     }
+    */
     
     func validateData(_ configuration: BlotoutAnalyticsConfiguration?) -> Bool {
         //Confirm and perform 15 character length check if needed
@@ -229,17 +207,16 @@ class BlotoutAnalytics:NSObject {
     
     //TODO: we might remove this completely
     func capturePersonal(_ eventName: String, withInformation eventInfo: [AnyHashable : Any], isPHI phiEvent: Bool) {
-    
-            if !isEnabled {
-                return
-            }
-              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                let type = phiEvent ? BO_PHI : BO_PII
-                let model = BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
-                eventManager.capturePersonal(model, isPHI: phiEvent)
-            })
-            
-        
+
+        return
+//            if !isEnabled {
+//                return
+//            }
+//              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
+//                let type = phiEvent ? BO_PHI : BO_PII
+//                let model = BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
+//                eventManager.capturePersonal(model, isPHI: phiEvent)
+//            })
     }
     
     func getUserId() -> String? {
@@ -290,23 +267,16 @@ class BlotoutAnalytics:NSObject {
         
     }
     
-    func registeredForRemoteNotifications(withDeviceToken deviceToken: Data?) {
+    func registeredForRemoteNotifications(withDeviceToken deviceToken: Data) {
             if !isEnabled {
                 return
             }
             
              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
                 var properties: [AnyHashable : Any] = [:]
-                let buffer = UnsafePointer<UInt8>(UInt8(deviceToken.bytes()))
-                if buffer == nil {
-                    return
-                }
-                
-                var token = String(repeating: "\0", count: deviceToken?.count ?? 0 * 2)
-                 for i in 0..<(deviceToken?.count ?? 0) {
-                    token += String(format: "%02lx", UInt(buffer[i]))
-                }
-                
+                 
+                 let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+
                 properties["token"] = token
                 properties["deviceRegistered"] = NSNumber(value: 1)
                 // properties.setValue(token, forKey: "token")
@@ -322,13 +292,16 @@ class BlotoutAnalytics:NSObject {
     }
     
     func continueUserActivity(activity: NSUserActivity) {
-            let sdkManifesCtrl = try BOASDKManifestController.sharedInstance
+            let sdkManifesCtrl =  BOASDKManifestController.sharedInstance
             if !isEnabled || (activity.activityType != NSUserActivityTypeBrowsingWeb) || !sdkManifesCtrl.isSystemEventEnabled(BO_DEEP_LINK_OPENED) {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 var properties = [AnyHashable : Any](minimumCapacity: activity.userInfo?.count ?? 0 + 2)
-                for (k, v) in activity?.userInfo { properties[k] = v }
+               
+                properties = activity.userInfo ?? [:]
+                //TODO: test these values
+               // for (k, v) in activity?.userInfo { properties[k] = v }
                 properties["url"] = activity.webpageURL?.absoluteString ?? ""
                 properties["title"] = activity.title ?? ""
                 properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
@@ -347,7 +320,9 @@ class BlotoutAnalytics:NSObject {
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 var properties = [AnyHashable : Any](minimumCapacity: options?.count ?? 0 + 2)
-                for (k, v) in options { properties[k] = v }
+                //TODO: test these values
+                properties = options ?? [:]
+               // for (k, v) in options { properties[k] = v }
                 properties["url"] = url?.absoluteString
                 properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
                 refreshSessionAndReferrer(url?.absoluteString)
@@ -445,7 +420,7 @@ class BlotoutAnalytics:NSObject {
     }
     
     func _applicationDidEnterBackground() {
-        do{
+
             if !isEnabled {
                 return
             }
@@ -460,13 +435,11 @@ class BlotoutAnalytics:NSObject {
             
             
             eventManager.applicationDidEnterBackground()
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+        
     }
     
     func checkAppTrackingStatus() {
-        do{
+
             if !isEnabled {
                 return
             }
@@ -514,13 +487,11 @@ class BlotoutAnalytics:NSObject {
                 self.eventManager.capture(model)
                 
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+       
     }
     
     func captureTransaction(_ transactionData: TransactionData, withInformation eventInfo: [AnyHashable : Any]?) {
-        do{
+
             if !isEnabled {
                 return
             }
@@ -534,15 +505,11 @@ class BlotoutAnalytics:NSObject {
                 let model = BOACaptureModel(event: BO_EVENT_TRANSACTION_NAME, properties: transactionInfo, screenName: nil, withType: BO_CODIFIED)
                 eventManager.capture(model)
             })
-            
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
     
     func capture(_ itemData: Item, withInformation eventInfo: [AnyHashable : Any]?) {
-        do{
+
             if !isEnabled {
                 return
             }
@@ -556,13 +523,11 @@ class BlotoutAnalytics:NSObject {
                 let model = BOACaptureModel(event: BO_EVENT_ITEM_NAME, properties: itemInfo, screenName: nil, withType: BO_CODIFIED)
                 eventManager.capture(model)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
     
     func capture(_ personaData: Persona, withInformation eventInfo: [AnyHashable : Any]?) {
-        do{
+
             if !isEnabled {
                 return
             }
@@ -579,9 +544,7 @@ class BlotoutAnalytics:NSObject {
                 let model = BOACaptureModel(event: BO_EVENT_PERSONA_NAME, properties: personaInfo, screenName: nil, withType: BO_CODIFIED)
                 eventManager.capture(model)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
 }
                                                                       
