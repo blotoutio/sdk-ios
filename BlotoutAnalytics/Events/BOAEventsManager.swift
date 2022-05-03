@@ -202,7 +202,7 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])
 #else
-            self.queue = (storage!.array(forKey: kBOAQueueFilename) as? [AnyHashable] ?? [])
+            self.queue = (storage!.arrayForKey(kBOAQueueFilename) as? [AnyHashable] ?? [])
 #endif
         }
         return queue
@@ -212,7 +212,7 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
         storage.set(queue, forKey: BOAQueueKey)
 #else
-        storage!.set(queue, forKey: kBOAQueueFilename)
+        storage!.setArray(queue, forKey: kBOAQueueFilename)
 #endif
     }
     

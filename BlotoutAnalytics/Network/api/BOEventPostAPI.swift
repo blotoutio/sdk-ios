@@ -9,16 +9,16 @@ import Foundation
 
 
 class BOEventPostAPI:BOBaseAPI {
+    
     func postEventDataModel(_ eventData: Data?, withAPICode urlEndPoint: BOUrlEndPoint, success: @escaping (_ responseObject: Any?) -> Void, failure: @escaping (_ urlResponse: URLResponse?, _ dataOrLocation: Any?, _ error: Error?) -> Void) {
         do{
-            
             let apiEndPoint = resolveAPIEndPoint(urlEndPoint)
             var urlRequest: NSMutableURLRequest? = nil
             if let url = URL(string: apiEndPoint) {
                 urlRequest = NSMutableURLRequest(url: url)
             }
             urlRequest?.httpMethod = EPAPostAPI
-            urlRequest?.allHTTPHeaderFields = prepareRequestHeaders() as! [String : String]
+            urlRequest?.allHTTPHeaderFields = prepareRequestHeaders() as? [String : String]
             
             
             if eventData != nil {

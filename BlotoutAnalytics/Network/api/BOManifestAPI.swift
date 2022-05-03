@@ -10,7 +10,6 @@ import Foundation
 
 class BOManifestAPI:BOBaseAPI {
     func getManifestDataModel(_ success: @escaping (_ responseObject: Any?, _ data: Any?) -> Void, failure: @escaping (_ error: Error?) -> Void) {
-        do{
             
             let apiEndPoint = resolveAPIEndPoint(BOUrlEndPoint.manifestPull)
             var urlRequest: NSMutableURLRequest? = nil
@@ -29,8 +28,12 @@ class BOManifestAPI:BOBaseAPI {
                     
                     var sdkManifestM: BOASDKManifest? = nil
                     do {
-                        sdkManifestM = try BOASDKManifest.fromData(data: blockData as? Data, error: nil)
+                        sdkManifestM = try BOASDKManifest.fromData(data: blockData as? Data, error: manifestReadError)
                     } catch let manifestReadError {
+                        BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, manifestReadError.localizedDescription)
+                        
+                        let error = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorParsingError.rawValue, withMessage: "")
+                        failure(error)
                     }
                     if manifestReadError == nil {
                         success(sdkManifestM, blockData)
@@ -43,12 +46,5 @@ class BOManifestAPI:BOBaseAPI {
             }, failure: { data, dataResponse, error in
                 failure(error)
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-            
-            let error = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorParsingError.rawValue, withMessage: "")
-           // let error = Error.boError(forCode: BOErrorCodes.boErrorParsingError.rawValue, withMessage: "")
-            failure(error)
-        }
     }
 }

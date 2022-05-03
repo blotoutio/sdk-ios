@@ -7,18 +7,17 @@
 
 import Foundation
 
+
 public enum BOUrlEndPoint : Int {
      case eventPublish = 0
      case manifestPull
  }
 
-class BOBaseAPI:NSObject {
-    
-    let EPAPostAPI = "POST"
-    let EPAGetAPI = "GET"
-    let EPAContentApplicationJson = "application/json"
-    
+let EPAPostAPI = "POST"
+let EPAGetAPI = "GET"
+let EPAContentApplicationJson = "application/json"
 
+class BOBaseAPI:NSObject {
     
     func getJsonData(_ data: Data?) -> [AnyHashable : Any]? {
         var dict: [AnyHashable : Any]? = nil
@@ -27,31 +26,33 @@ class BOBaseAPI:NSObject {
                 dict = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [AnyHashable : Any]
             } catch {
                 BOFLogDebug(frmt: "%@:%@", args: BOA_DEBUG, error.localizedDescription)
-                
             }
         }
         return dict
     }
     
-    func getBaseServerUrl() -> String? {
-        return BlotoutAnalytics.sharedInstance.endPointUrl
+    func getBaseServerUrl() -> String {
+        return BlotoutAnalytics.sharedInstance.endPointUrl ?? ""
     }
     
     public func resolveAPIEndPoint(_ endPoint: BOUrlEndPoint) -> String {
-        var url: String?
+        var url: String
         switch endPoint {
         case BOUrlEndPoint.eventPublish:
-            url = "\(String(describing: getBaseServerUrl()))/\(BO_SDK_REST_API_EVENTS_PUSH_PATH)"
+            url = "\(getBaseServerUrl())/\(BO_SDK_REST_API_EVENTS_PUSH_PATH)"
+            break
+            
         case BOUrlEndPoint.manifestPull:
-            url = "\(String(describing: getBaseServerUrl()))/\(BO_SDK_REST_API_MANIFEST_PULL_PATH)"
-           default:
-               break
-           }
-
-        return "\(url ?? "")?token=\(String(describing: BlotoutAnalytics.sharedInstance.token))"
-       }
+            url = "\(getBaseServerUrl())/\(BO_SDK_REST_API_MANIFEST_PULL_PATH)"
+            break
+        }
+        
+        let token = BlotoutAnalytics.sharedInstance.token ?? ""
+        return "\(url)?token=\(token)"
+        
+    }
     
-    func prepareRequestHeaders() -> [AnyHashable : Any]? {
+    func prepareRequestHeaders() -> [AnyHashable : Any] {
         return [
             BO_ACCEPT: "application/json",
             BO_CONTENT_TYPE: "application/json"
