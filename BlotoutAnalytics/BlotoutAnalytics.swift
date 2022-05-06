@@ -115,40 +115,19 @@ public class BlotoutAnalytics:NSObject {
                 sdkManifesCtrl.reloadManifestData()
             }
         
-          fetchManifest({ isSuccess, error in
-                if !isSuccess {
-                    let serverInitError = NSError(domain: "io.blotout.analytics", code: 100003, userInfo: [
-                        "userInfo": "Server Sync failed, check your keys & network connection"
-                    ])
-                    completionHandler(false, serverInitError)
-                    return
-                }
-                completionHandler(isSuccess, error)
-            })
-        
-        
+        let sdkManifest = try BOASDKManifestController.sharedInstance
+        sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
+            if !isSuccess {
+                let serverInitError = NSError(domain: "io.blotout.analytics", code: 100003, userInfo: [
+                    "userInfo": "Server Sync failed, check your keys & network connection"
+                ])
+                completionHandler(false, serverInitError)
+                return
+            }
+            completionHandler(isSuccess, error)
+        })
     }
-    
-    func fetchManifest(_ callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)? = nil) {
 
-            let sdkManifest = try BOASDKManifestController.sharedInstance
-        //Should replace this with new api call
-        
-        /*  ServiceLayer.request(router: BOARouter.getManifest) { (result: Result<ManifestModel, Error>) in
-              switch result {
-              case .success:
-                  print(result)
-              case .failure:
-                  print(result)
-              }
-          }
-         */
-        
-        
-            sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
-                callback?(isSuccess, error)
-            })
-    }
 
     
     func validateData(_ configuration: BlotoutAnalyticsConfiguration?) -> Bool {

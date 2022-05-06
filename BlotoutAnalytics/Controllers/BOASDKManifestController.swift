@@ -12,6 +12,10 @@ private var sBOAsdkManifestSharedInstance: Any? = nil
 class BOASDKManifestController:NSObject {
     
     var sdkManifestModel: BOASDKManifest?
+    
+    //newly added
+    var manifestModel:ManifestModel?
+    
     var isSyncedNow = false
     var piiPublicKey: String?
     var phiPublickey: String?
@@ -37,45 +41,9 @@ class BOASDKManifestController:NSObject {
             if isSuccess {
                 self.reloadManifestData()
             }
-            if (self.sdkManifestModel == nil) {
-                var manifestReadError: Error? = nil
-                var sdkManifestM:BOASDKManifest? = nil
-                
-                do{
-                    //instead of this, passing to new model which will give blotoutManifest
-                    
-                    let decoder = JSONDecoder()
-                    let jsonString = self.latestSDKManifestJSONString()
-                    let jsonData = jsonString?.data(using: String.Encoding.utf8)
-                    if jsonData != nil
-                    {
-                        do{
-                            let boaSDKManifestModel = try decoder.decode(BlotoutManifest.self, from: jsonData!)
-                            print("boaSDKManifestModel \(boaSDKManifestModel)")
-                            
-                        }
-                        catch
-                        {
-                            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-                        }
-                    }
-                     sdkManifestM = try BOASDKManifest.fromJSON(json: self.latestSDKManifestJSONString(), encoding: String.Encoding.utf8, error: manifestReadError)
-                    self.sdkManifestModel = sdkManifestM
-                }
-                catch
-                {
-                    BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-                    
-                    if let errorString = (error as? NSError)?.userInfo
-                    {
-                        callback(false, BOErrorAdditions.boError(forDict: errorString))
-                    }
-                    else
-                    {
-                        callback(false, BOErrorAdditions.boError(forDict:[:]))
-                    }
-                }
-            }
+            
+            //TODO: have removed model null & refill scenario, add again if needed
+
             callback(isSuccess,error)
         }
     }
@@ -130,24 +98,47 @@ class BOASDKManifestController:NSObject {
         
         let api = BOManifestAPI()
         
-        api.getManifestDataModel { responseObject, data in
+        api.getManifestModel { responseObject in
             
             if (responseObject == nil) {
                 self.isSyncedNow = false
                 callback(false, nil)
                 return
             }
-            let sdkManifestM = responseObject as? BOASDKManifest
-            self.sdkManifestModel = sdkManifestM
-            let manifestJSONStr = String(data: data as! Data, encoding: .utf8)
-            self.sdkManifestPath(afterWriting: manifestJSONStr ?? "")
-            self.isSyncedNow = true
-            callback(true, nil)
+            
+            self.manifestModel = responseObject
+            
+            //TODO: change the storage methods used here
+            
+            do{
+                let manifestData = try JSONEncoder().encode(responseObject)
+                let manifestJSONStr = String(data: manifestData , encoding: .utf8)
+                self.sdkManifestPath(afterWriting: manifestJSONStr ?? "")
+                self.isSyncedNow = true
+                callback(true, nil)
+            }
+            catch
+            {
+                self.isSyncedNow = false
+                callback(false, error)
+            }
+            
             
         } failure: { error in
             self.isSyncedNow = false
             callback(false, error)
         }
+
+    }
+    
+    
+    func getManifestVariableModel(manifest:ManifestModel,  forID: Int)-> ManifestVariableModel?
+    {
+        //TODO:test this
+        if let match = manifest.variables.first( where: { forID == Int($0.variableId)} ) {
+            return match
+        }
+        return nil
     }
     
     func getManifestVariable(_ manifest: BOASDKManifest, forID ID: Int) -> BOASDKVariable? {
@@ -172,20 +163,24 @@ class BOASDKManifestController:NSObject {
             if manifestStr == nil {
                 return
             }
-            if sdkManifestModel == nil && manifestStr != nil && (manifestStr != "") {
-                var manifestReadError: Error? = nil
-                let sdkManifestM = try BOASDKManifest.fromJSON(json: manifestStr, encoding: String.Encoding.utf8, error: manifestReadError)
-                sdkManifestModel = sdkManifestM
-            }
+           
+           if manifestModel == nil {
+               return
+           }
+           
+           //TODO: remove this code later, looks unreachable
+//           if manifestModel == nil && (manifestStr != ""){
+//
+//               let sdkManifestM = try BOASDKManifest.fromJSON(json: manifestStr, encoding: String.Encoding.utf8, error: manifestReadError)
+//               manifestModel = sdkManifestM
+//           }
+           
+           let systemEvents = getManifestVariableModel(manifest: manifestModel!, forID: MANIFEST_SYSTEM_EVENTS)
+           if let systemEvents = systemEvents {
+               enabledSystemEvents = systemEvents.value.components(separatedBy: ",")
+           }
 
-            if sdkManifestModel == nil {
-                return
-            }
-            let systemEvents = getManifestVariable(sdkManifestModel!, forID: MANIFEST_SYSTEM_EVENTS)
-            if let systemEvents = systemEvents {
-                enabledSystemEvents = systemEvents.value?.components(separatedBy: ",")
-            }
-
+           /*
             let piiKey = getManifestVariable(sdkManifestModel!, forID: MANIFEST_PII_PUBLIC_KEY)
             if let piiKey = piiKey {
                 piiPublicKey = piiKey.value
@@ -195,6 +190,7 @@ class BOASDKManifestController:NSObject {
             if let phiKey = phiKey {
                 phiPublickey = phiKey.value
             }
+            */
             
         } catch {
             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
