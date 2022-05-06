@@ -249,18 +249,20 @@ class BOReachability:NSObject {
     }
     
     func currentReachabilityStatus() -> BONetworkStatus {
-        assert(reachabilityRef != nil, "currentNetworkStatus called with NULL reachabilityRef")
+        //todo uncomment later   assert(reachabilityRef != nil, "currentNetworkStatus called with NULL reachabilityRef")
         var returnValue = BONetworkStatus.boNotReachable
         var flags: SCNetworkReachabilityFlags = SCNetworkReachabilityFlags()
+        //TOD
         
-        if SCNetworkReachabilityGetFlags(reachabilityRef!, &flags) {
-            if localWiFiRef {
-                returnValue = localWiFiStatusForFlags(flags: flags)
-            } else {
-                returnValue = networkStatus(for: flags)
+        if reachabilityRef != nil{
+            if SCNetworkReachabilityGetFlags(reachabilityRef!, &flags) {
+                if localWiFiRef {
+                    returnValue = localWiFiStatusForFlags(flags: flags)
+                } else {
+                    returnValue = networkStatus(for: flags)
+                }
             }
         }
-        
         return returnValue
     }
     

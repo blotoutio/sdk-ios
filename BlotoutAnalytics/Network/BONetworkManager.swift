@@ -17,6 +17,7 @@ import Foundation
 class BONetworkManager:NSObject{
     
     
+    
     class func asyncRequest(
         _ request: URLRequest?,
         success successBlock_: @escaping (Any?, URLResponse?) -> Void,
@@ -28,6 +29,7 @@ class BONetworkManager:NSObject{
                 return
             }
             
+            //TODO: fix this, always failing
             
             let netpromise = BOFNetworkPromise(urlRequest: request, completionHandler: { urlResponse, dataOrLocation, error in
                 let httpRes = urlResponse as? HTTPURLResponse
@@ -36,7 +38,7 @@ class BONetworkManager:NSObject{
                 } else {
                     failureBlock_(dataOrLocation, urlResponse, error)
                 }
-                BOFLogDebug(frmt: "urlResponse:%@  dataOrLocation:%@ error:%@ urlResponse_statusCode:%ld allHeaderFields:%@", args: urlResponse as! CVarArg, dataOrLocation as! CVarArg , error as! CVarArg, httpRes?.statusCode as! CVarArg, httpRes?.allHeaderFields as! CVarArg)
+                BOFLogDebug(frmt: "urlResponse:%@  dataOrLocation:%@ error:%@ urlResponse_statusCode:%ld allHeaderFields:%@", args: urlResponse as! CVarArg, dataOrLocation as! CVarArg , error?.localizedDescription as! CVarArg, httpRes?.statusCode as! CVarArg, httpRes?.allHeaderFields as! CVarArg)
             })
             //                                                   else {
             //                    return failureBlock_(dataOrLocation, urlResponse, error)

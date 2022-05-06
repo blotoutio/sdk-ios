@@ -10,13 +10,13 @@ import UIKit
 import AppTrackingTransparency
 import AdSupport
 
-class BlotoutAnalytics:NSObject {
+public class BlotoutAnalytics:NSObject {
     
-    static let sharedInstance = BlotoutAnalytics()
+    public static let sharedInstance = BlotoutAnalytics()
     /// Enable the sending of analytics data. Enabled by default. Set NO to stop sending data
     var enable = false
     /// Enable SDK Log Information
-    var enableSDKLog = false
+    public var enableSDKLog = false
     var isEnabled = false
     
     var config: BlotoutAnalyticsConfiguration!
@@ -59,7 +59,7 @@ class BlotoutAnalytics:NSObject {
     }
     
     //TODO: fix name properly
-    func initandCompletionHandler(configuration: BlotoutAnalyticsConfiguration, andCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
+   public func initandCompletionHandler(configuration: BlotoutAnalyticsConfiguration, andCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
 
             if !validateData(configuration) {
                 let initError = NSError(domain: "io.blotout.analytics", code: 100002, userInfo: [
@@ -107,14 +107,15 @@ class BlotoutAnalytics:NSObject {
     
     
     func checkManifestAndInitAnalytics(withCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
+        
+         //TODO: commented to try new network layer
 
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if sdkManifesCtrl.isManifestAvailable() {
                 sdkManifesCtrl.reloadManifestData()
             }
-            
-            
-            fetchManifest({ isSuccess, error in
+        
+          fetchManifest({ isSuccess, error in
                 if !isSuccess {
                     let serverInitError = NSError(domain: "io.blotout.analytics", code: 100003, userInfo: [
                         "userInfo": "Server Sync failed, check your keys & network connection"
@@ -124,11 +125,26 @@ class BlotoutAnalytics:NSObject {
                 }
                 completionHandler(isSuccess, error)
             })
+        
+        
     }
     
     func fetchManifest(_ callback: ((_ isSuccess: Bool, _ error: Error?) -> Void)? = nil) {
 
             let sdkManifest = try BOASDKManifestController.sharedInstance
+        //Should replace this with new api call
+        
+        /*  ServiceLayer.request(router: BOARouter.getManifest) { (result: Result<ManifestModel, Error>) in
+              switch result {
+              case .success:
+                  print(result)
+              case .failure:
+                  print(result)
+              }
+          }
+         */
+        
+        
             sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
                 callback?(isSuccess, error)
             })
@@ -173,7 +189,7 @@ class BlotoutAnalytics:NSObject {
         }
     }
     
-    func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?) {
+  public  func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?) {
 
              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 capture(eventName, withInformation: eventInfo, withType: BO_CODIFIED, withEventCode: NSNumber(value: 0))
@@ -181,7 +197,7 @@ class BlotoutAnalytics:NSObject {
         
     }
     
-    func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?, withType type: String?, withEventCode eventCode: NSNumber?) {
+    public func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?, withType type: String?, withEventCode eventCode: NSNumber?) {
             if !isEnabled {
                 return
             }

@@ -8,7 +8,7 @@
 import Foundation
 import StoreKit
 
-class BOAStoreKitController:NSObject, SKProductsRequestDelegate {
+class BOAStoreKitController:NSObject, SKProductsRequestDelegate,SKPaymentTransactionObserver {
     private var transactions: [AnyHashable : Any]?
     private var productRequests: [AnyHashable : Any]?
     private var config: BlotoutAnalyticsConfiguration?

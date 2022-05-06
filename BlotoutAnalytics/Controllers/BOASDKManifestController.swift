@@ -42,7 +42,24 @@ class BOASDKManifestController:NSObject {
                 var sdkManifestM:BOASDKManifest? = nil
                 
                 do{
-                    sdkManifestM = try BOASDKManifest.fromJSON(json: self.latestSDKManifestJSONString(), encoding: String.Encoding.utf8, error: manifestReadError)
+                    //instead of this, passing to new model which will give blotoutManifest
+                    
+                    let decoder = JSONDecoder()
+                    let jsonString = self.latestSDKManifestJSONString()
+                    let jsonData = jsonString?.data(using: String.Encoding.utf8)
+                    if jsonData != nil
+                    {
+                        do{
+                            let boaSDKManifestModel = try decoder.decode(BlotoutManifest.self, from: jsonData!)
+                            print("boaSDKManifestModel \(boaSDKManifestModel)")
+                            
+                        }
+                        catch
+                        {
+                            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
+                        }
+                    }
+                     sdkManifestM = try BOASDKManifest.fromJSON(json: self.latestSDKManifestJSONString(), encoding: String.Encoding.utf8, error: manifestReadError)
                     self.sdkManifestModel = sdkManifestM
                 }
                 catch

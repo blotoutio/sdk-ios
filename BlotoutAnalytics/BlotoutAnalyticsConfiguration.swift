@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol BOAApplicationProtocol: UIApplication {
+public protocol BOAApplicationProtocol: UIApplication {
     var delegate: UIApplicationDelegate? { get set }
     func boa_beginBackgroundTask(withName taskName: String?, expirationHandler handler: (() -> Void)?) -> UIBackgroundTaskIdentifier
     func boa_endBackgroundTask(_ identifier: UIBackgroundTaskIdentifier)
@@ -32,7 +32,7 @@ extension UIApplication {
     
 }
 
-class BlotoutAnalyticsConfiguration:NSObject {
+public class BlotoutAnalyticsConfiguration:NSObject {
 
     /// Application token that you can get in your dashboard
     private(set) var token = ""
@@ -49,15 +49,15 @@ class BlotoutAnalyticsConfiguration:NSObject {
     /// Set a your own implementation for encrption/decryption local data.
    // var crypto: BOACrypto?
     /// Dictionary indicating the options the app was launched with.
-    var launchOptions: [AnyHashable : Any]?
+   public var launchOptions: [AnyHashable : Any]?
     /// Leave this nil for iOS extensions, otherwise set to UIApplication.sharedApplication.
-    var application: BOAApplicationProtocol?
+   public var application: BOAApplicationProtocol?
     
-    class func configuration(withToken token: String, withUrl endPointUrl: String) -> Self {
+   public class func configuration(withToken token: String, withUrl endPointUrl: String) -> Self {
         return BlotoutAnalyticsConfiguration(token: token, withUrl: endPointUrl) as! Self
     }
 
-    convenience init(token: String, withUrl endPointUrl: String) {
+    public convenience init(token: String, withUrl endPointUrl: String) {
         self.init()
             self.token = token
             self.endPointUrl = endPointUrl
@@ -72,8 +72,11 @@ class BlotoutAnalyticsConfiguration:NSObject {
                 //#pragma clang diagnostic push
                 //#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                 
-                let unmanagedObject: Unmanaged<AnyObject> = (applicationClass ).perform(NSSelectorFromString("sharedApplication"))
-                application = unmanagedObject.takeRetainedValue() as? BOAApplicationProtocol
+                application = UIApplication.shared.delegate as? BOAApplicationProtocol
+
+                
+             //   let unmanagedObject: Unmanaged<AnyObject> = (applicationClass ).perform(NSSelectorFromString("sharedApplication"))
+              //  application = unmanagedObject.takeRetainedValue() as? BOAApplicationProtocol
                 //TODO: this needs testing
                 //applicationClass.perform(NSSelectorFromString("sharedApplication"))
                 //#pragma clang diagnostic pop

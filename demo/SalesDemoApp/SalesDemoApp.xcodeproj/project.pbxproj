@@ -37,46 +37,34 @@
 		2B9FAC54233A778C002F8E96 /* MXScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC4A233A778C002F8E96 /* MXScrollViewController.m */; };
 		2B9FAC57233A7B3C002F8E96 /* ParallexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC56233A7B3C002F8E96 /* ParallexViewController.m */; };
 		2B9FAC5A23449D45002F8E96 /* ListItemCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */; };
+		68D476B1282191CE0064C347 /* BlotoutAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D476AD2821919D0064C347 /* BlotoutAnalytics.framework */; };
+		68D476B2282191CE0064C347 /* BlotoutAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68D476AD2821919D0064C347 /* BlotoutAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		68E788B0278C52E9001227BB /* BlotoutAnalyticsSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68E788AF278C52E9001227BB /* BlotoutAnalyticsSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2BAB519225F8E7F50017E840 /* PBXContainerItemProxy */ = {
+		68D476AC2821919D0064C347 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
+			containerPortal = 68D476A82821919D0064C347 /* BlotoutAnalytics.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 7435E8C122E99062008480B8;
+			remoteGlobalIDString = 680A00E4280952BB00AB0DBC;
 			remoteInfo = BlotoutAnalytics;
 		};
-		2BAB519425F8E7F50017E840 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 74A92C8F22EB07EB006BE5AD;
-			remoteInfo = BlotoutAnalyticsTVOS;
-		};
-		2BAB519625F8E7F50017E840 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 74A92CA522EB07FD006BE5AD;
-			remoteInfo = BlotoutAnalyticsWatchOS;
-		};
-		2BAB519825F8E7F50017E840 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 74A92CB222EB0811006BE5AD;
-			remoteInfo = BlotoutAnalyticsMacOS;
-		};
-		2BAB519A25F8E7F50017E840 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E843AD3E249E0791006C10CE;
-			remoteInfo = BlotoutAnalyticsTests;
-		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		68D476B3282191CE0064C347 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				68D476B2282191CE0064C347 /* BlotoutAnalytics.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2B6F3A2C26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,12 +126,9 @@
 		2B9FAC56233A7B3C002F8E96 /* ParallexViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParallexViewController.m; sourceTree = "<group>"; };
 		2B9FAC5823449D42002F8E96 /* ListItemCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItemCartViewController.m; sourceTree = "<group>"; };
 		2B9FAC5923449D45002F8E96 /* ListItemCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItemCartViewController.h; sourceTree = "<group>"; };
-		2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutAnalytics.xcodeproj; path = ../../BlotoutAnalytics/BlotoutAnalytics.xcodeproj; sourceTree = "<group>"; };
-		51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesDemoApp.debug.xcconfig"; path = "Target Support Files/Pods-SalesDemoApp/Pods-SalesDemoApp.debug.xcconfig"; sourceTree = "<group>"; };
+		68D476A82821919D0064C347 /* BlotoutAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BlotoutAnalytics.xcodeproj; path = ../../BlotoutAnalytics.xcodeproj; sourceTree = "<group>"; };
 		68E788AB278C5113001227BB /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68E788AF278C52E9001227BB /* BlotoutAnalyticsSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BlotoutAnalyticsSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C8DEA39F957B117583F0D054 /* Pods_SalesDemoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SalesDemoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SalesDemoApp.release.xcconfig"; path = "Target Support Files/Pods-SalesDemoApp/Pods-SalesDemoApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +139,7 @@
 				68E788B0278C52E9001227BB /* BlotoutAnalyticsSDK.framework in Frameworks */,
 				2B9FABE92338E26E002F8E96 /* ImageIO.framework in Frameworks */,
 				2B9FABC723373901002F8E96 /* libxml2.tbd in Frameworks */,
+				68D476B1282191CE0064C347 /* BlotoutAnalytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,11 +149,10 @@
 		2B9FAB532337279C002F8E96 = {
 			isa = PBXGroup;
 			children = (
-				2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */,
+				68D476A82821919D0064C347 /* BlotoutAnalytics.xcodeproj */,
 				2B9FAB5E2337279C002F8E96 /* SalesDemoApp */,
 				2B9FAB5D2337279C002F8E96 /* Products */,
 				2B9FABC5233738FF002F8E96 /* Frameworks */,
-				7D7FAF092C168A9627768E05 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,7 +235,6 @@
 				2B6F3A2C26CC0157004C11A3 /* BlotoutAnalyticsSDK.framework */,
 				2B9FABE82338E26E002F8E96 /* ImageIO.framework */,
 				2B9FABC623373901002F8E96 /* libxml2.tbd */,
-				C8DEA39F957B117583F0D054 /* Pods_SalesDemoApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -294,25 +278,12 @@
 			path = MXParallaxHeader;
 			sourceTree = "<group>";
 		};
-		2BAB518A25F8E7F50017E840 /* Products */ = {
+		68D476A92821919D0064C347 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2BAB519325F8E7F50017E840 /* libBlotoutAnalytics.a */,
-				2BAB519525F8E7F50017E840 /* libBlotoutAnalyticsTVOS.a */,
-				2BAB519725F8E7F50017E840 /* libBlotoutAnalyticsWatchOS.a */,
-				2BAB519925F8E7F50017E840 /* libBlotoutAnalyticsMacOS.a */,
-				2BAB519B25F8E7F50017E840 /* BlotoutAnalyticsTests.xctest */,
+				68D476AD2821919D0064C347 /* BlotoutAnalytics.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7D7FAF092C168A9627768E05 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */,
-				F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,10 +293,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2B9FAB722337279F002F8E96 /* Build configuration list for PBXNativeTarget "SalesDemoApp" */;
 			buildPhases = (
-				177023E0F9B1F2BC1874C36B /* [CP] Check Pods Manifest.lock */,
 				2B9FAB582337279C002F8E96 /* Sources */,
 				2B9FAB592337279C002F8E96 /* Frameworks */,
 				2B9FAB5A2337279C002F8E96 /* Resources */,
+				68D476B3282191CE0064C347 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,8 +334,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 2BAB518A25F8E7F50017E840 /* Products */;
-					ProjectRef = 2BAB518925F8E7F50017E840 /* BlotoutAnalytics.xcodeproj */;
+					ProductGroup = 68D476A92821919D0064C347 /* Products */;
+					ProjectRef = 68D476A82821919D0064C347 /* BlotoutAnalytics.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -375,39 +346,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2BAB519325F8E7F50017E840 /* libBlotoutAnalytics.a */ = {
+		68D476AD2821919D0064C347 /* BlotoutAnalytics.framework */ = {
 			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlotoutAnalytics.a;
-			remoteRef = 2BAB519225F8E7F50017E840 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BAB519525F8E7F50017E840 /* libBlotoutAnalyticsTVOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlotoutAnalyticsTVOS.a;
-			remoteRef = 2BAB519425F8E7F50017E840 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BAB519725F8E7F50017E840 /* libBlotoutAnalyticsWatchOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlotoutAnalyticsWatchOS.a;
-			remoteRef = 2BAB519625F8E7F50017E840 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BAB519925F8E7F50017E840 /* libBlotoutAnalyticsMacOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBlotoutAnalyticsMacOS.a;
-			remoteRef = 2BAB519825F8E7F50017E840 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2BAB519B25F8E7F50017E840 /* BlotoutAnalyticsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = BlotoutAnalyticsTests.xctest;
-			remoteRef = 2BAB519A25F8E7F50017E840 /* PBXContainerItemProxy */;
+			fileType = wrapper.framework;
+			path = BlotoutAnalytics.framework;
+			remoteRef = 68D476AC2821919D0064C347 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -424,31 +367,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		177023E0F9B1F2BC1874C36B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SalesDemoApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2B9FAB582337279C002F8E96 /* Sources */ = {
@@ -621,7 +539,6 @@
 		};
 		2B9FAB732337279F002F8E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51351CA2AC5C8513992FECC6 /* Pods-SalesDemoApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -648,7 +565,6 @@
 		};
 		2B9FAB742337279F002F8E96 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2FAD92E043EDADB5B0E0B84 /* Pods-SalesDemoApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
