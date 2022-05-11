@@ -9,12 +9,12 @@ import Foundation
 enum BOARouter {
     
     case getManifest
-    //case getProductIds
-    //case getProductInfo
+    case postEventData
+    
 
     var scheme: String {
         switch self {
-        case .getManifest://, .getProductIds, .getProductInfo:
+        case .getManifest, .postEventData:
             return "https"
         }
     }
@@ -26,8 +26,8 @@ enum BOARouter {
     
     var host: String {
         switch self {
-        case .getManifest://, .getProductIds, .getProductInfo:
-            return getBaseServerUrl()//"shopicruit.myshopify.com"
+        case .getManifest, .postEventData:
+            return getBaseServerUrl()
         }
     }
 
@@ -37,33 +37,25 @@ enum BOARouter {
             return "/sdk/v1/manifest/pull" //TODO: update this later to include "/" BO_SDK_REST_API_MANIFEST_PULL_PATH
             
 
-      /*  case .getProductIds:
+       case . postEventData:
             return "/admin/collects.json"
-        case .getProductInfo:
-            return "/admin/products.json"*/
+           
         }
     }
 
     var parameters: [URLQueryItem] {
         let token = BlotoutAnalytics.sharedInstance.token ?? ""
         switch self {
-        case .getManifest:
+        case .getManifest,.postEventData:
             return [
                 URLQueryItem(name: "token", value: token)]
-       /* case .getProductIds:
-            return [URLQueryItem(name: "page", value: "1"),
-                URLQueryItem(name: "collection_id", value: "68424466488"),
-                URLQueryItem(name: "access_token", value: accessToken)]
-        case .getProductInfo:
-            return [URLQueryItem(name: "ids", value: "2759162243,2759143811"),
-                URLQueryItem(name: "page", value: "1"),
-                URLQueryItem(name: "access_token", value: accessToken)]*/
+      
         }
     }
 
     var method: String {
         switch self {
-        case .getManifest://, .getProductIds, .getProductInfo:
+        case .getManifest, .postEventData:
             return "POST"
         }
     }
@@ -71,7 +63,7 @@ enum BOARouter {
     //add this in request
     var headerFields:[String : String]{
         switch self {
-        case .getManifest://, .getProductIds, .getProductInfo:
+        case .getManifest, .postEventData:
            return [
                 BO_ACCEPT: "application/json",
                 BO_CONTENT_TYPE: "application/json"
@@ -85,6 +77,9 @@ enum BOARouter {
         case .getManifest:
             url = "\(getBaseServerUrl())/\(BO_SDK_REST_API_MANIFEST_PULL_PATH)"
             break
+        case .postEventData:
+            url = "\(getBaseServerUrl())/\(BO_SDK_REST_API_EVENTS_PUSH_PATH)"
+
         }
         
         let token = BlotoutAnalytics.sharedInstance.token ?? ""

@@ -13,7 +13,7 @@ class BOManifestAPI:BOBaseAPI {
     
     func getManifestModel(_ success: @escaping (_ responseObject: ManifestModel?) -> Void, failure: @escaping (_ error: Error?) -> Void)
     {
-        ServiceLayer.request(router: BOARouter.getManifest) { (result: Result<ManifestModel, Error>) in
+        ServiceLayer.requestToGetModel(router: BOARouter.getManifest, body: nil) { (result: Result<ManifestModel?, Error>) in
             switch result {
             case .success(let manifestModel):
                 success(manifestModel)

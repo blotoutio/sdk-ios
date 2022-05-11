@@ -12,7 +12,7 @@ let BOAQueueKey = "BOAQueue"
 let kBOAQueueFilename = "blotout.queue.plist"
 
 class BOAEventsManager:NSObject {
-    private var queue: [AnyHashable] = []
+    private var queue: [Any] = []
     private var storage: BOAStorage?
     private var configuration: BlotoutAnalyticsConfiguration?
     private var flushTimer: Timer?
@@ -158,27 +158,35 @@ class BOAEventsManager:NSObject {
     
     
     func sendData(_ batch: [AnyHashable]) {
-            batchRequest = true
-            BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                let post = BOEventPostAPI()
-                let json = BOADeveloperEvents.prepareServerPayload(events: batch)
-                var error: Error? = nil
-                var data: Data? = nil
-                
-                post.postEventDataModel(data, withAPICode: BOUrlEndPoint.eventPublish, success: { [self] responseObject in
-                    BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                        queue = queue.filter({ !batch.contains($0) })
-                        persistQueue()
-                        batchRequest = false
-                        endBackgroundTask()
-                    })
-                }, failure: { [self] urlResponse, dataOrLocation, error in
+        batchRequest = true
+        BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
+            let post = BOEventPostAPI()
+            let json = BOADeveloperEvents.prepareServerPayload(events: batch)
+            var error: Error? = nil
+            do
+            {
+                let data: Data? = try JSONSerialization.data(withJSONObject: json, options: [])
+                post.postEventData(data) { success in
+                    //TODO: need to fix this
+                    queue = queue.filter({ !batch.contains($0 as? (AnyHashable) ?? "" as AnyHashable) })
+                    persistQueue()
+                    batchRequest = false
+                    endBackgroundTask()
+                    
+                } failure: { error in
                     batchRequest = false
                     BOFLogDebug(frmt: "%@", args: error?.localizedDescription as! CVarArg)
-                })
-            })
-
+                }
+            }
+            catch
+            {
+                batchRequest = false
+                BOFLogDebug(frmt: "%@", args: error.localizedDescription as! CVarArg)
+            }
+        })
     }
+
+
     
     func applicationDidEnterBackground() {
             beginBackgroundTask()
@@ -189,7 +197,7 @@ class BOAEventsManager:NSObject {
     
     func applicationWillTerminate() {
             BOEventsOperationExecutor.sharedInstance.dispatch(inBackgroundAndWait: { [self] in
-                if queue.count ?? 0 > 0 {
+                if queue.count > 0 {
                     persistQueue()
                 }
             })
@@ -197,7 +205,7 @@ class BOAEventsManager:NSObject {
     }
     
     //TODO: have changed name,need to verify code
-    func getQueue() -> [AnyHashable]? {
+    func getQueue() -> [Any]? {
         if (self.queue == nil) {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])

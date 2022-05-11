@@ -25,19 +25,19 @@ public class BlotoutAnalytics:NSObject {
     var endPointUrl: String?
     var token: String?
     
-    /*
+    
      //TODO : looks like this is not used anymore
      
-     init() {
+    override init() {
      super.init()
      isEnabled = true
      loadAsUIViewControllerBOFoundationCat()
-     loadAsNSDataBase64FoundationCat()
-     loadAsNSDataCommonDigestFoundationCat()
-     loadAsNSStringBase64FoundationCat()
-     BOSharedManager.sharedInstance()
+    // loadAsNSDataBase64FoundationCat()
+    // loadAsNSDataCommonDigestFoundationCat()
+    // loadAsNSStringBase64FoundationCat()
+     BOSharedManager.sharedInstance
      }
-     */
+     
     
     func setIsEnabled(_ isEnabled: Bool) {
 

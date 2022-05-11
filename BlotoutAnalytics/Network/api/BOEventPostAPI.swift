@@ -10,6 +10,24 @@ import Foundation
 
 class BOEventPostAPI:BOBaseAPI {
     
+    
+    
+    func postEventData(_ eventData: Data?,_ success: @escaping (_ success: Bool?) -> Void, failure: @escaping (_ error: Error?) -> Void)
+    {
+        ServiceLayer.request(router: BOARouter.postEventData, body: eventData) { (result: Result<Bool, Error>) in
+        
+            switch result {
+            case .success:
+                success(true)
+                print(result)
+            case .failure(let manifestError):
+                failure(manifestError)
+                print(result)
+            }
+        }
+    }
+    
+    
     func postEventDataModel(_ eventData: Data?, withAPICode urlEndPoint: BOUrlEndPoint, success: @escaping (_ responseObject: Any?) -> Void, failure: @escaping (_ urlResponse: URLResponse?, _ dataOrLocation: Any?, _ error: Error?) -> Void) {
         do{
             let apiEndPoint = resolveAPIEndPoint(urlEndPoint)
