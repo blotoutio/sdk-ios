@@ -6,6 +6,13 @@
 //
 
 import Foundation
+
+
+public enum BOUrlEndPoint : Int {
+     case eventPublish = 0
+     case manifestPull
+ }
+
 enum BOARouter {
     
     case getManifest
@@ -23,6 +30,7 @@ enum BOARouter {
     func getBaseServerUrl() -> String {
         return BlotoutAnalytics.sharedInstance.endPointUrl ?? ""
     }
+
     
     var host: String {
         switch self {

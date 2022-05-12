@@ -475,11 +475,8 @@ class BOFFileSystemManager:NSObject {
     
     class func getBOSDKRootDirecotyPossibleExistancePath() -> String? {
             var systemRootDirectory: String? = nil
-            if IS_OS_6_OR_LATER {
                 systemRootDirectory = getApplicationSupportDirectoryPath()
-            } else {
-                systemRootDirectory = getDocumentDirectoryPath()
-            }
+            
             let BOFSDKRootDir = URL(fileURLWithPath: systemRootDirectory ?? "").appendingPathComponent(kBOSDKRootDirectoryName).path
             
             return BOFSDKRootDir

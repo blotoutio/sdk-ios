@@ -40,7 +40,7 @@ class BOAEventsManager:NSObject {
             userInfo: nil,
             repeats: true)
         
-        RunLoop.main.add(flushTimer!, forMode: .default)        
+        RunLoop.main.add(flushTimer!, forMode: .default)
         setQueueValue()
     }
     

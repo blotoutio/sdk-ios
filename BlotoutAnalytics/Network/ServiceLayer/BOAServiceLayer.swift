@@ -98,8 +98,6 @@ class ServiceLayer {
             guard response != nil, let data = data else {
                 return
             }
-
-              //  let responseObject = try JSONDecoder().decode(T.self, from: data)
                 
                 DispatchQueue.main.async {
                     

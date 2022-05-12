@@ -8,7 +8,7 @@
 import Foundation
 
 
-class BOEventPostAPI:BOBaseAPI {
+class BOEventPostAPI:NSObject {
     
     
     

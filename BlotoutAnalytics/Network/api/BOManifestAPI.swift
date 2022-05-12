@@ -8,7 +8,7 @@
 import Foundation
 
 
-class BOManifestAPI:BOBaseAPI {
+class BOManifestAPI:NSObject {
     
     
     func getManifestModel(_ success: @escaping (_ responseObject: ManifestModel?) -> Void, failure: @escaping (_ error: Error?) -> Void)
