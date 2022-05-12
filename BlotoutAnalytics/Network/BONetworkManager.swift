@@ -16,7 +16,7 @@ import Foundation
 
 class BONetworkManager:NSObject{
     
-    
+    /*
     
     class func asyncRequest(
         _ request: URLRequest?,
@@ -47,5 +47,6 @@ class BONetworkManager:NSObject{
             
             BOFNetworkPromiseExecutor.sharedInstance.execute(netpromise!)
             
-        }
+        }*/
+    
 }

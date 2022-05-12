@@ -27,7 +27,7 @@ class BOEventPostAPI:BOBaseAPI {
         }
     }
     
-    
+    /*
     func postEventDataModel(_ eventData: Data?, withAPICode urlEndPoint: BOUrlEndPoint, success: @escaping (_ responseObject: Any?) -> Void, failure: @escaping (_ urlResponse: URLResponse?, _ dataOrLocation: Any?, _ error: Error?) -> Void) {
         do{
             let apiEndPoint = resolveAPIEndPoint(urlEndPoint)
@@ -74,5 +74,5 @@ class BOEventPostAPI:BOBaseAPI {
                 failure(dataResponse, data, error)
             }
     }
-}
+}*/
 }
