@@ -7,18 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68055117280ED66E00F37FA4 /* BONetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68055116280ED66E00F37FA4 /* BONetworkManager.swift */; };
 		6805511A280ED74C00F37FA4 /* BOManifestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68055119280ED74C00F37FA4 /* BOManifestAPI.swift */; };
 		6805511C280ED84000F37FA4 /* BOBaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6805511B280ED84000F37FA4 /* BOBaseAPI.swift */; };
 		6805511E280ED8DB00F37FA4 /* BOEventPostAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6805511D280ED8DB00F37FA4 /* BOEventPostAPI.swift */; };
 		68055120280ED99000F37FA4 /* BOAFileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6805511F280ED99000F37FA4 /* BOAFileStorage.swift */; };
 		68055122280EDE6100F37FA4 /* BOAUserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68055121280EDE6100F37FA4 /* BOAUserDefaultsStorage.swift */; };
 		68055126280EE00D00F37FA4 /* BOAStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68055125280EE00D00F37FA4 /* BOAStorage.swift */; };
-		6805512C282158AB00F37FA4 /* BOASDKVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6805512B282158AA00F37FA4 /* BOASDKVariable.swift */; };
 		6805512E28218C9500F37FA4 /* BOAManifestVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6805512D28218C9500F37FA4 /* BOAManifestVariable.swift */; };
 		680A00E8280952BB00AB0DBC /* BlotoutAnalytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 680A00E7280952BB00AB0DBC /* BlotoutAnalytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		680A00EF2809536300AB0DBC /* BlotoutAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A00EE2809536300AB0DBC /* BlotoutAnalytics.swift */; };
-		680A00F32809795F00AB0DBC /* BOFNetworkPromiseExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A00F22809795F00AB0DBC /* BOFNetworkPromiseExecutor.swift */; };
 		680A00F828097EB700AB0DBC /* BOFFileSystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A00F728097EB700AB0DBC /* BOFFileSystemManager.swift */; };
 		680A00FB28097FFF00AB0DBC /* BOFLogs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A00FA28097FFF00AB0DBC /* BOFLogs.swift */; };
 		680A00FD2809807700AB0DBC /* BlotoutAnalyticsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A00FC2809807700AB0DBC /* BlotoutAnalyticsConfiguration.swift */; };
@@ -32,7 +29,6 @@
 		680A0121280AE39300AB0DBC /* TransactionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011A280AE39300AB0DBC /* TransactionData.swift */; };
 		680A0122280AE39300AB0DBC /* BOACaptureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011B280AE39300AB0DBC /* BOACaptureModel.swift */; };
 		680A0123280AE39300AB0DBC /* Persona.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011C280AE39300AB0DBC /* Persona.swift */; };
-		680A0124280AE39300AB0DBC /* BOASDKManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011D280AE39300AB0DBC /* BOASDKManifest.swift */; };
 		680A0125280AE39300AB0DBC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011E280AE39300AB0DBC /* Item.swift */; };
 		680A0126280AE39300AB0DBC /* BOAMapIDDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A011F280AE39300AB0DBC /* BOAMapIDDataModel.swift */; };
 		680A0127280AE39300AB0DBC /* BOAItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0120280AE39300AB0DBC /* BOAItem.swift */; };
@@ -40,11 +36,8 @@
 		680A012C280D487500AB0DBC /* BOSharedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A012B280D487500AB0DBC /* BOSharedManager.swift */; };
 		680A012F280D49EA00AB0DBC /* BOADeveloperEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A012D280D49E900AB0DBC /* BOADeveloperEvents.swift */; };
 		680A0130280D49EA00AB0DBC /* BOASystemEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A012E280D49EA00AB0DBC /* BOASystemEvents.swift */; };
-		680A0133280D67C500AB0DBC /* BOFNetworkPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0131280D67C500AB0DBC /* BOFNetworkPromise.swift */; };
-		680A0134280D67C500AB0DBC /* BOFNetworkPromiseProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0132280D67C500AB0DBC /* BOFNetworkPromiseProtocols.swift */; };
 		680A013A280D684600AB0DBC /* BOFUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0137280D684600AB0DBC /* BOFUserDefaults.swift */; };
 		680A013B280D684600AB0DBC /* BOFUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0138280D684600AB0DBC /* BOFUtilities.swift */; };
-		680A0148280D6ECD00AB0DBC /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0147280D6ECD00AB0DBC /* UIViewController+Extensions.swift */; };
 		680A014A280D715D00AB0DBC /* BOServerDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */; };
 		680A014C280D7A0600AB0DBC /* NSError+BOAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */; };
 		68591C2F282C5B9E00A23281 /* BOAReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68591C2E282C5B9E00A23281 /* BOAReachability.swift */; };
@@ -54,19 +47,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		68055116280ED66E00F37FA4 /* BONetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BONetworkManager.swift; sourceTree = "<group>"; };
 		68055119280ED74C00F37FA4 /* BOManifestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOManifestAPI.swift; sourceTree = "<group>"; };
 		6805511B280ED84000F37FA4 /* BOBaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOBaseAPI.swift; sourceTree = "<group>"; };
 		6805511D280ED8DB00F37FA4 /* BOEventPostAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOEventPostAPI.swift; sourceTree = "<group>"; };
 		6805511F280ED99000F37FA4 /* BOAFileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAFileStorage.swift; sourceTree = "<group>"; };
 		68055121280EDE6100F37FA4 /* BOAUserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAUserDefaultsStorage.swift; sourceTree = "<group>"; };
 		68055125280EE00D00F37FA4 /* BOAStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAStorage.swift; sourceTree = "<group>"; };
-		6805512B282158AA00F37FA4 /* BOASDKVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOASDKVariable.swift; sourceTree = "<group>"; };
 		6805512D28218C9500F37FA4 /* BOAManifestVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAManifestVariable.swift; sourceTree = "<group>"; };
 		680A00E4280952BB00AB0DBC /* BlotoutAnalytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlotoutAnalytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		680A00E7280952BB00AB0DBC /* BlotoutAnalytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlotoutAnalytics.h; sourceTree = "<group>"; };
 		680A00EE2809536300AB0DBC /* BlotoutAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlotoutAnalytics.swift; sourceTree = "<group>"; };
-		680A00F22809795F00AB0DBC /* BOFNetworkPromiseExecutor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFNetworkPromiseExecutor.swift; sourceTree = "<group>"; };
 		680A00F728097EB700AB0DBC /* BOFFileSystemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFFileSystemManager.swift; sourceTree = "<group>"; };
 		680A00FA28097FFF00AB0DBC /* BOFLogs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFLogs.swift; sourceTree = "<group>"; };
 		680A00FC2809807700AB0DBC /* BlotoutAnalyticsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlotoutAnalyticsConfiguration.swift; sourceTree = "<group>"; };
@@ -80,7 +70,6 @@
 		680A011A280AE39300AB0DBC /* TransactionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionData.swift; sourceTree = "<group>"; };
 		680A011B280AE39300AB0DBC /* BOACaptureModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOACaptureModel.swift; sourceTree = "<group>"; };
 		680A011C280AE39300AB0DBC /* Persona.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persona.swift; sourceTree = "<group>"; };
-		680A011D280AE39300AB0DBC /* BOASDKManifest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOASDKManifest.swift; sourceTree = "<group>"; };
 		680A011E280AE39300AB0DBC /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		680A011F280AE39300AB0DBC /* BOAMapIDDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOAMapIDDataModel.swift; sourceTree = "<group>"; };
 		680A0120280AE39300AB0DBC /* BOAItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOAItem.swift; sourceTree = "<group>"; };
@@ -88,11 +77,8 @@
 		680A012B280D487500AB0DBC /* BOSharedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOSharedManager.swift; sourceTree = "<group>"; };
 		680A012D280D49E900AB0DBC /* BOADeveloperEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOADeveloperEvents.swift; sourceTree = "<group>"; };
 		680A012E280D49EA00AB0DBC /* BOASystemEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOASystemEvents.swift; sourceTree = "<group>"; };
-		680A0131280D67C500AB0DBC /* BOFNetworkPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFNetworkPromise.swift; sourceTree = "<group>"; };
-		680A0132280D67C500AB0DBC /* BOFNetworkPromiseProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFNetworkPromiseProtocols.swift; sourceTree = "<group>"; };
 		680A0137280D684600AB0DBC /* BOFUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFUserDefaults.swift; sourceTree = "<group>"; };
 		680A0138280D684600AB0DBC /* BOFUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BOFUtilities.swift; sourceTree = "<group>"; };
-		680A0147280D6ECD00AB0DBC /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOServerDataConverter.swift; sourceTree = "<group>"; };
 		680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+BOAdditions.swift"; sourceTree = "<group>"; };
 		68591C2E282C5B9E00A23281 /* BOAReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAReachability.swift; sourceTree = "<group>"; };
@@ -172,9 +158,6 @@
 		680A00F12809794300AB0DBC /* BOFNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				680A0131280D67C500AB0DBC /* BOFNetworkPromise.swift */,
-				680A0132280D67C500AB0DBC /* BOFNetworkPromiseProtocols.swift */,
-				680A00F22809795F00AB0DBC /* BOFNetworkPromiseExecutor.swift */,
 			);
 			path = BOFNetwork;
 			sourceTree = "<group>";
@@ -239,8 +222,6 @@
 				680A011B280AE39300AB0DBC /* BOACaptureModel.swift */,
 				680A0120280AE39300AB0DBC /* BOAItem.swift */,
 				680A011F280AE39300AB0DBC /* BOAMapIDDataModel.swift */,
-				6805512B282158AA00F37FA4 /* BOASDKVariable.swift */,
-				680A011D280AE39300AB0DBC /* BOASDKManifest.swift */,
 				680A011E280AE39300AB0DBC /* Item.swift */,
 				680A011C280AE39300AB0DBC /* Persona.swift */,
 				680A011A280AE39300AB0DBC /* TransactionData.swift */,
@@ -254,7 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				680A012B280D487500AB0DBC /* BOSharedManager.swift */,
-				680A0147280D6ECD00AB0DBC /* UIViewController+Extensions.swift */,
 			);
 			path = Extention;
 			sourceTree = "<group>";
@@ -276,7 +256,6 @@
 				68D476E12821E00F0064C347 /* Router */,
 				68055118280ED73C00F37FA4 /* api */,
 				680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */,
-				68055116280ED66E00F37FA4 /* BONetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -397,7 +376,6 @@
 				68055120280ED99000F37FA4 /* BOAFileStorage.swift in Sources */,
 				680A012C280D487500AB0DBC /* BOSharedManager.swift in Sources */,
 				680A013A280D684600AB0DBC /* BOFUserDefaults.swift in Sources */,
-				6805512C282158AB00F37FA4 /* BOASDKVariable.swift in Sources */,
 				680A00FB28097FFF00AB0DBC /* BOFLogs.swift in Sources */,
 				68055126280EE00D00F37FA4 /* BOAStorage.swift in Sources */,
 				680A013B280D684600AB0DBC /* BOFUtilities.swift in Sources */,
@@ -405,7 +383,6 @@
 				680A014A280D715D00AB0DBC /* BOServerDataConverter.swift in Sources */,
 				680A0121280AE39300AB0DBC /* TransactionData.swift in Sources */,
 				680A0108280AD65600AB0DBC /* BOAUtilities.swift in Sources */,
-				680A0134280D67C500AB0DBC /* BOFNetworkPromiseProtocols.swift in Sources */,
 				680A00F828097EB700AB0DBC /* BOFFileSystemManager.swift in Sources */,
 				6805511A280ED74C00F37FA4 /* BOManifestAPI.swift in Sources */,
 				680A010B280ADD2200AB0DBC /* BOANetworkConstants.swift in Sources */,
@@ -414,22 +391,17 @@
 				680A00FD2809807700AB0DBC /* BlotoutAnalyticsConfiguration.swift in Sources */,
 				6805511E280ED8DB00F37FA4 /* BOEventPostAPI.swift in Sources */,
 				68591C2F282C5B9E00A23281 /* BOAReachability.swift in Sources */,
-				680A0148280D6ECD00AB0DBC /* UIViewController+Extensions.swift in Sources */,
 				68055122280EDE6100F37FA4 /* BOAUserDefaultsStorage.swift in Sources */,
 				68D476E32821E0210064C347 /* BOARouter.swift in Sources */,
 				680A00EF2809536300AB0DBC /* BlotoutAnalytics.swift in Sources */,
-				680A0133280D67C500AB0DBC /* BOFNetworkPromise.swift in Sources */,
 				680A0127280AE39300AB0DBC /* BOAItem.swift in Sources */,
 				680A0112280AE21600AB0DBC /* BOAStoreKitController.swift in Sources */,
-				680A00F32809795F00AB0DBC /* BOFNetworkPromiseExecutor.swift in Sources */,
 				680A012F280D49EA00AB0DBC /* BOADeveloperEvents.swift in Sources */,
-				68055117280ED66E00F37FA4 /* BONetworkManager.swift in Sources */,
 				68D476E82821E5B40064C347 /* ManifestModel.swift in Sources */,
 				6805512E28218C9500F37FA4 /* BOAManifestVariable.swift in Sources */,
 				680A0126280AE39300AB0DBC /* BOAMapIDDataModel.swift in Sources */,
 				680A0114280AE21600AB0DBC /* BOASDKManifestController.swift in Sources */,
 				680A0113280AE21600AB0DBC /* BOADeviceAndAppFraudController.swift in Sources */,
-				680A0124280AE39300AB0DBC /* BOASDKManifest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

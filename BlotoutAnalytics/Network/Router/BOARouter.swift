@@ -35,8 +35,6 @@ enum BOARouter {
         switch self {
         case .getManifest:
             return "/sdk/v1/manifest/pull" //TODO: update this later to include "/" BO_SDK_REST_API_MANIFEST_PULL_PATH
-            
-
        case . postEventData:
             return "/admin/collects.json"
            

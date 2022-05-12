@@ -16,17 +16,17 @@ let kBOSDKRootDirectoryName = "BOSDKRootDir"
 let kBOSDKVolatileRootDirectoryName = "BOVolatileRootDirectory"
 let kBOSDKNonVolatileRootDirectoryName = "BONonVolatileRootDirectory"
 let kBOSDKNonVolatileRootDirectoryName_Stage = "BONonVolatileRootDirectory_Stage"
-let kBOFNetworkPromiseDownloadDirectoryName = "BOFNetworkPromiseDownloads"
+//let kBOFNetworkPromiseDownloadDirectoryName = "BOFNetworkPromiseDownloads"
 let kBOFoundationDirectoryName = "BOFoundationDirectory"
 let kBOAnalyticsDirectoryName = "BOAnalyticsDirectory"
 let BO_SDK_ROOT_USER_DEFAULTS_KEY = "com.blotout.sdk.root"
 let BO_FOUNDATION_USER_DEFAULTS_KEY = "com.blotout.sdk.Foundation"
 let BO_SDK_DEFAULT_QUEUE = "com.blotout.sdk.defaultsqueue"
-let kBOFNetworkPromiseDefaultErrorDomain = "BOFNetworkPromiseNetworkSessionErrorDomain"
-let kBOFNetworkPromiseDefaultErrorCode = 90001
-let kBOFNetworkPromiseDefaultErrorUserInfo = [
-    "Description": "Not able to stablish session, either session or network promise task is null"
-]
+//let kBOFNetworkPromiseDefaultErrorDomain = "BOFNetworkPromiseNetworkSessionErrorDomain"
+//let kBOFNetworkPromiseDefaultErrorCode = 90001
+//let kBOFNetworkPromiseDefaultErrorUserInfo = [
+ //   "Description": "Not able to stablish session, either session or network promise task is null"
+//]
 let BOF_DEBUG = "BOF-DEBUG"
 let IS_OS_5_OR_LATER = Float(UIDevice.current.systemVersion) ?? 0.0 >= 5.0
 let IS_OS_6_OR_LATER = Float(UIDevice.current.systemVersion) ?? 0.0 >= 6.0

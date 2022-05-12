@@ -12,6 +12,8 @@ import AdSupport
 
 public class BlotoutAnalytics:NSObject {
     
+    //TODO: have remove uiviewcontroller + extensions, test if it is needed anywhere
+    
     public static let sharedInstance = BlotoutAnalytics()
     /// Enable the sending of analytics data. Enabled by default. Set NO to stop sending data
     var enable = false
@@ -25,16 +27,10 @@ public class BlotoutAnalytics:NSObject {
     var endPointUrl: String?
     var token: String?
     
-    
-     //TODO : looks like this is not used anymore
-     
+         
     override init() {
      super.init()
      isEnabled = true
-     loadAsUIViewControllerBOFoundationCat()
-    // loadAsNSDataBase64FoundationCat()
-    // loadAsNSDataCommonDigestFoundationCat()
-    // loadAsNSStringBase64FoundationCat()
      BOSharedManager.sharedInstance
      }
      
@@ -42,8 +38,8 @@ public class BlotoutAnalytics:NSObject {
     func setIsEnabled(_ isEnabled: Bool) {
 
         self.isEnabled = isEnabled
-        BOFNetworkPromiseExecutor.sharedInstance.isSDKEnabled = isEnabled
-        BOFNetworkPromiseExecutor.sharedInstanceForCampaign?.isSDKEnabled = isEnabled
+      //  BOFNetworkPromiseExecutor.sharedInstance.isSDKEnabled = isEnabled
+        //BOFNetworkPromiseExecutor.sharedInstanceForCampaign?.isSDKEnabled = isEnabled
         BOFFileSystemManager.setIsSDKEnabled(isSDKEnabled: isEnabled)
 
     }
@@ -108,12 +104,11 @@ public class BlotoutAnalytics:NSObject {
     
     func checkManifestAndInitAnalytics(withCompletionHandler completionHandler:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
         
-         //TODO: commented to try new network layer
-
-            let sdkManifesCtrl = BOASDKManifestController.sharedInstance
-            if sdkManifesCtrl.isManifestAvailable() {
-                sdkManifesCtrl.reloadManifestData()
-            }
+        
+        let sdkManifesCtrl = BOASDKManifestController.sharedInstance
+        if sdkManifesCtrl.isManifestAvailable() {
+            sdkManifesCtrl.reloadManifestData()
+        }
         
         let sdkManifest = try BOASDKManifestController.sharedInstance
         sdkManifest.serverSyncManifestAndAppVerification({ isSuccess, error in
@@ -187,19 +182,10 @@ public class BlotoutAnalytics:NSObject {
     
     
     
-    //TODO: we might remove this completely
     @available(*, deprecated, message: "Capture Personal will not be supported in the future")
     func capturePersonal(_ eventName: String, withInformation eventInfo: [AnyHashable : Any], isPHI phiEvent: Bool) {
 
         return
-//            if !isEnabled {
-//                return
-//            }
-//              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-//                let type = phiEvent ? BO_PHI : BO_PII
-//                let model = BOACaptureModel(event: eventName, properties: eventInfo, screenName: nil, withType: type)
-//                eventManager.capturePersonal(model, isPHI: phiEvent)
-//            })
     }
     
     func getUserId() -> String? {

@@ -11,7 +11,7 @@ private var sBOAsdkManifestSharedInstance: Any? = nil
 
 class BOASDKManifestController:NSObject {
     
-    var sdkManifestModel: BOASDKManifest?
+  //  var sdkManifestModel: BOASDKManifest?
     
     //newly added
     var manifestModel:ManifestModel?
@@ -25,14 +25,6 @@ class BOASDKManifestController:NSObject {
     override init() {
         super.init()
     }
-    
-//    class func sharedInstance() -> Self {
-//        // TODO: [Swiftify] ensure that the code below is executed only once (`dispatch_once()` is deprecated)
-//        { [self] in
-//            sBOAsdkManifestSharedInstance = self.init()
-//        }
-//        return sBOAsdkManifestSharedInstance as! Self
-//    }
     
     func serverSyncManifestAndAppVerification(_ callback:@escaping ((_ isSuccess: Bool, _ error: Error?) -> Void)) {
         
@@ -139,22 +131,6 @@ class BOASDKManifestController:NSObject {
             return match
         }
         return nil
-    }
-    
-    func getManifestVariable(_ manifest: BOASDKManifest, forID ID: Int) -> BOASDKVariable? {
-            var oneVar: BOASDKVariable? = nil
-            if let variables = manifest.variables {
-                for oneVariableDict in variables {
-//                    guard let oneVariableDict = oneVariableDict else {
-//                        continue
-//                    }
-                    if oneVariableDict != nil && oneVariableDict.variableID?.intValue == ID {
-                        oneVar = oneVariableDict
-                        break
-                    }
-                }
-            }
-            return oneVar
     }
     
     func reloadManifestData() {
