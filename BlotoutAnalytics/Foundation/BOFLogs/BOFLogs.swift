@@ -12,14 +12,6 @@ private var sBOFLogsSharedInstance: Any? = nil
 class BOFLogs:NSObject {
     
     var isSDKLogEnabled = false
-    //    class func sharedInstance() -> Self? {
-    //        // TODO: [Swiftify] ensure that the code below is executed only once (`dispatch_once()` is deprecated)
-    //        { [self] in
-    //            sBOFLogsSharedInstance = self.init()
-    //        }
-    //
-    //        return sBOFLogsSharedInstance as! Self
-    //    }
     public static let sharedInstance = BOFLogs()
     public override init() {}
 }

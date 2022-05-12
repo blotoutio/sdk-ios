@@ -14,16 +14,9 @@ class BOFUserDefaults:NSObject {
     private var productContainer: [AnyHashable : Any]?
     
     
-    //    override class func initialize() {
-    //               sBOFDefaultMap = [AnyHashable : Any]()
-    //               sBOFDefaultsSerialQueue = DispatchQueue(label: BO_SDK_DEFAULT_QUEUE)
-    //       }
-    
     init(product key: String?) {
         super.init()
         productKey = key
-        
-        //TODO: moved here from initialize
         sBOFDefaultMap = [AnyHashable : Any]()
         sBOFDefaultsSerialQueue = DispatchQueue(label: BO_SDK_DEFAULT_QUEUE)
     }

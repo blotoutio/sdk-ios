@@ -143,8 +143,6 @@ public class BlotoutAnalytics:NSObject {
     }
     
     func mapID(_ mapIDData: BOAMapIDDataModel, withInformation eventInfo: [AnyHashable : Any]?) {
-        do{
-            
             if !isEnabled {
                 return
             }
@@ -158,9 +156,7 @@ public class BlotoutAnalytics:NSObject {
                 eventManager.capture(model)
                 
             })
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
     
   public  func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?) {
@@ -281,7 +277,6 @@ public class BlotoutAnalytics:NSObject {
     }
     
     func openURL(url: URL?, options: [AnyHashable : Any]?) {
-        do{
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             if !isEnabled || !sdkManifesCtrl.isSystemEventEnabled(BO_DEEP_LINK_OPENED) {
                 return
@@ -297,10 +292,7 @@ public class BlotoutAnalytics:NSObject {
                 refreshSessionAndReferrer(url?.absoluteString)
                 capture("Deep Link Opened", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_DEEP_LINK_OPENED))
             })
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
     
     func refreshSessionAndReferrer(_ referrerUrl: String?) {
@@ -312,7 +304,6 @@ public class BlotoutAnalytics:NSObject {
     }
     
     func registerApplicationStates() {
-        do{
             // Attach to application state change hooks
             let nc = NotificationCenter.default
             for name in [
@@ -328,10 +319,6 @@ public class BlotoutAnalytics:NSObject {
                 }
                 nc.addObserver(self, selector: Selector("handleAppStateNotification:"), name: NSNotification.Name(name), object: nil)
             }
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
     }
     
     func handleAppStateNotification(_ note: Notification?) {
@@ -355,18 +342,13 @@ public class BlotoutAnalytics:NSObject {
     }
     
     func _applicationDidFinishLaunching(withOptions launchOptions: [AnyHashable : Any]?) {
-        do{
             if !isEnabled {
                 return
             }
-            try BOASystemEvents.captureAppLaunchingInfo(withConfiguration: launchOptions)
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+             BOASystemEvents.captureAppLaunchingInfo(withConfiguration: launchOptions)
     }
     
     func _applicationWillEnterForeground() {
-        do{
             if !isEnabled {
                 return
             }
@@ -383,9 +365,6 @@ public class BlotoutAnalytics:NSObject {
             
             let model = try BOACaptureModel(event: BO_VISIBILITY_VISIBLE, properties: nil, screenName: nil, withType: BO_SYSTEM)
             eventManager.capture(model)
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
     }
     
     func _applicationDidEnterBackground() {

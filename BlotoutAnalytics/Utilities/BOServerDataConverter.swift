@@ -78,7 +78,7 @@ class BOServerDataConverter:NSObject {
     
     class func prepareMetaData() -> [AnyHashable : Any] {
             var appInfoCurrentDict: [AnyHashable : Any]? = nil
-            if (appInfo != nil) && (appInfo.values.count ?? 0 > 0) {
+        if (appInfo != nil) && (appInfo.values.count > 0) {
                 appInfoCurrentDict = appInfo
             } else {
                 appInfoCurrentDict = self.recordAppInformation()

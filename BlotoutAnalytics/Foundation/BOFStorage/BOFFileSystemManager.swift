@@ -144,7 +144,7 @@ class BOFFileSystemManager:NSObject {
     }
     
     class func moveFile(fromLocationPath fileLocation: URL, toLocationPath newLocation: URL,relocationError:Error) -> Bool {
-        do{
+
             let fileManager = FileManager.default
             var success = false
             var isDir:ObjCBool = false
@@ -159,7 +159,7 @@ class BOFFileSystemManager:NSObject {
             
             if !existAndDic && newExistAndDic {
                 let fileName = fileLocation.lastPathComponent
-                newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName ?? "").path
+                newFilePath = URL(fileURLWithPath: newFilePath).appendingPathComponent(fileName ).path
                 do {
                     success = true
                     try fileManager.moveItem(at: fileLocation, to: URL(fileURLWithPath: newFilePath))
@@ -180,10 +180,6 @@ class BOFFileSystemManager:NSObject {
             // relocationError = moveError
             
             return success
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return false
     }
     
     class func moveFile(fromLocation fileLocation: URL, toLocation newLocation: URL, mergeIfExist doMerge: Bool,relocationError:Error) -> Bool {
@@ -286,7 +282,7 @@ class BOFFileSystemManager:NSObject {
                 {
                     var success = false
                     do {
-                        try completeString.write(toFile: writableFilePath ?? "", atomically: true, encoding: .utf8)
+                        try completeString.write(toFile: writableFilePath , atomically: true, encoding: .utf8)
                         success = true
                     } catch let writeError {
                         writableFilePath = ""
@@ -448,16 +444,12 @@ class BOFFileSystemManager:NSObject {
     class func getDocumentDirectoryPath() -> String? {
         
         var getDocumentDirectoryPathSBOFSDKDocumentsDirectory: String? = nil
-        do{
             if getDocumentDirectoryPathSBOFSDKDocumentsDirectory == nil {
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).map(\.path)
                 getDocumentDirectoryPathSBOFSDKDocumentsDirectory = paths[0]
             }
             return getDocumentDirectoryPathSBOFSDKDocumentsDirectory
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
-        return nil
+
     }
     
     

@@ -49,26 +49,16 @@ class BOEventsOperationExecutor:NSObject {
 //    }
     
     func bo_dispatch_specific(queue: DispatchQueue, block:@escaping () -> (),  waitForCompletion: Bool) {
-        let autoreleasing_block = {
-            autoreleasepool {
-                block()
-            }
-        }
-        
-//        if (dispatch_get_specific(queue)) != nil {
-//            autoreleasing_block()
-//            return
-//        }
 
-        if waitForCompletion {
-            queue.sync(execute: autoreleasing_block)
-            return
+        if (waitForCompletion) {
+            queue.sync(execute: block);
+          return;
         }
+        queue.async(execute: block);
 
-        queue.async(execute: autoreleasing_block)
     }
     
-    func bo_dispatch_specific_after_time(_ queue: DispatchQueue, _ block:@escaping () -> (), _ afterTime: Double) {
+        /* func bo_dispatch_specific_after_time(_ queue: DispatchQueue, _ block:@escaping () -> (), _ afterTime: Double) {
         let autoreleasing_block = {
             autoreleasepool {
                 block()
@@ -76,7 +66,7 @@ class BOEventsOperationExecutor:NSObject {
         }
 
         queue.asyncAfter(deadline: DispatchTime.now() + Double(Int64(afterTime * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: autoreleasing_block)
-    }
+    }*/
     
     func bo_dispatch_specific_async(queue: DispatchQueue, block:@escaping () -> ()) {
         bo_dispatch_specific(queue: queue, block: block, waitForCompletion: false)
@@ -105,11 +95,12 @@ class BOEventsOperationExecutor:NSObject {
         bo_dispatch_specific_async(queue: executorInitializationSerialQueue, block: block)
     }
     
+    /*
     func dispatchInitialization(inBackground block: @escaping () -> Void, afterDelay delayInterval: Double) {
         bo_dispatch_specific_after_time(executorInitializationSerialQueue, block, delayInterval)
     }
 
     func dispatchSessionOperation(inBackground block: @escaping () -> Void, afterDelay delayInterval: Double) {
         bo_dispatch_specific_after_time(executorSessionDataSerialQueue, block, delayInterval)
-    }
+    }*/
 }

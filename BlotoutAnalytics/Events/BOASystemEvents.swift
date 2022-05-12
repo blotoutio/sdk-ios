@@ -10,7 +10,7 @@ import UIKit
 class BOASystemEvents:NSObject {
     
     class func captureAppLaunchingInfo(withConfiguration launchOptions: [AnyHashable : Any]?) {
-        do{
+
             let analytics = BlotoutAnalytics.sharedInstance
             let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
@@ -66,10 +66,5 @@ class BOASystemEvents:NSObject {
             }
             analyticsRootUD.setValue(currentVersion, forKey: BO_VERSION_KEY)
             analyticsRootUD.setValue(currentBuild, forKey: BO_BUILD_KEYV2)
-
-            
-        } catch {
-            BOFLogDebug(frmt: "%@", args:  error.localizedDescription)
-        }
     }
 }

@@ -99,37 +99,13 @@ class BOAUtilities:NSObject {
     }
     
     class func getDeviceId() -> String? {
-        //user id generation update =
-        //Epoc 13 Digit Time at start +
-        // Client SDK Token + UUID generate once +
-        // 10 digit random number+ 10 digit random number +
-        // Epoc 13 Digit time at the end = Input for SHA 512 or UUID function in case it takes
         
-        var deviceId = ""
-            let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-            let deviceUUID = analyticsRootUD.object(forKey: NSLocale.Key(rawValue: BO_ANALYTICS_USER_UNIQUE_KEY)) as? String
-            if deviceUUID != nil && (deviceUUID?.count ?? 0) > 0 {
-                deviceId = deviceUUID!
-            } else {
-                
-                var stringBuilder = ""
-                stringBuilder += String(format: "%ldl", Int(BOAUtilities.get13DigitIntegerTimeStamp()))
-                
-                stringBuilder += BOAUtilities.getUUIDString()
-                stringBuilder += BOAUtilities.generateRandomNumber(length: 10)
-                stringBuilder += BOAUtilities.generateRandomNumber(length: 10)
-                stringBuilder += String(format: "%ldl", Int(BOAUtilities.get13DigitIntegerTimeStamp()))
-                
-           //todo: discuss if we will encrypt this still     let guidString = BOAUtilities.convertTo64CharUUID(BOFUtilities.getSHA256(stringBuilder))
-              //  deviceId = guidString ?? BOAUtilities.getUUIDString(from: stringBuilder)
-                deviceId = deviceId ?? BOAUtilities.getUUIDString()
-                
-                analyticsRootUD.setObject(deviceId, forKey: BO_ANALYTICS_USER_UNIQUE_KEY as NSCopying)
-               // analyticsRootUD[BO_ANALYTICS_USER_UNIQUE_KEY] = deviceId
-                UserDefaults.standard.synchronize()
-            }
         
-        return deviceId
+        //This should return the cookiestring we get in the api response
+        //cookie:
+       // sdk_trends_user_id=000000-1651580197706-14020f11-4298-45c6-8943-1e273751330f
+        //TODO: temporary change
+        return ""
     }
     
     class func convertTo64CharUUID(_ stringToConvert: String?) -> String? {

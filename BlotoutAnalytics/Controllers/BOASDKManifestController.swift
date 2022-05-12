@@ -68,9 +68,9 @@ class BOASDKManifestController:NSObject {
             }
             
             let sdkManifestFilePath = latestSDKManifestPath()
-           if BOFFileSystemManager.isFileExist(atPath: sdkManifestFilePath ?? "") {
+           if BOFFileSystemManager.isFileExist(atPath: sdkManifestFilePath ) {
                 var removeError: Error? = nil
-               BOFFileSystemManager.removeFile(fromLocationPath: sdkManifestFilePath ?? "", removalError: removeError)
+               BOFFileSystemManager.removeFile(fromLocationPath: sdkManifestFilePath , removalError: removeError)
             }
             var error: Error?
            
@@ -134,7 +134,6 @@ class BOASDKManifestController:NSObject {
     }
     
     func reloadManifestData() {
-       do{
             let manifestStr = latestSDKManifestJSONString()
             if manifestStr == nil {
                 return
@@ -155,22 +154,6 @@ class BOASDKManifestController:NSObject {
            if let systemEvents = systemEvents {
                enabledSystemEvents = systemEvents.value.components(separatedBy: ",")
            }
-
-           /*
-            let piiKey = getManifestVariable(sdkManifestModel!, forID: MANIFEST_PII_PUBLIC_KEY)
-            if let piiKey = piiKey {
-                piiPublicKey = piiKey.value
-            }
-            
-            let phiKey = getManifestVariable(sdkManifestModel!, forID: MANIFEST_PHI_PUBLIC_KEY)
-            if let phiKey = phiKey {
-                phiPublickey = phiKey.value
-            }
-            */
-            
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
     }
     
     func isManifestAvailable() -> Bool {

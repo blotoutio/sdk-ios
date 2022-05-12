@@ -16,18 +16,14 @@ public protocol BOAApplicationProtocol: UIApplication {
 
 extension UIApplication {
     func boa_beginBackgroundTask(withName taskName: String?, expirationHandler handler: (() -> Void)? = nil) -> UIBackgroundTaskIdentifier {
-        do{
-            return beginBackgroundTask(withName: taskName, expirationHandler: handler)
-        } catch {             BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
 
-        }
+            return beginBackgroundTask(withName: taskName, expirationHandler: handler)
+
     }
     func boa_endBackgroundTask(_ identifier: UIBackgroundTaskIdentifier) {
-        do{
+
             endBackgroundTask(identifier)
-        } catch {
-            BOFLogDebug(frmt: "%@:%@", args: BOF_DEBUG, error.localizedDescription)
-        }
+
     }
     
 }

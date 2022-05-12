@@ -36,13 +36,12 @@ class BOAEventsManager:NSObject {
         flushTimer = Timer(
             timeInterval: configuration.flushInterval,
             target: self,
-            selector: #selector(CATransaction.flush),
+            selector: #selector(flush),
             userInfo: nil,
             repeats: true)
         
-        RunLoop.main.add(flushTimer!, forMode: .default)
-      // }
-      
+        RunLoop.main.add(flushTimer!, forMode: .default)        
+        setQueueValue()
     }
     
     func beginBackgroundTask() {
@@ -82,6 +81,8 @@ class BOAEventsManager:NSObject {
     
     func capture(_ payload: BOACaptureModel?) {
         
+       // return
+        //returning from here for testing manifest
             let event = BOADeveloperEvents.captureEvent(payload)
             if event == nil {
                 return
@@ -110,25 +111,22 @@ class BOAEventsManager:NSObject {
     
     func queuePayload(_ payload: [AnyHashable : Any]?) {
         var payload = payload
-        do{
-            payload = BOAUtilities.traverseJSON(payload) as? [AnyHashable : Any]
+
+            //TODO: confirm later ,Maybe not needed
+            //payload = BOAUtilities.traverseJSON(payload)
             if let payload = payload {
-           //TODO: fix this     queue.insert(contentsOf: payload, at: 0)
-                
-               // queue.append(payload)
+                    self.queue.insert(payload , at: 0)
             }
             persistQueue()
             flushQueueByLength()
-        } catch {
-            BOFLogDebug(frmt: "%@", args:  error.localizedDescription)
-        }
+        
     }
     
-    func flush() {
-        self.flush(withMaxSize: 0)
+    @objc public func flush() {
+        self.flushWithMaxSize(0)
     }
     
-    func flush(withMaxSize maxBatchSize: Int) {
+    func flushWithMaxSize(_ maxBatchSize: Int) {
 
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 if queue.count == 0 {
@@ -205,15 +203,14 @@ class BOAEventsManager:NSObject {
     }
     
     //TODO: have changed name,need to verify code
-    func getQueue() -> [Any]? {
-        if (self.queue == nil) {
+
+    func setQueueValue()
+    {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])
 #else
             self.queue = (storage!.arrayForKey(kBOAQueueFilename) as? [AnyHashable] ?? [])
 #endif
-        }
-        return queue
     }
     
     func persistQueue() {
