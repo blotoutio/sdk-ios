@@ -7,21 +7,21 @@
 
 import Foundation
 
-class Persona: NSObject {
+public class Persona: NSObject {
     
-    var persona_id = ""
-    var persona_firstname: String?
-    var persona_lastname: String?
-    var persona_middlename: String?
-    var persona_username: String?
-    var persona_dob: String?
-    var persona_email: String?
-    var persona_number: String?
-    var persona_address: String?
-    var persona_city: String?
-    var persona_state: String?
-    var persona_zip: NSNumber?
-    var persona_country: String?
-    var persona_gender: String?
-    var persona_age: NSNumber?
+    public var persona_id = ""
+    public var persona_firstname: String?
+    public var persona_lastname: String?
+    public var persona_middlename: String?
+    public var persona_username: String?
+    public var persona_dob: String?
+    public var persona_email: String?
+    public var persona_number: String?
+    public var persona_address: String?
+    public var persona_city: String?
+    public var persona_state: String?
+    public var persona_zip: NSNumber?
+    public var persona_country: String?
+    public var persona_gender: String?
+    public var persona_age: NSNumber?
 }

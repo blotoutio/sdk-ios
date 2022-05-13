@@ -12,10 +12,15 @@ struct ManifestModel: Codable {
     var variables: [ManifestVariableModel]
 }
 
-
 struct ManifestVariableModel:Codable {
     var variableId:Double
     var value:String
+    var variable_options:[VariableOptions]?
     var variableDataType:Double
     var variableName:String
+}
+
+struct VariableOptions:Codable {
+    var label:String
+    var key:Double
 }

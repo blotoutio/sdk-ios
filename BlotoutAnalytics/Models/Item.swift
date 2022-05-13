@@ -7,13 +7,14 @@
 
 import Foundation
 
-class Item: NSObject {
+public class Item: NSObject {
     
-    var item_id = "" //Required Parameter
-    var item_name: String?
-    var item_sku: String?
-    var item_category: [AnyHashable]?
-    var item_price: NSNumber?
-    var item_currency: String?
-    var item_quantity: NSNumber?
+    public var item_id = "" //Required Parameter
+    public var item_name: String?
+    public var item_sku: String?
+  //TODO: uncomment this
+    public var item_category: [AnyHashable]?
+    public var item_price: NSNumber?
+    public var item_currency: String?
+    public var item_quantity: NSNumber?
 }

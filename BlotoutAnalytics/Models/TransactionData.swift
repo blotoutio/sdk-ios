@@ -7,12 +7,12 @@
 
 import Foundation
 
-class TransactionData: NSObject {
+public class TransactionData: NSObject {
     
-    var transaction_id = "" //Required Parameter
-    var transaction_currency: String?
-    var transaction_total: NSNumber?
-    var transaction_discount: NSNumber?
-    var transaction_shipping: NSNumber?
-    var transaction_tax: NSNumber?
+    public var transaction_id = "" //Required Parameter
+    public var transaction_currency: String?
+    public var transaction_total: NSNumber?
+    public var transaction_discount: NSNumber?
+    public var transaction_shipping: NSNumber?
+    public var transaction_tax: NSNumber?
 }

@@ -47,15 +47,7 @@ class BOADeveloperEvents: NSObject {
     
     class func prepareEventDict(fromEventModel:EventModel)->[String:AnyHashable]
     {
-        /*var evn:String?
-         var evt:NSNumber?
-         var mid : String?
-         var scrn : String?
-         var session_id : String?
-         var type:String?
-         var userid:String?
-         var additionalData : [AnyHashable : Any]?
-         var screen : [AnyHashable : Any]?*/
+
         var eventDict:Dictionary = [String:AnyHashable]()
         eventDict["evn"] = fromEventModel.evn
         eventDict["evt"] = fromEventModel.evt
@@ -64,8 +56,8 @@ class BOADeveloperEvents: NSObject {
         eventDict["session_id"] = fromEventModel.session_id
         eventDict["type"] = fromEventModel.type
         eventDict["userid"] = fromEventModel.userid
-        eventDict["additionalData"] = fromEventModel.additionalData as! AnyHashable
-        eventDict["screen"] = fromEventModel.screen as! AnyHashable
+        eventDict["additionalData"] = fromEventModel.additionalData as? AnyHashable
+        eventDict["screen"] = fromEventModel.screen as? AnyHashable
         
         return eventDict
     }

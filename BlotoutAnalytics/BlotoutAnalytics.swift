@@ -474,7 +474,7 @@ public class BlotoutAnalytics:NSObject {
        
     }
     
-    func captureTransaction(_ transactionData: TransactionData, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
+   public func captureTransaction(_ transactionData: TransactionData, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
@@ -482,8 +482,17 @@ public class BlotoutAnalytics:NSObject {
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
               //  var transactionInfo = NSDictionary(objects:[transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax], forKeys:["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [NSCopying]) as Dictionary
                 let keyArray = ["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [AnyHashable]
-                let valueArray = [transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax] as [AnyHashable]
-                var transactionInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
+                
+                let transactionID = transactionData.transaction_id
+                
+                let transactionCurrency = transactionData.transaction_currency ?? ""
+                let transactionTotal = transactionData.transaction_total ?? 0
+                let transactionDiscount = transactionData.transaction_discount ?? 0
+                let transactionShipping = transactionData.transaction_shipping ?? 0
+                let transactionTax = transactionData.transaction_tax ?? 0
+                
+                let valueArray = [transactionID, transactionCurrency, transactionTotal, transactionDiscount, transactionShipping, transactionTax] as [AnyHashable]
+                var transactionInfo = Dictionary(uniqueKeysWithValues: zip(keyArray,valueArray))
                 if (eventInfo != nil) {
                    // for (k, v) in eventInfo! { transactionInfo[k as AnyHashable] = v as AnyHashable }
                     eventInfo!.forEach {
@@ -497,19 +506,27 @@ public class BlotoutAnalytics:NSObject {
 
     }
     
-    func capture(_ itemData: Item, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
+   public func captureItem(_ itemData: Item, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
             }
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-               // var itemInfo = NSDictionary(objects:[itemData.item_id, itemData.item_name, itemData.item_sku, itemData.item_category, itemData.item_price, itemData.item_currency, itemData.item_quantity], forKeys:["item_id", "item_name", "item_sku", "item_category", "item_price", "item_currency", "item_quantity"] as [NSCopying]) as Dictionary
+                
                 let keyArray = ["item_id", "item_name", "item_sku", "item_category", "item_price", "item_currency", "item_quantity"] as [AnyHashable]
                 
-                let valueArray = [itemData.item_id, itemData.item_name, itemData.item_sku, itemData.item_category, itemData.item_price, itemData.item_currency, itemData.item_quantity] as [AnyHashable]
+                let itemID = itemData.item_id
+                let itemName = itemData.item_name ?? ""
+                let itemSKU =  itemData.item_sku ?? ""
+                let itemCategory = itemData.item_category ?? []
+                let itemPrice = itemData.item_price ?? 0
+                let itemCurrency =  itemData.item_currency ?? ""
+                let itemQuantity = itemData.item_quantity ?? 0
                 
-                var itemInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
+                let valueArray = [itemID,itemName , itemSKU, itemCategory , itemPrice, itemCurrency, itemQuantity] as [AnyHashable]
+                
+                var itemInfo = Dictionary(uniqueKeysWithValues: zip(keyArray,valueArray))
 
                 if (eventInfo != nil) {
                     for (k, v) in eventInfo! { itemInfo[k as AnyHashable] = v as AnyHashable }
@@ -521,7 +538,7 @@ public class BlotoutAnalytics:NSObject {
 
     }
     
-    func capture(_ personaData: Persona, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
+  public  func capturePersona(_ personaData: Persona, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
@@ -534,8 +551,26 @@ public class BlotoutAnalytics:NSObject {
                 */
                 
                 let keyArray = ["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [AnyHashable]
-                let valueArray = [personaData.persona_id, personaData.persona_firstname, personaData.persona_middlename, personaData.persona_lastname, personaData.persona_username, personaData.persona_dob, personaData.persona_email, personaData.persona_number, personaData.persona_address, personaData.persona_city, personaData.persona_state, personaData.persona_zip, personaData.persona_country, personaData.persona_gender, personaData.persona_age] as [AnyHashable]
-                var personaInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
+                
+                let personaID = personaData.persona_id
+                let personaFirstName = personaData.persona_firstname ?? ""
+                let personaMiddleName = personaData.persona_middlename ?? ""
+                let personaLastName = personaData.persona_lastname ?? ""
+                let personaUserName = personaData.persona_username ?? ""
+                let personaDOB = personaData.persona_dob ?? ""
+                let personaEmail = personaData.persona_email ?? ""
+                let personaNumber = personaData.persona_number ?? ""
+                let personaAddress = personaData.persona_address ?? ""
+                let personaCity = personaData.persona_city ?? ""
+                let personaState = personaData.persona_state ?? ""
+                let personaZip = personaData.persona_zip ?? 0
+                let personaCountry = personaData.persona_country ?? ""
+                let personaGender = personaData.persona_gender ?? ""
+                let personaAge = personaData.persona_age ?? 0
+                
+                
+                let valueArray = [personaID, personaFirstName, personaMiddleName, personaLastName, personaUserName, personaDOB, personaEmail, personaNumber, personaAddress, personaCity, personaState, personaZip, personaCountry, personaGender, personaAge] as [AnyHashable]
+                var personaInfo = Dictionary(uniqueKeysWithValues: zip(keyArray,valueArray))
                 
                 if (eventInfo != nil) {
                     for (k, v) in eventInfo! { personaInfo[k as AnyHashable] = v as AnyHashable }
