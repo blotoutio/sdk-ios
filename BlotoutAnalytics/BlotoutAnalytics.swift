@@ -81,7 +81,7 @@ public class BlotoutAnalytics:NSObject {
 #if !TARGET_OS_TV
             
             if configuration.launchOptions != nil {
-                let remoteNotification = configuration.launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable : Any]
+                let remoteNotification = configuration.launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable : AnyHashable]
                 if let remoteNotification = remoteNotification {
                     trackPushNotification(remoteNotification, fromLaunch: true)
                 }
@@ -142,14 +142,14 @@ public class BlotoutAnalytics:NSObject {
         
     }
     
-    func mapID(_ mapIDData: BOAMapIDDataModel, withInformation eventInfo: [AnyHashable : Any]?) {
+    func mapID(_ mapIDData: BOAMapIDDataModel, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
             if !isEnabled {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                var mapIdInfo: [AnyHashable : Any]? = nil
+                var mapIdInfo: [AnyHashable : AnyHashable]? = nil
                 if let array = [BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER] as? [NSCopying] {
-                    mapIdInfo = NSDictionary(objects:[mapIDData.externalID, mapIDData.provider], forKeys:array) as Dictionary
+                    mapIdInfo = NSDictionary(objects:[mapIDData.externalID, mapIDData.provider], forKeys:array) as! Dictionary<AnyHashable, AnyHashable>
                 }
                 
                 let model = BOACaptureModel(event: BO_EVENT_MAP_ID, properties: mapIdInfo, screenName: nil, withType: BO_CODIFIED)
@@ -161,13 +161,20 @@ public class BlotoutAnalytics:NSObject {
     
   public  func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?) {
 
+      var eventInformation:[AnyHashable:AnyHashable] = [:]
+      if eventInfo != nil
+      {
+          eventInformation = eventInfo as NSDictionary? as! [AnyHashable : AnyHashable]
+      }
+      
+      
              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                capture(eventName, withInformation: eventInfo, withType: BO_CODIFIED, withEventCode: NSNumber(value: 0))
+                capture(eventName, withInformation: eventInformation, withType: BO_CODIFIED, withEventCode: NSNumber(value: 0))
             })
         
     }
     
-    public func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : Any]?, withType type: String?, withEventCode eventCode: NSNumber?) {
+    public func capture(_ eventName: String, withInformation eventInfo: [AnyHashable : AnyHashable]?, withType type: String?, withEventCode eventCode: NSNumber?) {
             if !isEnabled {
                 return
             }
@@ -188,7 +195,7 @@ public class BlotoutAnalytics:NSObject {
         return BOAUtilities.getDeviceId()
     }
     
-    func trackPushNotification(_ properties: [AnyHashable : Any]?, fromLaunch launch: Bool) {
+    func trackPushNotification(_ properties: [AnyHashable : AnyHashable]?, fromLaunch launch: Bool) {
         
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             
@@ -204,7 +211,7 @@ public class BlotoutAnalytics:NSObject {
         
     }
     
-    func receivedRemoteNotification(_ userInfo: [AnyHashable : Any]?) {
+    func receivedRemoteNotification(_ userInfo: [AnyHashable : AnyHashable]?) {
        
             if !isEnabled {
                 return
@@ -223,7 +230,7 @@ public class BlotoutAnalytics:NSObject {
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 let sdkManifesCtrl = BOASDKManifestController.sharedInstance
                 if sdkManifesCtrl.isSystemEventEnabled(BO_REGISTER_FOR_REMOTE_NOTIFICATION) {
-                    var properties: [AnyHashable : Any] = [:]
+                    var properties: [AnyHashable : AnyHashable] = [:]
                     properties["deviceRegistered"] = NSNumber(value: 0)
                     capture("Register For Remote Notification", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_REGISTER_FOR_REMOTE_NOTIFICATION))
                 }
@@ -238,7 +245,7 @@ public class BlotoutAnalytics:NSObject {
             }
             
              BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: {
-                var properties: [AnyHashable : Any] = [:]
+                var properties: [AnyHashable : AnyHashable] = [:]
                  
                  let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
 
@@ -262,14 +269,28 @@ public class BlotoutAnalytics:NSObject {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                var properties = [AnyHashable : Any](minimumCapacity: activity.userInfo?.count ?? 0 + 2)
+                var properties = [AnyHashable : AnyHashable](minimumCapacity: activity.userInfo?.count ?? 0 + 2)
                
-                properties = activity.userInfo ?? [:]
+//                guard let userInfo = activity.userInfo as NSDictionary? as? [String: AnyHashable] else {
+//                    properties = [:] as [AnyHashable:AnyHashable]
+//                }
+                
+                if activity.userInfo != nil
+                {
+                    properties = activity.userInfo as NSDictionary? as! [String: AnyHashable]
+                }
+                else
+                {
+                    properties = [:]
+                }
+
+               // properties = userInfo
                 //TODO: test these values
                // for (k, v) in activity?.userInfo { properties[k] = v }
                 properties["url"] = activity.webpageURL?.absoluteString ?? ""
                 properties["title"] = activity.title ?? ""
-                properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
+                //TODO:Maybe not doing any change in this
+               // properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
                 refreshSessionAndReferrer(activity.webpageURL?.absoluteString)
                 capture("Deep Link Opened", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_DEEP_LINK_OPENED))
             })
@@ -283,12 +304,27 @@ public class BlotoutAnalytics:NSObject {
             }
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                var properties = [AnyHashable : Any](minimumCapacity: options?.count ?? 0 + 2)
+                var properties = [AnyHashable : AnyHashable](minimumCapacity: options?.count ?? 0 + 2)
                 //TODO: test these values
-                properties = options ?? [:]
+                
+//                guard let userOptions = options as NSDictionary? as? [String: AnyHashable] else {
+//                    properties = [:] as [AnyHashable:AnyHashable]
+//                }
+                
+                if options != nil
+                {
+                    properties = options as NSDictionary? as! [String: AnyHashable]
+                }
+                else
+                {
+                    properties = [:]
+                }
+                
+              //  properties = userOptions
                // for (k, v) in options { properties[k] = v }
                 properties["url"] = url?.absoluteString
-                properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
+                //TODO:Maybe not doing any change in this
+                //properties = BOAUtilities.traverseJSON(properties) as! [AnyHashable : Any]
                 refreshSessionAndReferrer(url?.absoluteString)
                 capture("Deep Link Opened", withInformation: properties, withType: BO_SYSTEM, withEventCode: NSNumber(value: BO_DEEP_LINK_OPENED))
             })
@@ -438,16 +474,21 @@ public class BlotoutAnalytics:NSObject {
        
     }
     
-    func captureTransaction(_ transactionData: TransactionData, withInformation eventInfo: [AnyHashable : Any]?) {
+    func captureTransaction(_ transactionData: TransactionData, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                var transactionInfo = NSDictionary(objects:[transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax], forKeys:["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [NSCopying]) as Dictionary
-                
+              //  var transactionInfo = NSDictionary(objects:[transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax], forKeys:["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [NSCopying]) as Dictionary
+                let keyArray = ["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [AnyHashable]
+                let valueArray = [transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax] as [AnyHashable]
+                var transactionInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
                 if (eventInfo != nil) {
-                    for (k, v) in eventInfo! { transactionInfo[k as NSObject] = v as AnyObject }
+                   // for (k, v) in eventInfo! { transactionInfo[k as AnyHashable] = v as AnyHashable }
+                    eventInfo!.forEach {
+                        transactionInfo[$0.key] = $0.value
+                    }
                 }
                 
                 let model = BOACaptureModel(event: BO_EVENT_TRANSACTION_NAME, properties: transactionInfo, screenName: nil, withType: BO_CODIFIED)
@@ -456,16 +497,22 @@ public class BlotoutAnalytics:NSObject {
 
     }
     
-    func capture(_ itemData: Item, withInformation eventInfo: [AnyHashable : Any]?) {
+    func capture(_ itemData: Item, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
             }
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                var itemInfo = NSDictionary(objects:[itemData.item_id, itemData.item_name, itemData.item_sku, itemData.item_category, itemData.item_price, itemData.item_currency, itemData.item_quantity], forKeys:["item_id", "item_name", "item_sku", "item_category", "item_price", "item_currency", "item_quantity"] as [NSCopying]) as Dictionary
+               // var itemInfo = NSDictionary(objects:[itemData.item_id, itemData.item_name, itemData.item_sku, itemData.item_category, itemData.item_price, itemData.item_currency, itemData.item_quantity], forKeys:["item_id", "item_name", "item_sku", "item_category", "item_price", "item_currency", "item_quantity"] as [NSCopying]) as Dictionary
+                let keyArray = ["item_id", "item_name", "item_sku", "item_category", "item_price", "item_currency", "item_quantity"] as [AnyHashable]
+                
+                let valueArray = [itemData.item_id, itemData.item_name, itemData.item_sku, itemData.item_category, itemData.item_price, itemData.item_currency, itemData.item_quantity] as [AnyHashable]
+                
+                var itemInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
+
                 if (eventInfo != nil) {
-                    for (k, v) in eventInfo! { itemInfo[k as NSObject] = v as AnyObject }
+                    for (k, v) in eventInfo! { itemInfo[k as AnyHashable] = v as AnyHashable }
                 }
                 
                 let model = BOACaptureModel(event: BO_EVENT_ITEM_NAME, properties: itemInfo, screenName: nil, withType: BO_CODIFIED)
@@ -474,7 +521,7 @@ public class BlotoutAnalytics:NSObject {
 
     }
     
-    func capture(_ personaData: Persona, withInformation eventInfo: [AnyHashable : Any]?) {
+    func capture(_ personaData: Persona, withInformation eventInfo: [AnyHashable : AnyHashable]?) {
 
             if !isEnabled {
                 return
@@ -483,10 +530,15 @@ public class BlotoutAnalytics:NSObject {
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 
                 //TODO: make proper dictionary
-                var personaInfo = NSDictionary(objects:[personaData.persona_id, personaData.persona_firstname, personaData.persona_middlename, personaData.persona_lastname, personaData.persona_username, personaData.persona_dob, personaData.persona_email, personaData.persona_number, personaData.persona_address, personaData.persona_city, personaData.persona_state, personaData.persona_zip, personaData.persona_country, personaData.persona_gender, personaData.persona_age], forKeys:["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [NSCopying]) as Dictionary
+             /*   var personaInfo = NSDictionary(objects:[personaData.persona_id, personaData.persona_firstname, personaData.persona_middlename, personaData.persona_lastname, personaData.persona_username, personaData.persona_dob, personaData.persona_email, personaData.persona_number, personaData.persona_address, personaData.persona_city, personaData.persona_state, personaData.persona_zip, personaData.persona_country, personaData.persona_gender, personaData.persona_age], forKeys:["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [NSCopying]) as Dictionary
+                */
+                
+                let keyArray = ["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [AnyHashable]
+                let valueArray = [personaData.persona_id, personaData.persona_firstname, personaData.persona_middlename, personaData.persona_lastname, personaData.persona_username, personaData.persona_dob, personaData.persona_email, personaData.persona_number, personaData.persona_address, personaData.persona_city, personaData.persona_state, personaData.persona_zip, personaData.persona_country, personaData.persona_gender, personaData.persona_age] as [AnyHashable]
+                var personaInfo = Dictionary(uniqueKeysWithValues: zip(valueArray,keyArray))
                 
                 if (eventInfo != nil) {
-                    for (k, v) in eventInfo! { personaInfo[k as NSObject] = v as AnyObject }
+                    for (k, v) in eventInfo! { personaInfo[k as AnyHashable] = v as AnyHashable }
                 }
                 
                 let model = BOACaptureModel(event: BO_EVENT_PERSONA_NAME, properties: personaInfo, screenName: nil, withType: BO_CODIFIED)

@@ -39,6 +39,7 @@
 		680A014A280D715D00AB0DBC /* BOServerDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */; };
 		680A014C280D7A0600AB0DBC /* NSError+BOAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */; };
 		68591C2F282C5B9E00A23281 /* BOAReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68591C2E282C5B9E00A23281 /* BOAReachability.swift */; };
+		688D5828282E686600AA1ED5 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688D5827282E686600AA1ED5 /* EventModel.swift */; };
 		68D476E32821E0210064C347 /* BOARouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D476E22821E0210064C347 /* BOARouter.swift */; };
 		68D476E62821E4180064C347 /* BOAServiceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D476E52821E4180064C347 /* BOAServiceLayer.swift */; };
 		68D476E82821E5B40064C347 /* ManifestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D476E72821E5B40064C347 /* ManifestModel.swift */; };
@@ -78,6 +79,7 @@
 		680A0149280D715D00AB0DBC /* BOServerDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOServerDataConverter.swift; sourceTree = "<group>"; };
 		680A014B280D7A0600AB0DBC /* NSError+BOAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+BOAdditions.swift"; sourceTree = "<group>"; };
 		68591C2E282C5B9E00A23281 /* BOAReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAReachability.swift; sourceTree = "<group>"; };
+		688D5827282E686600AA1ED5 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		68D476E22821E0210064C347 /* BOARouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOARouter.swift; sourceTree = "<group>"; };
 		68D476E52821E4180064C347 /* BOAServiceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOAServiceLayer.swift; sourceTree = "<group>"; };
 		68D476E72821E5B40064C347 /* ManifestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManifestModel.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				680A011C280AE39300AB0DBC /* Persona.swift */,
 				680A011A280AE39300AB0DBC /* TransactionData.swift */,
 				68D476E72821E5B40064C347 /* ManifestModel.swift */,
+				688D5827282E686600AA1ED5 /* EventModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				680A0108280AD65600AB0DBC /* BOAUtilities.swift in Sources */,
 				680A00F828097EB700AB0DBC /* BOFFileSystemManager.swift in Sources */,
 				6805511A280ED74C00F37FA4 /* BOManifestAPI.swift in Sources */,
+				688D5828282E686600AA1ED5 /* EventModel.swift in Sources */,
 				680A010B280ADD2200AB0DBC /* BOANetworkConstants.swift in Sources */,
 				680A0130280D49EA00AB0DBC /* BOASystemEvents.swift in Sources */,
 				680A0125280AE39300AB0DBC /* Item.swift in Sources */,

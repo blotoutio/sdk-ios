@@ -84,8 +84,8 @@ class BOAFileStorage:NSObject, BOAStorage {
         setPlist(dictionary, forKey: key)
     }
 
-    func arrayForKey(_ key: String) -> [Any]? {
-        return plistForKey(key) as? [Any]
+    func arrayForKey(_ key: String) -> [EventModel]? {
+        return plistForKey(key) as? [EventModel]
     }
     
     func setArray(_ array: [Any]?, forKey key: String) {

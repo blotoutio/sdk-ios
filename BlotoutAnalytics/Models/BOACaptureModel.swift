@@ -8,14 +8,14 @@
 import Foundation
 class BOACaptureModel: NSObject {
     var event = ""
-    var properties: [AnyHashable : Any]?
+    var properties: [AnyHashable : AnyHashable]?
     var eventSubCode: NSNumber?
     var screenName: String?
     var type: String?
 
     init(
         event: String,
-        properties: [AnyHashable : Any]?,
+        properties: [AnyHashable : AnyHashable]?,
         screenName: String?,
         withType type: String?
     ) {

@@ -18,7 +18,7 @@ protocol BOAStorage: NSObjectProtocol {
     func dictionaryForKey(_ key: String) -> [String : Any]?
     
     func setArray(_ array: [Any]?, forKey key: String)
-    func arrayForKey(_ key: String) -> [Any]?
+    func arrayForKey(_ key: String) -> [EventModel]?
     
     func setString(_ string: String?, forKey key: String)
     func stringForKey(_ key: String) -> String?

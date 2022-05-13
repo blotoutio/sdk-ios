@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 class BOADeveloperEvents: NSObject {
     
-    class func captureEvent(_ payload: BOACaptureModel?) -> [AnyHashable : Any]? {
-        return BOADeveloperEvents.createEventObject(eventName: payload?.event ?? "", withType: payload?.type ?? "", withScreenName: payload?.screenName ?? "", withEventInfo: payload?.properties ?? [:])
+    class func captureEvent(_ payload: BOACaptureModel?) -> EventModel? {
+      //  return BOADeveloperEvents.createEventObject(eventName: payload?.event ?? "", withType: payload?.type ?? "", withScreenName: payload?.screenName ?? "", withEventInfo: payload?.properties ?? [:])
+        
+        return BOADeveloperEvents.createEventModel(eventName: payload?.event ?? "", withType: payload?.type ?? "", withScreenName: payload?.screenName ?? "", withEventInfo: payload?.properties ?? [:])
         
     }
     
@@ -20,15 +22,18 @@ class BOADeveloperEvents: NSObject {
 //    }
     
     
-    class func prepareServerPayload(events: [AnyHashable]) -> [AnyHashable : Any]? {
+    class func prepareServerPayload(events: [EventModel]) -> [AnyHashable : Any]? {
             var eventData: [AnyHashable] = []
             let metaInfo = BOServerDataConverter.prepareMetaData()
             
             for event in events {
-                let eventDict:Dictionary = event as! Dictionary <AnyHashable, AnyHashable>
-                if let value = eventDict[BO_EVENTS]{
-                    eventData.insert(value, at: 0)
-                }
+                var eventDict = [String:AnyHashable]()
+               // if let value = event{//eventDict[BO_EVENTS]{
+                   // eventData.insert(event, at: 0)
+                eventDict =  prepareEventDict(fromEventModel: event)
+                eventData.append(eventDict)
+                //insert(eventDict, at: 0)
+               // }
             }
             if metaInfo != nil && eventData != nil {
                 return [
@@ -39,6 +44,32 @@ class BOADeveloperEvents: NSObject {
                 return [:]
             }
     }
+    
+    class func prepareEventDict(fromEventModel:EventModel)->[String:AnyHashable]
+    {
+        /*var evn:String?
+         var evt:NSNumber?
+         var mid : String?
+         var scrn : String?
+         var session_id : String?
+         var type:String?
+         var userid:String?
+         var additionalData : [AnyHashable : Any]?
+         var screen : [AnyHashable : Any]?*/
+        var eventDict:Dictionary = [String:AnyHashable]()
+        eventDict["evn"] = fromEventModel.evn
+        eventDict["evt"] = fromEventModel.evt
+        eventDict["mid"] = fromEventModel.mid
+        eventDict["scrn"] = fromEventModel.scrn
+        eventDict["session_id"] = fromEventModel.session_id
+        eventDict["type"] = fromEventModel.type
+        eventDict["userid"] = fromEventModel.userid
+        eventDict["additionalData"] = fromEventModel.additionalData as! AnyHashable
+        eventDict["screen"] = fromEventModel.screen as! AnyHashable
+        
+        return eventDict
+    }
+    
     
     
     class func createEventObject( eventName: String, withType type: String, withScreenName screenName: String, withEventInfo eventInfo: [AnyHashable : Any]) -> [AnyHashable : Any]? {
@@ -70,59 +101,29 @@ class BOADeveloperEvents: NSObject {
 
     }
     
-  /*  class func getEncryptedEvent(_ publicKey: String?, withSecretKey secretKey: String?, withDictionary event: [AnyHashable : Any]?) -> [AnyHashable : Any]? {
-        do{
-            var personalEncryptedData: String? = nil
-            let personalEncryptedSecretKey: String? = nil
-            if event == nil {
-                return nil
-            }
-            var dataToEncryptPII: Data? = nil
-            do {
-                dataToEncryptPII = try JSONSerialization.data(withJSONObject: event, options: .fragmentsAllowed)
-            } catch {
-            }
-            
-            personalEncryptedData = BOCrypt.encryptDataWithoutHash(dataToEncryptPII, key: secretKey, iv: BO_CRYPTO_IVX)
-            personalEncryptedSecretKey = BOEncryptionManager.encryptString(secretKey, publicKey: publicKey)
-            
-            var personalPayload: [AnyHashable : Any] = [:]
-            personalPayload[BO_KEY] = personalEncryptedSecretKey
-            personalPayload[BO_IV] = BO_CRYPTO_IVX
-            personalPayload[BO_DATA] = personalEncryptedData
-            
-            if personalEncryptedSecretKey != nil && personalEncryptedSecretKey?.count ?? 0 > 0 && personalEncryptedData != nil && personalEncryptedData?.count ?? 0 > 0 {
-                return personalPayload
-            }
-            
-        } catch{
-            BOFLogDebug(frmt: "%@", args: error.localizedDescription)
+    
+    class func createEventModel( eventName: String, withType type: String, withScreenName screenName: String, withEventInfo eventInfo: [AnyHashable : AnyHashable]) -> EventModel
+    {
+        var properties: [AnyHashable : AnyHashable] = [:]
+        for (k, v) in eventInfo { properties[k] = v }
+        let screenName = (screenName.count > 0) ? screenName : BOSharedManager.sharedInstance.currentScreenName
+       
+        let eventTime = BOAUtilities.get13DigitNumberObjTimeStamp()
+        let messageID = BOAUtilities.getMessageID(forEvent: eventName)
+        
+        let userID = BOAUtilities.getDeviceId()
+        let session_id = BOSharedManager.sharedInstance.sessionId
+        let screen = BOADeveloperEvents.getScreenPayload()
+        if type == "system" {
+            properties[BO_PATH] = screenName
         }
-        return nil
+        
+        var event:EventModel = EventModel(evn: eventName, evt: eventTime, mid: messageID, scrn: screenName, session_id: session_id, type: type, userid: userID, additionalData: properties, screen: screen)
+        return event
     }
-   
-   */
     
-//    class func preparePersonalEvent(_ eventName: String, withScreenName screenName: String, withEventSubcode eventSubcode: NSNumber, withEventInfo eventInfo: [AnyHashable : Any], isPHI phiEvent: Bool) -> [AnyHashable : Any]? {
-//            var secretKey = BOAUtilities.getUUIDString()
-//            secretKey = secretKey?.replacingOccurrences(of: "-", with: "")
-//            var encryptedData: [AnyHashable : Any]? = nil
-//            var publicKey: String?
-//            var eventType: String?
-//            if phiEvent {
-//                publicKey = BOASDKManifestController.sharedInstance.phiPublickey
-//                eventType = BO_PHI
-//            } else {
-//                publicKey = BOASDKManifestController.sharedInstance.piiPublicKey
-//                eventType = BO_PII
-//            }
-//            encryptedData = getEncryptedEvent(publicKey, withSecretKey: secretKey, withDictionary: eventInfo)
-//            return BOADeveloperEvents.createEventObject(eventName: eventName, withType: eventType!, withScreenName: screenName, withEventInfo: encryptedData ?? [:])
-//
-//    }
-    
-    class func getScreenPayload() -> [AnyHashable : Any]? {
-        var screenInfo: [AnyHashable : Any] = [:]
+    class func getScreenPayload() -> [AnyHashable : AnyHashable]? {
+        var screenInfo: [AnyHashable : AnyHashable] = [:]
             let screenSize = UIScreen.main.bounds.size
             screenInfo["width"] = NSNumber(value: Float(screenSize.width))
             screenInfo["height"] = NSNumber(value: Float(screenSize.height))

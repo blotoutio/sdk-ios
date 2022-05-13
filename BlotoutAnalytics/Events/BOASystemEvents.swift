@@ -51,6 +51,18 @@ class BOASystemEvents:NSObject {
                     withEventCode: NSNumber(value: BO_APPLICATION_UPDATED))
             }
             
+        
+        var referringApplication:String = ""
+        if launchOptions?[UIApplication.LaunchOptionsKey.sourceApplication] != nil
+        {
+            referringApplication = launchOptions?[UIApplication.LaunchOptionsKey.sourceApplication] as? String ?? ""
+        }
+        
+        var urlValue :String = ""
+        if launchOptions?[UIApplication.LaunchOptionsKey.url] != nil
+        {
+            urlValue = launchOptions?[UIApplication.LaunchOptionsKey.url] as? String ?? ""
+        }
             if sdkManifesCtrl.isSystemEventEnabled(BO_APPLICATION_OPENED) {
                 analytics.capture(
                     "Application Opened",
@@ -58,8 +70,8 @@ class BOASystemEvents:NSObject {
                         "from_background": NSNumber(value: false),
                         "version": currentVersion ?? "",
                         "build": currentBuild ?? "",
-                        "referring_application": launchOptions?[UIApplication.LaunchOptionsKey.sourceApplication] ?? "",
-                        "url": launchOptions?[UIApplication.LaunchOptionsKey.url] ?? ""
+                        "referring_application": referringApplication,
+                        "url": urlValue
                     ],
                     withType: BO_SYSTEM,
                     withEventCode: NSNumber(value: BO_APPLICATION_OPENED))

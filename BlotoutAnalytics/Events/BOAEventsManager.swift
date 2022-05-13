@@ -12,7 +12,7 @@ let BOAQueueKey = "BOAQueue"
 let kBOAQueueFilename = "blotout.queue.plist"
 
 class BOAEventsManager:NSObject {
-    private var queue: [Any] = []
+    private var queue: [EventModel] = []
     private var storage: BOAStorage?
     private var configuration: BlotoutAnalyticsConfiguration?
     private var flushTimer: Timer?
@@ -88,8 +88,8 @@ class BOAEventsManager:NSObject {
                 return
             }
             
-            enqueueEvent("capture", dictionary: event)
-       
+          //  enqueueEvent("capture", dictionary: event)
+       enqueueEvent("capture", eventModel: event)
     }
     
 //    func capturePersonal(_ payload: BOACaptureModel?, isPHI phiEvent: Bool) {
@@ -102,14 +102,29 @@ class BOAEventsManager:NSObject {
 //            enqueueEvent("capturePersonal", dictionary: personalEvent)
 //    }
     
+    func enqueueEvent(_ action: String?, eventModel payload: EventModel?) {
+        
+            queuePayload(payload)
+    }
     
+    
+    /*
     func enqueueEvent(_ action: String?, dictionary payload: [AnyHashable : Any]?) {
         
             queuePayload(payload)
         
+    }*/
+    func queuePayload(_ payload: EventModel?) {
+            //TODO: confirm later ,Maybe not needed
+            //payload = BOAUtilities.traverseJSON(payload)
+            if let payload = payload {
+                    self.queue.insert(payload , at: 0)
+            }
+            persistQueue()
+            flushQueueByLength()
     }
     
-    func queuePayload(_ payload: [AnyHashable : Any]?) {
+   /* func queuePayload(_ payload: [AnyHashable : Any]?) {
         var payload = payload
 
             //TODO: confirm later ,Maybe not needed
@@ -120,7 +135,7 @@ class BOAEventsManager:NSObject {
             persistQueue()
             flushQueueByLength()
         
-    }
+    }*/
     
     @objc public func flush() {
         self.flushWithMaxSize(0)
@@ -139,8 +154,8 @@ class BOAEventsManager:NSObject {
                     return
                 }
                 
-                let batch = queue as? [AnyHashable]
-                sendData(batch ?? [])
+                let batch = queue
+                sendData(batch)
             })
     }
     
@@ -155,18 +170,18 @@ class BOAEventsManager:NSObject {
     }
     
     
-    func sendData(_ batch: [AnyHashable]) {
+    func sendData(_ batch: [EventModel]) {
         batchRequest = true
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
             let post = BOEventPostAPI()
-            let json = BOADeveloperEvents.prepareServerPayload(events: batch)
+            let json:[AnyHashable:Any]? = BOADeveloperEvents.prepareServerPayload(events: batch)
             var error: Error? = nil
             do
             {
                 let data: Data? = try JSONSerialization.data(withJSONObject: json, options: [])
                 post.postEventData(data) { success in
                     //TODO: need to fix this
-                    queue = queue.filter({ !batch.contains($0 as? (AnyHashable) ?? "" as AnyHashable) })
+                    queue = queue.filter({ !batch.contains($0) })
                     persistQueue()
                     batchRequest = false
                     endBackgroundTask()
@@ -209,7 +224,12 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])
 #else
-            self.queue = (storage!.arrayForKey(kBOAQueueFilename) as? [AnyHashable] ?? [])
+        
+        if let newQueue = storage?.arrayForKey(kBOAQueueFilename)
+        {
+            self.queue = (storage!.arrayForKey(kBOAQueueFilename) as! [EventModel] ?? [])
+
+        }
 #endif
     }
     
