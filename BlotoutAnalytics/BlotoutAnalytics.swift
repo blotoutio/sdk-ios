@@ -26,13 +26,13 @@ public class BlotoutAnalytics:NSObject {
     var storeKitController: BOAStoreKitController!
     var endPointUrl: String?
     var token: String?
-    
          
     override init() {
-     super.init()
-     isEnabled = true
-     BOSharedManager.sharedInstance
-     }
+        super.init()
+        isEnabled = true
+        //TODO: understand this
+        BOSharedManager.sharedInstance
+    }
      
     
     func setIsEnabled(_ isEnabled: Bool) {

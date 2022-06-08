@@ -8,73 +8,126 @@
 import Foundation
 import UIKit
 import SystemConfiguration
+import Network
 
-public class BOAReachability {
+public class BOAReachability:ObservableObject {
     enum ReachabilityStatus {
             case notReachable
             case reachableViaWWAN
             case reachableViaWiFi
         }
-  //  private var reachability: Reachability = Reachability()
-    var reachabilityRef: BOAReachability?
 
+    var monitor: NWPathMonitor?
+    var isMonitoring = false
+    static let sharedInstance = BOAReachability()
     
+    var didStartMonitoringHandler: (() -> Void)?
+     
+    var didStopMonitoringHandler: (() -> Void)?
+     
+    var netStatusChangeHandler: (() -> Void)?
+
     private init() {
-        
+        startMonitoring()
     }
     
- /*   deinit {
-        NotificationCenter.default.removeObserver(self)
-        reachabilityRef?.stopNotifier()
-      }
-
-      // MARK: - Private
-
-      private func configure() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(BOAReachability.currentReachabilityStatus(notification:)),
-                                               name: Notification.Name.reachabilityChanged,
-                                               object: nil)
-        try? reachabilityRef?.startNotifier()
-
-      }
-
     
-    func startNotifier() -> Bool {
-        var returnValue = false
-        var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
-        
-        if reachabilityRef == nil {
-            return returnValue
-        }
-
-        SCNetworkReachabilitySetCallback(reachabilityRef!, { (_, flags, _) in
-            print(flags)
-            }, &context)
-
-       if  SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef!, CFRunLoopGetCurrent(),
-                                                 CFRunLoopMode.defaultMode.rawValue)
-        {
-           returnValue = true
-       }
-        
-        
-      //TODO: find a fix for this
-//       if SCNetworkReachabilitySetCallback(reachabilityRef!, BOReachability.BOReachabilityCallback, &context) {
-//            if SCNetworkReachabilityScheduleWithRunLoop(reachabilityRef!, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue) {
-//                returnValue = true
-//            }
-//        }
-        
-        return returnValue
+    func startMonitoring() {
+        guard !isMonitoring else { return }
+         
+            monitor = NWPathMonitor()
+            let queue = DispatchQueue(label: "NetStatus_Monitor")
+            monitor?.start(queue: queue)
+         
+            monitor?.pathUpdateHandler = { _ in
+               // self.getNetStatusUpdate()
+               // print("poo is net connected: \(self.isConnected)")
+                self.netStatusChangeHandler?()
+            }
+         
+            isMonitoring = true
+            didStartMonitoringHandler?()
     }
     
-    func stopNotifier() {
-        if let reachabilityRef = reachabilityRef {
-            SCNetworkReachabilityUnscheduleFromRunLoop(reachabilityRef, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode!.rawValue)
-        }
+    func getNetStatusUpdate()
+    {
+        print("poo is net connected: \(self.isConnected)")
     }
-  */
+    
+    func stopMonitoring() {
+        guard isMonitoring, let monitor = monitor else { return }
+        monitor.cancel()
+        self.monitor = nil
+        isMonitoring = false
+        didStopMonitoringHandler?()
+    }
+    
+    deinit {
+        stopMonitoring()
+    }
+
+    var isConnected: Bool {
+        guard let monitor = monitor else { return false }
+        return monitor.currentPath.status == .satisfied
+    }
+    
+    var interfaceType: NWInterface.InterfaceType? {
+        guard let monitor = monitor else { return nil }
+     
+        return monitor.currentPath.availableInterfaces.filter {
+            monitor.currentPath.usesInterfaceType($0.type) }.first?.type
+    }
+    
+    var availableInterfacesTypes: [NWInterface.InterfaceType]? {
+        guard let monitor = monitor else { return nil }
+        return monitor.currentPath.availableInterfaces.map { $0.type }
+    }
+    
+    var isExpensive: Bool {
+        return monitor?.currentPath.isExpensive ?? false
+    }
+    
+    
+    /*
+    func updateReachabilityStatus()->ReachabilityStatus
+    {
+             var zeroAddress = sockaddr_in()
+             zeroAddress.sin_len = UInt8(MemoryLayout<sockaddr_in>.size)
+             zeroAddress.sin_family = sa_family_t(AF_INET)
+             guard let defaultRouteReachability = withUnsafePointer(to: &zeroAddress, {
+                 $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                     SCNetworkReachabilityCreateWithAddress(nil, $0)
+                 }
+             }) else {
+                 return .notReachable
+             }
+             
+             var flags: SCNetworkReachabilityFlags = []
+             if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+                 return .notReachable
+             }
+             
+             if flags.contains(.reachable) == false {
+                 // The target host is not reachable.
+                 return .notReachable
+             }
+             else if flags.contains(.isWWAN) == true {
+                 // WWAN connections are OK if the calling application is using the CFNetwork APIs.
+                 return .reachableViaWWAN
+             }
+             else if flags.contains(.connectionRequired) == false {
+                 // If the target host is reachable and no connection is required then we'll assume that you're on Wi-Fi...
+                 return .reachableViaWiFi
+             }
+             else if (flags.contains(.connectionOnDemand) == true || flags.contains(.connectionOnTraffic) == true) && flags.contains(.interventionRequired) == false {
+                 // The connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or higher APIs and no [user] intervention is needed
+                 return .reachableViaWiFi
+             }
+             else {
+                 return .notReachable
+             }
+         }
+ 
   static var currentReachabilityStatus: ReachabilityStatus {
            
            var zeroAddress = sockaddr_in()
@@ -114,5 +167,5 @@ public class BOAReachability {
            }
        }
     
-    
+    */
 }

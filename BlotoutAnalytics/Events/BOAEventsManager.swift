@@ -19,7 +19,7 @@ class BOAEventsManager:NSObject {
     private var referrer: [AnyHashable : Any] = [:]
     private var flushTaskID: UIBackgroundTaskIdentifier?
     private var batchRequest = false
-    
+    private var postEventinProgress = false
     
 //    required init?(coder aDecoder: NSCoder) {
 //
@@ -28,7 +28,7 @@ class BOAEventsManager:NSObject {
     
     //TODO: check the method flow
     init(configuration: BlotoutAnalyticsConfiguration, storage: BOAStorage){
-      
+        
         super.init()
         //TODO: check this
         self.configuration = configuration
@@ -80,15 +80,11 @@ class BOAEventsManager:NSObject {
     }
     
     func capture(_ payload: BOACaptureModel?) {
-        
-       // return
-        //returning from here for testing manifest
             let event = BOADeveloperEvents.captureEvent(payload)
             if event == nil {
                 return
             }
             
-          //  enqueueEvent("capture", dictionary: event)
        enqueueEvent("capture", eventModel: event)
     }
     
@@ -172,6 +168,7 @@ class BOAEventsManager:NSObject {
     
     func sendData(_ batch: [EventModel]) {
         batchRequest = true
+        postEventinProgress = true
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
             let post = BOEventPostAPI()
             let json:[AnyHashable:Any]? = BOADeveloperEvents.prepareServerPayload(events: batch)
@@ -181,13 +178,28 @@ class BOAEventsManager:NSObject {
                 let data: Data? = try JSONSerialization.data(withJSONObject: json, options: [])
                 post.postEventData(data) { success in
                     //TODO: need to fix this
-                    queue = queue.filter({ !batch.contains($0) })
-                    persistQueue()
-                    batchRequest = false
-                    endBackgroundTask()
+                    self.queue = self.queue.filter({ !batch.contains($0) })
+                    self.persistQueue()
+                    self.batchRequest = false
+                    self.postEventinProgress = false
+                    self.endBackgroundTask()
+                    print("success")
                     
                 } failure: { error in
-                    batchRequest = false
+                    self.postEventinProgress = false
+                    print("failed no network")
+                    //if this error is network error, listen for changes in network & retry again later
+                    BOAReachability.sharedInstance.netStatusChangeHandler = {
+                        //need to make api call again here, if its connected now & we have pending items
+                        print("errored due to network, make api call again")
+                        let batch = self.queue
+                        if batch.count > 0 && (!self.postEventinProgress){
+                            self.sendData(batch)
+                            self.postEventinProgress = true
+                        }
+                    }
+                    
+                    self.batchRequest = false
                     BOFLogDebug(frmt: "%@", args: error?.localizedDescription as! CVarArg)
                 }
             }
@@ -224,11 +236,9 @@ class BOAEventsManager:NSObject {
 #if os(tvOS)
             self.queue = (storage.array(forKey: BOAQueueKey) ?? [])
 #else
-        
         if let newQueue = storage?.arrayForKey(kBOAQueueFilename)
         {
-            self.queue = (storage!.arrayForKey(kBOAQueueFilename) as! [EventModel] ?? [])
-
+            self.queue = newQueue //as! [EventModel]
         }
 #endif
     }

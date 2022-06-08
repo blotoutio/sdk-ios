@@ -21,6 +21,12 @@ class ServiceLayer {
             return
         }
         
+        if BOAReachability.sharedInstance.isConnected == false{
+            print("NOT Connected")
+            let networkError = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorNoInternetConnection.rawValue, withMessage: "Network Not Reachable")
+            completion(.failure(networkError!))
+        }
+        
         if body != nil
         {
             urlRequest?.httpBody = body
@@ -72,7 +78,7 @@ class ServiceLayer {
             return
         }
         
-        if BOAReachability.currentReachabilityStatus == .notReachable{
+        if BOAReachability.sharedInstance.isConnected == false{
             print("NOT Connected")
             let networkError = BOErrorAdditions.boError(forCode: BOErrorCodes.boErrorNoInternetConnection.rawValue, withMessage: "Network Not Reachable")
             completion(.failure(networkError!))
