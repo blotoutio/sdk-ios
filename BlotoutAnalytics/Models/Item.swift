@@ -12,7 +12,6 @@ public class Item: NSObject {
     public var item_id = "" //Required Parameter
     public var item_name: String?
     public var item_sku: String?
-  //TODO: uncomment this
     public var item_category: [AnyHashable]?
     public var item_price: NSNumber?
     public var item_currency: String?

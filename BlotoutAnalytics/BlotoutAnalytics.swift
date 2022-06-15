@@ -148,8 +148,9 @@ public class BlotoutAnalytics:NSObject {
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
                 var mapIdInfo: [AnyHashable : AnyHashable]? = nil
-                if let array = [BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER] as? [NSCopying] {
-                    mapIdInfo = NSDictionary(objects:[mapIDData.externalID, mapIDData.provider], forKeys:array) as! Dictionary<AnyHashable, AnyHashable>
+                if let array = [BO_EVENT_MAP_ID, BO_EVENT_MAP_PROVIDER] as? [String] {
+                    mapIdInfo = Dictionary(uniqueKeysWithValues: zip(array, [mapIDData.externalID, mapIDData.provider]))
+                  //  mapIdInfo = NSDictionary(objects:[mapIDData.externalID, mapIDData.provider], forKeys:array) as! Dictionary<AnyHashable, AnyHashable>
                 }
                 
                 let model = BOACaptureModel(event: BO_EVENT_MAP_ID, properties: mapIdInfo, screenName: nil, withType: BO_CODIFIED)
@@ -350,14 +351,14 @@ public class BlotoutAnalytics:NSObject {
                 UIApplication.willResignActiveNotification,
                 UIApplication.didBecomeActiveNotification]
             {
-                guard let name = name as? String else {
+                guard let name = name.rawValue as? String else {
                     continue
                 }
-                nc.addObserver(self, selector: Selector("handleAppStateNotification:"), name: NSNotification.Name(name), object: nil)
+                nc.addObserver(self, selector: #selector(handleAppStateNotification(_:)), name: NSNotification.Name(name), object: nil)
             }
     }
     
-    func handleAppStateNotification(_ note: Notification?) {
+    @objc func handleAppStateNotification(_ note: Notification?) {
         BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
             if note?.name == UIApplication.didFinishLaunchingNotification {
                 _applicationDidFinishLaunching(withOptions: note?.userInfo)
@@ -399,7 +400,7 @@ public class BlotoutAnalytics:NSObject {
                     withEventCode: NSNumber(value: BO_APPLICATION_OPENED))
             }
             
-            let model = try BOACaptureModel(event: BO_VISIBILITY_VISIBLE, properties: nil, screenName: nil, withType: BO_SYSTEM)
+            let model = BOACaptureModel(event: BO_VISIBILITY_VISIBLE, properties: nil, screenName: nil, withType: BO_SYSTEM)
             eventManager.capture(model)
     }
     
@@ -409,7 +410,7 @@ public class BlotoutAnalytics:NSObject {
                 return
             }
             
-            let model = try BOACaptureModel(event: BO_VISIBILITY_HIDDEN, properties: nil, screenName: nil, withType: BO_SYSTEM)
+            let model =  BOACaptureModel(event: BO_VISIBILITY_HIDDEN, properties: nil, screenName: nil, withType: BO_SYSTEM)
             eventManager.capture(model)
             
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
@@ -480,7 +481,6 @@ public class BlotoutAnalytics:NSObject {
                 return
             }
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-              //  var transactionInfo = NSDictionary(objects:[transactionData.transaction_id, transactionData.transaction_currency, transactionData.transaction_total, transactionData.transaction_discount, transactionData.transaction_shipping, transactionData.transaction_tax], forKeys:["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [NSCopying]) as Dictionary
                 let keyArray = ["transaction_id", "transaction_currency", "transaction_total", "transaction_discount", "transaction_shipping", "transaction_tax"] as [AnyHashable]
                 
                 let transactionID = transactionData.transaction_id
@@ -545,10 +545,6 @@ public class BlotoutAnalytics:NSObject {
             }
             
             BOEventsOperationExecutor.sharedInstance.dispatchEvents(inBackground: { [self] in
-                
-                //TODO: make proper dictionary
-             /*   var personaInfo = NSDictionary(objects:[personaData.persona_id, personaData.persona_firstname, personaData.persona_middlename, personaData.persona_lastname, personaData.persona_username, personaData.persona_dob, personaData.persona_email, personaData.persona_number, personaData.persona_address, personaData.persona_city, personaData.persona_state, personaData.persona_zip, personaData.persona_country, personaData.persona_gender, personaData.persona_age], forKeys:["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [NSCopying]) as Dictionary
-                */
                 
                 let keyArray = ["persona_id", "persona_firstname", "persona_middlename", "persona_lastname", "persona_username", "persona_dob", "persona_email", "persona_number", "persona_address", "persona_city", "persona_state", "persona_zip", "persona_country", "persona_gender", "persona_age"] as [AnyHashable]
                 

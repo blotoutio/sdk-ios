@@ -16,14 +16,17 @@ class BOASystemEvents:NSObject {
             let sdkManifesCtrl = BOASDKManifestController.sharedInstance
             
             
-            let previousBuildV1 = (analyticsRootUD.value(forKey: BO_BUILD_KEYV1) as? NSNumber)?.intValue ?? 0
+        let previousBuildV1 = (analyticsRootUD.object(forKey: BO_BUILD_KEYV1)as? NSNumber)?.intValue ?? 0
+        //(analyticsRootUD.value(forKey: BO_BUILD_KEYV1) as? NSNumber)?.intValue ?? 0
             if previousBuildV1 != 0 {
                 
-                analyticsRootUD.setValue(NSNumber(value: previousBuildV1).stringValue, forKey: BO_BUILD_KEYV2)
+                //TODO:check if this needs to be a string type
+                analyticsRootUD.setObject(previousBuildV1, forKey: BO_BUILD_KEYV2)
+                //(NSNumber(object: previousBuildV1).stringValue, forKey: BO_BUILD_KEYV2)
                 analyticsRootUD.removeObjectForKey(aKey: BO_BUILD_KEYV1)
             }
-            let previousVersion = analyticsRootUD.value(forKey:BO_VERSION_KEY) as? String
-            let previousBuildV2 = analyticsRootUD.value(forKey:BO_BUILD_KEYV2) as? String
+            let previousVersion = analyticsRootUD.object(forKey:BO_VERSION_KEY) as? String
+            let previousBuildV2 = analyticsRootUD.object(forKey:BO_BUILD_KEYV2) as? String
             
             let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             let currentBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -76,7 +79,7 @@ class BOASystemEvents:NSObject {
                     withType: BO_SYSTEM,
                     withEventCode: NSNumber(value: BO_APPLICATION_OPENED))
             }
-            analyticsRootUD.setValue(currentVersion, forKey: BO_VERSION_KEY)
-            analyticsRootUD.setValue(currentBuild, forKey: BO_BUILD_KEYV2)
+            analyticsRootUD.setObject(currentVersion, forKey: BO_VERSION_KEY)
+            analyticsRootUD.setObject(currentBuild, forKey: BO_BUILD_KEYV2)
     }
 }

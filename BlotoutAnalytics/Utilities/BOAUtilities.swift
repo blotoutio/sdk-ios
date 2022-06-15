@@ -10,6 +10,8 @@ import UIKit
 
 class BOAUtilities:NSObject {
     
+    static var deviceID:String = ""
+    
     class func jsonData(from dictObject: [AnyHashable : Any]?, withPrettyPrint prettyPrint: Bool) -> Data? {
         do{
             if dictObject == nil || ((dictObject?.keys.count) == 0) {
@@ -104,9 +106,14 @@ class BOAUtilities:NSObject {
         //This should return the cookiestring we get in the api response
         //cookie:
        // sdk_trends_user_id=000000-1651580197706-14020f11-4298-45c6-8943-1e273751330f
-        //TODO: temporary change
-        return ""
+        return deviceID
     }
+    
+    class func saveDeviceID(cookieStr:String)
+    {
+        deviceID = cookieStr
+    }
+    
     
     class func convertTo64CharUUID(_ stringToConvert: String?) -> String? {
 
@@ -247,7 +254,7 @@ class BOAUtilities:NSObject {
     class func setUserBirthTimeStamp(_ timeStamp: NSNumber?) {
         
         let analyticsRootUD = BOFUserDefaults(product: BO_ANALYTICS_ROOT_USER_DEFAULTS_KEY)
-        analyticsRootUD.setObject(timeStamp, forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY as NSCopying)
+        analyticsRootUD.setObject(timeStamp, forKey: BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY)
         // analyticsRootUD[BO_ANALYTICS_USER_BIRTH_TIME_STAMP_KEY] = timeStamp
     }
     

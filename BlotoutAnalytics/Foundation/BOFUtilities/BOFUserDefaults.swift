@@ -77,7 +77,7 @@ class BOFUserDefaults:NSObject {
     
     
     
-    func setObject(_ obj: Any?, forKey aKey: NSCopying) {
+    func setObject(_ obj: Any?, forKey aKey: String) {
         
         if obj == nil {
             return
@@ -110,7 +110,7 @@ class BOFUserDefaults:NSObject {
             }
         }
     }
-    func object(forKey key: NSLocale.Key) -> Any? {
+    func object(forKey key: String) -> Any? {
         var object: Any? = nil
         
         if let productContainer = productContainer {

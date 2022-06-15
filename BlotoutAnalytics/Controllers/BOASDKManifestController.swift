@@ -114,8 +114,6 @@ class BOASDKManifestController:NSObject {
                 self.isSyncedNow = false
                 callback(false, error)
             }
-            
-            
         } failure: { error in
             self.isSyncedNow = false
             callback(false, error)

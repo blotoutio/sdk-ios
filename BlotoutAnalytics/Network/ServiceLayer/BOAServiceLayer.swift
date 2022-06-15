@@ -52,6 +52,15 @@ class ServiceLayer {
                 
                 DispatchQueue.main.async {
                     
+                    let cookieName = "sdk_trends_user_id"//Constants.tag_user_id
+                    if let cookie = HTTPCookieStorage.shared.cookies?.first(where: { $0.name == cookieName }) {
+                        
+                        BOAUtilities.saveDeviceID(cookieStr: cookie.value)
+                       // StorageHandler.shared.saveCookie(cookieStr: cookie.value)
+                        //save this value to pass back in
+                    }
+                    
+                    
                     completion(.success(responseObject))
                 }
             }
