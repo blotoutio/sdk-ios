@@ -10,14 +10,15 @@ import Foundation
 class BOSharedManager:NSObject {
     private var sBOSharedManagerSharedInstance: Any? = nil
     var sessionId: String?
-    var isViewDidAppeared = false
+   // var isViewDidAppeared = false
     var currentScreenName: String?
     var referrer: String?
+    var deviceID: String?
     static let sharedInstance = BOSharedManager()
     
     override init() {
         super.init()
-        BOAUtilities.getDeviceId()
+        deviceID = BOAUtilities.getDeviceId()
         sessionId = String(format: "%ld", Int(BOAUtilities.get13DigitIntegerTimeStamp()))
         currentScreenName = ""
         referrer = ""

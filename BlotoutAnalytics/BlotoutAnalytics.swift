@@ -32,6 +32,9 @@ public class BlotoutAnalytics:NSObject {
         isEnabled = true
         //TODO: understand this
         BOSharedManager.sharedInstance
+        
+        //creating VC's swizzling methods
+        UIViewController.swizzleVCLoggingMethods()
     }
      
     
