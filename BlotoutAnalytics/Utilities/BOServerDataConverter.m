@@ -63,6 +63,9 @@ static NSMutableDictionary *appInfo;
       [appInfo setObject:userAgent forKey:@"userAgent"];
       });
       
+      NSString *vendorID = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+      [appInfo setValue:vendorID forKey:@"vendorID"];
+      
       return appInfo;
   } @catch (NSException *exception) {
       BOFLogDebug(@"%@:%@", BOA_DEBUG, exception);
@@ -89,7 +92,8 @@ static NSMutableDictionary *appInfo;
       @"tz_offset": [appInfoCurrentDict objectForKey:@"timeZoneOffset"],
       @"user_agent": [appInfoCurrentDict objectForKey:@"userAgent"],
       @"referrer" : [BOSharedManager sharedInstance].referrer,
-      @"page_title" : screenName
+      @"page_title" : screenName,
+      @"user_app_guid"  :[appInfoCurrentDict valueForKey:@"vendorID"]
     }];
 
     return metaInfo;
